@@ -4,6 +4,7 @@
 *.jar
 *.war
 *.ear
+
 # Eclipse
 .classpath
 .project
@@ -20,3 +21,6 @@
 # Maven
 log/
 target/
+
+# MySQL workbench
+*.bak
