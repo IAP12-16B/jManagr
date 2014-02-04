@@ -24,3 +24,5 @@ target/
 
 # MySQL workbench
 *.bak
+
+out
