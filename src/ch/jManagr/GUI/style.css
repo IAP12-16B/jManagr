@@ -1,4 +1,4 @@
-.rotate-tab .tab *.tab-label {
+.rotate-tab .tab .tab-label {
     -fx-rotate: 90;
 	
 
@@ -15,8 +15,9 @@
   	-fx-background-radius: 4 4 0 0;
 }
 
-.toolbar {
-    -fx-border-radius: 10 10 0 0;
+
+.tool-bar {
+    -fx-border-radius: 10 10 10 10;
 }
 
 .tab-pane.rotate-tab {
@@ -47,5 +48,9 @@
 .h1 {
     -fx-font-size: 15px;
     -fx-font-weight: bold;
+}
+
+.h3 {
+    -fx-font-size: 13px;
 }
 

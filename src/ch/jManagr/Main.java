@@ -15,6 +15,10 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("GUI/jManagr.fxml"));
         primaryStage.setTitle("jManagr");
         primaryStage.setScene(new Scene(root));
+        primaryStage.setMinHeight(650);
+        primaryStage.setMinWidth(500);
+        primaryStage.setMaxHeight(700);
+
         primaryStage.show();
     }
 

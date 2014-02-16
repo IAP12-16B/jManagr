@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.net.URL?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.text.Font?>
-<?import java.net.URL?>
-<fx:root type="javafx.scene.layout.GridPane" alignment="CENTER" gridLinesVisible="false" hgap="10.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="ch.jManagr.GUI.jManagrMainView">
+
+<GridPane alignment="CENTER" gridLinesVisible="false" hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="500.0" minWidth="400.0" prefHeight="635.0" prefWidth="850.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="ch.jManagr.GUI.jManagrMainView">
   <children>
     <TabPane minHeight="-1.0" minWidth="-1.0" prefHeight="634.0" prefWidth="849.0" rotateGraphic="true" side="LEFT" styleClass="rotate-tab" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="26.0" tabMinHeight="26.0" tabMinWidth="0.0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
       <stylesheets>
         <URL value="@style.css" />
       </stylesheets>
       <tabs>
-        <Tab closable="false" disable="false" text="Tickets">
+        <Tab id="tabTicket" fx:id="tabTickets" closable="false" disable="false" text="Tickets">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
@@ -20,28 +25,32 @@
                     <Font name="System Bold" size="15.0" />
                   </font>
                 </Label>
-                <fx:include fx:id="ticketsOpenTicketsTableView" source="jManagr-TableView.fxml" prefHeight="244.0" prefWidth="662.9999000000025" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="52.0" />
-                <fx:include fx:id="ticketsUnassingedTicketsTableView" source="jManagr-TableView.fxml" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="350.0" />
+                <fx:include fx:id="ticketsOpenTicketsTableView" source="jManagr-TableView.fxml" prefHeight="244.0" prefWidth="662.9999000000025" AnchorPane.bottomAnchor="345.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="46.0">
+                  <padding>
+                    <Insets />
+                  </padding>
+                </fx:include>
+                <fx:include fx:id="ticketsUnassingedTicketsTableView" source="jManagr-TableView.fxml" prefHeight="244.00009999999747" prefWidth="664.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="346.0" />
               </children>
             </AnchorPane>
           </content>
         </Tab>
-        <Tab disable="false" text="Resourcen">
+        <Tab id="tabRessourcen" fx:id="tabRessources" disable="false" text="Resourcen">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
           </content>
         </Tab>
-        <Tab text="Benutzer">
+        <Tab fx:id="tabUsers" text="Benutzer">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
           </content>
         </Tab>
-        <Tab text="Agents">
+        <Tab fx:id="tabAgents" text="Agents">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
           </content>
         </Tab>
-        <Tab text="Settings">
+        <Tab fx:id="tabSettings" text="Einstellungen">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
           </content>
@@ -58,4 +67,4 @@
   <stylesheets>
     <URL value="@style.css" />
   </stylesheets>
-</fx:root>
+</GridPane>
