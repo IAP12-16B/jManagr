@@ -15,6 +15,10 @@
   	-fx-background-radius: 4 4 0 0;
 }
 
+.toolbar {
+    -fx-border-radius: 10 10 0 0;
+}
+
 .tab-pane.rotate-tab {
     -fx-tab-min-width: 100px;
     -fx-tab-max-width: 100px;
@@ -36,7 +40,7 @@
 
 .tab:selected .tab-label { 
     -fx-alignment: CENTER;
-    -fx-text-fill: #96b946;
+    -fx-text-fill: #E21737;
 }
 
 
