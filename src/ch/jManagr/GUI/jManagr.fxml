@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.net.URL?>
+<fx:root type="javafx.scene.layout.GridPane" alignment="CENTER" gridLinesVisible="false" hgap="10.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="ch.jManagr.GUI.jManagrMainView">
+  <children>
+    <TabPane minHeight="-1.0" minWidth="-1.0" prefHeight="634.0" prefWidth="849.0" rotateGraphic="true" side="LEFT" styleClass="rotate-tab" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="26.0" tabMinHeight="26.0" tabMinWidth="0.0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+      <stylesheets>
+        <URL value="@style.css" />
+      </stylesheets>
+      <tabs>
+        <Tab closable="false" disable="false" text="Tickets">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <Label id="paneTitle" prefHeight="29.0" prefWidth="663.0" styleClass="h1" text="Title" underline="false" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="10.0">
+                  <font>
+                    <Font name="System Bold" size="15.0" />
+                  </font>
+                </Label>
+                <fx:include fx:id="ticketsOpenTicketsTableView" source="jManagr-TableView.fxml" prefHeight="244.0" prefWidth="662.9999000000025" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="52.0" />
+                <fx:include fx:id="ticketsUnassingedTicketsTableView" source="jManagr-TableView.fxml" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="350.0" />
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab disable="false" text="Resourcen">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+        </Tab>
+        <Tab text="Benutzer">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+        </Tab>
+        <Tab text="Agents">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+        </Tab>
+        <Tab text="Settings">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
+  </children>
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+  <stylesheets>
+    <URL value="@style.css" />
+  </stylesheets>
+</fx:root>
