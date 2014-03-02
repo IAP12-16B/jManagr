@@ -22,6 +22,7 @@ public class DB {
 
     /**
      * Get singelton instance
+     *
      * @return Singelton instance
      */
     public static DB getInstance() {
@@ -49,8 +50,9 @@ public class DB {
 
     /**
      * Make a raw Query
+     *
      * @param q the Query
-     * @return  returns the Result set
+     * @return returns the Result set
      * @throws SQLException
      */
     private ResultSet rawQuery(String q) throws SQLException {
@@ -60,6 +62,7 @@ public class DB {
 
     /**
      * Select query
+     *
      * @param query The Query. Note: SELECT will automatically prepended in front of it
      * @return The ResultSet
      * @throws SQLException
@@ -70,8 +73,9 @@ public class DB {
 
     /**
      * Select query
-     * @param fields    The fields to select
-     * @param from      The table(s) to select from
+     *
+     * @param fields The fields to select
+     * @param from   The table(s) to select from
      * @return The ResultSet
      * @throws SQLException
      */
@@ -81,9 +85,10 @@ public class DB {
 
     /**
      * Select query
-     * @param fields        The fields to select
-     * @param from          The table(s) to select from
-     * @param whereClause   The where clause
+     *
+     * @param fields      The fields to select
+     * @param from        The table(s) to select from
+     * @param whereClause The where clause
      * @return The ResultSet
      * @throws SQLException
      */
@@ -93,9 +98,10 @@ public class DB {
 
     /**
      * Select query
-     * @param fields        The fields to select
-     * @param from          The table(s) to select from
-     * @param limit         limit of results
+     *
+     * @param fields The fields to select
+     * @param from   The table(s) to select from
+     * @param limit  limit of results
      * @return The ResultSet
      * @throws SQLException
      */
@@ -105,10 +111,11 @@ public class DB {
 
     /**
      * Select query
-     * @param fields        The fields to select
-     * @param from          The table(s) to select from
-     * @param limit         limit of results
-     * @param offset        The offset the results should start from
+     *
+     * @param fields The fields to select
+     * @param from   The table(s) to select from
+     * @param limit  limit of results
+     * @param offset The offset the results should start from
      * @return The ResultSet
      * @throws SQLException
      */
@@ -118,10 +125,11 @@ public class DB {
 
     /**
      * Select query
-     * @param fields        The fields to select
-     * @param from          The table(s) to select from
-     * @param whereClause   The where clause
-     * @param orderBy       The column the results should be ordered by
+     *
+     * @param fields      The fields to select
+     * @param from        The table(s) to select from
+     * @param whereClause The where clause
+     * @param orderBy     The column the results should be ordered by
      * @return The ResultSet
      * @throws SQLException
      */
@@ -131,10 +139,11 @@ public class DB {
 
     /**
      * Select query
-     * @param fields        The fields to select
-     * @param from          The table(s) to select from
-     * @param whereClause   The where clause
-     * @param limit         limit of results
+     *
+     * @param fields      The fields to select
+     * @param from        The table(s) to select from
+     * @param whereClause The where clause
+     * @param limit       limit of results
      * @return The ResultSet
      * @throws SQLException
      */
@@ -144,11 +153,12 @@ public class DB {
 
     /**
      * Select query
-     * @param fields        The fields to select
-     * @param from          The table(s) to select from
-     * @param whereClause   The where clause
-     * @param limit         limit of results
-     * @param offset        The offset the results should start from
+     *
+     * @param fields      The fields to select
+     * @param from        The table(s) to select from
+     * @param whereClause The where clause
+     * @param limit       limit of results
+     * @param offset      The offset the results should start from
      * @return The ResultSet
      * @throws SQLException
      */
@@ -158,11 +168,12 @@ public class DB {
 
     /**
      * Select query
-     * @param fields        The fields to select
-     * @param from          The table(s) to select from
-     * @param whereClause   The where clause
-     * @param limit         limit of results
-     * @param orderBy       The column the results should be ordered by
+     *
+     * @param fields      The fields to select
+     * @param from        The table(s) to select from
+     * @param whereClause The where clause
+     * @param limit       limit of results
+     * @param orderBy     The column the results should be ordered by
      * @return The ResultSet
      * @throws SQLException
      */
@@ -172,12 +183,13 @@ public class DB {
 
     /**
      * Select query
-     * @param fields        The fields to select
-     * @param from          The table(s) to select from
-     * @param whereClause   The where clause
-     * @param limit         limit of results
-     * @param offset        The offset the results should start from
-     * @param orderBy       The column the results should be ordered by
+     *
+     * @param fields      The fields to select
+     * @param from        The table(s) to select from
+     * @param whereClause The where clause
+     * @param limit       limit of results
+     * @param offset      The offset the results should start from
+     * @param orderBy     The column the results should be ordered by
      * @return The ResultSet
      * @throws SQLException
      */
