@@ -27,6 +27,16 @@ public class DBTest {
     }
 
     @Test
+    public void testRawQuery() throws Exception {
+
+    }
+
+    @Test
+    public void testConnect() throws Exception {
+
+    }
+
+    @Test
     public void testSelect() throws Exception {
         fail("Not yet implemented");
     }
