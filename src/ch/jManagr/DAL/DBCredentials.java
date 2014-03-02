@@ -1,9 +1,14 @@
 package ch.jManagr.DAL;
+import ch.jManagr.lib.ShutdownCallback;
+import ch.jManagr.lib.ShutdownManager;
+
+import java.util.prefs.Preferences;
 
 /* Singelton for Database Credentials  */
 
-public class DBCredentials {
+public class DBCredentials implements ShutdownCallback {
     private static DBCredentials instance = new DBCredentials();
+    private Preferences prefs;
 
     /* DB Credentials with default values */
     private String DB_HOST = "localhost";
@@ -16,6 +21,15 @@ public class DBCredentials {
      * Default constructor -> private, so only callable within class
      */
     private DBCredentials() {
+        prefs = Preferences.userRoot().node(this.getClass().getName());
+        ShutdownManager.getInstance().registerCallback(this);
+
+        // load connection data
+        DB_HOST = prefs.get("DB_HOST", DB_HOST);
+        DB_PORT = prefs.getInt("DB_PORT", DB_PORT);
+        DB_DATABASE = prefs.get("DB_DATABASE", DB_DATABASE);
+        DB_USER = prefs.get("DB_USER", DB_USER);
+        DB_PASSWORD = prefs.get("DB_PASSWORD", DB_PASSWORD);
     }
 
     /**
@@ -65,5 +79,18 @@ public class DBCredentials {
 
     public void setPassword(String password) {
         this.DB_PASSWORD = password;
+    }
+
+    /**
+     * called on shutdown
+     */
+    @Override
+    public void shutdownCallback() {
+        System.out.println("Saving db prefs");
+        prefs.put("DB_HOST", DB_HOST);
+        prefs.putInt("DB_PORT", DB_PORT);
+        prefs.put("DB_DATABASE", DB_DATABASE);
+        prefs.put("DB_USER", DB_USER);
+        prefs.put("DB_PASSWORD", DB_PASSWORD);
     }
 }
