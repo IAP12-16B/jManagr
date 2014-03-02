@@ -12,7 +12,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("GUI/jManagr.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("ch/jManagr/UI/MainView.fxml"));
         primaryStage.setTitle("jManagr");
         primaryStage.setScene(new Scene(root));
         primaryStage.setMinHeight(650);
