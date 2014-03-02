@@ -1,0 +1,3 @@
+-------------- JAVA FX 
+Good slideshow:		http://www.slideshare.net/skrb/from-swing-to-javafx
+ObservableList:		http://docs.oracle.com/javafx/2/collections/jfxpub-collections.htm

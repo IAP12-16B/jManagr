@@ -1,2 +1,0 @@
-Good slideshow:
-http://www.slideshare.net/skrb/from-swing-to-javafx
