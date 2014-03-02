@@ -2,6 +2,8 @@ package ch.jManagr.DAL;
 import ch.jManagr.lib.ShutdownCallback;
 import ch.jManagr.lib.ShutdownManager;
 
+
+
 import java.util.prefs.Preferences;
 
 /* Singelton for Database Credentials  */
