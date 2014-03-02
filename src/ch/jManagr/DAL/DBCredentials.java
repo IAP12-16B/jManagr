@@ -12,6 +12,21 @@ public class DBCredentials {
     private String DB_USER = "root";
     private String DB_PASSWORD = "";
 
+    /**
+     * Default constructor -> private, so only callable within class
+     */
+    private DBCredentials() {
+    }
+
+    /**
+     * Get singelton instance
+     *
+     * @return DBCredentials    Singelton instance
+     */
+    public static DBCredentials getInstance() {
+        return instance;
+    }
+
     public String getHost() {
         return this.DB_HOST;
     }
@@ -50,18 +65,5 @@ public class DBCredentials {
 
     public void setPassword(String password) {
         this.DB_PASSWORD = password;
-    }
-
-    /**
-     * Default constructor -> private, so only callable within class
-     */
-    private DBCredentials() {}
-
-    /**
-     * Get singelton instance
-     * @return DBCredentials    Singelton instance
-     */
-    public static DBCredentials getInstance() {
-        return instance;
     }
 }
