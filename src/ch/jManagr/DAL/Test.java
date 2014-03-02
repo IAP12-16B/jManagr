@@ -1,4 +1,4 @@
-package ch.jManagr.DataAccessLayer;
+package ch.jManagr.DAL;
 
 import org.sql2o.Sql2o;
 import java.util.List;

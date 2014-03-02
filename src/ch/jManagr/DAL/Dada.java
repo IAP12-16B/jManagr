@@ -1,4 +1,4 @@
-package ch.jManagr.DataAccessLayer;
+package ch.jManagr.DAL;
 
 /**
  * Created by Leyla on 02.03.14.
