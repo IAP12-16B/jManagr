@@ -1,12 +1,11 @@
-package ch.jManagr.Tests.DAL;
+package ch.jManagr.test.DAL;
 
 import ch.jManagr.DAL.DBCredentials;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class DBCredentialsTest {
 
