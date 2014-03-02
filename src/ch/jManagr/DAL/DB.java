@@ -1,7 +1,10 @@
 package ch.jManagr.DAL;
+
 import java.sql.*;
 
 public class DB {
+    private static DB instance = new DB();
+
     // static code block
     static {
         // load jdbc driver
@@ -12,8 +15,21 @@ public class DB {
         }
     }
 
+    private DB() {
+    }
+
+    /**
+     * Get singelton instance
+     *
+     * @return DB    Singelton instance
+     */
+    public static DB getInstance() {
+        return instance;
+    }
+
     /**
      * Get JDBC connection
+     *
      * @return Connection   The Database connection
      * @throws SQLException
      */
