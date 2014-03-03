@@ -1,5 +1,6 @@
 package ch.jManagr;
 
+import ch.jManagr.DAL.DBCredentials;
 import ch.jManagr.lib.ShutdownManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

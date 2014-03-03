@@ -32,7 +32,7 @@ public class ShutdownManager extends Thread {
         Iterator<ShutdownCallback> it = shutdownCallbacks.iterator();
         while(it.hasNext())
         {
-            ShutdownCallback sc = (ShutdownCallback)it;
+            ShutdownCallback sc = it.next();
             System.out.println("call registered shutdownfunction of "+sc.getClass().getName());
             sc.shutdownCallback();
         }

@@ -9,7 +9,7 @@ import java.util.prefs.Preferences;
 /* Singelton for Database Credentials  */
 
 public class DBCredentials implements ShutdownCallback {
-    private static DBCredentials instance = new DBCredentials();
+    private static volatile DBCredentials instance;
     private Preferences prefs;
 
     /* DB Credentials with default values */
@@ -40,6 +40,12 @@ public class DBCredentials implements ShutdownCallback {
      * @return DBCredentials    Singelton instance
      */
     public static DBCredentials getInstance() {
+        if (instance == null) {
+            synchronized (DBCredentials.class) {
+                if (instance == null)
+                    instance = new DBCredentials();
+            }
+        }
         return instance;
     }
 
