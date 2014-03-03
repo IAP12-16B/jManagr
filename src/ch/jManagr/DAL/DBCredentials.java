@@ -55,6 +55,7 @@ public class DBCredentials implements ShutdownCallback {
 
     public void setHost(String host) {
         this.DB_HOST = host;
+        prefs.put("DB_HOST", DB_HOST);
     }
 
     public int getPort() {
@@ -63,6 +64,7 @@ public class DBCredentials implements ShutdownCallback {
 
     public void setPort(int port) {
         this.DB_PORT = port;
+        prefs.putInt("DB_PORT", DB_PORT);
     }
 
     public String getDatabase() {
@@ -71,6 +73,7 @@ public class DBCredentials implements ShutdownCallback {
 
     public void setDatabase(String db) {
         this.DB_DATABASE = db;
+        prefs.put("DB_DATABASE", DB_DATABASE);
     }
 
     public String getUser() {
@@ -79,6 +82,7 @@ public class DBCredentials implements ShutdownCallback {
 
     public void setUser(String user) {
         this.DB_USER = user;
+        prefs.put("DB_USER", DB_USER);
     }
 
     public String getPassword() {
@@ -87,6 +91,7 @@ public class DBCredentials implements ShutdownCallback {
 
     public void setPassword(String password) {
         this.DB_PASSWORD = password;
+        prefs.put("DB_PASSWORD", DB_PASSWORD);
     }
 
     /**
