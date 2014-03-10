@@ -1,11 +1,9 @@
 .rotate-tab .tab .tab-label {
     -fx-rotate: 90;
-	
-
 }
  /** The following is a little bit hackish....*/
 .rotate-tab .tab {
-    -fx-padding: 2em -2em 2em -2em;    
+    -fx-padding: 2em -2.2em 2em -2.2em;
 }
 
 .tab-pane .tab {
@@ -41,7 +39,7 @@
 
 .tab:selected .tab-label { 
     -fx-alignment: CENTER;
-    -fx-text-fill: #E21737;
+    -fx-text-fill: #96b946;
 }
 
 
