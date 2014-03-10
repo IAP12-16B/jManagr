@@ -23,56 +23,6 @@ public class DBCredentialsTest {
 
     @Test
     public void testGetInstance() throws Exception {
-        assertTrue(this.dbc.equals(DBCredentials.getInstance()));
-    }
-
-    @Test
-    public void testGetHost() throws Exception {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testSetHost() throws Exception {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testGetPort() throws Exception {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testSetPort() throws Exception {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testGetDatabase() throws Exception {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testSetDatabase() throws Exception {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testGetUser() throws Exception {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testSetUser() throws Exception {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testGetPassword() throws Exception {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testSetPassword() throws Exception {
-        fail("Not yet implemented");
+        assertSame(this.dbc, DBCredentials.getInstance());
     }
 }

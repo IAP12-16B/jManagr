@@ -28,6 +28,10 @@ public class ShutdownManager extends Thread {
         this.shutdownCallbacks.add(sc);
     }
 
+    public ArrayList<ShutdownCallback> getRegisteredCallbacks() {
+        return this.shutdownCallbacks;
+    }
+
     private void runCallbacks() {
         Iterator<ShutdownCallback> it = shutdownCallbacks.iterator();
         while(it.hasNext())
