@@ -1,6 +1,8 @@
 package ch.jManagr;
 
+import ch.jManagr.BO.TestBO;
 import ch.jManagr.DAL.DBCredentials;
+import ch.jManagr.DAL.dalTest;
 import ch.jManagr.lib.ShutdownManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +31,9 @@ public class Main extends Application {
         // Register Shutdown-Manager
         Runtime r1 = Runtime.getRuntime();
         r1.addShutdownHook(ShutdownManager.getInstance());
+
+        dalTest n = new dalTest();
+        System.out.println(n.fetchAllOfType((Class)TestBO.class).toString());
 
         launch(args);
     }
