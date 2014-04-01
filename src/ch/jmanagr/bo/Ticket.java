@@ -36,7 +36,7 @@ public class Ticket implements BusinessObject
 		if (this == o) {
 			return true;
 		}
-		if (!(o instanceof Ticket)) {
+		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
 
@@ -48,7 +48,7 @@ public class Ticket implements BusinessObject
 		if (agent != null ? !agent.equals(ticket.agent) : ticket.agent != null) {
 			return false;
 		}
-		if (!date.equals(ticket.date)) {
+		if (date != null ? !date.equals(ticket.date) : ticket.date != null) {
 			return false;
 		}
 		if (department != null ? !department.equals(ticket.department) : ticket.department != null) {
@@ -66,7 +66,7 @@ public class Ticket implements BusinessObject
 		if (status != ticket.status) {
 			return false;
 		}
-		if (!user.equals(ticket.user)) {
+		if (user != null ? !user.equals(ticket.user) : ticket.user != null) {
 			return false;
 		}
 
@@ -79,12 +79,12 @@ public class Ticket implements BusinessObject
 		int result = id;
 		result = 31 * result + name.hashCode();
 		result = 31 * result + (description != null ? description.hashCode() : 0);
-		result = 31 * result + status.hashCode();
-		result = 31 * result + date.hashCode();
+		result = 31 * result + (status != null ? status.hashCode() : 0);
+		result = 31 * result + (date != null ? date.hashCode() : 0);
 		result = 31 * result + (ressource != null ? ressource.hashCode() : 0);
 		result = 31 * result + (agent != null ? agent.hashCode() : 0);
 		result = 31 * result + (department != null ? department.hashCode() : 0);
-		result = 31 * result + user.hashCode();
+		result = 31 * result + (user != null ? user.hashCode() : 0);
 		return result;
 	}
 
