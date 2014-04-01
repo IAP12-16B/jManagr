@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import ch.jManagr.UI.*?>
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import java.net.URL?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.text.Font?>
-
-<GridPane alignment="CENTER" gridLinesVisible="false" hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="500.0" minWidth="400.0" prefHeight="635.0" prefWidth="850.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="ch.jManagr.UI.MainViewController">
+<?import java.net.URL?>
+<GridPane alignment="CENTER" gridLinesVisible="false" hgap="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="500.0" minWidth="400.0" prefHeight="635.0" prefWidth="850.0" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="ch.jmanagr.ui.MainViewController">
   <children>
     <TabPane minHeight="-1.0" minWidth="-1.0" prefHeight="634.0" prefWidth="849.0" rotateGraphic="true" side="LEFT" styleClass="rotate-tab" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="26.0" tabMinHeight="26.0" tabMinWidth="0.0" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.rowSpan="2147483647" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
       <stylesheets>
