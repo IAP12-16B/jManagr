@@ -4,6 +4,8 @@ package ch.jmanagr.dal;
 import ch.jmanagr.bo.BusinessObject;
 import ch.jmanagr.lib.STATUS_CODE;
 
+import java.util.ArrayList;
+
 public class Tickets extends AbstractDAL
 {
 
@@ -15,7 +17,7 @@ public class Tickets extends AbstractDAL
 	}
 
 	@Override
-	public BusinessObject fetchAll()
+	public ArrayList<BusinessObject> fetchAll()
 	{
 		// TODO: implement
 		return null;
