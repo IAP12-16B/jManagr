@@ -1,5 +1,6 @@
 package ch.jmanagr.dal;
 
 
-public interface DAL {
+public interface DAL
+{
 }
