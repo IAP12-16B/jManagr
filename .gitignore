@@ -11,7 +11,7 @@
 .settings/
 
 # Intellij
-.idea/
+.idea/*
 *.iml
 *.iws
 
@@ -29,3 +29,6 @@ out
 
 # tmp
 *~
+
+!lib/sql2o*
+!.idea/workspace.xml
