@@ -21,6 +21,14 @@ public class User implements BusinessObject
 		this.role = role;
 	}
 
+	public User(String firstname, String lastname, String username, String password, USER_ROLE role) {
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.username = username;
+		this.password = password;
+		this.role = role;
+	}
+
 	@Override
 	public boolean equals(Object o)
 	{
