@@ -34,7 +34,8 @@ public class UsersTest
 	@Test
 	public void testValidateUserExists() throws Exception
 	{
-		User testUser2 = new User(testUser.getFirstname(), testUser.getLastname(), testUser.getUsername(), testUser.getPassword(), testUser.getRole());
+		User testUser2 = new User(testUser.getFirstname(), testUser.getLastname(), testUser.getUsername(),
+				testUser.getPassword(), testUser.getRole());
 		assertEquals(users.validate(testUser2), STATUS_CODE.ALREADY_EXISTS);
 
 		User testUser3 = new User("A", "B", "C", "D", USER_ROLE.ADMIN);
@@ -47,21 +48,22 @@ public class UsersTest
 	}
 
 	@Test
-	public void  testValidateCredentials() throws Exception {
+	public void testValidateCredentials() throws Exception
+	{
 		User testUser2 = new User("|&%~`", "B", "T", "D", USER_ROLE.AGENT);
-		assertEquals(users.validate(testUser2), STATUS_CODE.NAME_INVALID);
+		assertEquals(STATUS_CODE.NAME_INVALID, users.validate(testUser2));
 
 		User testUser3 = new User("A", "B", "¬&@?`", "D", USER_ROLE.AGENT);
-		assertEquals(users.validate(testUser3), STATUS_CODE.USERNAME_INVALID);
+		assertEquals(STATUS_CODE.USERNAME_INVALID, users.validate(testUser3));
 
 		User testUser4 = new User("A", "B", "", "D", USER_ROLE.AGENT);
-		assertEquals(users.validate(testUser4), STATUS_CODE.USERNAME_INVALID);
+		assertEquals(STATUS_CODE.USERNAME_INVALID, users.validate(testUser4));
 
 		User testUser5 = new User("A", "B", "C", "", USER_ROLE.AGENT);
-		assertEquals(users.validate(testUser5), STATUS_CODE.PASSWORD_INVALID);
+		assertEquals(STATUS_CODE.PASSWORD_INVALID, users.validate(testUser5));
 
 		User testUser6 = new User("A", "B", "C", "123", USER_ROLE.AGENT);
-		assertEquals(users.validate(testUser6), STATUS_CODE.PASSWORD_INVALID);
+		assertEquals(STATUS_CODE.PASSWORD_INVALID, users.validate(testUser6));
 	}
 
 	@Test

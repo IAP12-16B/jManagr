@@ -1,6 +1,10 @@
 package ch.jmanagr.bo;
 
+import ch.jmanagr.lib.PasswordHash;
 import ch.jmanagr.lib.USER_ROLE;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 public class User implements BusinessObject
 {
@@ -10,6 +14,7 @@ public class User implements BusinessObject
 	protected String username;
 	protected String password;
 	protected USER_ROLE role;
+
 
 	public User(int id, String firstname, String lastname, String username, String password, USER_ROLE role)
 	{
@@ -21,13 +26,16 @@ public class User implements BusinessObject
 		this.role = role;
 	}
 
-	public User(String firstname, String lastname, String username, String password, USER_ROLE role) {
+	public User(String firstname, String lastname, String username, String password, USER_ROLE role)
+	{
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.username = username;
 		this.password = password;
 		this.role = role;
 	}
+
+	public User() {}
 
 	@Override
 	public boolean equals(Object o)
@@ -81,6 +89,17 @@ public class User implements BusinessObject
 		return id;
 	}
 
+
+	public static String getTableName()
+	{
+		return "User";
+	}
+
+	public String getTable()
+	{
+		return getTableName();
+	}
+
 	public void setId(int id)
 	{
 		this.id = id;
@@ -118,12 +137,18 @@ public class User implements BusinessObject
 
 	public String getPassword()
 	{
+
 		return password;
 	}
 
+	/**
+	 * Hash the password and sets it
+	 *
+	 * @param password
+	 */
 	public void setPassword(String password)
 	{
-		this.password = password;
+		this.password = this.hashPassword(password);
 	}
 
 	public USER_ROLE getRole()
@@ -135,4 +160,41 @@ public class User implements BusinessObject
 	{
 		this.role = role;
 	}
+
+	public static String hashPassword(String password)
+	{
+		try {
+			return PasswordHash.createHash(password);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (InvalidKeySpecException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static boolean checkPassword(String password, String hash)
+	{
+		try {
+			return PasswordHash.validatePassword(password, hash);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (InvalidKeySpecException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean checkPassword(String password)
+	{
+		try {
+			return PasswordHash.validatePassword(password, this.getPassword());
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (InvalidKeySpecException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }

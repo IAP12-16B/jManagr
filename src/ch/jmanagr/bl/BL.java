@@ -11,6 +11,13 @@ public interface BL
 
 	public STATUS_CODE update(BusinessObject bo);
 
+	/**
+	 * Validates, if the provided BusinessObject is valid and therefor can be saved in database
+	 *
+	 * @param bo The BusinessObject to check
+	 *
+	 * @return the result of the check as STATUS_CODE
+	 */
 	public STATUS_CODE validate(BusinessObject bo);
 
 	public STATUS_CODE create(BusinessObject bo);

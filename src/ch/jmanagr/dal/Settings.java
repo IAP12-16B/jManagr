@@ -34,7 +34,7 @@ public class Settings
 	public ch.jmanagr.bo.Settings get()
 	{
 		ch.jmanagr.bo.Settings settings = new ch.jmanagr.bo.Settings();
-		settings.setHost(preferences.get("DB_HOST", "localhost"));
+		settings.setHost(preferences.get("DB_HOST", "127.0.0.1"));
 		settings.setPort(preferences.getInt("DB_PORT", 3306));
 		settings.setUser(preferences.get("DB_USER", "root"));
 		settings.setPassword(preferences.get("DB_PASSWORD", ""));

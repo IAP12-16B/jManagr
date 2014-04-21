@@ -13,24 +13,24 @@ public abstract class AbstractBL implements BL
 	@Override
 	public ArrayList<BusinessObject> getAll()
 	{
-		return dal.fetchAll();
+		return null;//dal.fetch();
 	}
 
 	@Override
 	public STATUS_CODE delete(BusinessObject bo)
 	{
-		return dal.delete(bo);
+		return this.dal.delete(bo);
 	}
 
 	@Override
 	public STATUS_CODE create(BusinessObject bo)
 	{
-		return dal.create(bo);
+		return this.dal.create(bo);
 	}
 
 	@Override
 	public STATUS_CODE update(BusinessObject bo)
 	{
-		return dal.update(bo);
+		return this.dal.update(bo);
 	}
 }

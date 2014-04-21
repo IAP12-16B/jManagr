@@ -1,3 +1,0 @@
-Do dri cha me problem schribe wo me grad het, vilicht het jo dr ander e lösig.
-
-- DBCredentials.java: Ich mach es Singelton, aber ich has Problem das dr Constructor nid ufgruefe wird. De bruch i zum d istellige z lade und z speichere
