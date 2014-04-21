@@ -50,7 +50,7 @@ public class DB
 	}
 
 	/**
-	 * Shortcut for sql2o's createQuery() and executeAndFetch() methode
+	 * Shortcut for sql2o's createQuery() and executeAndFetch() method
 	 *
 	 * @param query      the SQL query
 	 * @param returnType class
@@ -64,7 +64,7 @@ public class DB
 	}
 
 	/**
-	 * Shortcut for sql2o's createQuery() and executeAndFetch() methode with column mapping
+	 * Shortcut for sql2o's createQuery() and executeAndFetch() method with column mapping
 	 *
 	 * @param query      the SQL query
 	 * @param returnType class
