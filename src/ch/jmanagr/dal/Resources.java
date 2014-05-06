@@ -3,7 +3,7 @@ package ch.jmanagr.dal;
 import ch.jmanagr.bo.BusinessObject;
 import ch.jmanagr.lib.STATUS_CODE;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Resources extends AbstractDAL
 {
@@ -15,7 +15,7 @@ public class Resources extends AbstractDAL
 	}
 
 	@Override
-	public ArrayList<BusinessObject> fetchAll()
+	public List<BusinessObject> fetchAll()
 	{
 		// TODO: implement
 		return null;

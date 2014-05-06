@@ -90,16 +90,6 @@ public class User implements BusinessObject
 	}
 
 
-	public static String getTableName()
-	{
-		return "User";
-	}
-
-	public String getTable()
-	{
-		return getTableName();
-	}
-
 	public void setId(int id)
 	{
 		this.id = id;

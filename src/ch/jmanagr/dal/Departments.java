@@ -2,9 +2,10 @@ package ch.jmanagr.dal;
 
 
 import ch.jmanagr.bo.BusinessObject;
+import ch.jmanagr.bo.Department;
 import ch.jmanagr.lib.STATUS_CODE;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Departments extends AbstractDAL
 {
@@ -16,9 +17,10 @@ public class Departments extends AbstractDAL
 	}
 
 	@Override
-	public ArrayList<BusinessObject> fetchAll()
+	public List<Department> fetchAll()
 	{
-		return null;
+		List<Department> deps = db.executeAndFetch("SELECT id, name FROM departments", Department.class);
+		return deps;
 		// TODO: implement
 	}
 
