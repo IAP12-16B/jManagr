@@ -43,10 +43,14 @@ public class Departments extends AbstractDAL<Department>
 	}
 
 	@Override
-	public ObservableList<Department> fetch()
+	public ObservableList<Department> fetch() // @pablo: wenn möglich würd ich gern do in dr dal keini observableLists
+	// ha, sonder nur lists, eifach dmit mir chli flexibler sind. Witer ober cha me die jo denn scho caste...
 	{
-        List<Department> deps = db.createQuery("SELECT id, name FROM departments").executeAndFetch(Department.class); // todo kim pls mach dass das goht i weiss nit was du für komischi sache in DB klass gmacht hesch :P
-        ObservableList<Department> depsObsList= FXCollections.observableArrayList(deps); // Now add observability by wrapping it with ObservableList. //changes to list will not fire an event, only changes to observerList
+		List<Department> deps = DB.getSql2o().createQuery("SELECT id, name FROM departments").executeAndFetch
+				(Department.class); // todo kim pls mach dass das goht i weiss nit was du für komischi sache in DB
+				// klass gmacht hesch :P -> @pabloe: isch doch ganz eifach, muesch hald die DB klass nur 1 sekunde
+				// länger aluege xD
+		ObservableList<Department> depsObsList= FXCollections.observableArrayList(deps); // Now add observability by wrapping it with ObservableList. //changes to list will not fire an event, only changes to observerList
 
         return depsObsList;
         //return dataList;

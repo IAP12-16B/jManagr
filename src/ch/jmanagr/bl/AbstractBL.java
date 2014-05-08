@@ -5,8 +5,6 @@ import ch.jmanagr.dal.AbstractDAL;
 import ch.jmanagr.lib.STATUS_CODE;
 import javafx.collections.ObservableList;
 
-import java.util.List;
-
 /**
  * @param <BusinessObjectType> The BusinessObject to use
  * @param <DALType>            The DAL class to use
@@ -27,7 +25,8 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject,
 	public ObservableList<BusinessObjectType> getAll()
 	{
         // todo kim was machsch du für komischi sache mach das das goht haha i schrib de satz no gern :P
-		return dal.fetch();
+
+		return (ObservableList<BusinessObjectType>) dal.fetch();
 	}
 
 	@Override
