@@ -20,7 +20,7 @@ public class UsersTest
 	@Before
 	public void setUp() throws Exception
 	{
-		testUser = new User("Test", "User", "test123", "test", USER_ROLE.USER);
+		testUser = new User("Test", "User", "root", "123", USER_ROLE.USER);
 		users = Users.getInstance();
 		users.create(testUser);
 	}
@@ -64,6 +64,9 @@ public class UsersTest
 
 		User testUser6 = new User("A", "B", "C", "123", USER_ROLE.AGENT);
 		assertEquals(STATUS_CODE.PASSWORD_INVALID, users.validate(testUser6));
+
+		User testUser7 = new User("A", "B", "C", "Hello123imagoodpassword", USER_ROLE.AGENT);
+		assertEquals(STATUS_CODE.OK, users.validate(testUser7));
 	}
 
 	@Test

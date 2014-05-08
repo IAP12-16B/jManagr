@@ -15,6 +15,12 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject, DALT
 {
 	protected DALType dal;
 
+	protected AbstractBL()
+	{
+
+	}
+
+
 	@Override
 	public List<BusinessObjectType> getAll()
 	{
