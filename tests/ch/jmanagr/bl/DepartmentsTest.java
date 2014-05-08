@@ -1,15 +1,32 @@
 package ch.jmanagr.bl;
 
+import ch.jmanagr.bo.Agent;
+import ch.jmanagr.bo.Department;
+import ch.jmanagr.lib.STATUS_CODE;
+import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.fail;
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
 
 
 public class DepartmentsTest
 {
+	private Departments departments;
+
+	@Before
+	public void setUp() throws Exception
+	{
+		departments = Departments.getInstance();
+	}
+
 	@Test
 	public void testValidate() throws Exception
 	{
-		fail("Not yet implemented!");
+		assertEquals(STATUS_CODE.OK, departments.validate(new Department(20, "Testdepartment",
+				new ArrayList<Agent>())));
+		assertEquals(STATUS_CODE.NAME_INVALID, departments.validate(new Department(20, "", new ArrayList<Agent>())));
+		assertEquals(STATUS_CODE.FAIL, departments.validate(new Department(0, "", null)));
 	}
 }

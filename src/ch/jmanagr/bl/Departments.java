@@ -10,10 +10,8 @@ public class Departments extends AbstractBL<Department, ch.jmanagr.dal.Departmen
 
 	private Departments()
 	{
-		/* dal =
-			DAL als Singelton?
-		 */
-		// TODO: implement
+		super();
+		dal = ch.jmanagr.dal.Departments.getInstance();
 	}
 
 
@@ -34,7 +32,7 @@ public class Departments extends AbstractBL<Department, ch.jmanagr.dal.Departmen
 	public STATUS_CODE validate(Department bo)
 	{
 		// Todo: implement
-		return null;
+		return STATUS_CODE.OK;
 	}
 
 

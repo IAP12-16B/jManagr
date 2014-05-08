@@ -10,10 +10,8 @@ public class Resources extends AbstractBL<Resource, ch.jmanagr.dal.Resources>
 
 	private Resources()
 	{
-		/* dal =
-			DAL als Singelton?
-		 */
-		// TODO: implement
+		super();
+		dal = ch.jmanagr.dal.Resources.getInstance();
 	}
 
 
@@ -34,7 +32,7 @@ public class Resources extends AbstractBL<Resource, ch.jmanagr.dal.Resources>
 	public STATUS_CODE validate(Resource bo)
 	{
 		// Todo: implement
-		return null;
+		return STATUS_CODE.OK;
 	}
 
 
