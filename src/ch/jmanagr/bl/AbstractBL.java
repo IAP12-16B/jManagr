@@ -12,7 +12,7 @@ import java.util.List;
  */
 public abstract class AbstractBL<BusinessObjectType extends BusinessObject,
 		DALType extends AbstractDAL<BusinessObjectType>>
-implements BL<BusinessObjectType>
+		implements BL<BusinessObjectType>
 {
 	protected DALType dal;
 
