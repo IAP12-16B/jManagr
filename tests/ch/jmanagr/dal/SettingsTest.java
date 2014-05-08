@@ -1,23 +1,29 @@
 package ch.jmanagr.dal;
 
+import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by kije on 4/1/14.
  */
 public class SettingsTest
 {
-	@Test
-	public void testPut() throws Exception
+	private Settings settings;
+	private ch.jmanagr.bo.Settings testSettings;
+
+	@Before
+	public void setUp() throws Exception
 	{
-		fail("Not yet implemented!");
+		settings = Settings.getInstance();
 	}
 
 	@Test
-	public void testGet() throws Exception
+	public void testPutAndGet() throws Exception
 	{
-		fail("Not yet implemented!");
+		testSettings = settings.get();
+		settings.put(testSettings);
+		assertTrue(testSettings.equals(settings.get()));
 	}
 }
