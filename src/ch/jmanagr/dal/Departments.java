@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Departments extends AbstractDAL<Department>
 {
+
 	private static Departments instance;
 
 	private Departments()
@@ -33,22 +34,31 @@ public class Departments extends AbstractDAL<Department>
 	@Override
 	public STATUS_CODE create(Department bo)
 	{
-		return null;
+		dataList.add(bo);
+		return STATUS_CODE.OK;
 		// TODO: implement
 	}
 
 	@Override
 	public List<Department> fetch()
 	{
-		List<Department> deps = db.executeAndFetch("SELECT id, name FROM departments", Department.class);
-		return deps;
+		return dataList;
+		/*List<Department> deps = db.executeAndFetch("SELECT id, name FROM departments", Department.class);
+		return deps;*/
 		// TODO: implement
 	}
 
 	@Override
 	public STATUS_CODE update(Department bo)
 	{
-		return null;
+		for (Department department : dataList) {
+			if (department.getId() == bo.getId()) {
+				dataList.set(dataList.indexOf(department), bo);
+				return STATUS_CODE.OK;
+			}
+		}
+
+		return STATUS_CODE.FAIL; // TODO: Status for failed update
 		// TODO: implement
 	}
 }

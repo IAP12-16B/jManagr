@@ -33,20 +33,28 @@ public class Users extends AbstractDAL<User>
 	public STATUS_CODE create(User bo)
 	{
 		// TODO: implement
-		return null;
+		dataList.add(bo);
+		return STATUS_CODE.OK;
 	}
 
 	@Override
 	public List<User> fetch()
 	{
 		// TODO: implement
-		return null;
+		return dataList;
 	}
 
 	@Override
 	public STATUS_CODE update(User bo)
 	{
+		for (User user : dataList) {
+			if (user.getId() == bo.getId()) {
+				dataList.set(dataList.indexOf(user), bo);
+				return STATUS_CODE.OK;
+			}
+		}
+
+		return STATUS_CODE.FAIL; // TODO: Status for failed update
 		// TODO: implement
-		return null;
 	}
 }

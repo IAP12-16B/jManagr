@@ -32,21 +32,28 @@ public class Resources extends AbstractDAL<Resource>
 	@Override
 	public STATUS_CODE create(Resource bo)
 	{
-		// TODO: implement
-		return null;
+		dataList.add(bo);
+		return STATUS_CODE.OK;
 	}
 
 	@Override
 	public List<Resource> fetch()
 	{
 		// TODO: implement
-		return null;
+		return dataList;
 	}
 
 	@Override
 	public STATUS_CODE update(Resource bo)
 	{
+		for (Resource resource : dataList) {
+			if (resource.getId() == bo.getId()) {
+				dataList.set(dataList.indexOf(resource), bo);
+				return STATUS_CODE.OK;
+			}
+		}
+
+		return STATUS_CODE.FAIL; // TODO: Status for failed update
 		// TODO: implement
-		return null;
 	}
 }

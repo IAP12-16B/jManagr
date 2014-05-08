@@ -34,20 +34,28 @@ public class Tickets extends AbstractDAL<Ticket>
 	public STATUS_CODE create(Ticket bo)
 	{
 		// TODO: implement
-		return null;
+		dataList.add(bo);
+		return STATUS_CODE.OK;
 	}
 
 	@Override
 	public List<Ticket> fetch()
 	{
 		// TODO: implement
-		return null;
+		return dataList;
 	}
 
 	@Override
 	public STATUS_CODE update(Ticket bo)
 	{
+		for (Ticket ticket : dataList) {
+			if (ticket.getId() == bo.getId()) {
+				dataList.set(dataList.indexOf(ticket), bo);
+				return STATUS_CODE.OK;
+			}
+		}
+
+		return STATUS_CODE.FAIL; // TODO: Status for failed update
 		// TODO: implement
-		return null;
 	}
 }
