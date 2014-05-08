@@ -8,7 +8,7 @@ public abstract class AbstractDAL<T extends BusinessObject> implements DAL<T>
 {
 	protected DB db;
 
-	public AbstractDAL()
+	protected AbstractDAL()
 	{
 		db = DB.getInstance();
 	}

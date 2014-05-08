@@ -7,6 +7,28 @@ import java.util.List;
 
 public class Resources extends AbstractDAL<Resource>
 {
+	private static Resources instance;
+
+	private Resources()
+	{
+		super();
+	}
+
+	/**
+	 * @return Resources instance
+	 */
+	public static Resources getInstance()
+	{
+		if (instance == null) {
+			synchronized (Resources.class) {
+				if (instance == null) {
+					instance = new Resources();
+				}
+			}
+		}
+		return instance;
+	}
+
 	@Override
 	public STATUS_CODE create(Resource bo)
 	{

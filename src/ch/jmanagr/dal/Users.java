@@ -7,10 +7,26 @@ import java.util.List;
 
 public class Users extends AbstractDAL<User>
 {
-	public Users()
+	private static Users instance;
+
+	private Users()
 	{
 		super();
-		// TODO: implement
+	}
+
+	/**
+	 * @return Users instance
+	 */
+	public static Users getInstance()
+	{
+		if (instance == null) {
+			synchronized (Users.class) {
+				if (instance == null) {
+					instance = new Users();
+				}
+			}
+		}
+		return instance;
 	}
 
 	@Override
