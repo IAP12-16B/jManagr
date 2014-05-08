@@ -1,8 +1,12 @@
 package ch.jmanagr.dal;
 
+import ch.jmanagr.bo.Agent;
+import ch.jmanagr.bo.Department;
 import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.STATUS_CODE;
+import ch.jmanagr.lib.USER_ROLE;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Users extends AbstractDAL<User>
@@ -42,6 +46,20 @@ public class Users extends AbstractDAL<User>
 	{
 		// TODO: implement
 		return dataList;
+	}
+
+	public List<Agent> fetchAgent(Department department)
+	{
+		List<Agent> result = new ArrayList<Agent>();
+		for (User user : dataList) {
+			if (user.getRole() == USER_ROLE.AGENT) {
+				Agent agent = (Agent) user;
+				if (agent.getDepartment() == department) {
+					result.add(agent);
+				}
+			}
+		}
+		return result;
 	}
 
 	@Override

@@ -1,9 +1,11 @@
 package ch.jmanagr.dal;
 
 
-import ch.jmanagr.bo.Ticket;
+import ch.jmanagr.bo.*;
 import ch.jmanagr.lib.STATUS_CODE;
+import ch.jmanagr.lib.TICKET_STATE;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Tickets extends AbstractDAL<Ticket>
@@ -43,6 +45,61 @@ public class Tickets extends AbstractDAL<Ticket>
 	{
 		// TODO: implement
 		return dataList;
+	}
+
+	public List<Ticket> fetch(TICKET_STATE state)
+	{
+		List<Ticket> result = new ArrayList<Ticket>();
+		for (Ticket ticket : dataList) {
+			if (ticket.getStatus() == state) {
+				result.add(ticket);
+			}
+		}
+		return result;
+	}
+
+	public List<Ticket> fetch(User user, TICKET_STATE state)
+	{
+		List<Ticket> result = new ArrayList<Ticket>();
+		for (Ticket ticket : dataList) {
+			if (ticket.getUser() == user && ticket.getStatus() == state) {
+				result.add(ticket);
+			}
+		}
+		return result;
+	}
+
+	public List<Ticket> fetch(Agent agent, TICKET_STATE state)
+	{
+		List<Ticket> result = new ArrayList<Ticket>();
+		for (Ticket ticket : dataList) {
+			if (ticket.getAgent() == agent && ticket.getStatus() == state) {
+				result.add(ticket);
+			}
+		}
+		return result;
+	}
+
+	public List<Ticket> fetch(Resource resource, TICKET_STATE state)
+	{
+		List<Ticket> result = new ArrayList<Ticket>();
+		for (Ticket ticket : dataList) {
+			if (ticket.getRessource() == resource && ticket.getStatus() == state) {
+				result.add(ticket);
+			}
+		}
+		return result;
+	}
+
+	public List<Ticket> fetch(Department department, TICKET_STATE state)
+	{
+		List<Ticket> result = new ArrayList<Ticket>();
+		for (Ticket ticket : dataList) {
+			if (ticket.getDepartment() == department && ticket.getStatus() == state) {
+				result.add(ticket);
+			}
+		}
+		return result;
 	}
 
 	@Override

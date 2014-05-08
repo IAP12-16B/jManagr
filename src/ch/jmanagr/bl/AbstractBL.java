@@ -1,7 +1,7 @@
 package ch.jmanagr.bl;
 
 import ch.jmanagr.bo.BusinessObject;
-import ch.jmanagr.dal.DAL;
+import ch.jmanagr.dal.AbstractDAL;
 import ch.jmanagr.lib.STATUS_CODE;
 
 import java.util.List;
@@ -10,14 +10,14 @@ import java.util.List;
  * @param <BusinessObjectType> The BusinessObject to use
  * @param <DALType>            The DAL class to use
  */
-public abstract class AbstractBL<BusinessObjectType extends BusinessObject, DALType extends DAL<BusinessObjectType>>
-		implements BL<BusinessObjectType>
+public abstract class AbstractBL<BusinessObjectType extends BusinessObject,
+		DALType extends AbstractDAL<BusinessObjectType>>
+implements BL<BusinessObjectType>
 {
 	protected DALType dal;
 
 	protected AbstractBL()
 	{
-
 	}
 
 
