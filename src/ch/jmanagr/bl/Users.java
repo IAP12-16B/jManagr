@@ -1,15 +1,14 @@
 package ch.jmanagr.bl;
 
-import ch.jmanagr.bo.BusinessObject;
 import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.STATUS_CODE;
+import ch.jmanagr.lib.USER_ROLE;
 
-public class Users extends AbstractBL
+public class Users extends AbstractBL<User, ch.jmanagr.dal.Users>
 {
 	private static volatile Users instance;
 
 	protected User currentUser;
-	protected ch.jmanagr.dal.Users dal;
 
 	protected Users()
 	{
@@ -34,7 +33,7 @@ public class Users extends AbstractBL
 
 
 	@Override
-	public STATUS_CODE validate(BusinessObject bo)
+	public STATUS_CODE validate(User bo)
 	{
 		// Todo: implement
 		return null;
@@ -42,7 +41,11 @@ public class Users extends AbstractBL
 
 	public User login(String username, String password)
 	{
-		// Todo: implement
+		if (Math.random() > 0.5) {
+			this.currentUser = new User(1, "Test", "User", username, password, USER_ROLE.ADMIN); // Todo: Implemenent
+			// real login
+			return this.currentUser;
+		}
 		return null;
 	}
 

@@ -5,7 +5,7 @@ package ch.jmanagr.bl;
 import ch.jmanagr.bo.Agent;
 import ch.jmanagr.bo.Department;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Agents extends Users
 {
@@ -32,7 +32,8 @@ public class Agents extends Users
 		return instance;
 	}
 
-	public ArrayList<Agent> getAllByDepartment(Department department) {
+	public List<Agent> getAllByDepartment(Department department)
+	{
 		// Todo: implement
 		return null;
 	}

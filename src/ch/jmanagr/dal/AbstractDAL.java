@@ -4,7 +4,7 @@ package ch.jmanagr.dal;
 import ch.jmanagr.bo.BusinessObject;
 import ch.jmanagr.lib.STATUS_CODE;
 
-public abstract class AbstractDAL implements DAL
+public abstract class AbstractDAL<T extends BusinessObject> implements DAL<T>
 {
 	protected DB db;
 
@@ -13,7 +13,9 @@ public abstract class AbstractDAL implements DAL
 		db = DB.getInstance();
 	}
 
-	public STATUS_CODE delete(BusinessObject bo)
+
+	@Override
+	public STATUS_CODE delete(T bo)
 	{
 		/*try {
 			String deleteSQL = "DELETE FROM " + bo.getTable() + " WHERE id = :id";

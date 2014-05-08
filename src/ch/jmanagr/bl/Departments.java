@@ -1,14 +1,12 @@
 package ch.jmanagr.bl;
 
-import ch.jmanagr.bo.BusinessObject;
+import ch.jmanagr.bo.Department;
 import ch.jmanagr.lib.STATUS_CODE;
 
 
-public class Departments extends AbstractBL
+public class Departments extends AbstractBL<Department, ch.jmanagr.dal.Departments>
 {
 	private static volatile Departments instance;
-
-	protected ch.jmanagr.dal.Departments dal;
 
 	private Departments()
 	{
@@ -33,7 +31,7 @@ public class Departments extends AbstractBL
 
 
 	@Override
-	public STATUS_CODE validate(BusinessObject bo)
+	public STATUS_CODE validate(Department bo)
 	{
 		// Todo: implement
 		return null;

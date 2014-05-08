@@ -5,14 +5,12 @@ import ch.jmanagr.bo.*;
 import ch.jmanagr.lib.STATUS_CODE;
 import ch.jmanagr.lib.TICKET_STATE;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
-public class Tickets extends AbstractBL
+public class Tickets extends AbstractBL<Ticket, ch.jmanagr.dal.Tickets>
 {
 	private static volatile Tickets instance;
-
-	private ch.jmanagr.dal.Tickets dal;
 
 	private Tickets()
 	{
@@ -37,31 +35,31 @@ public class Tickets extends AbstractBL
 
 
 	@Override
-	public STATUS_CODE validate(BusinessObject bo)
+	public STATUS_CODE validate(Ticket bo)
 	{
 		// Todo: implement
 		return null;
 	}
 
-	public ArrayList<Ticket> getAllByUser(User user, TICKET_STATE state)
+	public List<Ticket> getAllByUser(User user, TICKET_STATE state)
 	{
 		// Todo: implement
 		return null;
 	}
 
-	public ArrayList<Ticket> getAllByAgent(Agent agent, TICKET_STATE state)
+	public List<Ticket> getAllByAgent(Agent agent, TICKET_STATE state)
 	{
 		// Todo: implement
 		return null;
 	}
 
-	public ArrayList<Ticket> getAllByResource(Resource resource, TICKET_STATE state)
+	public List<Ticket> getAllByResource(Resource resource, TICKET_STATE state)
 	{
 		// Todo: implement
 		return null;
 	}
 
-	public ArrayList<Ticket> getAllByDepartment(Department department, TICKET_STATE state)
+	public List<Ticket> getAllByDepartment(Department department, TICKET_STATE state)
 	{
 		// Todo: implement
 		return null;

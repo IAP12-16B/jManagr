@@ -1,11 +1,11 @@
 package ch.jmanagr.dal;
 
-import ch.jmanagr.bo.BusinessObject;
+import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.STATUS_CODE;
 
 import java.util.List;
 
-public class Users extends AbstractDAL
+public class Users extends AbstractDAL<User>
 {
 	public Users()
 	{
@@ -14,21 +14,21 @@ public class Users extends AbstractDAL
 	}
 
 	@Override
-	public STATUS_CODE create(BusinessObject bo)
+	public STATUS_CODE create(User bo)
 	{
 		// TODO: implement
 		return null;
 	}
 
 	@Override
-	public List<BusinessObject> fetchAll()
+	public List<User> fetch()
 	{
 		// TODO: implement
 		return null;
 	}
 
 	@Override
-	public STATUS_CODE update(BusinessObject bo)
+	public STATUS_CODE update(User bo)
 	{
 		// TODO: implement
 		return null;

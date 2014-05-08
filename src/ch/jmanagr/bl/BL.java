@@ -3,13 +3,17 @@ package ch.jmanagr.bl;
 import ch.jmanagr.bo.BusinessObject;
 import ch.jmanagr.lib.STATUS_CODE;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public interface BL
+/**
+ * @param <BussinessObjectType> The BusinessObject to use
+ */
+public interface BL<BussinessObjectType extends BusinessObject> // BussinessObjectType is a placeholder for the
+// BusinessObject. We need this, to get around return type incompatibility
 {
-	public ArrayList<BusinessObject> getAll();
+	public List<BussinessObjectType> getAll();
 
-	public STATUS_CODE update(BusinessObject bo);
+	public STATUS_CODE update(BussinessObjectType bo);
 
 	/**
 	 * Validates, if the provided BusinessObject is valid and therefor can be saved in database
@@ -18,10 +22,10 @@ public interface BL
 	 *
 	 * @return the result of the check as STATUS_CODE
 	 */
-	public STATUS_CODE validate(BusinessObject bo);
+	public STATUS_CODE validate(BussinessObjectType bo);
 
-	public STATUS_CODE create(BusinessObject bo);
+	public STATUS_CODE create(BussinessObjectType bo);
 
-	public STATUS_CODE delete(BusinessObject bo);
+	public STATUS_CODE delete(BussinessObjectType bo);
 
 }

@@ -1,28 +1,28 @@
 package ch.jmanagr.dal;
 
-import ch.jmanagr.bo.BusinessObject;
+import ch.jmanagr.bo.Resource;
 import ch.jmanagr.lib.STATUS_CODE;
 
 import java.util.List;
 
-public class Resources extends AbstractDAL
+public class Resources extends AbstractDAL<Resource>
 {
 	@Override
-	public STATUS_CODE create(BusinessObject bo)
+	public STATUS_CODE create(Resource bo)
 	{
 		// TODO: implement
 		return null;
 	}
 
 	@Override
-	public List<BusinessObject> fetchAll()
+	public List<Resource> fetch()
 	{
 		// TODO: implement
 		return null;
 	}
 
 	@Override
-	public STATUS_CODE update(BusinessObject bo)
+	public STATUS_CODE update(Resource bo)
 	{
 		// TODO: implement
 		return null;

@@ -1,14 +1,12 @@
 package ch.jmanagr.bl;
 
-import ch.jmanagr.bo.BusinessObject;
+import ch.jmanagr.bo.Resource;
 import ch.jmanagr.lib.STATUS_CODE;
 
 
-public class Resources extends AbstractBL
+public class Resources extends AbstractBL<Resource, ch.jmanagr.dal.Resources>
 {
 	private static volatile Resources instance;
-
-	private ch.jmanagr.dal.Resources dal;
 
 	private Resources()
 	{
@@ -33,7 +31,7 @@ public class Resources extends AbstractBL
 
 
 	@Override
-	public STATUS_CODE validate(BusinessObject bo)
+	public STATUS_CODE validate(Resource bo)
 	{
 		// Todo: implement
 		return null;
