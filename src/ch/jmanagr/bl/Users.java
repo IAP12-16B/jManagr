@@ -41,7 +41,7 @@ public class Users extends AbstractBL<User, ch.jmanagr.dal.Users>
 			return STATUS_CODE.NAME_INVALID;
 		}
 
-		if (!this.validatePasswort(bo.getPassword())) { // Todo: how to get unhashed password?
+		if (!this.validatePassword(bo.getPassword())) { // Todo: how to retrieve unhashed password?
 			return STATUS_CODE.PASSWORD_INVALID;
 		}
 
@@ -50,25 +50,52 @@ public class Users extends AbstractBL<User, ch.jmanagr.dal.Users>
 		return STATUS_CODE.OK;
 	}
 
+	/**
+	 * Checks the username. Username may only contain letters (lower- and uppercase), numbers, _, ., @,# and hyphens
+	 *
+	 * @param username The username
+	 *
+	 * @return true if the username passed the test, false if not
+	 */
 	private boolean validateUsername(String username)
 	{
-		// Username may only contain letters (lower- and uppercase), numbers, _, ., @,# and hyphens
 		return username.matches("[A-z0-9_.@#-]+");
 	}
 
+	/**
+	 * Checks the name. Name may only contain letters  (lower- and uppercase), numbers, umlauts, space, «, », ─ and
+	 * hyphens
+	 *
+	 * @param name The name
+	 *
+	 * @return true if the name passed the test, false if not.
+	 */
 	private boolean validateName(String name)
 	{
-		// Name may only contain letters  (lower- and uppercase), numbers, umlauts, space, «, », ─ and hyphens
 		return name.matches("[A-z0-9äöüéàèâëÄÖÜÈÉÀÁÂË «»─-]+");
 	}
 
-	private boolean validatePasswort(String passwort)
+	/**
+	 * Checks the Password. Password must be at least 4 characters long, must contain at least one number and one
+	 * uppercase letter, one lowercase letter and may only contain two repetitive characters
+	 *
+	 * @param passwort The password
+	 *
+	 * @return true if it passed the test, false if not.
+	 */
+	private boolean validatePassword(String passwort)
 	{
-		// Password must be at least 4 characters long, must contain at least one number and one uppercase letter,
-		// one lowercase letter and may only contain two repetitive characters
 		return passwort.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?!.*(.+)\\1\\1).{4,}$");
 	}
 
+	/**
+	 * Authenticates a user. If successful, the returned user is set as current user.
+	 *
+	 * @param username The username
+	 * @param password Password
+	 *
+	 * @return The logged in user if successful, null if unsuccessful
+	 */
 	public User login(String username, String password)
 	{
 		// Todo: Implemenent real login
@@ -80,6 +107,11 @@ public class Users extends AbstractBL<User, ch.jmanagr.dal.Users>
 		return null;
 	}
 
+	/**
+	 * Returns the current user.
+	 *
+	 * @return the current user. Null if no user is logged in.
+	 */
 	public User getCurrentUser()
 	{
 		return currentUser;

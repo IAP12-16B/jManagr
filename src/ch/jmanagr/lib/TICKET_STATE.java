@@ -1,5 +1,8 @@
 package ch.jmanagr.lib;
 
+/**
+ * Ticket statis
+ */
 public enum TICKET_STATE
 {
 	OPEN(1),

@@ -20,7 +20,7 @@ public class DB
 	 */
 	private DB()
 	{
-		settings = Settings.getInstance().get();
+		settings = Settings.getInstance().retrieve();
 		sql2o = new Sql2o(String.format("jdbc:mysql://%s:%d/%s", settings.getHost(), settings.getPort(),
 				settings.getDatabase()), settings.getUser(), settings.getPassword());
 	}

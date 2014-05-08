@@ -48,6 +48,13 @@ public class Users extends AbstractDAL<User>
 		return dataList;
 	}
 
+	/**
+	 * Get all Agents from the provided Deaprtment
+	 *
+	 * @param department the Deaprtment
+	 *
+	 * @return a list of Agents
+	 */
 	public List<Agent> fetchAgent(Department department)
 	{
 		List<Agent> result = new ArrayList<Agent>();

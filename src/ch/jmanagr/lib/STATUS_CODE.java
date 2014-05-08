@@ -1,6 +1,8 @@
 package ch.jmanagr.lib;
 
-
+/**
+ * Status-Codes for different actions
+ */
 public enum STATUS_CODE
 {
 	OK(1),

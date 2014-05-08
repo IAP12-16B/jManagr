@@ -6,15 +6,34 @@ import java.util.prefs.Preferences;
 
 public class Settings
 {
-	private Preferences preferences;
 	private static volatile Settings instance;
+	private Preferences preferences;
 
 	private Settings()
 	{
 		preferences = Preferences.userRoot().node(this.getClass().getName());
 	}
 
-	public STATUS_CODE put(ch.jmanagr.bo.Settings settings)
+	public static Settings getInstance()
+	{
+		if (instance == null) {
+			synchronized (Settings.class) {
+				if (instance == null) {
+					instance = new Settings();
+				}
+			}
+		}
+		return instance;
+	}
+
+	/**
+	 * Saves the settings
+	 *
+	 * @param settings The settings to store
+	 *
+	 * @return Whether it was successful or not
+	 */
+	public STATUS_CODE store(ch.jmanagr.bo.Settings settings)
 	{
 		try {
 			preferences.put("DB_HOST", settings.getHost());
@@ -31,7 +50,12 @@ public class Settings
 		return STATUS_CODE.OK;
 	}
 
-	public ch.jmanagr.bo.Settings get()
+	/**
+	 * Retrieves the stored Settings
+	 *
+	 * @return the Settings
+	 */
+	public ch.jmanagr.bo.Settings retrieve()
 	{
 		ch.jmanagr.bo.Settings settings = new ch.jmanagr.bo.Settings();
 		settings.setHost(preferences.get("DB_HOST", "127.0.0.1"));
@@ -41,17 +65,5 @@ public class Settings
 		settings.setDatabase(preferences.get("DB_DATABASE", "jManagr"));
 
 		return settings;
-	}
-
-	public static Settings getInstance()
-	{
-		if (instance == null) {
-			synchronized (Settings.class) {
-				if (instance == null) {
-					instance = new Settings();
-				}
-			}
-		}
-		return instance;
 	}
 }

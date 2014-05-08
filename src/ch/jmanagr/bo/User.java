@@ -8,6 +8,7 @@ import java.security.spec.InvalidKeySpecException;
 
 public class User implements BusinessObject
 {
+	/* Todo: how to store hashed/unhashed password? We need it both sometimes */
 	protected int id;
 	protected String firstname;
 	protected String lastname;
@@ -36,6 +37,45 @@ public class User implements BusinessObject
 	}
 
 	public User() {}
+
+	/**
+	 * Hashes a passwor, so it can be stored securely into the DB
+	 *
+	 * @param password the password to hash
+	 *
+	 * @return The hashed password + salt and iteration count
+	 */
+	public static String hashPassword(String password)
+	{
+		try {
+			return PasswordHash.createHash(password);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (InvalidKeySpecException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * Checks a password again its hashed version from the db
+	 *
+	 * @param password The password in plain text
+	 * @param hash     the hash from the DB
+	 *
+	 * @return true if the passwords match, false if not
+	 */
+	public static boolean checkPassword(String password, String hash)
+	{
+		try {
+			return PasswordHash.validatePassword(password, hash);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (InvalidKeySpecException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 	@Override
 	public boolean equals(Object o)
@@ -88,7 +128,6 @@ public class User implements BusinessObject
 	{
 		return id;
 	}
-
 
 	public void setId(int id)
 	{
@@ -151,30 +190,13 @@ public class User implements BusinessObject
 		this.role = role;
 	}
 
-	public static String hashPassword(String password)
-	{
-		try {
-			return PasswordHash.createHash(password);
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (InvalidKeySpecException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	public static boolean checkPassword(String password, String hash)
-	{
-		try {
-			return PasswordHash.validatePassword(password, hash);
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (InvalidKeySpecException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-
+	/**
+	 * Validates the provided password against the hash of this user
+	 *
+	 * @param password the password (plain text)
+	 *
+	 * @return @see checkPassword()
+	 */
 	public boolean checkPassword(String password)
 	{
 		try {

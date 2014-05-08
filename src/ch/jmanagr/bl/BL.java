@@ -9,8 +9,13 @@ import java.util.List;
  * @param <BussinessObjectType> The BusinessObject to use
  */
 public interface BL<BussinessObjectType extends BusinessObject> // BussinessObjectType is a placeholder for the
-// BusinessObject. We need this, to get around return type incompatibility
+// BusinessObject. We need this, to retrieve around return type incompatibility
 {
+	/**
+	 * Get all BusinessObjects
+	 *
+	 * @return A list of BusinessObjects
+	 */
 	public List<BussinessObjectType> getAll();
 
 	public STATUS_CODE update(BussinessObjectType bo);
@@ -24,8 +29,22 @@ public interface BL<BussinessObjectType extends BusinessObject> // BussinessObje
 	 */
 	public STATUS_CODE validate(BussinessObjectType bo);
 
+	/**
+	 * Saves a BusinessObject
+	 *
+	 * @param bo The BusinessObject to save
+	 *
+	 * @return Whether the action was successful or not
+	 */
 	public STATUS_CODE create(BussinessObjectType bo);
 
+	/**
+	 * Deletes a BusinessObject
+	 *
+	 * @param bo The BusinessObject to delete
+	 *
+	 * @return Whether the action was successful or not
+	 */
 	public STATUS_CODE delete(BussinessObjectType bo);
 
 }

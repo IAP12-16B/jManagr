@@ -1,5 +1,8 @@
 package ch.jmanagr.lib;
 
+/**
+ * User roles
+ */
 public enum USER_ROLE
 {
 	USER(1),

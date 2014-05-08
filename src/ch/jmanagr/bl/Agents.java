@@ -28,6 +28,13 @@ public class Agents extends Users
 		return instance;
 	}
 
+	/**
+	 * Get all Agents by a Department
+	 *
+	 * @param department The Department
+	 *
+	 * @return A list of all Agents from a Department
+	 */
 	public List<Agent> getAllByDepartment(Department department)
 	{
 		return dal.fetchAgent(department);

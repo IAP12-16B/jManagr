@@ -22,8 +22,8 @@ public class SettingsTest
 	@Test
 	public void testPutAndGet() throws Exception
 	{
-		testSettings = settings.get();
-		settings.put(testSettings);
-		assertTrue(testSettings.equals(settings.get()));
+		testSettings = settings.retrieve();
+		settings.store(testSettings);
+		assertTrue(testSettings.equals(settings.retrieve()));
 	}
 }
