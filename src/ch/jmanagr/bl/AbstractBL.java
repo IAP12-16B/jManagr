@@ -3,6 +3,7 @@ package ch.jmanagr.bl;
 import ch.jmanagr.bo.BusinessObject;
 import ch.jmanagr.dal.AbstractDAL;
 import ch.jmanagr.lib.STATUS_CODE;
+import javafx.collections.ObservableList;
 
 import java.util.List;
 
@@ -23,8 +24,9 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject,
 
 
 	@Override
-	public List<BusinessObjectType> getAll()
+	public ObservableList<BusinessObjectType> getAll()
 	{
+        // todo kim was machsch du für komischi sache mach das das goht haha i schrib de satz no gern :P
 		return dal.fetch();
 	}
 
