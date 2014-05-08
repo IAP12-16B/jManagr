@@ -10,6 +10,7 @@ public class AbstractDALTest
 	@Test
 	public void testDelete() throws Exception
 	{
+		// Todo: implement test
 		fail("Not yet implemented!");
 	}
 }

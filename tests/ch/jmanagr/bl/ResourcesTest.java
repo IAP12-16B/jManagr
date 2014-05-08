@@ -10,6 +10,7 @@ public class ResourcesTest
 	@Test
 	public void testValidate() throws Exception
 	{
+		// Todo: implement test
 		fail("Not yet implemented!");
 	}
 }

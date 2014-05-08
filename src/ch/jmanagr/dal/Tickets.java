@@ -15,6 +15,7 @@ public class Tickets extends AbstractDAL<Ticket>
 	private Tickets()
 	{
 		super();
+		// Todo: add sample data
 	}
 
 	/**

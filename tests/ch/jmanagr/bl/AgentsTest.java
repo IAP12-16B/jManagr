@@ -25,6 +25,7 @@ public class AgentsTest
 	public void testGetAllByDepartment() throws Exception
 	{
 		testDepartment = new Department(10, "Test", new ArrayList<Agent>());
+		// Todo: implement test
 		fail("Not yet implemented!");
 
 	}

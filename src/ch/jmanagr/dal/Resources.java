@@ -12,6 +12,7 @@ public class Resources extends AbstractDAL<Resource>
 	private Resources()
 	{
 		super();
+		// Todo: add sample data
 	}
 
 	/**

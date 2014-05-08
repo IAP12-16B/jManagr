@@ -16,6 +16,7 @@ public class Users extends AbstractDAL<User>
 	private Users()
 	{
 		super();
+		// Todo: add sample data
 	}
 
 	/**

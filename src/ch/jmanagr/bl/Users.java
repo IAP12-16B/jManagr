@@ -41,7 +41,7 @@ public class Users extends AbstractBL<User, ch.jmanagr.dal.Users>
 			return STATUS_CODE.NAME_INVALID;
 		}
 
-		if (!this.validatePassword(bo.getPassword())) { // Todo: how to retrieve unhashed password?
+		if (!this.validatePassword(bo.getPassword())) { // Todo: how to get the unhashed password?
 			return STATUS_CODE.PASSWORD_INVALID;
 		}
 

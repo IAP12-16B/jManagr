@@ -14,6 +14,7 @@ public class Departments extends AbstractDAL<Department>
 	private Departments()
 	{
 		super();
+		// Todo: add sample data
 	}
 
 	/**

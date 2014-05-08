@@ -21,30 +21,35 @@ public class TicketsTest
 	@Test
 	public void testValidate() throws Exception
 	{
+		// Todo: implement test
 		fail("Not yet implemented!");
 	}
 
 	@Test
 	public void testGetAllByUser() throws Exception
 	{
+		// Todo: implement test
 		fail("Not yet implemented!");
 	}
 
 	@Test
 	public void testGetAllByAgent() throws Exception
 	{
+		// Todo: implement test
 		fail("Not yet implemented!");
 	}
 
 	@Test
 	public void testGetAllByResource() throws Exception
 	{
+		// Todo: implement test
 		fail("Not yet implemented!");
 	}
 
 	@Test
 	public void testGetAllByDepartment() throws Exception
 	{
+		// Todo: implement test
 		fail("Not yet implemented!");
 	}
 }

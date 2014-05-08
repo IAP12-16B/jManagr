@@ -19,12 +19,14 @@ public class DBTest
 	@Test
 	public void testExecuteAndFetch() throws Exception
 	{
+		// Todo: implement test
 		fail("Not yet implemented!");
 	}
 
 	@Test
 	public void testExecuteAndFetchWithColumnMapping() throws Exception
 	{
+		// Todo: implement test
 		fail("Not yet implemented!");
 	}
 }
