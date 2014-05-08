@@ -11,12 +11,12 @@ public class Ticket implements BusinessObject
 	private String description;
 	private TICKET_STATE status;
 	private Date date;
-	private Resource ressource;
+	private Resource resource;
 	private Agent agent;
 	private Department department;
 	private User user;
 
-	public Ticket(int id, String name, String description, TICKET_STATE status, Date date, Resource ressource,
+	public Ticket(int id, String name, String description, TICKET_STATE status, Date date, Resource resource,
 	              Agent agent, Department department, User user)
 	{
 		this.id = id;
@@ -24,7 +24,7 @@ public class Ticket implements BusinessObject
 		this.description = description;
 		this.status = status;
 		this.date = date;
-		this.ressource = ressource;
+		this.resource = resource;
 		this.agent = agent;
 		this.department = department;
 		this.user = user;
@@ -60,7 +60,7 @@ public class Ticket implements BusinessObject
 		if (!name.equals(ticket.name)) {
 			return false;
 		}
-		if (ressource != null ? !ressource.equals(ticket.ressource) : ticket.ressource != null) {
+		if (resource != null ? !resource.equals(ticket.resource) : ticket.resource != null) {
 			return false;
 		}
 		if (status != ticket.status) {
@@ -81,7 +81,7 @@ public class Ticket implements BusinessObject
 		result = 31 * result + (description != null ? description.hashCode() : 0);
 		result = 31 * result + (status != null ? status.hashCode() : 0);
 		result = 31 * result + (date != null ? date.hashCode() : 0);
-		result = 31 * result + (ressource != null ? ressource.hashCode() : 0);
+		result = 31 * result + (resource != null ? resource.hashCode() : 0);
 		result = 31 * result + (agent != null ? agent.hashCode() : 0);
 		result = 31 * result + (department != null ? department.hashCode() : 0);
 		result = 31 * result + (user != null ? user.hashCode() : 0);
@@ -92,6 +92,7 @@ public class Ticket implements BusinessObject
 	{
 		return id;
 	}
+
 
 	public void setId(int id)
 	{
@@ -138,14 +139,19 @@ public class Ticket implements BusinessObject
 		this.date = date;
 	}
 
-	public Resource getRessource()
+	public Resource getResource()
 	{
-		return ressource;
+		return resource;
 	}
 
-	public void setRessource(Resource ressource)
+	public void setResource(Resource resource)
 	{
-		this.ressource = ressource;
+		this.resource = resource;
+	}
+
+	public void setResource(int resourceId)
+	{
+		// todo fetch resource by id
 	}
 
 	public Agent getAgent()
@@ -158,6 +164,11 @@ public class Ticket implements BusinessObject
 		this.agent = agent;
 	}
 
+	public void setAgent(int agentId)
+	{
+		// todo fetch agent by id
+	}
+
 	public Department getDepartment()
 	{
 		return department;
@@ -168,6 +179,11 @@ public class Ticket implements BusinessObject
 		this.department = department;
 	}
 
+	public void setDepartment(int departmentId)
+	{
+		// todo fetch department by id
+	}
+
 	public User getUser()
 	{
 		return user;
@@ -176,5 +192,10 @@ public class Ticket implements BusinessObject
 	public void setUser(User user)
 	{
 		this.user = user;
+	}
+
+	public void setUser(int userId)
+	{
+		// todo fetch user by id
 	}
 }

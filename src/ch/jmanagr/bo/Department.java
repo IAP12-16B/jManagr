@@ -55,6 +55,7 @@ public class Department implements BusinessObject
 		return id;
 	}
 
+
 	public void setId(int id)
 	{
 		this.id = id;

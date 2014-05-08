@@ -1,12 +1,7 @@
 package ch.jmanagr.dal;
 
 
-import org.sql2o.Query;
 import org.sql2o.Sql2o;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class DB
 {
@@ -49,35 +44,4 @@ public class DB
 		return getInstance().sql2o;
 	}
 
-	/**
-	 * Shortcut for sql2o's createQuery() and executeAndFetch() method
-	 *
-	 * @param query      the SQL query
-	 * @param returnType class
-	 * @param <T>        A class
-	 *
-	 * @return List<T>
-	 */
-	public <T> List<T> executeAndFetch(String query, Class<T> returnType)
-	{
-		return sql2o.createQuery(query).executeAndFetch(returnType);
-	}
-
-	/**
-	 * Shortcut for sql2o's createQuery() and executeAndFetch() method with column mapping
-	 *
-	 * @param query      the SQL query
-	 * @param returnType class
-	 * @param <T>        A class
-	 *
-	 * @return List<T>
-	 */
-	public <T> List<T> executeAndFetch(String query, Class<T> returnType, HashMap<String, String> columnMap)
-	{
-		Query q = sql2o.createQuery(query);
-		for (Map.Entry<String, String> entry : columnMap.entrySet()) {
-			q.addColumnMapping(entry.getKey(), entry.getValue());
-		}
-		return q.executeAndFetch(returnType);
-	}
 }

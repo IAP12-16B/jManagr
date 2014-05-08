@@ -4,8 +4,8 @@ package ch.jmanagr.dal;
 import ch.jmanagr.bo.*;
 import ch.jmanagr.lib.STATUS_CODE;
 import ch.jmanagr.lib.TICKET_STATE;
+import org.sql2o.Connection;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Tickets extends AbstractDAL<Ticket>
@@ -15,7 +15,6 @@ public class Tickets extends AbstractDAL<Ticket>
 	private Tickets()
 	{
 		super();
-		// Todo: add sample data
 	}
 
 	/**
@@ -36,16 +35,28 @@ public class Tickets extends AbstractDAL<Ticket>
 	@Override
 	public STATUS_CODE create(Ticket bo)
 	{
-		// TODO: implement
-		dataList.add(bo);
-		return STATUS_CODE.OK;
+		try (Connection con = DB.getSql2o().open()) {
+			bo.setId((Integer)
+					con.createQuery("INSERT INTO " + Ticket.class.getSimpleName() + " (status, date, name, " +
+							"description, Department, Agent, Resource, User) VALUES (:status, :date, :name, " +
+							":description, :department, :agent, :resource, :user);", true)
+							.bind(bo)
+							.executeUpdate()
+							.getKey()
+			);
+			return STATUS_CODE.OK;
+		}
+
 	}
 
 	@Override
 	public List<Ticket> fetch()
 	{
-		// TODO: implement
-		return dataList;
+		try (Connection con = DB.getSql2o().open()) {
+			return con
+					.createQuery("SELECT * FROM " + Ticket.class.getSimpleName())
+					.executeAndFetch(Ticket.class);
+		}
 	}
 
 	/**
@@ -57,13 +68,13 @@ public class Tickets extends AbstractDAL<Ticket>
 	 */
 	public List<Ticket> fetch(TICKET_STATE state)
 	{
-		List<Ticket> result = new ArrayList<Ticket>();
-		for (Ticket ticket : dataList) {
-			if (ticket.getStatus() == state) {
-				result.add(ticket);
-			}
+		try (Connection con = DB.getSql2o().open()) {
+			return con
+					.createQuery("SELECT * FROM " + Ticket.class.getSimpleName() + " WHERE `status` = :status")
+					.addParameter("status", state)
+					.executeAndFetch(Ticket.class);
 		}
-		return result;
+
 	}
 
 	/**
@@ -76,13 +87,15 @@ public class Tickets extends AbstractDAL<Ticket>
 	 */
 	public List<Ticket> fetch(User user, TICKET_STATE state)
 	{
-		List<Ticket> result = new ArrayList<Ticket>();
-		for (Ticket ticket : dataList) {
-			if (ticket.getUser() == user && ticket.getStatus() == state) {
-				result.add(ticket);
-			}
+		try (Connection con = DB.getSql2o().open()) {
+			return con
+					.createQuery("SELECT * FROM " + Ticket.class.getSimpleName() + " WHERE `status` = :status AND " +
+							"`User` " +
+							"= :user_id")
+					.addParameter("status", state)
+					.addParameter("user_id", user.getId())
+					.executeAndFetch(Ticket.class);
 		}
-		return result;
 	}
 
 	/**
@@ -95,13 +108,15 @@ public class Tickets extends AbstractDAL<Ticket>
 	 */
 	public List<Ticket> fetch(Agent agent, TICKET_STATE state)
 	{
-		List<Ticket> result = new ArrayList<Ticket>();
-		for (Ticket ticket : dataList) {
-			if (ticket.getAgent() == agent && ticket.getStatus() == state) {
-				result.add(ticket);
-			}
+		try (Connection con = DB.getSql2o().open()) {
+			return con
+					.createQuery("SELECT * FROM " + Ticket.class.getSimpleName() + " WHERE `status` = :status AND " +
+							"`Agent`" +
+							" = :agent_id")
+					.addParameter("status", state)
+					.addParameter("agent_id", agent.getId())
+					.executeAndFetch(Ticket.class);
 		}
-		return result;
 	}
 
 	/**
@@ -114,13 +129,14 @@ public class Tickets extends AbstractDAL<Ticket>
 	 */
 	public List<Ticket> fetch(Resource resource, TICKET_STATE state)
 	{
-		List<Ticket> result = new ArrayList<Ticket>();
-		for (Ticket ticket : dataList) {
-			if (ticket.getRessource() == resource && ticket.getStatus() == state) {
-				result.add(ticket);
-			}
+		try (Connection con = DB.getSql2o().open()) {
+			return con
+					.createQuery("SELECT * FROM " + Ticket.class.getSimpleName() + " WHERE `status` = :status AND " +
+							"`Resource` = :resource_id")
+					.addParameter("status", state)
+					.addParameter("resource_id", resource.getId())
+					.executeAndFetch(Ticket.class);
 		}
-		return result;
 	}
 
 	/**
@@ -134,26 +150,40 @@ public class Tickets extends AbstractDAL<Ticket>
 	 */
 	public List<Ticket> fetch(Department department, TICKET_STATE state)
 	{
-		List<Ticket> result = new ArrayList<Ticket>();
-		for (Ticket ticket : dataList) {
-			if (ticket.getDepartment() == department && ticket.getStatus() == state) {
-				result.add(ticket);
-			}
+		try (Connection con = DB.getSql2o().open()) {
+			return con
+					.createQuery("SELECT * FROM " + Ticket.class.getSimpleName() + " WHERE `status` = :status AND " +
+							"`Department` = :department_id")
+					.addParameter("status", state)
+					.addParameter("department_id", department.getId())
+					.executeAndFetch(Ticket.class);
 		}
-		return result;
 	}
 
 	@Override
 	public STATUS_CODE update(Ticket bo)
 	{
-		for (Ticket ticket : dataList) {
-			if (ticket.getId() == bo.getId()) {
-				dataList.set(dataList.indexOf(ticket), bo);
-				return STATUS_CODE.OK;
-			}
-		}
+		try (Connection con = DB.getSql2o().open()) {
+			bo.setId((Integer)
+					con.createQuery(
+							"UPDATE " + Ticket.class.getSimpleName() + " SET " +
+									"status = :status, " +
+									"date = :date, " +
+									"name = :name, " +
+									"description = :description, " +
+									"Department = :department, " +
+									"Agent = :agent, " +
+									"Resource = :resource, " +
+									"User = :user" +
+									"WHERE id = :id",
+							true
+					).bind(bo)
+							.executeUpdate()
+							.getKey()
+			);
 
-		return STATUS_CODE.FAIL; // TODO: Status for failed update
-		// TODO: implement
+			return STATUS_CODE.OK;
+
+		}
 	}
 }

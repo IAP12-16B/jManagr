@@ -29,6 +29,7 @@ public class Resource implements BusinessObject
 		return id;
 	}
 
+
 	public void setId(int id)
 
 	{
