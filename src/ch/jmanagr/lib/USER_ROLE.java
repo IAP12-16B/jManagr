@@ -6,10 +6,10 @@ public enum USER_ROLE
 	AGENT(2),
 	ADMIN(3);
 
-	public final int Value;
+	public final int value;
 
 	private USER_ROLE(int i)
 	{
-		Value = i;
+		value = i;
 	}
 }
