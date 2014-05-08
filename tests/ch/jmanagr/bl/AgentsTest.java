@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 
 public class AgentsTest
@@ -19,15 +19,13 @@ public class AgentsTest
 	public void setUp()
 	{
 		agents = Agents.getInstance();
-		testDepartment = new Department(10, "Test", new ArrayList<Agent>());
 	}
 
 	@Test
 	public void testGetAllByDepartment() throws Exception
 	{
-		for (Agent agent : agents.getAllByDepartment(testDepartment)) {
-			assertTrue(testDepartment.equals(agent.getDepartment()));
-		}
+		testDepartment = new Department(10, "Test", new ArrayList<Agent>());
+		fail("Not yet implemented!");
 
 	}
 }
