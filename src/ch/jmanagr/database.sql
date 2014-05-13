@@ -32,8 +32,8 @@ CREATE TABLE IF NOT EXISTS `jManagr`.`User` (
   CONSTRAINT `fk_User_Department1`
     FOREIGN KEY (`Department`)
     REFERENCES `jManagr`.`Department` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -69,23 +69,23 @@ CREATE TABLE IF NOT EXISTS `jManagr`.`Ticket` (
   CONSTRAINT `fk_Ticket_Department`
     FOREIGN KEY (`Department`)
     REFERENCES `jManagr`.`Department` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Ticket_User1`
     FOREIGN KEY (`Agent`)
     REFERENCES `jManagr`.`User` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Ticket_Resource1`
     FOREIGN KEY (`Resource`)
     REFERENCES `jManagr`.`Resource` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Ticket_User2`
     FOREIGN KEY (`User`)
     REFERENCES `jManagr`.`User` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE NO ACTION -- TODO what if user with tickets gets deleted?
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -101,8 +101,8 @@ CREATE TABLE IF NOT EXISTS `jManagr`.`Resource_Data` (
   CONSTRAINT `fk_Resource_Data_Resource1`
     FOREIGN KEY (`Resource`)
     REFERENCES `jManagr`.`Resource` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -119,13 +119,13 @@ CREATE TABLE IF NOT EXISTS `jManagr`.`Resource_Children` (
   CONSTRAINT `fk_Resource_has_Resource_Resource1`
     FOREIGN KEY (`Resource`)
     REFERENCES `jManagr`.`Resource` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Resource_has_Resource_Resource2`
     FOREIGN KEY (`child`)
     REFERENCES `jManagr`.`Resource` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
