@@ -1,5 +1,6 @@
 package ch.jmanagr.bl;
 
+import ch.jmanagr.TestData;
 import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.STATUS_CODE;
 import ch.jmanagr.lib.USER_ROLE;
@@ -20,15 +21,13 @@ public class UsersTest
 	@Before
 	public void setUp() throws Exception
 	{
-		testUser = new User("Test", "User", "root", "123", USER_ROLE.USER);
+		testUser = TestData.testUser;
 		users = Users.getInstance();
-		users.create(testUser);
 	}
 
 	@After
 	public void tearDown() throws Exception
 	{
-		users.delete(testUser);
 	}
 
 	@Test

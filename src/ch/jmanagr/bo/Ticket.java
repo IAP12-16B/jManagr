@@ -30,6 +30,21 @@ public class Ticket implements BusinessObject
 		this.user = user;
 	}
 
+	public Ticket(String name, String description, TICKET_STATE status, Date date, Resource resource,
+	              Agent agent, Department department, User user)
+	{
+		this.name = name;
+		this.description = description;
+		this.status = status;
+		this.date = date;
+		this.resource = resource;
+		this.agent = agent;
+		this.department = department;
+		this.user = user;
+	}
+
+	public Ticket() {}
+
 	@Override
 	public boolean equals(Object o)
 	{
@@ -144,14 +159,10 @@ public class Ticket implements BusinessObject
 		return resource;
 	}
 
+
 	public void setResource(Resource resource)
 	{
 		this.resource = resource;
-	}
-
-	public void setResource(int resourceId)
-	{
-		// todo fetch resource by id
 	}
 
 	public Agent getAgent()
@@ -164,11 +175,6 @@ public class Ticket implements BusinessObject
 		this.agent = agent;
 	}
 
-	public void setAgent(int agentId)
-	{
-		// todo fetch agent by id
-	}
-
 	public Department getDepartment()
 	{
 		return department;
@@ -179,11 +185,6 @@ public class Ticket implements BusinessObject
 		this.department = department;
 	}
 
-	public void setDepartment(int departmentId)
-	{
-		// todo fetch department by id
-	}
-
 	public User getUser()
 	{
 		return user;
@@ -192,10 +193,5 @@ public class Ticket implements BusinessObject
 	public void setUser(User user)
 	{
 		this.user = user;
-	}
-
-	public void setUser(int userId)
-	{
-		// todo fetch user by id
 	}
 }

@@ -5,8 +5,11 @@ import ch.jmanagr.bo.Department;
 import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.STATUS_CODE;
 import ch.jmanagr.lib.USER_ROLE;
+import org.sql2o.Connection;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Users extends AbstractDAL<User>
@@ -16,7 +19,6 @@ public class Users extends AbstractDAL<User>
 	private Users()
 	{
 		super();
-		// Todo: add sample data
 	}
 
 	/**
@@ -37,16 +39,52 @@ public class Users extends AbstractDAL<User>
 	@Override
 	public STATUS_CODE create(User bo)
 	{
-		// TODO: implement
-		dataList.add(bo);
-		return STATUS_CODE.OK;
+		try (Connection con = DB.getSql2o().open()) {
+			int key = new BigDecimal((Long)
+					con.createQuery("INSERT INTO " + User.class.getSimpleName() + " (id,firstname,lastname,username," +
+							"password,role) VALUES (:id,:firstname,:lastname,:username,:password,:role);", true)
+							.bind(bo)
+							.addParameter("role", bo.getRole().toString())
+							.executeUpdate()
+							.getKey()
+			).intValueExact();
+			bo.setId(key);
+			// todo if agent add department
+			return STATUS_CODE.OK;
+		}
+	}
+
+	public STATUS_CODE create(Agent bo)
+	{
+		try (Connection con = DB.getSql2o().open()) {
+			int key = new BigDecimal((Long)
+					con.createQuery("INSERT INTO " + User.class.getSimpleName() + " (id,firstname,lastname,username," +
+							"password,role,department) VALUES (:id,:firstname,:lastname,:username,:password,:role," +
+							":departmentId);", true)
+							.bind(bo)
+							.addParameter("role", bo.getRole().toString())
+							.addParameter("departmentId", bo.getDepartment().getId())
+							.executeUpdate()
+							.getKey()
+			).intValueExact();
+			bo.setId(key);
+
+			return STATUS_CODE.OK;
+		}
+	}
+
+	@Override
+	public User fetch(int id)
+	{
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("id", id);
+		return this.fetch("id,firstname,lastname,username,password,role", "WEHRE id = :id LIMIT 1;", params).get(0);
 	}
 
 	@Override
 	public List<User> fetch()
 	{
-		// TODO: implement
-		return dataList;
+		return this.fetch("id,firstname,lastname,username,password,role", "");
 	}
 
 	/**
@@ -58,6 +96,7 @@ public class Users extends AbstractDAL<User>
 	 */
 	public List<Agent> fetchAgent(Department department)
 	{
+		// Todo
 		List<Agent> result = new ArrayList<Agent>();
 		for (User user : dataList) {
 			if (user.getRole() == USER_ROLE.AGENT) {

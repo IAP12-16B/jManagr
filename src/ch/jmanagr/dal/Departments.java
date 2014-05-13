@@ -3,9 +3,10 @@ package ch.jmanagr.dal;
 
 import ch.jmanagr.bo.Department;
 import ch.jmanagr.lib.STATUS_CODE;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import org.sql2o.Connection;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 
 public class Departments extends AbstractDAL<Department>
@@ -37,26 +38,33 @@ public class Departments extends AbstractDAL<Department>
 	@Override
 	public STATUS_CODE create(Department bo)
 	{
-		dataList.add(bo);
-		return STATUS_CODE.OK;
-		// TODO: implement
+		try (Connection con = DB.getSql2o().open()) {
+			int key = new BigDecimal((Long)
+					con.createQuery("INSERT INTO " + Department.class.getSimpleName() + " (id, name) VALUES (:id, " +
+							":name);", true)
+							.bind(bo)
+							.executeUpdate()
+							.getKey()
+			).intValueExact();
+			bo.setId(key);
+
+			// todo insert agents
+			return STATUS_CODE.OK;
+		}
 	}
 
 	@Override
-	public ObservableList<Department> fetch() // @pablo: wenn möglich würd ich gern do in dr dal keini observableLists
-	// ha, sonder nur lists, eifach dmit mir chli flexibler sind. Witer ober cha me die jo denn scho caste...
+	public List<Department> fetch()
 	{
-		List<Department> deps = DB.getSql2o().createQuery("SELECT id, name FROM departments").executeAndFetch
-				(Department.class); // todo kim pls mach dass das goht i weiss nit was du für komischi sache in DB
-				// klass gmacht hesch :P -> @pabloe: isch doch ganz eifach, muesch hald die DB klass nur 1 sekunde
-				// länger aluege xD
-		ObservableList<Department> depsObsList= FXCollections.observableArrayList(deps); // Now add observability by wrapping it with ObservableList. //changes to list will not fire an event, only changes to observerList
+		return this.fetch("id, name", "");
+	}
 
-        return depsObsList;
-        //return dataList;
-		/*List<Department> deps = db.executeAndFetch("SELECT id, name FROM departments", Department.class);
-		return deps;*/
-		// TODO: implement
+	@Override
+	public Department fetch(int id)
+	{
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("id", id);
+		return this.fetch("id, name", "WEHRE id = :id LIMIT 1;", params).get(0);
 	}
 
 	@Override

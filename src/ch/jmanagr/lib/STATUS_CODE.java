@@ -21,4 +21,10 @@ public enum STATUS_CODE
 	{
 		value = i;
 	}
+
+	@Override
+	public String toString()
+	{
+		return Integer.toString(value);
+	}
 }

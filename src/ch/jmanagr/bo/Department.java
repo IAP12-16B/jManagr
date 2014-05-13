@@ -16,6 +16,16 @@ public class Department implements BusinessObject
 
 	}
 
+	public Department(String name, ArrayList<Agent> agents)
+	{
+		this.name = name;
+		this.agents = agents;
+
+	}
+
+	public Department() {}
+
+
 	@Override
 	public boolean equals(Object o)
 	{

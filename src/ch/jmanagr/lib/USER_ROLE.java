@@ -15,4 +15,10 @@ public enum USER_ROLE
 	{
 		value = i;
 	}
+
+	@Override
+	public String toString()
+	{
+		return Integer.toString(value);
+	}
 }

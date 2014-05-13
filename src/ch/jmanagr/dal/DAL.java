@@ -25,6 +25,8 @@ public interface DAL<T extends BusinessObject>
 	public List<T> fetch(); // @Pablo: Can return a list of object, which's class implements the
 	// BusinessObject-Interface
 
+	public T fetch(int id);
+
 	/**
 	 * Deletes a BusinessObject
 	 *

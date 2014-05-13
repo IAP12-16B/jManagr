@@ -1,6 +1,5 @@
 package ch.jmanagr.bl;
 
-import ch.jmanagr.bo.User;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,7 +9,6 @@ public class TicketsTest
 {
 
 	private Tickets tickets;
-	private User testUser;
 
 	@Before
 	public void setUp() throws Exception

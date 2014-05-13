@@ -24,6 +24,19 @@ public class Resource implements BusinessObject
 		this.children = children;
 	}
 
+	public Resource(String name, HashMap<String, String> data, ArrayList<Ticket> tickets, Resource parent,
+	                ArrayList<Resource> children)
+	{
+		this.name = name;
+		this.data = data;
+		this.tickets = tickets;
+		this.parent = parent;
+		this.children = children;
+	}
+
+	public Resource() {}
+
+
 	public int getId()
 	{
 		return id;

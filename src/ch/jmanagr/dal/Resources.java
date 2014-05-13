@@ -2,7 +2,10 @@ package ch.jmanagr.dal;
 
 import ch.jmanagr.bo.Resource;
 import ch.jmanagr.lib.STATUS_CODE;
+import org.sql2o.Connection;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 
 public class Resources extends AbstractDAL<Resource>
@@ -33,15 +36,35 @@ public class Resources extends AbstractDAL<Resource>
 	@Override
 	public STATUS_CODE create(Resource bo)
 	{
-		dataList.add(bo);
-		return STATUS_CODE.OK;
+		try (Connection con = DB.getSql2o().open()) {
+			int key = new BigDecimal((Long)
+					con.createQuery("INSERT INTO " + Resource.class.getSimpleName() + " (id, name," +
+							"parent) VALUES (:id," +
+							" :name, :parentId);", true)
+							.bind(bo)
+							.addParameter("parentId", bo.getParent().getId())
+							.executeUpdate()
+							.getKey()
+			).intValueExact();
+			bo.setId(key);
+
+			// todo add children, data and tickets
+			return STATUS_CODE.OK;
+		}
 	}
 
 	@Override
 	public List<Resource> fetch()
 	{
-		// TODO: implement
-		return dataList;
+		return this.fetch("id, name", "");
+	}
+
+	@Override
+	public Resource fetch(int id)
+	{
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("id", id);
+		return this.fetch("id, name", "WEHRE id = :id LIMIT 1;", params).get(0);
 	}
 
 	@Override

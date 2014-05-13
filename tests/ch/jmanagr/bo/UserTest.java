@@ -1,5 +1,6 @@
 package ch.jmanagr.bo;
 
+import ch.jmanagr.TestData;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +17,7 @@ public class UserTest
 	@Before
 	public void setUp() throws Exception
 	{
-		this.testUser = new User();
+		this.testUser = TestData.testUser;
 	}
 
 	@After

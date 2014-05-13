@@ -14,4 +14,10 @@ public enum TICKET_STATE
 	{
 		value = i;
 	}
+
+	@Override
+	public String toString()
+	{
+		return Integer.toString(value);
+	}
 }

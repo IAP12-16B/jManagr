@@ -1,3 +1,7 @@
 -------------- JAVA FX 
 Good slideshow:		http://www.slideshare.net/skrb/from-swing-to-javafx
 ObservableList:		http://docs.oracle.com/javafx/2/collections/jfxpub-collections.htm
+
+
+-------------- SQL2O
+-> POJO objects (for fetching) MUST have a empty constructor (e.g. public Foo(){}). Otherwise, Sql2o will throw an "Could not create a new instance of class <Class>" exception...

@@ -14,6 +14,15 @@ public class Settings
 
 	}
 
+	public Settings(String db_host, String db_database, String db_user, String db_password, int db_port)
+	{
+		this.db_host = db_host;
+		this.db_database = db_database;
+		this.db_user = db_user;
+		this.db_password = db_password;
+		this.db_port = db_port;
+	}
+
 	/**
 	 * @return String the Host
 	 */
