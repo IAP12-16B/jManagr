@@ -18,6 +18,7 @@ import java.util.HashMap;
  */
 public class TestData
 {
+	// todo rewrite this
 	public static User testUser;
 	public static Ticket testTicket;
 	public static Resource testResource;

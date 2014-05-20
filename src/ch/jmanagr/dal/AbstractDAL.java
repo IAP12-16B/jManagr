@@ -9,49 +9,39 @@ import org.sql2o.Query;
 import java.lang.reflect.ParameterizedType;
 import java.util.*;
 
-public abstract class AbstractDAL<T extends BusinessObject> implements DAL<T>
+public abstract class AbstractDAL<BusinessObjectType extends BusinessObject> implements DAL<BusinessObjectType>
 {
 	protected DB db;
 
 	// Temporary list
-	protected List<T> dataList;
+	protected List<BusinessObjectType> dataList;
 
 
 	protected AbstractDAL()
 	{
 		db = DB.getInstance();
-		dataList = new ArrayList<T>();
+		dataList = new ArrayList<BusinessObjectType>();
 	}
 
 
 	@Override
-	public STATUS_CODE delete(T bo)
+	public STATUS_CODE delete(BusinessObjectType bo)
 	{
-
-
-		/*try {
-			String deleteSQL = "DELETE FROM " + bo.getTable() + " WHERE id = :id";
-			DB.getSql2o().createQuery(deleteSQL)
-					.addParameter("id", bo.getId())
-					.executeUpdate();
-		} catch (Exception e) { // TODO: better fail handling
-			e.printStackTrace();
-			return STATUS_CODE.FAIL;
-		}*/
 
 		dataList.remove(bo);
 
 		return STATUS_CODE.OK;
 	}
 
-	public Class<T> getTClass()
+	public Class<BusinessObjectType> getTClass()
 	{
-		return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		return (Class<BusinessObjectType>) ((ParameterizedType) getClass().getGenericSuperclass())
+				.getActualTypeArguments()[0];
 	}
 
-	protected List<T> fetch(String columns, String other, HashMap<String, Object> parameters)
+	protected List<BusinessObjectType> fetch(String columns, String other, HashMap<String, Object> parameters)
 	{
-		Class<T> t = this.getTClass();
+		Class<BusinessObjectType> t = this.getTClass();
 		try (Connection con = DB.getSql2o().open()) {
 			Query q = con.createQuery(String.format("SELECT %s FROM %s %s;", columns, t.getSimpleName(), other));
 
@@ -70,13 +60,14 @@ public abstract class AbstractDAL<T extends BusinessObject> implements DAL<T>
 		}
 	}
 
-	protected List<T> fetch(String columns, String other)
+	protected List<BusinessObjectType> fetch(String columns, String other)
 	{
 		return this.fetch(columns, other, new HashMap<String, Object>());
 	}
 
-	protected List<T> fetch(String columns)
+	protected List<BusinessObjectType> fetch(String columns)
 	{
 		return this.fetch(columns, "");
 	}
+
 }

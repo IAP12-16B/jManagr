@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `jManagr`.`Ticket` (
   CONSTRAINT `fk_Ticket_User2`
     FOREIGN KEY (`User`)
     REFERENCES `jManagr`.`User` (`id`)
-    ON DELETE NO ACTION -- TODO what if user with tickets gets deleted?
+    ON DELETE NO ACTION -- TODO what if user with tickets gets deleted? -> soft-delete
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 

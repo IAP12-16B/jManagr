@@ -66,18 +66,67 @@ public class Tickets extends AbstractDAL<Ticket>
 
 			for (Ticket ticket : tickets) {
 				Integer userId = getUserIdQuery.addParameter("ticket_id", ticket.getId()).executeScalar(Integer.class);
-				// todo fetch user via Users dal
+				ticket.setUser(Users.getInstance().fetch(userId));
 			}
 		}
 
 		return tickets;
 	}
 
-	private List<Ticket> mapRelations(List<Ticket> tickets)
+	private List<Ticket> addResource(List<Ticket> tickets)
 	{
+		try (Connection con = DB.getSql2o().open()) {
+			Query getResourceIdQuery = con.createQuery(String.format("SELECT Resource FROM %s WHERE id = :ticket_id " +
+					"LIMIT 1;",
+					Ticket.class.getSimpleName()));
 
+			for (Ticket ticket : tickets) {
+				Integer resourceId = getResourceIdQuery.addParameter("ticket_id", ticket.getId()).executeScalar
+						(Integer.class);
+				ticket.setResource(Resources.getInstance().fetch(resourceId));
+			}
+		}
 
 		return tickets;
+	}
+
+	private List<Ticket> addDepartment(List<Ticket> tickets)
+	{
+		try (Connection con = DB.getSql2o().open()) {
+			Query getDepartmentIdQuery = con.createQuery(String.format("SELECT Department FROM %s WHERE id = " +
+					":ticket_id LIMIT 1;",
+					Ticket.class.getSimpleName()));
+
+			for (Ticket ticket : tickets) {
+				Integer departmentId = getDepartmentIdQuery.addParameter("ticket_id",
+						ticket.getId()).executeScalar(Integer.class);
+				ticket.setResource(Resources.getInstance().fetch(departmentId));
+			}
+		}
+
+		return tickets;
+	}
+
+	private List<Ticket> addAgent(List<Ticket> tickets)
+	{
+		try (Connection con = DB.getSql2o().open()) {
+			Query getAgentIdQuery = con.createQuery(String.format("SELECT Agent FROM %s WHERE id = :ticket_id LIMIT " +
+					"1;",
+					Ticket.class.getSimpleName()));
+
+			for (Ticket ticket : tickets) {
+				Integer agentId = getAgentIdQuery.addParameter("ticket_id", ticket.getId()).executeScalar(Integer
+						.class);
+				ticket.setAgent(Users.getInstance().fetchAgent(agentId));
+			}
+		}
+
+		return tickets;
+	}
+
+	protected List<Ticket> mapRelations(List<Ticket> tickets)
+	{
+		return this.addUser(this.addAgent(this.addDepartment(this.addResource(tickets))));
 	}
 
 	@Override
@@ -85,7 +134,8 @@ public class Tickets extends AbstractDAL<Ticket>
 	{
 		HashMap<String, Object> params = new HashMap<>();
 		params.put("id", id);
-		return this.fetch("id,status,date,name,description", "WEHRE id = :id LIMIT 1;", params).get(0);
+		return this.mapRelations(this.fetch("id,status,date,name,description", "WEHRE id = :id LIMIT 1;",
+				params)).get(0);
 	}
 
 
@@ -104,7 +154,7 @@ public class Tickets extends AbstractDAL<Ticket>
 	 */
 	public List<Ticket> fetch(TICKET_STATE state)
 	{
-		HashMap<String, Object> params = new HashMap<String, Object>();
+		HashMap<String, Object> params = new HashMap<>();
 		params.put("status", state);
 		return this.mapRelations(this.fetch("id,status,date,name,description", "WHERE `status` = :status", params));
 	}
@@ -119,10 +169,12 @@ public class Tickets extends AbstractDAL<Ticket>
 	 */
 	public List<Ticket> fetch(User user, TICKET_STATE state)
 	{
-		HashMap<String, Object> params = new HashMap<String, Object>();
+		HashMap<String, Object> params = new HashMap<>();
 		params.put("status", state);
 		params.put("user_id", user.getId());
-		return this.mapRelations(this.fetch("id,status,date,name,description", "WHERE `status` = :status AND `User` = " +
+		return this.mapRelations(this.fetch("id,status,date,name,description", "WHERE `status` = :status AND `User` " +
+				"=" +
+				" " +
 				":user_id", params));
 	}
 
@@ -136,10 +188,12 @@ public class Tickets extends AbstractDAL<Ticket>
 	 */
 	public List<Ticket> fetch(Agent agent, TICKET_STATE state)
 	{
-		HashMap<String, Object> params = new HashMap<String, Object>();
+		HashMap<String, Object> params = new HashMap<>();
 		params.put("status", state);
 		params.put("agent_id", agent.getId());
-		return this.mapRelations(this.fetch("id,status,date,name,description", "WHERE `status` = :status AND `Agent` =" +
+		return this.mapRelations(this.fetch("id,status,date,name,description", "WHERE `status` = :status AND `Agent`" +
+				" " +
+				"=" +
 				" :agent_id", params));
 	}
 
@@ -153,7 +207,7 @@ public class Tickets extends AbstractDAL<Ticket>
 	 */
 	public List<Ticket> fetch(Resource resource, TICKET_STATE state)
 	{
-		HashMap<String, Object> params = new HashMap<String, Object>();
+		HashMap<String, Object> params = new HashMap<>();
 		params.put("status", state);
 		params.put("resource_id", resource.getId());
 		return this.mapRelations(this.fetch("id,status,date,name,description", "WHERE `status` = :status AND " +
@@ -171,7 +225,7 @@ public class Tickets extends AbstractDAL<Ticket>
 	 */
 	public List<Ticket> fetch(Department department, TICKET_STATE state)
 	{
-		HashMap<String, Object> params = new HashMap<String, Object>();
+		HashMap<String, Object> params = new HashMap<>();
 		params.put("status", state);
 		params.put("department_id", department.getId());
 		return this.mapRelations(this.fetch("id,status,date,name,description", "WHERE `status` = :status AND " +

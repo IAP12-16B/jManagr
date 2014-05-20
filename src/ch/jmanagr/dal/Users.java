@@ -6,6 +6,7 @@ import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.STATUS_CODE;
 import ch.jmanagr.lib.USER_ROLE;
 import org.sql2o.Connection;
+import org.sql2o.Query;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -19,6 +20,12 @@ public class Users extends AbstractDAL<User>
 	private Users()
 	{
 		super();
+	}
+
+
+	protected List<Agent> mapRelations(List<Agent> agents)
+	{
+		return this.addDepartment(agents);
 	}
 
 	/**
@@ -49,7 +56,6 @@ public class Users extends AbstractDAL<User>
 							.getKey()
 			).intValueExact();
 			bo.setId(key);
-			// todo if agent add department
 			return STATUS_CODE.OK;
 		}
 	}
@@ -73,6 +79,23 @@ public class Users extends AbstractDAL<User>
 		}
 	}
 
+	private List<Agent> addDepartment(List<Agent> users)
+	{
+		try (Connection con = DB.getSql2o().open()) {
+			Query getDepartmentIdQuery = con.createQuery(String.format("SELECT department FROM %s WHERE id = " +
+					":agent_id LIMIT 1;",
+					User.class.getSimpleName()));
+
+			for (Agent agent : users) {
+				Integer departmentId = getDepartmentIdQuery.addParameter("agent_id",
+						agent.getId()).executeScalar(Integer.class);
+				agent.setDepartment(Departments.getInstance().fetch(departmentId));
+			}
+		}
+
+		return users;
+	}
+
 	@Override
 	public User fetch(int id)
 	{
@@ -87,6 +110,7 @@ public class Users extends AbstractDAL<User>
 		return this.fetch("id,firstname,lastname,username,password,role", "");
 	}
 
+
 	/**
 	 * Get all Agents from the provided Deaprtment
 	 *
@@ -97,7 +121,7 @@ public class Users extends AbstractDAL<User>
 	public List<Agent> fetchAgent(Department department)
 	{
 		// Todo
-		List<Agent> result = new ArrayList<Agent>();
+		List<Agent> result = new ArrayList<>();
 		for (User user : dataList) {
 			if (user.getRole() == USER_ROLE.AGENT) {
 				Agent agent = (Agent) user;
@@ -107,6 +131,19 @@ public class Users extends AbstractDAL<User>
 			}
 		}
 		return result;
+	}
+
+	/**
+	 * Get all Agents from the provided Deaprtment
+	 *
+	 * @return a list of Agents
+	 */
+	public Agent fetchAgent(int id)
+	{
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("id", id);
+		return this.mapRelations((List<Agent>) (List<?>) this.fetch("id,firstname,lastname,username,password,role",
+				"WEHRE id = :id LIMIT 1;", params)).get(0);
 	}
 
 	@Override
