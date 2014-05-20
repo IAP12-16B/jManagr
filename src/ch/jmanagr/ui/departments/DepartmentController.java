@@ -22,6 +22,7 @@ import ch.jmanagr.bo.Department;
 // ---------------- http://docs.oracle.com/javafx/2/ui_controls/table-view.htm --------- explanation of the TableControl!
 public class DepartmentController implements Initializable {
 
+    private ObservableList<Department> depList;
     private Departments bl = Departments.getInstance();
 
     @FXML private TableView<Department> depTable;
@@ -49,17 +50,18 @@ public class DepartmentController implements Initializable {
                 }
         );
 
-        // Only checking if add or delete
-        ObservableList<Department> b = bl.getAll();
+        // Only checking if add or delete - so dont need it, but leave it for maybe later
+        /*ObservableList<Department> b = bl.getAll();
         b.addListener(new ListChangeListener<Department>() {
             @Override
             public void onChanged(Change change) {
                 System.out.println("Detected a change! ");
             }
-        });
+        });*/
 
         //depTable.getItems().setAll(bl.getAll());
-        depTable.setItems(bl.getAll());
+        depList = bl.getAll();
+        depTable.setItems(depList); // todo dont fetch direct because this stops obserablelist working
     }
 
     // Add new Data

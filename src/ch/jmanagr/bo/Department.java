@@ -1,24 +1,27 @@
 package ch.jmanagr.bo;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 import java.util.ArrayList;
 
 public class Department implements BusinessObject
 {
-	private int id;
-	private String name;
+	private SimpleIntegerProperty id = new SimpleIntegerProperty();
+	private SimpleStringProperty name = new SimpleStringProperty("");
 	private ArrayList<Agent> agents;
 
 	public Department(int id, String name, ArrayList<Agent> agents)
 	{
-		this.id = id;
-		this.name = name;
+		this.id.set(id);
+		this.name.set(name);
 		this.agents = agents;
 
 	}
 
 	public Department(String name, ArrayList<Agent> agents)
 	{
-		this.name = name;
+		this.name.set(name);
 		this.agents = agents;
 
 	}
@@ -52,34 +55,45 @@ public class Department implements BusinessObject
 	}
 
 	@Override
-	public int hashCode()
+    // todo kim was au immer das isch goht nüm will i vo int zu simpleintproperty gwechselt han..
+	/*public int hashCode()
 	{
 		int result = id;
 		result = 31 * result + (name != null ? name.hashCode() : 0);
 		result = 31 * result + (agents != null ? agents.hashCode() : 0);
 		return result;
-	}
+	}*/
 
 	public int getId()
 	{
-		return id;
+		return this.id.get();
 	}
 
 
 	public void setId(int id)
 	{
-		this.id = id;
+		this.id.set(id);
 	}
+
+    public SimpleIntegerProperty idProperty()
+    {
+        return this.id;
+    }
 
 	public String getName()
 	{
-		return name;
+		return this.name.get();
 	}
 
 	public void setName(String name)
 	{
-		this.name = name;
+		this.name.set(name);
 	}
+
+    public SimpleStringProperty nameProperty()
+    {
+        return this.name;
+    }
 
 	public ArrayList<Agent> getAgents()
 	{

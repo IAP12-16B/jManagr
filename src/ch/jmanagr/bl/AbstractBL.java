@@ -1,8 +1,10 @@
 package ch.jmanagr.bl;
 
 import ch.jmanagr.bo.BusinessObject;
+import ch.jmanagr.bo.Department;
 import ch.jmanagr.dal.AbstractDAL;
 import ch.jmanagr.lib.STATUS_CODE;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
@@ -25,8 +27,8 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject,
 	public ObservableList<BusinessObjectType> getAll()
 	{
         // todo kim was machsch du für komischi sache mach das das goht haha i schrib de satz no gern :P
-
-		return (ObservableList<BusinessObjectType>) dal.fetch();
+        ObservableList<BusinessObjectType> depList = FXCollections.observableArrayList(dal.fetch());
+		return depList;
 	}
 
 	@Override
