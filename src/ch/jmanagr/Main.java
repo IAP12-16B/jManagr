@@ -1,10 +1,24 @@
 package ch.jmanagr;
 
+import ch.jmanagr.lib.LOG_LEVEL;
+import ch.jmanagr.lib.Logger;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Main extends Application
 {
+
+	public static void main(String[] args) throws InterruptedException
+	{
+		try {
+			launch(args);
+		} catch (Exception e) {
+			Logger.log(LOG_LEVEL.ERROR, e);
+		} finally {
+			Logger.log(LOG_LEVEL.ERROR, "Uncatched Exception!");
+		}
+
+	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception
@@ -17,11 +31,5 @@ public class Main extends Application
 		primaryStage.setMaxHeight(700);
 
 		primaryStage.show();*/
-	}
-
-
-	public static void main(String[] args) throws InterruptedException
-	{
-		launch(args);
 	}
 }
