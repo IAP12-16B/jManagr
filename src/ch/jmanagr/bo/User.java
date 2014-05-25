@@ -15,6 +15,7 @@ public class User implements BusinessObject
 	protected String username;
 	protected String password;
 	protected USER_ROLE role;
+	protected Department department;
 	protected boolean active;
 	protected boolean deleted;
 
@@ -39,7 +40,8 @@ public class User implements BusinessObject
 	}
 
 
-	public User(int id, String firstname, String lastname, String username, String password, USER_ROLE role)
+	public User(int id, String firstname, String lastname, String username, String password, USER_ROLE role,
+	            boolean active, boolean deleted, Department department)
 	{
 		this.id = id;
 		this.firstname = firstname;
@@ -47,15 +49,22 @@ public class User implements BusinessObject
 		this.username = username;
 		this.password = password;
 		this.role = role;
+		this.department = department;
+		this.active = active;
+		this.deleted = deleted;
 	}
 
-	public User(String firstname, String lastname, String username, String password, USER_ROLE role)
+	public User(String firstname, String lastname, String username, String password, USER_ROLE role, boolean active,
+	            boolean deleted, Department department)
 	{
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.username = username;
 		this.password = password;
 		this.role = role;
+		this.department = department;
+		this.active = active;
+		this.deleted = deleted;
 	}
 
 	public User() {}
@@ -184,5 +193,17 @@ public class User implements BusinessObject
 		}
 		return false;
 	}
+
+	public Department getDepartment()
+
+	{
+		return department;
+	}
+
+	public void setDepartment(Department department)
+	{
+		this.department = department;
+	}
+
 
 }
