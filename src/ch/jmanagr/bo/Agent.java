@@ -48,33 +48,4 @@ public class Agent extends User
 		this.department = department;
 	}
 
-	@Override
-	public boolean equals(Object o)
-	{
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		if (!super.equals(o)) {
-			return false;
-		}
-
-		Agent agent = (Agent) o;
-
-		if (department != null ? !department.equals(agent.department) : agent.department != null) {
-			return false;
-		}
-
-		return true;
-	}
-
-	@Override
-	public int hashCode()
-	{
-		int result = super.hashCode();
-		result = 31 * result + (department != null ? department.hashCode() : 0);
-		return result;
-	}
 }

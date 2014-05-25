@@ -1,106 +1,59 @@
 package ch.jmanagr.bo;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-
-import java.util.ArrayList;
+import java.util.List;
 
 public class Department implements BusinessObject
 {
-	private SimpleIntegerProperty id = new SimpleIntegerProperty();
-	private SimpleStringProperty name = new SimpleStringProperty("");
-	private ArrayList<Agent> agents;
+	private int id;
+	private String name;
+	private List<Agent> agents;
+	protected boolean active;
+	protected boolean deleted;
 
-	public Department(int id, String name, ArrayList<Agent> agents)
+	public Department(int id, String name, List<Agent> agents)
 	{
-		this.id.set(id);
-		this.name.set(name);
+		this.id = id;
+		this.name = name;
 		this.agents = agents;
 
 	}
 
-	public Department(String name, ArrayList<Agent> agents)
+	public Department(String name, List<Agent> agents)
 	{
-		this.name.set(name);
+		this.name = name;
 		this.agents = agents;
 
 	}
 
 	public Department() {}
 
-
-	@Override
-	public boolean equals(Object o)
-	{
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-
-		Department that = (Department) o;
-
-		if (id != that.id) {
-			return false;
-		}
-		if (agents != null ? !agents.equals(that.agents) : that.agents != null) {
-			return false;
-		}
-		if (name != null ? !name.equals(that.name) : that.name != null) {
-			return false;
-		}
-
-		return true;
-	}
-
-	@Override
-    // todo kim was au immer das isch goht nüm will i vo int zu simpleintproperty gwechselt han..
-	/*public int hashCode()
-	{
-		int result = id;
-		result = 31 * result + (name != null ? name.hashCode() : 0);
-		result = 31 * result + (agents != null ? agents.hashCode() : 0);
-		return result;
-	}*/
-
 	public int getId()
 	{
-		return this.id.get();
+		return id;
 	}
 
 
 	public void setId(int id)
 	{
-		this.id.set(id);
+		this.id = id;
 	}
-
-    public SimpleIntegerProperty idProperty()
-    {
-        return this.id;
-    }
 
 	public String getName()
 	{
-		return this.name.get();
+		return name;
 	}
 
 	public void setName(String name)
 	{
-		this.name.set(name);
+		this.name = name;
 	}
 
-    public SimpleStringProperty nameProperty()
-    {
-        return this.name;
-    }
-
-	public ArrayList<Agent> getAgents()
+	public List<Agent> getAgents()
 	{
 		return agents;
 	}
 
-	public void setAgents(ArrayList<Agent> agents)
+	public void setAgents(List<Agent> agents)
 	{
 		this.agents = agents;
 	}

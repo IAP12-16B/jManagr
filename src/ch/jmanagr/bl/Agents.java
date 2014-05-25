@@ -7,7 +7,7 @@ import ch.jmanagr.bo.Department;
 
 import java.util.List;
 
-public class Agents extends Users
+public class Agents extends AbstractUserBL<Agent, ch.jmanagr.dal.Agents>
 {
 	private static volatile Agents instance;
 
@@ -37,6 +37,6 @@ public class Agents extends Users
 	 */
 	public List<Agent> getAllByDepartment(Department department)
 	{
-		return dal.fetchAgent(department);
+		return dal.fetch(department);
 	}
 }

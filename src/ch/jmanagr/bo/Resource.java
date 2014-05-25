@@ -2,18 +2,18 @@ package ch.jmanagr.bo;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 public class Resource implements BusinessObject
 {
 	private int id;
 	private String name;
-	private HashMap<String, String> data;
+	private List<ResourceData> data;
 	private ArrayList<Ticket> tickets;
 	private Resource parent;
 	private ArrayList<Resource> children;
 
-	public Resource(int id, String name, HashMap<String, String> data, ArrayList<Ticket> tickets, Resource parent,
+	public Resource(int id, String name, List<ResourceData> data, ArrayList<Ticket> tickets, Resource parent,
 	                ArrayList<Resource> children)
 	{
 		this.id = id;
@@ -24,7 +24,7 @@ public class Resource implements BusinessObject
 		this.children = children;
 	}
 
-	public Resource(String name, HashMap<String, String> data, ArrayList<Ticket> tickets, Resource parent,
+	public Resource(String name, List<ResourceData> data, ArrayList<Ticket> tickets, Resource parent,
 	                ArrayList<Resource> children)
 	{
 		this.name = name;
@@ -49,52 +49,6 @@ public class Resource implements BusinessObject
 		this.id = id;
 	}
 
-	@Override
-	public boolean equals(Object o)
-	{
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-
-		Resource resource = (Resource) o;
-
-		if (id != resource.id) {
-			return false;
-		}
-		if (children != null ? !children.equals(resource.children) : resource.children != null) {
-			return false;
-		}
-		if (data != null ? !data.equals(resource.data) : resource.data != null) {
-			return false;
-		}
-		if (name != null ? !name.equals(resource.name) : resource.name != null) {
-			return false;
-		}
-		if (parent != null ? !parent.equals(resource.parent) : resource.parent != null) {
-			return false;
-		}
-		if (tickets != null ? !tickets.equals(resource.tickets) : resource.tickets != null) {
-			return false;
-		}
-
-		return true;
-	}
-
-	@Override
-	public int hashCode()
-	{
-		int result = id;
-		result = 31 * result + (name != null ? name.hashCode() : 0);
-		result = 31 * result + (data != null ? data.hashCode() : 0);
-		result = 31 * result + (tickets != null ? tickets.hashCode() : 0);
-		result = 31 * result + (parent != null ? parent.hashCode() : 0);
-		result = 31 * result + (children != null ? children.hashCode() : 0);
-		return result;
-	}
-
 	public String getName()
 	{
 		return name;
@@ -105,12 +59,12 @@ public class Resource implements BusinessObject
 		this.name = name;
 	}
 
-	public HashMap<String, String> getData()
+	public List<ResourceData> getData()
 	{
 		return data;
 	}
 
-	public void setData(HashMap<String, String> data)
+	public void setData(List<ResourceData> data)
 	{
 		this.data = data;
 	}

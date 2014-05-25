@@ -5,3 +5,8 @@ ObservableList:		http://docs.oracle.com/javafx/2/collections/jfxpub-collections.
 
 -------------- SQL2O
 -> POJO objects (for fetching) MUST have a empty constructor (e.g. public Foo(){}). Otherwise, Sql2o will throw an "Could not create a new instance of class <Class>" exception...
+
+
+
+-------------- Other
+Why you should not use ORMs in Java:        https://stackoverflow.com/questions/452385/what-java-orm-do-you-prefer-and-why

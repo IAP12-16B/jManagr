@@ -1,7 +1,6 @@
 package ch.jmanagr.dal;
 
-
-import ch.jmanagr.bo.User;
+import ch.jmanagr.bo.Agent;
 import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.STATUS_CODE;
@@ -14,21 +13,22 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class Users extends AbstractDAL<User>
-{
-	private static Users instance;
 
-	private Users()
+public class Agents extends AbstractDAL<Agent>
+{
+	private static Agents instance;
+
+	private Agents()
 	{
-		super(User.class);
+		super(Agent.class);
 	}
 
-	public static Users getInstance()
+	public static Agents getInstance()
 	{
 		if (instance == null) {
-			synchronized (Users.class) {
+			synchronized (Agents.class) {
 				if (instance == null) {
-					instance = new Users();
+					instance = new Agents();
 				}
 			}
 		}
@@ -36,23 +36,26 @@ public class Users extends AbstractDAL<User>
 	}
 
 	@Override
-	public STATUS_CODE save(User bo)
+	public STATUS_CODE save(Agent bo)
 	{
 		try (Connection con = DB.getSql2o().open()) {
 			bo.setId(
 					this.db.save(
 							tableName,
-							"id,firstname,lastname,username,password,role,active,deleted",
-							":id,:firstname,:lastname,:username,:password,:role,:active,:deleted",
+							"id,firstname,lastname,username,password,role,active,deleted,Department",
+							":id,:firstname,:lastname,:username,:password,:role,:active,:deleted,:department_id",
 							true
-					).bind(bo).executeUpdate().<Integer>getKey(Integer.class)
+					).bind(bo)
+					       .addParameter("department_id", bo.getDepartment().getId())
+					       .executeUpdate()
+					       .<Integer>getKey(Integer.class)
 			);
 			return STATUS_CODE.OK;
 		} catch (Sql2oException e) {
 			Logger.log(
 					LOG_LEVEL.ERROR,
 					String.format(
-							"Save of %s with id %d failed!",
+							"Creation of %s with id %d failed!",
 							bo.getClass().getName(),
 							bo.getId()
 					),
@@ -63,7 +66,7 @@ public class Users extends AbstractDAL<User>
 	}
 
 	@Override
-	public List<User> fetch(HashMap<String, String> parameters, int limit)
+	public List<Agent> fetch(HashMap<String, String> parameters, int limit)
 	{
 		try (Connection con = DB.getSql2o().open()) {
 			String where = "";
@@ -87,7 +90,15 @@ public class Users extends AbstractDAL<User>
 				it.remove();
 			}
 
-			return q.executeAndFetch(User.class);
+			List<Agent> agents = q.executeAndFetch(Agent.class);
+
+			for (Agent agent : agents) {
+				agent.setDepartment(
+						this.db.resolveRelation(agent, Departments.getInstance(), "Department")
+				);
+			}
+
+			return agents;
 		} catch (Sql2oException e) {
 			Logger.log(
 					LOG_LEVEL.ERROR,
@@ -104,7 +115,7 @@ public class Users extends AbstractDAL<User>
 	 * @return a list of all BusinessObjects
 	 */
 	@Override
-	public List<User> fetch()
+	public List<Agent> fetch()
 	{
 		return this.fetch(new HashMap<String, String>(), -1);
 	}
@@ -117,7 +128,7 @@ public class Users extends AbstractDAL<User>
 	 * @return the BusinessObject
 	 */
 	@Override
-	public User fetch(int id)
+	public Agent fetch(int id)
 	{
 		HashMap<String, String> map = new HashMap<>();
 		map.put("id", ((Integer) id).toString());
@@ -131,37 +142,40 @@ public class Users extends AbstractDAL<User>
 	 *
 	 * @return Whether it was successful or not.
 
-	@Override
-	public STATUS_CODE update(User bo)
-	{
-	try (Connection con = DB.getSql2o().open()) {
-	bo.setId(
-	this.db.update(
-	tableName,
-	"firstname = :firstname," +
-	"lastname = :lastname," +
-	"username = :username," +
-	"password = :password," +
-	"role = :role," +
-	"active = :active," +
-	"deleted = :deleted" +
-	" WHERE id = :id",
-	true
-	).bind(bo).executeUpdate().<Integer>getKey(Integer.class)
-	);
-	return STATUS_CODE.OK;
-	} catch (Sql2oException e) {
-	Logger.log(
-	LOG_LEVEL.ERROR,
-	String.format(
-	"Update of %s with id %d failed!",
-	bo.getClass().getName(),
-	bo.getId()
-	),
-	e
-	);
-	}
+	 @Override public STATUS_CODE update(Agent bo)
+	 {
+	 try (Connection con = DB.getSql2o().open()) {
+	 bo.setId(
+	 this.db.update(
+	 tableName,
+	 "firstname = :firstname," +
+	 "lastname = :lastname," +
+	 "username = :username," +
+	 "password = :password," +
+	 "role = :role," +
+	 "active = :active," +
+	 "deleted = :deleted," +
+	 "Department = :department_id" +
+	 " WHERE id = :id",
+	 true
+	 ).bind(bo)
+	 .addParameter("department_id", bo.getDepartment().getId())
+	 .executeUpdate()
+	 .<Integer>getKey(Integer.class)
+	 );
+	 return STATUS_CODE.OK;
+	 } catch (Sql2oException e) {
+	 Logger.log(
+	 LOG_LEVEL.ERROR,
+	 String.format(
+	 "Update of %s with id %d failed!",
+	 bo.getClass().getName(),
+	 bo.getId()
+	 ),
+	 e
+	 );
+	 }
 
-	return STATUS_CODE.FAIL;
-	} */
+	 return STATUS_CODE.FAIL;
+	 }*/
 }

@@ -15,6 +15,8 @@ public class Ticket implements BusinessObject
 	private Agent agent;
 	private Department department;
 	private User user;
+	protected boolean active;
+	protected boolean deleted;
 
 	public Ticket(int id, String name, String description, TICKET_STATE status, Date date, Resource resource,
 	              Agent agent, Department department, User user)
@@ -44,64 +46,6 @@ public class Ticket implements BusinessObject
 	}
 
 	public Ticket() {}
-
-	@Override
-	public boolean equals(Object o)
-	{
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-
-		Ticket ticket = (Ticket) o;
-
-		if (id != ticket.id) {
-			return false;
-		}
-		if (agent != null ? !agent.equals(ticket.agent) : ticket.agent != null) {
-			return false;
-		}
-		if (date != null ? !date.equals(ticket.date) : ticket.date != null) {
-			return false;
-		}
-		if (department != null ? !department.equals(ticket.department) : ticket.department != null) {
-			return false;
-		}
-		if (description != null ? !description.equals(ticket.description) : ticket.description != null) {
-			return false;
-		}
-		if (!name.equals(ticket.name)) {
-			return false;
-		}
-		if (resource != null ? !resource.equals(ticket.resource) : ticket.resource != null) {
-			return false;
-		}
-		if (status != ticket.status) {
-			return false;
-		}
-		if (user != null ? !user.equals(ticket.user) : ticket.user != null) {
-			return false;
-		}
-
-		return true;
-	}
-
-	@Override
-	public int hashCode()
-	{
-		int result = id;
-		result = 31 * result + name.hashCode();
-		result = 31 * result + (description != null ? description.hashCode() : 0);
-		result = 31 * result + (status != null ? status.hashCode() : 0);
-		result = 31 * result + (date != null ? date.hashCode() : 0);
-		result = 31 * result + (resource != null ? resource.hashCode() : 0);
-		result = 31 * result + (agent != null ? agent.hashCode() : 0);
-		result = 31 * result + (department != null ? department.hashCode() : 0);
-		result = 31 * result + (user != null ? user.hashCode() : 0);
-		return result;
-	}
 
 	public int getId()
 	{

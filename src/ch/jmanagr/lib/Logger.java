@@ -21,8 +21,10 @@ public class Logger
 
 	private static String formatMessage(Exception e, String adidionalInfo)
 	{
-		return String.format("%s\nReason: %s \nMessage: %s \nTrace: \n%s\n", adidionalInfo, e.getCause(),
-				e.getMessage(), formatStackTrace(e.getStackTrace()));
+		return String.format(
+				"%s\nReason: %s \nMessage: %s \nTrace: \n%s\n", adidionalInfo, e.getCause(),
+				e.getMessage(), formatStackTrace(e.getStackTrace())
+		);
 	}
 
 	private static String formatMessage(Exception e)

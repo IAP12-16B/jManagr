@@ -4,27 +4,37 @@ package ch.jmanagr.dal;
 import ch.jmanagr.bo.BusinessObject;
 import ch.jmanagr.lib.STATUS_CODE;
 
+import java.util.HashMap;
 import java.util.List;
 
-public interface DAL<T extends BusinessObject>
+public interface DAL<BusinessObjectType extends BusinessObject>
 {
 	/**
-	 * Creates a new BusinessObject in the DB
+	 * Saves a BusinessObject to DB
 	 *
-	 * @param bo the BusinessObject
+	 * @param bo
 	 *
-	 * @return Whether it was successful or not.
+	 * @return
 	 */
-	public STATUS_CODE create(T bo);
+	public STATUS_CODE save(BusinessObjectType bo);
 
 	/**
-	 * Fetch all BusinesObjects from DB
+	 * Fetch all BusinessObjects from DB
 	 *
 	 * @return a list of all BusinessObjects
 	 */
-	public List<T> fetch();
+	public List<BusinessObjectType> fetch();
 
-	public T fetch(int id);
+	public List<BusinessObjectType> fetch(HashMap<String, String> parameters, int limit);
+
+	/**
+	 * Fetch a BusinessObject by id
+	 *
+	 * @param id the id of the BusinessObject
+	 *
+	 * @return the BusinessObject
+	 */
+	public BusinessObjectType fetch(int id);
 
 	/**
 	 * Deletes a BusinessObject
@@ -33,14 +43,6 @@ public interface DAL<T extends BusinessObject>
 	 *
 	 * @return Whether it was successful or not.
 	 */
-	public STATUS_CODE delete(T bo);
+	public STATUS_CODE delete(BusinessObjectType bo);
 
-	/**
-	 * Updates a BusinessObject
-	 *
-	 * @param bo the BusinessObject
-	 *
-	 * @return Whether it was successful or not.
-	 */
-	public STATUS_CODE update(T bo);
 }

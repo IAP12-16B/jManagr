@@ -1,0 +1,6 @@
+TODO: @kije SAVE methode in BL/DAL?
+TODO: @kije comments!!!!!!!!!
+TODO: @kije check BO's if they still match ERM
+TODO: @kije DAL.save() -> save other referenced BO's
+TODO: @kije how to prevent multiple instances of the same DB record? -> BO-Pool?
+TODO: @kije Implement individual fetch methodes (e.g. fetchByDepartment etc...)
