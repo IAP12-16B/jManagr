@@ -41,7 +41,7 @@ public class User implements BusinessObject
 
 
 	public User(int id, String firstname, String lastname, String username, String password, USER_ROLE role,
-	            boolean active, boolean deleted, Department department)
+	            Department department, boolean active, boolean deleted)
 	{
 		this.id = id;
 		this.firstname = firstname;
@@ -54,8 +54,9 @@ public class User implements BusinessObject
 		this.deleted = deleted;
 	}
 
-	public User(String firstname, String lastname, String username, String password, USER_ROLE role, boolean active,
-	            boolean deleted, Department department)
+	public User(String firstname, String lastname, String username, String password, USER_ROLE role,
+	            Department department, boolean active,
+	            boolean deleted)
 	{
 		this.firstname = firstname;
 		this.lastname = lastname;

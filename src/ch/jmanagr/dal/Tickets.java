@@ -101,7 +101,7 @@ public class Tickets extends AbstractDAL<Ticket>
 				);
 
 				ticket.setAgent(
-						this.db.resolveRelation(ticket, Agents.getInstance(), "Agent")
+						this.db.resolveRelation(ticket, Users.getInstance(), "Agent")
 				);
 
 				ticket.setUser(

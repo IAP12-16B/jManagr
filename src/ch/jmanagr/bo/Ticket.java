@@ -12,14 +12,15 @@ public class Ticket implements BusinessObject
 	private TICKET_STATE status;
 	private Date date;
 	private Resource resource;
-	private Agent agent;
+	private User agent;
 	private Department department;
 	private User user;
-	protected boolean active;
-	protected boolean deleted;
+	private boolean active;
+	private boolean deleted;
 
 	public Ticket(int id, String name, String description, TICKET_STATE status, Date date, Resource resource,
-	              Agent agent, Department department, User user)
+	              User agent, Department department, User user, boolean active,
+	              boolean deleted)
 	{
 		this.id = id;
 		this.name = name;
@@ -30,10 +31,13 @@ public class Ticket implements BusinessObject
 		this.agent = agent;
 		this.department = department;
 		this.user = user;
+		this.active = active;
+		this.deleted = deleted;
 	}
 
 	public Ticket(String name, String description, TICKET_STATE status, Date date, Resource resource,
-	              Agent agent, Department department, User user)
+	              User agent, Department department, User user, boolean active,
+	              boolean deleted)
 	{
 		this.name = name;
 		this.description = description;
@@ -43,6 +47,8 @@ public class Ticket implements BusinessObject
 		this.agent = agent;
 		this.department = department;
 		this.user = user;
+		this.active = active;
+		this.deleted = deleted;
 	}
 
 	public Ticket() {}
@@ -109,12 +115,12 @@ public class Ticket implements BusinessObject
 		this.resource = resource;
 	}
 
-	public Agent getAgent()
+	public User getAgent()
 	{
 		return agent;
 	}
 
-	public void setAgent(Agent agent)
+	public void setAgent(User agent)
 	{
 		this.agent = agent;
 	}

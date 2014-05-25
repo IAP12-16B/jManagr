@@ -6,22 +6,27 @@ public class Department implements BusinessObject
 {
 	private int id;
 	private String name;
-	private List<Agent> agents;
-	protected boolean active;
-	protected boolean deleted;
+	private List<User> agents;
+	private boolean active;
+	private boolean deleted;
 
-	public Department(int id, String name, List<Agent> agents)
+
+	public Department(int id, String name, List<User> agents, boolean active, boolean deleted)
 	{
 		this.id = id;
 		this.name = name;
 		this.agents = agents;
+		this.active = active;
+		this.deleted = deleted;
 
 	}
 
-	public Department(String name, List<Agent> agents)
+	public Department(String name, List<User> agents, boolean active, boolean deleted)
 	{
 		this.name = name;
 		this.agents = agents;
+		this.active = active;
+		this.deleted = deleted;
 
 	}
 
@@ -48,12 +53,12 @@ public class Department implements BusinessObject
 		this.name = name;
 	}
 
-	public List<Agent> getAgents()
+	public List<User> getAgents()
 	{
 		return agents;
 	}
 
-	public void setAgents(List<Agent> agents)
+	public void setAgents(List<User> agents)
 	{
 		this.agents = agents;
 	}

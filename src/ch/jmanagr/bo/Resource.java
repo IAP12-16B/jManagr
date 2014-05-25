@@ -12,9 +12,11 @@ public class Resource implements BusinessObject
 	private ArrayList<Ticket> tickets;
 	private Resource parent;
 	private ArrayList<Resource> children;
+	private boolean active;
+	private boolean deleted;
 
 	public Resource(int id, String name, List<ResourceData> data, ArrayList<Ticket> tickets, Resource parent,
-	                ArrayList<Resource> children)
+	                ArrayList<Resource> children, boolean active, boolean deleted)
 	{
 		this.id = id;
 		this.name = name;
@@ -22,16 +24,20 @@ public class Resource implements BusinessObject
 		this.tickets = tickets;
 		this.parent = parent;
 		this.children = children;
+		this.active = active;
+		this.deleted = deleted;
 	}
 
 	public Resource(String name, List<ResourceData> data, ArrayList<Ticket> tickets, Resource parent,
-	                ArrayList<Resource> children)
+	                ArrayList<Resource> children, boolean active, boolean deleted)
 	{
 		this.name = name;
 		this.data = data;
 		this.tickets = tickets;
 		this.parent = parent;
 		this.children = children;
+		this.active = active;
+		this.deleted = deleted;
 	}
 
 	public Resource() {}

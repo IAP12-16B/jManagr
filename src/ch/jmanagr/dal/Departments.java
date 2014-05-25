@@ -95,7 +95,7 @@ public class Departments extends AbstractDAL<Department>
 				map = new HashMap<>();
 				map.put("Department", ((Integer) department.getId()).toString());
 				department.setAgents(
-						Agents.getInstance().fetch(map, -1)
+						Users.getInstance().fetch(map, -1)
 				);
 			}
 
