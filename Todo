@@ -9,3 +9,4 @@ TODO: @kije             Check Sql2oException for what went wrong and return appr
 TODO: @kije             rewrite bl
 TODO: @kije @mnewmedia  finish UML diagram
 TODO: @kije @mnewmedia  create Sequence Diagram
+TODO: @kije @mnewmedia  Find a solution for the JAVA FX Data type problem (we need for Java FX to work other data types than we would normally use -> e.g. SimpleStringProperty instead of String)
