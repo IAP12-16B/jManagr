@@ -107,11 +107,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `jManagr`.`Resource_Data`
+-- Table `jManagr`.`ResourceData`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `jManagr`.`Resource_Data` ;
+DROP TABLE IF EXISTS `jManagr`.`ResourceData` ;
 
-CREATE TABLE IF NOT EXISTS `jManagr`.`Resource_Data` (
+CREATE TABLE IF NOT EXISTS `jManagr`.`ResourceData` (
   `Resource` INT NOT NULL,
   `key` VARCHAR(80) NOT NULL,
   `value` VARCHAR(600) NULL DEFAULT NULL,
