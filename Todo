@@ -1,7 +1,11 @@
-TODO: @kije SAVE methode in BL/DAL?
-TODO: @kije comments!!!!!!!!!
-TODO: @kije check BO's if they still match ERM
-TODO: @kije DAL.save() -> save other referenced BO's
-TODO: @kije how to prevent multiple instances of the same DB record? -> BO-Pool?
-TODO: @kije Implement individual fetch methodes (e.g. fetchByDepartment etc...)
-TODO: @kije Check Sql2oException for what went wrong and return appropriate STATUS_CODE
+TODO: @kije             SAVE methode in BL?
+TODO: @kije             comments!!!!!!!!!
+TODO: @kije             check BO's if they still match ERM
+TODO: @kije             DAL.save() -> save other referenced BO's
+TODO: @kije             how to prevent multiple instances of the same DB record? -> BO-Pool?
+                        We need this, otherwise we need to propagate every change on one BO to every other instance for the same DB record....
+TODO: @kije             Implement individual fetch methodes (e.g. fetchByDepartment etc...) in dal
+TODO: @kije             Check Sql2oException for what went wrong and return appropriate STATUS_CODE
+TODO: @kije             rewrite bl
+TODO: @kije @mnewmedia  finish UML diagram
+TODO: @kije @mnewmedia  create Sequence Diagram
