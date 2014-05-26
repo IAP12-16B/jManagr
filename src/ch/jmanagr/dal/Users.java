@@ -42,7 +42,7 @@ public class Users extends AbstractDAL<User>
 			bo.setId(
 					this.db.save(
 							tableName,
-							"id,firstname,lastname,username,password,role,active,deleted,Department",
+							"`id`,`firstname`,`lastname`,`username`,`password`,`role`,`active`,`deleted`,`Department`",
 							":id,:firstname,:lastname,:username,:password,:role,:active,:deleted,:department_id",
 							true
 					).bind(bo)
@@ -73,12 +73,12 @@ public class Users extends AbstractDAL<User>
 			Iterator<Map.Entry<String, String>> it = parameters.entrySet().iterator();
 			while (it.hasNext()) {
 				Map.Entry<String, String> pairs = it.next();
-				where += String.format("%s = :%s", pairs.getKey(), pairs.getKey());
+				where += String.format("`%s` = :%s", pairs.getKey(), pairs.getKey());
 				it.remove();
 			}
 
 			Query q = this.db.select(
-					"id,firstname,lastname,username,password,role,active,deleted",
+					"`id`,`firstname`,`lastname`,`username`,`password`,`role`,`active`,`deleted`",
 					this.tableName,
 					where,
 					limit

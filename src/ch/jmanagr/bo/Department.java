@@ -10,6 +10,35 @@ public class Department implements BusinessObject
 	private boolean active;
 	private boolean deleted;
 
+	public boolean isActive()
+	{
+		return active;
+	}
+
+	public boolean getActive()
+	{
+		return active;
+	}
+
+	public void setActive(boolean active)
+	{
+		this.active = active;
+	}
+
+	public boolean isDeleted()
+	{
+		return deleted;
+	}
+
+	public boolean getDeleted()
+	{
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted)
+	{
+		this.deleted = deleted;
+	}
 
 	public Department(int id, String name, List<User> agents, boolean active, boolean deleted)
 	{

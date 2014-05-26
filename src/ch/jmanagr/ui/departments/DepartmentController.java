@@ -1,6 +1,8 @@
 package ch.jmanagr.ui.departments;
 
-import javafx.collections.ListChangeListener;
+import ch.jmanagr.bl.Departments;
+import ch.jmanagr.bo.Department;
+import ch.jmanagr.lib.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -15,9 +17,6 @@ import javafx.scene.control.cell.TextFieldTableCell;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import ch.jmanagr.bl.Departments;
-import ch.jmanagr.bo.Department;
 
 // ---------------- http://docs.oracle.com/javafx/2/ui_controls/table-view.htm --------- explanation of the TableControl!
 public class DepartmentController implements Initializable {
@@ -60,12 +59,22 @@ public class DepartmentController implements Initializable {
         });*/
 
         //depTable.getItems().setAll(bl.getAll());
-        depList = bl.getAll();
-        depTable.setItems(depList); // todo dont fetch direct because this stops obserablelist working
+	    this.refresh();
     }
 
-    // Add new Data
+	// SORRY @mnewmedia . Ha das do nume chli umgschribe zum teschte, ob mis züg au funktioniert xD
+	public void refresh()
+	{
+		depList = bl.getAll();
+		depTable.setItems(depList); // todo dont fetch direct because this stops obserablelist working
+		Logger.logVerbose("Refreshed list!");
+	}
+
+	// Add new Data
     public void addDep() {
-        System.out.println("Inerted new Department: " + nameField.getText());
+	    Department dep = new Department("l", null, true, false);
+	    bl.save(dep);
+	    this.refresh();
+	    System.out.println("Inerted new Department: " + nameField.getText());
     }
 }

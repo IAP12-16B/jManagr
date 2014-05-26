@@ -77,14 +77,20 @@ public class DB
 		String[] cols = columns.split(",");
 
 		for (int i = 0; i < cols.length; i++) {
-			pairs += String.format("%s = VALUES(%$1s)", cols[i]);
+			pairs += String.format("%s = VALUES(%s)", cols[i], cols[i]);
 			if (i != (cols.length - 1)) {
 				pairs += ", ";
 			}
 		}
 
 		return this.sql2o.createQuery(
-				String.format("INSERT INTO (%s) VALUES (%s) ON DUPLICATE KEY UPDATE %s;", columns, values, pairs),
+				String.format(
+						"INSERT INTO %s (%s) VALUES (%s) ON DUPLICATE KEY UPDATE %s;",
+						table,
+						columns,
+						values,
+						pairs
+				),
 				returnGeneratedKey
 		);
 	}
@@ -160,7 +166,7 @@ public class DB
 	                                                                                      String field)
 	{
 		try (Connection con = DB.getSql2o().open()) {
-			Integer relationalId = this.select(field, bo.getClass().getSimpleName(), "id = :id", 1).addParameter(
+			Integer relationalId = this.select(field, bo.getClass().getSimpleName(), "`id` = :id", 1).addParameter(
 					"id",
 					bo.getId()
 			).executeScalar(Integer.class);

@@ -43,7 +43,7 @@ public class Resources extends AbstractDAL<Resource>
 			bo.setId(
 					this.db.save(
 							tableName,
-							"id,name,icon,active,deleted",
+							"`id`,`name`,`icon`,`active`,`deleted`",
 							":id,:name,:icon,:active,:deleted",
 							true
 					).bind(bo).executeUpdate().<Integer>getKey(Integer.class)
@@ -70,7 +70,11 @@ public class Resources extends AbstractDAL<Resource>
 
 	public List<ResourceData> fetchData(Resource resource)
 	{
-		Query dataQuery = this.db.select("key,value", ResourceData.class.getSimpleName(), "Resource = :resource_id");
+		Query dataQuery = this.db.select(
+				"`key`,`value`",
+				ResourceData.class.getSimpleName(),
+				"`Resource` = :resource_id"
+		);
 
 		List<ResourceData> data = dataQuery.addParameter("resource_id", resource.getId()).executeAndFetch(
 				ResourceData.class
@@ -91,7 +95,7 @@ public class Resources extends AbstractDAL<Resource>
 		try (Connection con = DB.getSql2o().open()) {
 			this.db.save(
 					tableName,
-					"resource,key,value",
+					"`resource`,`key`,`value`",
 					":resource_id,:key,:value",
 					true
 			).bind(data)
@@ -120,12 +124,12 @@ public class Resources extends AbstractDAL<Resource>
 			Iterator<Map.Entry<String, String>> it = parameters.entrySet().iterator();
 			while (it.hasNext()) {
 				Map.Entry<String, String> pairs = it.next();
-				where += String.format("%s = :%s", pairs.getKey(), pairs.getKey());
+				where += String.format("`%s` = :%s", pairs.getKey(), pairs.getKey());
 				it.remove();
 			}
 
 			Query q = this.db.select(
-					"id,name,icon,active,deleted",
+					"`id`,`name`,`icon`,`active`,`deleted`",
 					this.tableName,
 					where,
 					limit

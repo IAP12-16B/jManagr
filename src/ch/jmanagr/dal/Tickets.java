@@ -41,7 +41,8 @@ public class Tickets extends AbstractDAL<Ticket>
 			bo.setId(
 					this.db.save(
 							tableName,
-							"id,name,description,status,date,Resource,Agent,Department,User,active,deleted",
+							"`id`,`name`,`description`,`status`,`date`,`Resource`,`Agent`,`Department`,`User`," +
+							"`active`,`deleted`",
 							":id,:name,:description,:status,:date,:resource_id,:agent_id,:department_id,:user_id," +
 							":active,:deleted",
 							true
@@ -76,12 +77,12 @@ public class Tickets extends AbstractDAL<Ticket>
 			Iterator<Map.Entry<String, String>> it = parameters.entrySet().iterator();
 			while (it.hasNext()) {
 				Map.Entry<String, String> pairs = it.next();
-				where += String.format("%s = :%s", pairs.getKey(), pairs.getKey());
+				where += String.format("`%s` = :%s", pairs.getKey(), pairs.getKey());
 				it.remove();
 			}
 
 			Query q = this.db.select(
-					"id,name,description,status,date,active,deleted",
+					"`id`,`name`,`description`,`status`,`date`,`active`,`deleted`",
 					this.tableName,
 					where,
 					limit

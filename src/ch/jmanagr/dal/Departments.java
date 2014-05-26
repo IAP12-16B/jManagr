@@ -43,7 +43,7 @@ public class Departments extends AbstractDAL<Department>
 			bo.setId(
 					this.db.save(
 							tableName,
-							"id,name,active,deleted",
+							"`id`,`name`,`active`,`deleted`",
 							":id,:name,:active,:deleted",
 							true
 					).bind(bo).executeUpdate().<Integer>getKey(Integer.class)
@@ -71,12 +71,12 @@ public class Departments extends AbstractDAL<Department>
 			Iterator<Map.Entry<String, String>> it = parameters.entrySet().iterator();
 			while (it.hasNext()) {
 				Map.Entry<String, String> pairs = it.next();
-				where += String.format("%s = :%s", pairs.getKey(), pairs.getKey());
+				where += String.format("`%s` = :%s", pairs.getKey(), pairs.getKey());
 				it.remove();
 			}
 
 			Query q = this.db.select(
-					"id,name,active,deleted",
+					"`id`,`name`,`active`,`deleted`",
 					this.tableName,
 					where,
 					limit
