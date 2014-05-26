@@ -1,23 +1,12 @@
 package ch.jmanagr;
 
-import ch.jmanagr.bo.*;
-import ch.jmanagr.dal.Departments;
-import ch.jmanagr.dal.Resources;
-import ch.jmanagr.dal.Tickets;
-import ch.jmanagr.dal.Users;
-import ch.jmanagr.lib.TICKET_STATE;
-import ch.jmanagr.lib.USER_ROLE;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-
 /**
  * Class with Test-Data to prevent a) redundancy of creating test objects in each test b) make sure, database relations
  * are valid
  */
 public class TestData
 {
+	/*
 	// todo rewrite this
 	public static User testUser;
 	public static Ticket testTicket;
@@ -74,7 +63,7 @@ public class TestData
 			Resources.getInstance().delete(testResource);
 			Departments.getInstance().delete(testDepartment);
 			Users.getInstance().delete(testAgent);
-			Users.getInstance().delete(testAdmin);*/
+			Users.getInstance().delete(testAdmin);
 		}
-	}
+	}*/
 }

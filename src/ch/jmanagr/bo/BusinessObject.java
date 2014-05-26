@@ -9,4 +9,6 @@ public interface BusinessObject
 	 * @return the id
 	 */
 	public int getId();
+
+	public void setId(int id);
 }

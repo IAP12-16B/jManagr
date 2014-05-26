@@ -25,9 +25,15 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject,
 	public ObservableList<BusinessObjectType> getAll()
 	{
 		// todo kim was machsch du für komischi sache mach das das goht haha i schrib de satz no gern :P
-		ObservableList<BusinessObjectType> depList = FXCollections.observableArrayList(dal.fetch());
-		return depList;
+		//ObservableList<BusinessObjectType> depList = FXCollections.observableArrayList(dal.fetch());
+		return null; // Todo
 	}
+
+	public BusinessObjectType getById(int id)
+	{
+		return this.dal.fetch(id);
+	}
+
 
 	@Override
 	public STATUS_CODE delete(BusinessObjectType bo)
@@ -36,14 +42,8 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject,
 	}
 
 	@Override
-	public STATUS_CODE create(BusinessObjectType bo)
+	public STATUS_CODE save(BusinessObjectType bo)
 	{
-		return this.dal.create(bo);
-	}
-
-	@Override
-	public STATUS_CODE update(BusinessObjectType bo)
-	{
-		return this.dal.update(bo);
+		return this.dal.save(bo);
 	}
 }

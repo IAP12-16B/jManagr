@@ -1,7 +1,8 @@
 package ch.jmanagr.bl;
 
 import ch.jmanagr.bo.User;
-import ch.jmanagr.lib.USER_ROLE;
+
+import java.util.HashMap;
 
 public class Users extends AbstractUserBL<User, ch.jmanagr.dal.Users>
 {
@@ -38,11 +39,12 @@ public class Users extends AbstractUserBL<User, ch.jmanagr.dal.Users>
 	 */
 	public User login(String username, String password)
 	{
-		// Todo: Implemenent real login
-		// simulate login as long as DAL is not yet implemented
-		if (username.equals("root") && password.equals("123")) {
-			this.currentUser = new User(1, "Test", "User", username, password, USER_ROLE.ADMIN);
-			return this.currentUser;
+		HashMap<String, String> map = new HashMap<>();
+		map.put("username", username);
+		User u = this.dal.fetch(map, 1).get(0);
+		if (u.checkPassword(password)) {
+			this.currentUser = u;
+			return u;
 		}
 		return null;
 	}

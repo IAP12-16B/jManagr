@@ -25,6 +25,14 @@ public interface DAL<BusinessObjectType extends BusinessObject>
 	 */
 	public List<BusinessObjectType> fetch();
 
+	/**
+	 * Fetch all matching the criteria provided via parameters (checks for every hash map entry key == value)
+	 *
+	 * @param parameters
+	 * @param limit
+	 *
+	 * @return List of BusinessObjects
+	 */
 	public List<BusinessObjectType> fetch(HashMap<String, String> parameters, int limit);
 
 	/**

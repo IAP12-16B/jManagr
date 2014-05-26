@@ -18,7 +18,8 @@ public interface BL<BussinessObjectType extends BusinessObject> // BussinessObje
 	 */
 	public List<BussinessObjectType> getAll();
 
-	public STATUS_CODE update(BussinessObjectType bo);
+	public BussinessObjectType getById(int id);
+
 
 	/**
 	 * Validates, if the provided BusinessObject is valid and therefor can be saved in database
@@ -29,14 +30,7 @@ public interface BL<BussinessObjectType extends BusinessObject> // BussinessObje
 	 */
 	public STATUS_CODE validate(BussinessObjectType bo);
 
-	/**
-	 * Saves a BusinessObject
-	 *
-	 * @param bo The BusinessObject to save
-	 *
-	 * @return Whether the action was successful or not
-	 */
-	public STATUS_CODE create(BussinessObjectType bo);
+	public STATUS_CODE save(BussinessObjectType bo);
 
 	/**
 	 * Deletes a BusinessObject

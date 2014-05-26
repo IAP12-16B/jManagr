@@ -1,18 +1,8 @@
 package ch.jmanagr.bl;
 
-import ch.jmanagr.bo.Agent;
-import ch.jmanagr.bo.Department;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.util.ArrayList;
-
-import static org.junit.Assert.fail;
-
-
 public class AgentsTest
 {
-	private Agents agents;
+	/*private IAgent agents;
 	private Department testDepartment;
 
 	@Before
@@ -28,5 +18,5 @@ public class AgentsTest
 		// Todo: implement test
 		fail("Not yet implemented!");
 
-	}
+	}*/
 }

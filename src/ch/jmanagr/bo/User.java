@@ -1,14 +1,15 @@
 package ch.jmanagr.bo;
 
+import ch.jmanagr.lib.LOG_LEVEL;
+import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.PasswordHash;
 import ch.jmanagr.lib.USER_ROLE;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-public class User implements BusinessObject
+public class User implements BusinessObject, IUser, IAgent
 {
-	/* Todo: how to store hashed/unhashed password? We need it both sometimes */
 	protected int id;
 	protected String firstname;
 	protected String lastname;
@@ -18,27 +19,6 @@ public class User implements BusinessObject
 	protected Department department;
 	protected boolean active;
 	protected boolean deleted;
-
-	public boolean isDeleted()
-	{
-		return deleted;
-	}
-
-	public void setDeleted(boolean deleted)
-	{
-		this.deleted = deleted;
-	}
-
-	public boolean isActive()
-	{
-		return active;
-	}
-
-	public void setActive(boolean active)
-	{
-		this.active = active;
-	}
-
 
 	public User(int id, String firstname, String lastname, String username, String password, USER_ROLE role,
 	            Department department, boolean active, boolean deleted)
@@ -82,9 +62,9 @@ public class User implements BusinessObject
 		try {
 			return PasswordHash.createHash(password);
 		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+			Logger.log(LOG_LEVEL.WARNING, "Appropriate hash algorithm is missing!", e);
 		} catch (InvalidKeySpecException e) {
-			e.printStackTrace();
+			Logger.log(LOG_LEVEL.WARNING, "Wrong key spec!", e);
 		}
 		return null;
 	}
@@ -102,11 +82,31 @@ public class User implements BusinessObject
 		try {
 			return PasswordHash.validatePassword(password, hash);
 		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+			Logger.log(LOG_LEVEL.WARNING, "Appropriate hash algorithm is missing!", e);
 		} catch (InvalidKeySpecException e) {
-			e.printStackTrace();
+			Logger.log(LOG_LEVEL.WARNING, "Wrong key spec!", e);
 		}
 		return false;
+	}
+
+	public boolean isDeleted()
+	{
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted)
+	{
+		this.deleted = deleted;
+	}
+
+	public boolean isActive()
+	{
+		return active;
+	}
+
+	public void setActive(boolean active)
+	{
+		this.active = active;
 	}
 
 	public int getId()
@@ -159,11 +159,16 @@ public class User implements BusinessObject
 	/**
 	 * Hash the password and sets it
 	 *
-	 * @param password
+	 * @param password unhashed password
 	 */
 	public void setPassword(String password)
 	{
-		this.password = this.hashPassword(password);
+		this.password = User.hashPassword(password);
+	}
+
+	public void setHashedPassword(String hash)
+	{
+		this.password = hash;
 	}
 
 	public USER_ROLE getRole()
@@ -185,14 +190,7 @@ public class User implements BusinessObject
 	 */
 	public boolean checkPassword(String password)
 	{
-		try {
-			return PasswordHash.validatePassword(password, this.getPassword());
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (InvalidKeySpecException e) {
-			e.printStackTrace();
-		}
-		return false;
+		return User.checkPassword(password, this.getPassword());
 	}
 
 	public Department getDepartment()

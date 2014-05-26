@@ -1,20 +1,8 @@
 package ch.jmanagr.bl;
 
-import ch.jmanagr.TestData;
-import ch.jmanagr.bo.User;
-import ch.jmanagr.lib.STATUS_CODE;
-import ch.jmanagr.lib.USER_ROLE;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-
 public class UsersTest
 {
-	private Users users;
+	/*private Users users;
 
 	private User testUser;
 
@@ -79,5 +67,5 @@ public class UsersTest
 	{
 		users.login(testUser.getUsername(), testUser.getPassword());
 		assertEquals(users.getCurrentUser(), testUser);
-	}
+	}*/
 }

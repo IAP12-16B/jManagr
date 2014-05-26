@@ -1,18 +1,11 @@
 package ch.jmanagr.bo;
 
-import ch.jmanagr.TestData;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertTrue;
-
 /**
  * Created by kije on 4/21/14.
  */
 public class UserTest
 {
-	public User testUser;
+	/*public User testUser;
 
 	@Before
 	public void setUp() throws Exception
@@ -33,5 +26,5 @@ public class UserTest
 		String pwHash = User.hashPassword(pw);
 
 		assertTrue(User.checkPassword(pw, pwHash));
-	}
+	}*/
 }

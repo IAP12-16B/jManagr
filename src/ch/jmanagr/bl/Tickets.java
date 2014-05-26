@@ -5,6 +5,7 @@ import ch.jmanagr.bo.*;
 import ch.jmanagr.lib.STATUS_CODE;
 import ch.jmanagr.lib.TICKET_STATE;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -49,7 +50,10 @@ public class Tickets extends AbstractBL<Ticket, ch.jmanagr.dal.Tickets>
 	 */
 	public List<Ticket> getAllByUser(User user, TICKET_STATE state)
 	{
-		return dal.fetch(user, state);
+		HashMap<String, String> map = new HashMap<>();
+		map.put("User", ((Integer) user.getId()).toString());
+		map.put("status", state.toString());
+		return dal.fetch(map, -1);
 	}
 
 	/**
@@ -60,9 +64,12 @@ public class Tickets extends AbstractBL<Ticket, ch.jmanagr.dal.Tickets>
 	 *
 	 * @return A list of Tickets, which are assigned to the provided Agent
 	 */
-	public List<Ticket> getAllByAgent(Agent agent, TICKET_STATE state)
+	public List<Ticket> getAllByAgent(IAgent agent, TICKET_STATE state)
 	{
-		return dal.fetch(agent, state);
+		HashMap<String, String> map = new HashMap<>();
+		map.put("Agent", ((Integer) agent.getId()).toString());
+		map.put("status", state.toString());
+		return dal.fetch(map, -1);
 	}
 
 	/**
@@ -75,7 +82,10 @@ public class Tickets extends AbstractBL<Ticket, ch.jmanagr.dal.Tickets>
 	 */
 	public List<Ticket> getAllByResource(Resource resource, TICKET_STATE state)
 	{
-		return dal.fetch(resource, state);
+		HashMap<String, String> map = new HashMap<>();
+		map.put("Resource", ((Integer) resource.getId()).toString());
+		map.put("status", state.toString());
+		return dal.fetch(map, -1);
 	}
 
 	/**
@@ -89,7 +99,10 @@ public class Tickets extends AbstractBL<Ticket, ch.jmanagr.dal.Tickets>
 	 */
 	public List<Ticket> getAllByDepartment(Department department, TICKET_STATE state)
 	{
-		return dal.fetch(department, state);
+		HashMap<String, String> map = new HashMap<>();
+		map.put("Department", ((Integer) department.getId()).toString());
+		map.put("status", state.toString());
+		return dal.fetch(map, -1);
 	}
 
 }
