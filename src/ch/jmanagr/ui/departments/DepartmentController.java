@@ -28,7 +28,6 @@ public class DepartmentController implements Initializable {
     @FXML private TableColumn idCol;
     @FXML private TableColumn<Department, String> nameCol;
 
-    //@FXML private Button addBtn;
     @FXML private TextField nameField;
 
     // Fill Table with Data
@@ -65,22 +64,32 @@ public class DepartmentController implements Initializable {
 
 	public void refresh()
 	{
-		depList = bl.getAll();
-		depTable.setItems(depList);
+		this.depList = bl.getAll();
+		this.depTable.setItems(this.depList);
 		Logger.log("Refreshed list!");
 	}
 
     public void addDep()
     {
+        // todo Prio SuperMegaGigaHigh: i bruch simlpePropertys süns
+        // Change Name to changed of a departement
+        Department dep = this.depList.get(2);
+        dep.setName("changed");
+        Department dep2 = this.depList.get(2);
+        Logger.log(dep2.getName());
+
+        /*
+        // Add Deparment
 	    Department dep = new Department(nameField.getText(), null, true, false);
 	    bl.save(dep);
 	    this.refresh();
 	    Logger.log("Insertet new Department: " + nameField.getText());
+	    */
     }
 
     public void deleteDep()
     {
-        Department dep = depTable.getSelectionModel().getSelectedItem();
+        Department dep = this.depTable.getSelectionModel().getSelectedItem();
         if (dep != null) {
             Logger.log("Deleting dep:" + dep.getName() + " " + dep.getId());
             bl.delete(dep);
