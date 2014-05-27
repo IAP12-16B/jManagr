@@ -28,7 +28,7 @@ public class DepartmentController implements Initializable {
     @FXML private TableColumn idCol;
     @FXML private TableColumn<Department, String> nameCol;
 
-    @FXML private Button addBtn;
+    //@FXML private Button addBtn;
     @FXML private TextField nameField;
 
     // Fill Table with Data
@@ -43,9 +43,11 @@ public class DepartmentController implements Initializable {
         nameCol.setOnEditCommit(
                 new EventHandler<CellEditEvent<Department, String>>() {
                     public void handle(CellEditEvent<Department, String> t) {
-                        (t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
-                        System.out.println("CellEditEvent: " + t.getNewValue());
-                        
+
+                        Department dep = t.getTableView().getItems().get(t.getTablePosition().getRow()); //get changed object
+                        dep.setName(t.getNewValue()); // set changed value
+                        bl.save(dep);
+                        Logger.logVerbose("Updated in table: " + t.getNewValue() + " " + dep.getId());
                     }
                 }
         );
@@ -61,7 +63,6 @@ public class DepartmentController implements Initializable {
 	    this.refresh();
     }
 
-	// SORRY @mnewmedia . Ha das do nume chli umgschribe zum teschte, ob mis züg au funktioniert xD
 	public void refresh()
 	{
 		depList = bl.getAll();
@@ -69,11 +70,18 @@ public class DepartmentController implements Initializable {
 		Logger.logVerbose("Refreshed list!");
 	}
 
-	// Add new Data
-    public void addDep() {
-	    Department dep = new Department("l", null, true, false);
+    public void addDep()
+    {
+	    Department dep = new Department(nameField.getText(), null, true, false);
 	    bl.save(dep);
 	    this.refresh();
-	    System.out.println("Inerted new Department: " + nameField.getText());
+	    Logger.logVerbose("Inerted new Department: " + nameField.getText());
+    }
+
+    public void deleteDep()
+    {
+        Department dep = depTable.getSelectionModel().getSelectedItem();
+        Logger.logVerbose("Deleteing dep:" + dep.getName() + " " + dep.getId());
+        bl.delete(dep);
     }
 }
