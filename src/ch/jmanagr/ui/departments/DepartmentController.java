@@ -45,6 +45,7 @@ public class DepartmentController implements Initializable {
                     public void handle(CellEditEvent<Department, String> t) {
                         (t.getTableView().getItems().get(t.getTablePosition().getRow())).setName(t.getNewValue());
                         System.out.println("CellEditEvent: " + t.getNewValue());
+                        
                     }
                 }
         );
@@ -57,8 +58,6 @@ public class DepartmentController implements Initializable {
                 System.out.println("Detected a change! ");
             }
         });*/
-
-        //depTable.getItems().setAll(bl.getAll());
 	    this.refresh();
     }
 
@@ -66,7 +65,7 @@ public class DepartmentController implements Initializable {
 	public void refresh()
 	{
 		depList = bl.getAll();
-		depTable.setItems(depList); // todo dont fetch direct because this stops obserablelist working
+		depTable.setItems(depList);
 		Logger.logVerbose("Refreshed list!");
 	}
 

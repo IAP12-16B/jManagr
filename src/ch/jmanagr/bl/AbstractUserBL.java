@@ -4,9 +4,6 @@ import ch.jmanagr.bo.User;
 import ch.jmanagr.dal.AbstractDAL;
 import ch.jmanagr.lib.STATUS_CODE;
 
-/**
- * Created by kije on 5/24/14.
- */
 public abstract class AbstractUserBL<UserType extends User, UserTypeDAL extends AbstractDAL<UserType>>
 		extends AbstractBL<UserType, UserTypeDAL>
 {
