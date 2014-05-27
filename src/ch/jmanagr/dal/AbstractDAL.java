@@ -50,7 +50,6 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject> imp
 	 * Fetch all matching the criteria provided via parameters (checks for every hash map entry key == value)
 	 *
 	 * @param parameters
-	 * @param limit
 	 *
 	 * @return List of BusinessObjects
 	 */
