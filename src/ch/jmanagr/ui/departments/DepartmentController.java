@@ -47,7 +47,7 @@ public class DepartmentController implements Initializable {
                         Department dep = t.getTableView().getItems().get(t.getTablePosition().getRow()); //get changed object
                         dep.setName(t.getNewValue()); // set changed value
                         bl.save(dep);
-                        Logger.logVerbose("Updated in table: " + t.getNewValue() + " " + dep.getId());
+                        Logger.log("Updated in table: " + t.getNewValue() + " " + dep.getId());
                     }
                 }
         );
@@ -67,7 +67,7 @@ public class DepartmentController implements Initializable {
 	{
 		depList = bl.getAll();
 		depTable.setItems(depList);
-		Logger.logVerbose("Refreshed list!");
+		Logger.log("Refreshed list!");
 	}
 
     public void addDep()
@@ -75,13 +75,17 @@ public class DepartmentController implements Initializable {
 	    Department dep = new Department(nameField.getText(), null, true, false);
 	    bl.save(dep);
 	    this.refresh();
-	    Logger.logVerbose("Inerted new Department: " + nameField.getText());
+	    Logger.log("Insertet new Department: " + nameField.getText());
     }
 
     public void deleteDep()
     {
         Department dep = depTable.getSelectionModel().getSelectedItem();
-        Logger.logVerbose("Deleteing dep:" + dep.getName() + " " + dep.getId());
-        bl.delete(dep);
+        if (dep != null) {
+            Logger.log("Deleting dep:" + dep.getName() + " " + dep.getId());
+            bl.delete(dep);
+        } else {
+            Logger.log("Nothing selected to delete");
+        }
     }
 }
