@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sql2o">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/sql2o-1.5.0-custom-kije.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/sql2o-1.5.0-source-custom-kije.jar!/" />
+    </SOURCES>
+  </library>
+</component>

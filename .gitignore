@@ -32,4 +32,4 @@ out
 *~*
 
 !lib/sql2o*
-#!.idea/workspace.xml
+!.idea/libraries
