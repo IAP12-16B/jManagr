@@ -28,8 +28,8 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject> imp
 		try (Connection con = DB.getSql2o().open())
         {
 			this.db.softDelete(tableName, "`id` = :id").addParameter("id", bo.getId()).executeUpdate();
-			// todo Priority High: set bo deleted
-			return STATUS_CODE.OK;
+	        bo.setDeleted(true);
+	        return STATUS_CODE.OK;
 		} catch (Sql2oException e) {
 			Logger.log(
 					LOG_LEVEL.ERROR,
