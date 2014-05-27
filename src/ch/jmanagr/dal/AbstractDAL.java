@@ -8,6 +8,9 @@ import ch.jmanagr.lib.STATUS_CODE;
 import org.sql2o.Connection;
 import org.sql2o.Sql2oException;
 
+import java.util.HashMap;
+import java.util.List;
+
 public abstract class AbstractDAL<BusinessObjectType extends BusinessObject> implements DAL<BusinessObjectType>
 {
 	protected DB db;
@@ -25,11 +28,10 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject> imp
 
 	public STATUS_CODE delete(BusinessObjectType bo)
 	{
-		try (Connection con = DB.getSql2o().open())
-        {
+		try (Connection con = DB.getSql2o().open()) {
 			this.db.softDelete(tableName, "`id` = :id").addParameter("id", bo.getId()).executeUpdate();
-	        bo.setDeleted(true);
-	        return STATUS_CODE.OK;
+			bo.setDeleted(true);
+			return STATUS_CODE.OK;
 		} catch (Sql2oException e) {
 			Logger.log(
 					LOG_LEVEL.ERROR,
@@ -44,5 +46,17 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject> imp
 		return STATUS_CODE.FAIL;
 	}
 
-
+	/**
+	 * Fetch all matching the criteria provided via parameters (checks for every hash map entry key == value)
+	 *
+	 * @param parameters
+	 * @param limit
+	 *
+	 * @return List of BusinessObjects
+	 */
+	@Override
+	public List<BusinessObjectType> fetch(HashMap<String, String> parameters)
+	{
+		return this.fetch(parameters, -1);
+	}
 }

@@ -4,9 +4,8 @@ import ch.jmanagr.lib.TICKET_STATE;
 
 import java.util.Date;
 
-public class Ticket implements BusinessObject
+public class Ticket extends AbstractBusinessObject
 {
-	private int id;
 	private String name;
 	private String description;
 	private TICKET_STATE status;
@@ -15,54 +14,42 @@ public class Ticket implements BusinessObject
 	private User agent;
 	private Department department;
 	private User user;
-	private boolean active;
-	private boolean deleted;
 
 	public Ticket(int id, String name, String description, TICKET_STATE status, Date date, Resource resource,
 	              User agent, Department department, User user, boolean active,
 	              boolean deleted)
 	{
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.status = status;
-		this.date = date;
-		this.resource = resource;
-		this.agent = agent;
-		this.department = department;
-		this.user = user;
-		this.active = active;
-		this.deleted = deleted;
+		super(id, active, deleted);
+		this.setName(name);
+		this.setDescription(description);
+		this.setStatus(status);
+		this.setDate(date);
+		this.setResource(resource);
+		this.setAgent(agent);
+		this.setDepartment(department);
+		this.setUser(user);
 	}
 
 	public Ticket(String name, String description, TICKET_STATE status, Date date, Resource resource,
 	              User agent, Department department, User user, boolean active,
 	              boolean deleted)
 	{
-		this.name = name;
-		this.description = description;
-		this.status = status;
-		this.date = date;
-		this.resource = resource;
-		this.agent = agent;
-		this.department = department;
-		this.user = user;
-		this.active = active;
-		this.deleted = deleted;
+		super(active, deleted);
+		this.setName(name);
+		this.setDescription(description);
+		this.setStatus(status);
+		this.setDate(date);
+		this.setResource(resource);
+		this.setAgent(agent);
+		this.setDepartment(department);
+		this.setUser(user);
 	}
 
-	public Ticket() {}
-
-	public int getId()
+	public Ticket()
 	{
-		return id;
+		super();
 	}
 
-
-	public void setId(int id)
-	{
-		this.id = id;
-	}
 
 	public String getName()
 	{

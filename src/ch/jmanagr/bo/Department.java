@@ -2,74 +2,28 @@ package ch.jmanagr.bo;
 
 import java.util.List;
 
-public class Department implements BusinessObject
+public class Department extends AbstractBusinessObject
 {
-	private int id;
 	private String name;
 	private List<User> agents;
-	private boolean active;
-	private boolean deleted;
-
-	public boolean isActive()
-	{
-		return active;
-	}
-
-	public boolean getActive()
-	{
-		return active;
-	}
-
-	public void setActive(boolean active)
-	{
-		this.active = active;
-	}
-
-	public boolean isDeleted()
-	{
-		return deleted;
-	}
-
-	public boolean getDeleted()
-	{
-		return deleted;
-	}
-
-	public void setDeleted(boolean deleted)
-	{
-		this.deleted = deleted;
-	}
 
 	public Department(int id, String name, List<User> agents, boolean active, boolean deleted)
 	{
-		this.id = id;
-		this.name = name;
-		this.agents = agents;
-		this.active = active;
-		this.deleted = deleted;
-
+		super(id, active, deleted);
+		this.setName(name);
+		this.setAgents(agents);
 	}
 
 	public Department(String name, List<User> agents, boolean active, boolean deleted)
 	{
-		this.name = name;
-		this.agents = agents;
-		this.active = active;
-		this.deleted = deleted;
-
+		super(active, deleted);
+		this.setName(name);
+		this.setAgents(agents);
 	}
 
-	public Department() {}
-
-	public int getId()
+	public Department()
 	{
-		return id;
-	}
-
-
-	public void setId(int id)
-	{
-		this.id = id;
+		super();
 	}
 
 	public String getName()

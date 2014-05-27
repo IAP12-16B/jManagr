@@ -8,47 +8,46 @@ import ch.jmanagr.lib.USER_ROLE;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-public class User implements BusinessObject, IUser, IAgent
+public class User extends AbstractBusinessObject implements IUser, IAgent
 {
-	protected int id;
 	protected String firstname;
 	protected String lastname;
 	protected String username;
 	protected String password;
 	protected USER_ROLE role;
 	protected Department department;
-	protected boolean active;
-	protected boolean deleted;
+
 
 	public User(int id, String firstname, String lastname, String username, String password, USER_ROLE role,
 	            Department department, boolean active, boolean deleted)
 	{
-		this.id = id;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.username = username;
-		this.password = password;
-		this.role = role;
-		this.department = department;
-		this.active = active;
-		this.deleted = deleted;
+		super(id, active, deleted);
+		this.setFirstname(firstname);
+		this.setLastname(lastname);
+		this.setUsername(username);
+		this.setPassword(password);
+		this.setRole(role);
+		this.setDepartment(department);
 	}
 
 	public User(String firstname, String lastname, String username, String password, USER_ROLE role,
 	            Department department, boolean active,
 	            boolean deleted)
 	{
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.username = username;
-		this.password = password;
-		this.role = role;
-		this.department = department;
-		this.active = active;
-		this.deleted = deleted;
+		super(active, deleted);
+		this.setFirstname(firstname);
+		this.setLastname(lastname);
+		this.setUsername(username);
+		this.setPassword(password);
+		this.setRole(role);
+		this.setDepartment(department);
 	}
 
-	public User() {}
+
+	public User()
+	{
+		super();
+	}
 
 	/**
 	 * Hashes a passwor, so it can be stored securely into the DB
@@ -89,36 +88,6 @@ public class User implements BusinessObject, IUser, IAgent
 		return false;
 	}
 
-	public boolean isDeleted()
-	{
-		return deleted;
-	}
-
-	public void setDeleted(boolean deleted)
-	{
-		this.deleted = deleted;
-	}
-
-	public boolean isActive()
-	{
-		return active;
-	}
-
-	public void setActive(boolean active)
-	{
-		this.active = active;
-	}
-
-	public int getId()
-
-	{
-		return id;
-	}
-
-	public void setId(int id)
-	{
-		this.id = id;
-	}
 
 	public String getFirstname()
 	{

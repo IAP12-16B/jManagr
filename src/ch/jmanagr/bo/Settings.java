@@ -9,18 +9,15 @@ public class Settings
 	private String db_password;
 	private int db_port;
 
-	public Settings()
-	{
-
-	}
+	public Settings() {}
 
 	public Settings(String db_host, String db_database, String db_user, String db_password, int db_port)
 	{
-		this.db_host = db_host;
-		this.db_database = db_database;
-		this.db_user = db_user;
-		this.db_password = db_password;
-		this.db_port = db_port;
+		this.setHost(db_host);
+		this.setDatabase(db_database);
+		this.setUser(db_user);
+		this.setPassword(db_password);
+		this.setPort(db_port);
 	}
 
 	/**

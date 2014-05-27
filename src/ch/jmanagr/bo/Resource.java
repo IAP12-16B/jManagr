@@ -4,56 +4,41 @@ package ch.jmanagr.bo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Resource implements BusinessObject
+public class Resource extends AbstractBusinessObject
 {
-	private int id;
 	private String name;
 	private List<ResourceData> data;
 	private ArrayList<Ticket> tickets;
 	private Resource parent;
 	private ArrayList<Resource> children;
-	private boolean active;
-	private boolean deleted;
 
 	public Resource(int id, String name, List<ResourceData> data, ArrayList<Ticket> tickets, Resource parent,
 	                ArrayList<Resource> children, boolean active, boolean deleted)
 	{
-		this.id = id;
-		this.name = name;
-		this.data = data;
-		this.tickets = tickets;
-		this.parent = parent;
-		this.children = children;
-		this.active = active;
-		this.deleted = deleted;
+		super(id, active, deleted);
+		this.setName(name);
+		this.setData(data);
+		this.setTickets(tickets);
+		this.setParent(parent);
+		this.setChildren(children);
 	}
 
 	public Resource(String name, List<ResourceData> data, ArrayList<Ticket> tickets, Resource parent,
 	                ArrayList<Resource> children, boolean active, boolean deleted)
 	{
-		this.name = name;
-		this.data = data;
-		this.tickets = tickets;
-		this.parent = parent;
-		this.children = children;
-		this.active = active;
-		this.deleted = deleted;
+		super(active, deleted);
+		this.setName(name);
+		this.setData(data);
+		this.setTickets(tickets);
+		this.setParent(parent);
+		this.setChildren(children);
 	}
 
-	public Resource() {}
-
-
-	public int getId()
+	public Resource()
 	{
-		return id;
+		super();
 	}
 
-
-	public void setId(int id)
-
-	{
-		this.id = id;
-	}
 
 	public String getName()
 	{

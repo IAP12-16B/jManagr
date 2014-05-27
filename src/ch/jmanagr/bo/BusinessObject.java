@@ -11,4 +11,17 @@ public interface BusinessObject
 	public int getId();
 
 	public void setId(int id);
+
+	public boolean isActive();
+
+	public boolean getActive();
+
+	public void setActive(boolean active);
+
+	public boolean isDeleted();
+
+	public boolean getDeleted();
+
+
+	public void setDeleted(boolean deleted);
 }
