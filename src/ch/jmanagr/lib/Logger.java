@@ -2,6 +2,10 @@ package ch.jmanagr.lib;
 
 
 import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class Logger
 {
@@ -96,4 +100,44 @@ public class Logger
 	{
 		unifiedLog(System.out, message);
 	}
+
+	public static void log(HashMap<String, ?> map)
+	{
+		Iterator<? extends Map.Entry<String, ?>> it = map.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry pairs = it.next();
+			log(String.format("%s:\t %s\n", pairs.getKey(), pairs.getValue()));
+			it.remove();
+		}
+	}
+
+	public static void log(List list)
+	{
+		for (Object o : list) {
+			log(o.toString() + "\n");
+		}
+	}
+
+	public static void log(String[] array)
+	{
+		for (String s : array) {
+			log(s + "\n");
+		}
+
+	}
+
+	public static void log(Integer[] array)
+	{
+		for (Integer integer : array) {
+			log(integer.toString() + "\n");
+		}
+
+	}
+
+	public static void log(String string)
+	{
+		logMessage(string);
+	}
+
+
 }

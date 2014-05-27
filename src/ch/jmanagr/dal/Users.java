@@ -68,6 +68,7 @@ public class Users extends AbstractDAL<User>
 	@Override
 	public List<User> fetch(HashMap<String, String> parameters, int limit)
 	{
+		Logger.log(parameters);
 		try (Connection con = DB.getSql2o().open()) {
 			String where = "";
 			Iterator<Map.Entry<String, String>> it = parameters.entrySet().iterator();
