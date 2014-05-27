@@ -43,6 +43,28 @@ public class User extends AbstractBusinessObject implements IUser, IAgent
 		this.setDepartment(department);
 	}
 
+	public User(int id, String firstname, String lastname, String username, String password, USER_ROLE role,
+	            boolean active, boolean deleted)
+	{
+		super(id, active, deleted);
+		this.setFirstname(firstname);
+		this.setLastname(lastname);
+		this.setUsername(username);
+		this.setPassword(password);
+		this.setRole(role);
+	}
+
+	public User(String firstname, String lastname, String username, String password, USER_ROLE role, boolean active,
+	            boolean deleted)
+	{
+		super(active, deleted);
+		this.setFirstname(firstname);
+		this.setLastname(lastname);
+		this.setUsername(username);
+		this.setPassword(password);
+		this.setRole(role);
+	}
+
 
 	public User()
 	{

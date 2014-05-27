@@ -26,7 +26,7 @@ public class Logger
 	private static String formatMessage(Exception e, String adidionalInfo)
 	{
 		return String.format(
-				"%s\nReason: %s \nMessage: %s \nTrace: \n%s\n", adidionalInfo, e.getCause(),
+				"%s\nReason: \t%s \nMessage: \t%s \nTrace: \n%s\n", adidionalInfo, e.getCause(),
 				e.getMessage(), formatStackTrace(e.getStackTrace())
 		);
 	}
@@ -38,7 +38,7 @@ public class Logger
 
 	public static void log(LOG_LEVEL level, String message)
 	{
-		message = String.format("%s: %s", level.toString(), message);
+		message = String.format("%s: \t\t%s", level.toString(), message);
 		switch (level) {
 			case VERBOSE:
 				logVerbose(message);
@@ -138,6 +138,4 @@ public class Logger
 	{
 		logMessage(string);
 	}
-
-
 }

@@ -20,6 +20,38 @@ public class Settings
 		this.setPort(db_port);
 	}
 
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) { return true; }
+		if (!(o instanceof Settings)) { return false; }
+
+		Settings settings = (Settings) o;
+
+		if (db_port != settings.db_port) { return false; }
+		if (db_database != null ? !db_database.equals(settings.db_database) : settings.db_database != null) {
+			return false;
+		}
+		if (db_host != null ? !db_host.equals(settings.db_host) : settings.db_host != null) { return false; }
+		if (db_password != null ? !db_password.equals(settings.db_password) : settings.db_password != null) {
+			return false;
+		}
+		if (db_user != null ? !db_user.equals(settings.db_user) : settings.db_user != null) { return false; }
+
+		return true;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = db_host != null ? db_host.hashCode() : 0;
+		result = 31 * result + (db_database != null ? db_database.hashCode() : 0);
+		result = 31 * result + (db_user != null ? db_user.hashCode() : 0);
+		result = 31 * result + (db_password != null ? db_password.hashCode() : 0);
+		result = 31 * result + db_port;
+		return result;
+	}
+
 	/**
 	 * @return String the Host
 	 */

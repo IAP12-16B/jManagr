@@ -15,12 +15,19 @@ public class DB
 
 	private Sql2o sql2o;
 
+	private ch.jmanagr.bo.Settings settings;
+
 	/**
 	 *
 	 */
 	private DB()
 	{
-		ch.jmanagr.bo.Settings settings = Settings.getInstance().retrieve();
+		this.setSettings(Settings.getInstance().retrieve());
+	}
+
+	public void setSettings(ch.jmanagr.bo.Settings settings)
+	{
+		this.settings = settings;
 		sql2o = new Sql2o(
 				String.format(
 						"jdbc:mysql://%s:%d/%s", settings.getHost(), settings.getPort(),
@@ -170,7 +177,8 @@ public class DB
 					"id",
 					bo.getId()
 			).executeScalar(Integer.class);
-			return relationsDAL.fetch(relationalId); // here potentially exists the possibility of an endless recursion loop
+			return relationsDAL.fetch(relationalId); // here potentially exists the possibility of an endless
+			// recursion loop
 		} catch (Sql2oException e) {
 			Logger.log(LOG_LEVEL.ERROR, "Relation mapping failed!", e);
 		}

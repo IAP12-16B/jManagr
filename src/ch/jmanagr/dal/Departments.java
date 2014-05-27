@@ -90,7 +90,7 @@ public class Departments extends AbstractDAL<Department>
 
 			List<Department> departments = q.executeAndFetch(Department.class);
 
-			HashMap<String, String> map = null;
+			HashMap<String, String> map;
 			for (Department department : departments) {
 				map = new HashMap<>();
 				map.put("Department", ((Integer) department.getId()).toString());
@@ -99,7 +99,7 @@ public class Departments extends AbstractDAL<Department>
 				);
 			}
 
-
+			Logger.log(departments);
 			return departments;
 		} catch (Sql2oException e) {
 			Logger.log(
