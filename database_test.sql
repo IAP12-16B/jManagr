@@ -2,65 +2,82 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-CREATE SCHEMA IF NOT EXISTS `jManagr` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
-USE `jManagr` ;
+DROP SCHEMA IF EXISTS `jManagr_test` ;
+CREATE SCHEMA IF NOT EXISTS `jManagr_test` DEFAULT CHARACTER SET utf8 ;
+USE `jManagr_test` ;
 
 -- -----------------------------------------------------
--- Table `jManagr`.`Department`
+-- Table `jManagr_test`.`Department`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jManagr`.`Department` (
+DROP TABLE IF EXISTS `jManagr_test`.`Department` ;
+
+CREATE TABLE IF NOT EXISTS `jManagr_test`.`Department` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL,
+  `active` TINYINT(1) NOT NULL DEFAULT 1,
+  `deleted` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `jManagr`.`User`
+-- Table `jManagr_test`.`User`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jManagr`.`User` (
+DROP TABLE IF EXISTS `jManagr_test`.`User` ;
+
+CREATE TABLE IF NOT EXISTS `jManagr_test`.`User` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `firstname` VARCHAR(70) NULL,
-  `lastname` VARCHAR(70) NULL,
+  `firstname` VARCHAR(70) NULL DEFAULT NULL,
+  `lastname` VARCHAR(70) NULL DEFAULT NULL,
   `username` VARCHAR(30) NOT NULL,
   `password` VARCHAR(60) NOT NULL,
   `role` INT(4) NOT NULL,
-  `Department` INT NULL,
+  `Department` INT NULL DEFAULT NULL,
+  `active` TINYINT(1) NOT NULL DEFAULT 1,
+  `deleted` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC),
   INDEX `fk_User_Department1_idx` (`Department` ASC),
   CONSTRAINT `fk_User_Department1`
     FOREIGN KEY (`Department`)
-    REFERENCES `jManagr`.`Department` (`id`)
+    REFERENCES `jManagr_test`.`Department` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `jManagr`.`Resource`
+-- Table `jManagr_test`.`Resource`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jManagr`.`Resource` (
+DROP TABLE IF EXISTS `jManagr_test`.`Resource` ;
+
+CREATE TABLE IF NOT EXISTS `jManagr_test`.`Resource` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(80) NOT NULL,
-  `icon` VARCHAR(255) NULL,
+  `icon` VARCHAR(255) NULL DEFAULT NULL,
+  `active` TINYINT(1) NOT NULL DEFAULT 1,
+  `deleted` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `jManagr`.`Ticket`
+-- Table `jManagr_test`.`Ticket`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jManagr`.`Ticket` (
+DROP TABLE IF EXISTS `jManagr_test`.`Ticket` ;
+
+CREATE TABLE IF NOT EXISTS `jManagr_test`.`Ticket` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `status` INT(5) NOT NULL DEFAULT 0,
-  `date` DATETIME NULL,
-  `name` VARCHAR(70) NULL,
-  `description` TEXT NULL,
-  `Department` INT NULL,
-  `Agent` INT NULL,
-  `Resource` INT NULL,
-  `User` INT NOT NULL,
+  `date` DATETIME NULL DEFAULT NULL,
+  `name` VARCHAR(70) NULL DEFAULT NULL,
+  `description` TEXT NULL DEFAULT NULL,
+  `Department` INT NULL DEFAULT NULL,
+  `Agent` INT NULL DEFAULT NULL,
+  `Resource` INT NULL DEFAULT NULL,
+  `User` INT NULL,
+  `active` TINYINT(1) NOT NULL DEFAULT 1,
+  `deleted` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   INDEX `fk_Ticket_Department_idx` (`Department` ASC),
   INDEX `fk_Ticket_User1_idx` (`Agent` ASC),
@@ -68,62 +85,66 @@ CREATE TABLE IF NOT EXISTS `jManagr`.`Ticket` (
   INDEX `fk_Ticket_User2_idx` (`User` ASC),
   CONSTRAINT `fk_Ticket_Department`
     FOREIGN KEY (`Department`)
-    REFERENCES `jManagr`.`Department` (`id`)
+    REFERENCES `jManagr_test`.`Department` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Ticket_User1`
     FOREIGN KEY (`Agent`)
-    REFERENCES `jManagr`.`User` (`id`)
+    REFERENCES `jManagr_test`.`User` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Ticket_Resource1`
     FOREIGN KEY (`Resource`)
-    REFERENCES `jManagr`.`Resource` (`id`)
+    REFERENCES `jManagr_test`.`Resource` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Ticket_User2`
     FOREIGN KEY (`User`)
-    REFERENCES `jManagr`.`User` (`id`)
-    ON DELETE NO ACTION -- TODO what if user with tickets gets deleted? -> soft-delete
+    REFERENCES `jManagr_test`.`User` (`id`)
+    ON DELETE NO ACTION
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `jManagr`.`Resource_Data`
+-- Table `jManagr_test`.`ResourceData`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jManagr`.`Resource_Data` (
+DROP TABLE IF EXISTS `jManagr_test`.`ResourceData` ;
+
+CREATE TABLE IF NOT EXISTS `jManagr_test`.`ResourceData` (
   `Resource` INT NOT NULL,
   `key` VARCHAR(80) NOT NULL,
-  `value` VARCHAR(600) NULL,
+  `value` VARCHAR(600) NULL DEFAULT NULL,
   INDEX `fk_Resource_Data_Resource1_idx` (`Resource` ASC),
   PRIMARY KEY (`Resource`, `key`),
   CONSTRAINT `fk_Resource_Data_Resource1`
     FOREIGN KEY (`Resource`)
-    REFERENCES `jManagr`.`Resource` (`id`)
+    REFERENCES `jManagr_test`.`Resource` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `jManagr`.`Resource_Children`
+-- Table `jManagr_test`.`Resource_Children`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `jManagr`.`Resource_Children` (
+DROP TABLE IF EXISTS `jManagr_test`.`Resource_Children` ;
+
+CREATE TABLE IF NOT EXISTS `jManagr_test`.`Resource_Children` (
   `Resource` INT NOT NULL,
   `child` INT NOT NULL,
-  `order` INT NULL,
+  `order` INT NULL DEFAULT NULL,
   PRIMARY KEY (`Resource`, `child`),
   INDEX `fk_Resource_has_Resource_Resource2_idx` (`child` ASC),
   INDEX `fk_Resource_has_Resource_Resource1_idx` (`Resource` ASC),
   CONSTRAINT `fk_Resource_has_Resource_Resource1`
     FOREIGN KEY (`Resource`)
-    REFERENCES `jManagr`.`Resource` (`id`)
+    REFERENCES `jManagr_test`.`Resource` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Resource_has_Resource_Resource2`
     FOREIGN KEY (`child`)
-    REFERENCES `jManagr`.`Resource` (`id`)
+    REFERENCES `jManagr_test`.`Resource` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
