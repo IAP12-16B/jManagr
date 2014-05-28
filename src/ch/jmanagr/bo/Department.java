@@ -1,15 +1,18 @@
 package ch.jmanagr.bo;
 
+import javafx.beans.property.SimpleStringProperty;
+
 import java.util.List;
 
 public class Department extends AbstractBusinessObject
 {
-	private String name;
+	private SimpleStringProperty name;
 	private List<User> agents;
 
 	public Department(int id, String name, List<User> agents, boolean active, boolean deleted)
 	{
 		super(id, active, deleted);
+		this.name = new SimpleStringProperty();
 		this.setName(name);
 		this.setAgents(agents);
 	}
@@ -17,6 +20,7 @@ public class Department extends AbstractBusinessObject
 	public Department(String name, List<User> agents, boolean active, boolean deleted)
 	{
 		super(active, deleted);
+		this.name = new SimpleStringProperty();
 		this.setName(name);
 		this.setAgents(agents);
 	}
@@ -28,12 +32,17 @@ public class Department extends AbstractBusinessObject
 
 	public String getName()
 	{
-		return name;
+		return name.getName();
 	}
 
 	public void setName(String name)
 	{
-		this.name = name;
+		this.name.set(name);
+	}
+
+	public SimpleStringProperty nameProperty()
+	{
+		return this.name;
 	}
 
 	public List<User> getAgents()
