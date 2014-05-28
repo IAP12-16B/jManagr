@@ -133,48 +133,4 @@ public class Users extends AbstractDAL<User>
 		map.put("id", ((Integer) id).toString());
 		return this.fetch(map, 1).get(0);
 	}
-
-	/**
-	 * Updates a BusinessObject
-	 *
-	 * @param bo the BusinessObject
-	 *
-	 * @return Whether it was successful or not.
-
-	 @Override public STATUS_CODE update(Agent bo)
-	 {
-	 try (Connection con = DB.getSql2o().open()) {
-	 bo.setId(
-	 this.db.update(
-	 tableName,
-	 "firstname = :firstname," +
-	 "lastname = :lastname," +
-	 "username = :username," +
-	 "password = :password," +
-	 "role = :role," +
-	 "active = :active," +
-	 "deleted = :deleted," +
-	 "Department = :department_id" +
-	 " WHERE id = :id",
-	 true
-	 ).bind(bo)
-	 .addParameter("department_id", bo.getDepartment().getId())
-	 .executeUpdate()
-	 .<Integer>getKey(Integer.class)
-	 );
-	 return STATUS_CODE.OK;
-	 } catch (Sql2oException e) {
-	 Logger.log(
-	 LOG_LEVEL.ERROR,
-	 String.format(
-	 "Update of %s with id %d failed!",
-	 bo.getClass().getName(),
-	 bo.getId()
-	 ),
-	 e
-	 );
-	 }
-
-	 return STATUS_CODE.FAIL;
-	 }*/
 }

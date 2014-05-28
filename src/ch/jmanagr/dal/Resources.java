@@ -181,43 +181,4 @@ public class Resources extends AbstractDAL<Resource>
 		map.put("id", ((Integer) id).toString());
 		return this.fetch(map, 1).get(0);
 	}
-
-	/**
-	 * Updates a BusinessObject
-	 *
-	 * @param bo the BusinessObject
-	 *
-	 * @return Whether it was successful or not.
-
-	 @Override public STATUS_CODE update(Resource bo)
-	 {
-	 try (Connection con = DB.getSql2o().open()) {
-	 bo.setId(
-	 this.db.update(
-	 tableName,
-	 "name = :name," +
-	 "icon = :icon," +
-	 "active = :active," +
-	 "deleted = :deleted" +
-	 " WHERE id = :id",
-	 true
-	 ).bind(bo).executeUpdate().<Integer>getKey(Integer.class)
-	 );
-
-	 // TODO insert data
-	 return STATUS_CODE.OK;
-	 } catch (Sql2oException e) {
-	 Logger.log(
-	 LOG_LEVEL.ERROR,
-	 String.format(
-	 "Update of %s with id %d failed!",
-	 bo.getClass().getName(),
-	 bo.getId()
-	 ),
-	 e
-	 );
-	 }
-
-	 return STATUS_CODE.FAIL;
-	 }*/
 }
