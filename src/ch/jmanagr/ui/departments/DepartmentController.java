@@ -100,6 +100,7 @@ public class DepartmentController implements Initializable
 
 	public void deleteDep()
 	{
+		// TODO: @mnewmedia only display BO's where the deleted flag is set to false and the active flag is set to true! -> from bl, you will only get the not deleted ones, but what if i delete it via gui
 		Department dep = this.depTable.getSelectionModel().getSelectedItem();
 		if (dep != null) {
 			Logger.log("Deleting dep:" + dep.getName() + " " + dep.getId());
