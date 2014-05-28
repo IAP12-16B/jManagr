@@ -29,7 +29,7 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject,
 	{
 		HashMap<String, String> map = new HashMap<>();
 		map.put("deleted", "0");
-		ObservableList<BusinessObjectType> depList = FXCollections.observableArrayList(this.dal.fetch());
+		ObservableList<BusinessObjectType> depList = FXCollections.observableArrayList(this.dal.fetch(map));
 		return depList; // Todo
 	}
 

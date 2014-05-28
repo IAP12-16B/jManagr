@@ -75,7 +75,6 @@ public class Users extends AbstractDAL<User>
 			while (it.hasNext()) {
 				Map.Entry<String, String> pairs = it.next();
 				where += String.format("`%s` = :%s", pairs.getKey(), pairs.getKey());
-				it.remove();
 			}
 
 			Query q = this.db.select(
@@ -88,7 +87,6 @@ public class Users extends AbstractDAL<User>
 			while (it.hasNext()) {
 				Map.Entry<String, String> pairs = it.next();
 				q.addParameter(pairs.getKey(), pairs.getValue());
-				it.remove();
 			}
 
 			List<User> users = q.executeAndFetch(User.class);

@@ -72,7 +72,7 @@ public class Departments extends AbstractDAL<Department>
 			while (it.hasNext()) {
 				Map.Entry<String, String> pairs = it.next();
 				where += String.format("`%s` = :%s", pairs.getKey(), pairs.getKey());
-				it.remove();
+				//it.remove();
 			}
 
 			Query q = this.db.select(
@@ -85,7 +85,7 @@ public class Departments extends AbstractDAL<Department>
 			while (it.hasNext()) {
 				Map.Entry<String, String> pairs = it.next();
 				q.addParameter(pairs.getKey(), pairs.getValue());
-				it.remove();
+				//it.remove();
 			}
 
 			List<Department> departments = q.executeAndFetch(Department.class);

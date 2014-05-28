@@ -8,8 +8,12 @@ import ch.jmanagr.lib.USER_ROLE;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-public class User extends AbstractBusinessObject implements IUser, IAgent
+public class User implements BusinessObject, IUser, IAgent
 {
+	protected int id;
+	protected boolean active;
+	protected boolean deleted;
+
 	protected String firstname;
 	protected String lastname;
 	protected String username;
@@ -21,7 +25,9 @@ public class User extends AbstractBusinessObject implements IUser, IAgent
 	public User(int id, String firstname, String lastname, String username, String password, USER_ROLE role,
 	            Department department, boolean active, boolean deleted)
 	{
-		super(id, active, deleted);
+		this.setId(id);
+		this.setActive(active);
+		this.setDeleted(deleted);
 		this.setFirstname(firstname);
 		this.setLastname(lastname);
 		this.setUsername(username);
@@ -34,7 +40,8 @@ public class User extends AbstractBusinessObject implements IUser, IAgent
 	            Department department, boolean active,
 	            boolean deleted)
 	{
-		super(active, deleted);
+		this.setActive(active);
+		this.setDeleted(deleted);
 		this.setFirstname(firstname);
 		this.setLastname(lastname);
 		this.setUsername(username);
@@ -46,7 +53,9 @@ public class User extends AbstractBusinessObject implements IUser, IAgent
 	public User(int id, String firstname, String lastname, String username, String password, USER_ROLE role,
 	            boolean active, boolean deleted)
 	{
-		super(id, active, deleted);
+		this.setId(id);
+		this.setActive(active);
+		this.setDeleted(deleted);
 		this.setFirstname(firstname);
 		this.setLastname(lastname);
 		this.setUsername(username);
@@ -57,7 +66,8 @@ public class User extends AbstractBusinessObject implements IUser, IAgent
 	public User(String firstname, String lastname, String username, String password, USER_ROLE role, boolean active,
 	            boolean deleted)
 	{
-		super(active, deleted);
+		this.setActive(active);
+		this.setDeleted(deleted);
 		this.setFirstname(firstname);
 		this.setLastname(lastname);
 		this.setUsername(username);
@@ -66,10 +76,7 @@ public class User extends AbstractBusinessObject implements IUser, IAgent
 	}
 
 
-	public User()
-	{
-		super();
-	}
+	public User() {}
 
 	/**
 	 * Hashes a passwor, so it can be stored securely into the DB
@@ -196,4 +203,44 @@ public class User extends AbstractBusinessObject implements IUser, IAgent
 	}
 
 
+	public boolean getActive()
+	{
+		return active;
+	}
+
+	public boolean getDeleted()
+	{
+		return deleted;
+	}
+
+	public boolean isDeleted()
+	{
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted)
+	{
+		this.deleted = deleted;
+	}
+
+	public boolean isActive()
+	{
+		return active;
+	}
+
+	public void setActive(boolean active)
+	{
+		this.active = active;
+	}
+
+	public int getId()
+
+	{
+		return id;
+	}
+
+	public void setId(int id)
+	{
+		this.id = id;
+	}
 }

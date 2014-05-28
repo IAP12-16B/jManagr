@@ -125,7 +125,6 @@ public class Resources extends AbstractDAL<Resource>
 			while (it.hasNext()) {
 				Map.Entry<String, String> pairs = it.next();
 				where += String.format("`%s` = :%s", pairs.getKey(), pairs.getKey());
-				it.remove();
 			}
 
 			Query q = this.db.select(
@@ -138,7 +137,6 @@ public class Resources extends AbstractDAL<Resource>
 			while (it.hasNext()) {
 				Map.Entry<String, String> pairs = it.next();
 				q.addParameter(pairs.getKey(), pairs.getValue());
-				it.remove();
 			}
 
 			List<Resource> resources = q.executeAndFetch(Resource.class);

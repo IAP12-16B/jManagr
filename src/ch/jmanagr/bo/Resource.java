@@ -4,8 +4,12 @@ package ch.jmanagr.bo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Resource extends AbstractBusinessObject
+public class Resource implements BusinessObject
 {
+	protected int id;
+	protected boolean active;
+	protected boolean deleted;
+
 	private String name;
 	private List<ResourceData> data;
 	private ArrayList<Ticket> tickets;
@@ -15,7 +19,9 @@ public class Resource extends AbstractBusinessObject
 	public Resource(int id, String name, List<ResourceData> data, ArrayList<Ticket> tickets, Resource parent,
 	                ArrayList<Resource> children, boolean active, boolean deleted)
 	{
-		super(id, active, deleted);
+		this.setId(id);
+		this.setActive(active);
+		this.setDeleted(deleted);
 		this.setName(name);
 		this.setData(data);
 		this.setTickets(tickets);
@@ -26,7 +32,8 @@ public class Resource extends AbstractBusinessObject
 	public Resource(String name, List<ResourceData> data, ArrayList<Ticket> tickets, Resource parent,
 	                ArrayList<Resource> children, boolean active, boolean deleted)
 	{
-		super(active, deleted);
+		this.setActive(active);
+		this.setDeleted(deleted);
 		this.setName(name);
 		this.setData(data);
 		this.setTickets(tickets);
@@ -34,10 +41,7 @@ public class Resource extends AbstractBusinessObject
 		this.setChildren(children);
 	}
 
-	public Resource()
-	{
-		super();
-	}
+	public Resource() {}
 
 
 	public String getName()
@@ -90,5 +94,46 @@ public class Resource extends AbstractBusinessObject
 	public void setChildren(ArrayList<Resource> children)
 	{
 		this.children = children;
+	}
+
+	public boolean getActive()
+	{
+		return active;
+	}
+
+	public boolean getDeleted()
+	{
+		return deleted;
+	}
+
+	public boolean isDeleted()
+	{
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted)
+	{
+		this.deleted = deleted;
+	}
+
+	public boolean isActive()
+	{
+		return active;
+	}
+
+	public void setActive(boolean active)
+	{
+		this.active = active;
+	}
+
+	public int getId()
+
+	{
+		return id;
+	}
+
+	public void setId(int id)
+	{
+		this.id = id;
 	}
 }

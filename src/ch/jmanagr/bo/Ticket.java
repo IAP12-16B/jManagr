@@ -4,8 +4,12 @@ import ch.jmanagr.lib.TICKET_STATE;
 
 import java.util.Date;
 
-public class Ticket extends AbstractBusinessObject
+public class Ticket implements BusinessObject
 {
+	protected int id;
+	protected boolean active;
+	protected boolean deleted;
+
 	private String name;
 	private String description;
 	private TICKET_STATE status;
@@ -19,7 +23,9 @@ public class Ticket extends AbstractBusinessObject
 	              User agent, Department department, User user, boolean active,
 	              boolean deleted)
 	{
-		super(id, active, deleted);
+		this.setId(id);
+		this.setActive(active);
+		this.setDeleted(deleted);
 		this.setName(name);
 		this.setDescription(description);
 		this.setStatus(status);
@@ -34,7 +40,8 @@ public class Ticket extends AbstractBusinessObject
 	              User agent, Department department, User user, boolean active,
 	              boolean deleted)
 	{
-		super(active, deleted);
+		this.setActive(active);
+		this.setDeleted(deleted);
 		this.setName(name);
 		this.setDescription(description);
 		this.setStatus(status);
@@ -45,10 +52,7 @@ public class Ticket extends AbstractBusinessObject
 		this.setUser(user);
 	}
 
-	public Ticket()
-	{
-		super();
-	}
+	public Ticket() {}
 
 
 	public String getName()
@@ -130,5 +134,46 @@ public class Ticket extends AbstractBusinessObject
 	public void setUser(User user)
 	{
 		this.user = user;
+	}
+
+	public boolean getActive()
+	{
+		return active;
+	}
+
+	public boolean getDeleted()
+	{
+		return deleted;
+	}
+
+	public boolean isDeleted()
+	{
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted)
+	{
+		this.deleted = deleted;
+	}
+
+	public boolean isActive()
+	{
+		return active;
+	}
+
+	public void setActive(boolean active)
+	{
+		this.active = active;
+	}
+
+	public int getId()
+
+	{
+		return id;
+	}
+
+	public void setId(int id)
+	{
+		this.id = id;
 	}
 }
