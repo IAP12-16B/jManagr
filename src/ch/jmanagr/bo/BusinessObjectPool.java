@@ -1,17 +1,13 @@
 package ch.jmanagr.bo;
 
-import ch.jmanagr.lib.Logger;
-
 import java.util.HashMap;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * Class provides a Business Object pool.
  */
-public abstract class BusinessObjectPool implements Observer
-{/*
-	private HashMap<Class<? extends AbstractBusinessObject>, HashMap<Integer, AbstractBusinessObject>> cache;
+public class BusinessObjectPool
+{
+	private HashMap<Class<? extends BusinessObject>, HashMap<Integer, BusinessObject>> cache;
 
 
 	private static BusinessObjectPool instance;
@@ -33,13 +29,8 @@ public abstract class BusinessObjectPool implements Observer
 		return instance;
 	}
 
-	public void add(AbstractBusinessObject bo)
+	public void add(BusinessObject bo)
 	{
-		Class<? extends AbstractBusinessObject> cls = bo.getClass();
-		if (!this.cache.containsKey(cls)) {
-			this.cache.put(cls, new HashMap<Integer, AbstractBusinessObject>());
-		}
-		bo.addObserver(this);
-		this.cache.get(cls).put(bo.getId(), bo);
-	}*/
+		// todo implement add
+	}
 }
