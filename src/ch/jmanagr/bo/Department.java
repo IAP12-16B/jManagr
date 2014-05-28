@@ -45,7 +45,7 @@ public class Department implements BusinessObject
 		this.name.set(name);
 	}
 
-	public SimpleStringProperty nameProperty()
+	public SimpleStringProperty nameProperty() // FIXME @mnewmedia Question: do we need this property?
 	{
 		return this.name;
 	}
