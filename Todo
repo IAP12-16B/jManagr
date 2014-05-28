@@ -11,3 +11,5 @@ TODO: @kije @mnewmedia  create Sequence Diagram
 TODO: @kije @mnewmedia  Find a solution for the JAVA FX Data type problem (we need for Java FX to work other data types than we would normally use -> e.g. SimpleStringProperty instead of String)
 TODO: @kije             in dal wird bei manuelem colum mapping im pool nachgeschaut, ob obj schon existsiert, wenn ja wird diese referenz verwendet.
                         ansonsten neues objekt in pool gelegt und das verwendet. dal neues departent -> pool -> return bl. obersvableList
+
+TODO: @kije             Implements unit tests

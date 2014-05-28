@@ -101,9 +101,9 @@ public class Logger
 		unifiedLog(System.out, message);
 	}
 
-	public static void log(HashMap<String, ?> map)
+	public static void log(HashMap<?, ?> map)
 	{
-		Iterator<? extends Map.Entry<String, ?>> it = map.entrySet().iterator();
+		Iterator<? extends Map.Entry<?, ?>> it = map.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry pairs = it.next();
 			log(String.format("%s:\t %s\n", pairs.getKey(), pairs.getValue()));
@@ -132,6 +132,14 @@ public class Logger
 			log(integer.toString() + "\n");
 		}
 
+	}
+
+	public static void log(Class cls) {
+		log(cls.getName());
+	}
+
+	public static void log(boolean b) {
+		log(b+"");
 	}
 
 	public static void log(String string)

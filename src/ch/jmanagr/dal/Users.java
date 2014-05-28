@@ -1,17 +1,9 @@
 package ch.jmanagr.dal;
 
 import ch.jmanagr.bo.User;
-import ch.jmanagr.lib.LOG_LEVEL;
-import ch.jmanagr.lib.Logger;
-import ch.jmanagr.lib.STATUS_CODE;
-import org.sql2o.Connection;
 import org.sql2o.Query;
-import org.sql2o.Sql2oException;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 
 public class Users extends AbstractDAL<User>
@@ -36,101 +28,48 @@ public class Users extends AbstractDAL<User>
 	}
 
 	@Override
-	public STATUS_CODE save(User bo)
+	protected HashMap<String, String> getSaveFields()
 	{
-		try (Connection con = DB.getSql2o().open()) {
-			bo.setId(
-					this.db.save(
-							tableName,
-							"`id`,`firstname`,`lastname`,`username`,`password`,`role`,`active`,`deleted`,`Department`",
-							":id,:firstname,:lastname,:username,:password,:role,:active,:deleted,:department_id",
-							true
-					).bind(bo)
-					       .addParameter("department_id", bo.getDepartment().getId())
-					       .executeUpdate()
-					       .<Integer>getKey(Integer.class)
-			);
-			return STATUS_CODE.OK;
-		} catch (Sql2oException e) {
-			Logger.log(
-					LOG_LEVEL.ERROR,
-					String.format(
-							"Creation of %s with id %d failed!",
-							bo.getClass().getName(),
-							bo.getId()
-					),
-					e
-			);
-		}
-		return STATUS_CODE.FAIL;
+		HashMap<String, String> fields = new HashMap<>();
+		fields.put("id", "id");
+		fields.put("firstname", "firstname");
+		fields.put("lastname", "lastname");
+		fields.put("username", "username");
+		fields.put("password", "password");
+		fields.put("role", "role");
+		fields.put("Department", "department_id");
+		fields.put("active", "active");
+		fields.put("deleted", "deleted");
+		return fields;
 	}
 
 	@Override
-	public List<User> fetch(HashMap<String, String> parameters, int limit)
+	protected Query beforeSave(Query q, User bo)
 	{
-		Logger.log(parameters);
-		try (Connection con = DB.getSql2o().open()) {
-			String where = "";
-			Iterator<Map.Entry<String, String>> it = parameters.entrySet().iterator();
-			while (it.hasNext()) {
-				Map.Entry<String, String> pairs = it.next();
-				where += String.format("`%s` = :%s", pairs.getKey(), pairs.getKey());
-			}
-
-			Query q = this.db.select(
-					"`id`,`firstname`,`lastname`,`username`,`password`,`role`,`active`,`deleted`",
-					this.tableName,
-					where,
-					limit
-			);
-			it = parameters.entrySet().iterator();
-			while (it.hasNext()) {
-				Map.Entry<String, String> pairs = it.next();
-				q.addParameter(pairs.getKey(), pairs.getValue());
-			}
-
-			List<User> users = q.executeAndFetch(User.class);
-
-			for (User user : users) {
-				user.setDepartment(
-						this.db.resolveRelation(user, Departments.getInstance(), "Department")
-				);
-			}
-
-			return users;
-		} catch (Sql2oException e) {
-			Logger.log(
-					LOG_LEVEL.ERROR,
-					"Fetch failed!",
-					e
-			);
-		}
-		return null;
+		return super.beforeSave(q, bo).addParameter("department_id", bo.getDepartment().getId());
 	}
 
-	/**
-	 * Fetch all BusinessObjects from DB
-	 *
-	 * @return a list of all BusinessObjects
-	 */
 	@Override
-	public List<User> fetch()
+	protected HashMap<String, String> getFetchFields()
 	{
-		return this.fetch(new HashMap<String, String>(), -1);
+		HashMap<String, String> fields = new HashMap<>();
+		fields.put("id", "id");
+		fields.put("firstname", "firstname");
+		fields.put("lastname", "lastname");
+		fields.put("username", "username");
+		fields.put("password", "password");
+		fields.put("role", "role");
+		fields.put("active", "active");
+		fields.put("deleted", "deleted");
+		return fields;
 	}
 
-	/**
-	 * Fetch a BusinessObject by id
-	 *
-	 * @param id the id of the BusinessObject
-	 *
-	 * @return the BusinessObject
-	 */
 	@Override
-	public User fetch(int id)
+	protected void afterFetch(User user)
 	{
-		HashMap<String, String> map = new HashMap<>();
-		map.put("id", ((Integer) id).toString());
-		return this.fetch(map, 1).get(0);
+		super.afterFetch(user);
+		user.setDepartment(
+				this.db.resolveRelation(user, Departments.getInstance(), "Department")
+		);
 	}
 }

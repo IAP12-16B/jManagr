@@ -1,5 +1,7 @@
 package ch.jmanagr.bo;
 
+import ch.jmanagr.lib.Logger;
+
 import java.util.HashMap;
 
 /**
@@ -31,6 +33,32 @@ public class BusinessObjectPool
 
 	public void add(BusinessObject bo)
 	{
-		// todo implement add
+		int id = bo.getId();
+		Class<? extends BusinessObject> cls = bo.getClass();
+
+
+		if (!this.cache.containsKey(cls)) {
+			this.cache.put(cls, new HashMap<Integer, BusinessObject>());
+		}
+
+		this.cache.get(cls).put(id, bo);
+	}
+
+	public <T extends BusinessObject> T get(Class<T> cls, int id) {
+		Logger.log("Get from cache");
+		Logger.log(cls.getName() + "\t id: "+id);
+		if (this.contains(cls, id)) {
+			return (T) this.cache.get(cls).get(id);
+		}
+
+		return null;
+	}
+
+	public <T extends BusinessObject> boolean contains(Class<T> cls, int id) {
+		return this.cache.containsKey(cls) && this.cache.get(cls).containsKey(id);
+	}
+
+	public <T extends BusinessObject> boolean contains(T bo) {
+		return this.contains(bo.getClass(), bo.getId());
 	}
 }

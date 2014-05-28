@@ -2,6 +2,7 @@ package ch.jmanagr.ui.departments;
 
 import ch.jmanagr.bl.Departments;
 import ch.jmanagr.bo.Department;
+import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -15,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 // ---------------- http://docs.oracle.com/javafx/2/ui_controls/table-view.htm --------- explanation of the
@@ -84,18 +86,18 @@ public class DepartmentController implements Initializable
 	{
 		// TODO: @mnewmedia mach do das es funktioniert xD cha susch nid teste xD hahhah..... okee vilivht sette mir eh mol Unit Tests schribe xP
 		// Change Name to changed of a departement
-		Department dep = this.depList.get(2);
+		/*Department dep = this.depList.get(2);
 		dep.setName("changed");
 		Department dep2 = this.depList.get(2);
-		Logger.log(dep2.getName());
+		Logger.log(dep2.getName());*/
 
-        /*
+
         // Add Deparment
-	    Department dep = new Department(nameField.getText(), null, true, false);
+	    Department dep = new Department(nameField.getText(), new ArrayList<User>(), true, false);
 	    bl.save(dep);
 	    this.refresh();
 	    Logger.log("Insertet new Department: " + nameField.getText());
-	    */
+
 	}
 
 	public void deleteDep()

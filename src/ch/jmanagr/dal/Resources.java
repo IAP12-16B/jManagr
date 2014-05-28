@@ -10,9 +10,7 @@ import org.sql2o.Query;
 import org.sql2o.Sql2oException;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 
 public class Resources extends AbstractDAL<Resource>
@@ -37,35 +35,23 @@ public class Resources extends AbstractDAL<Resource>
 	}
 
 	@Override
-	public STATUS_CODE save(Resource bo)
+	protected HashMap<String, String> getSaveFields()
 	{
-		try (Connection con = DB.getSql2o().open()) {
-			bo.setId(
-					this.db.save(
-							tableName,
-							"`id`,`name`,`icon`,`active`,`deleted`",
-							":id,:name,:icon,:active,:deleted",
-							true
-					).bind(bo).executeUpdate().<Integer>getKey(Integer.class)
-			);
+		HashMap<String, String> fields = new HashMap<>();
+		fields.put("id", "id");
+		fields.put("name", "name");
+		fields.put("icon", "icon");
+		fields.put("active", "active");
+		fields.put("deleted", "deleted");
+		return fields;
+	}
 
-			for (ResourceData data : bo.getData()) {
-				this.saveData(data); // todo what if something went wrong?
-			}
-
-			return STATUS_CODE.OK;
-		} catch (Sql2oException e) {
-			Logger.log(
-					LOG_LEVEL.ERROR,
-					String.format(
-							"Creation of %s with id %d failed!",
-							bo.getClass().getName(),
-							bo.getId()
-					),
-					e
-			);
+	@Override
+	protected void afterSave(Resource bo)
+	{
+		for (ResourceData data : bo.getData()) {
+			this.saveData(data); // todo what if something went wrong?
 		}
-		return STATUS_CODE.FAIL;
 	}
 
 	public List<ResourceData> fetchData(Resource resource)
@@ -117,68 +103,15 @@ public class Resources extends AbstractDAL<Resource>
 	}
 
 	@Override
-	public List<Resource> fetch(HashMap<String, String> parameters, int limit)
+	protected HashMap<String, String> getFetchFields()
 	{
-		try (Connection con = DB.getSql2o().open()) {
-			String where = "";
-			Iterator<Map.Entry<String, String>> it = parameters.entrySet().iterator();
-			while (it.hasNext()) {
-				Map.Entry<String, String> pairs = it.next();
-				where += String.format("`%s` = :%s", pairs.getKey(), pairs.getKey());
-			}
-
-			Query q = this.db.select(
-					"`id`,`name`,`icon`,`active`,`deleted`",
-					this.tableName,
-					where,
-					limit
-			);
-			it = parameters.entrySet().iterator();
-			while (it.hasNext()) {
-				Map.Entry<String, String> pairs = it.next();
-				q.addParameter(pairs.getKey(), pairs.getValue());
-			}
-
-			List<Resource> resources = q.executeAndFetch(Resource.class);
-
-			for (Resource resource : resources) {
-				resource.setData(this.fetchData(resource));
-			}
-
-			return resources;
-		} catch (Sql2oException e) {
-			Logger.log(
-					LOG_LEVEL.ERROR,
-					"Fetch failed!",
-					e
-			);
-		}
-		return null;
+		return this.getSaveFields();
 	}
 
-	/**
-	 * Fetch all BusinessObjects from DB
-	 *
-	 * @return a list of all BusinessObjects
-	 */
 	@Override
-	public List<Resource> fetch()
+	protected void afterFetch(Resource resource)
 	{
-		return this.fetch(new HashMap<String, String>(), -1);
-	}
-
-	/**
-	 * Fetch a BusinessObject by id
-	 *
-	 * @param id the id of the BusinessObject
-	 *
-	 * @return the BusinessObject
-	 */
-	@Override
-	public Resource fetch(int id)
-	{
-		HashMap<String, String> map = new HashMap<>();
-		map.put("id", ((Integer) id).toString());
-		return this.fetch(map, 1).get(0);
+		super.afterFetch(resource);
+		resource.setData(this.fetchData(resource));
 	}
 }
