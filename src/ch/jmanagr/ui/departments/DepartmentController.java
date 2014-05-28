@@ -82,7 +82,7 @@ public class DepartmentController implements Initializable
 
 	public void addDep()
 	{
-		// todo Prio SuperMegaGigaHigh: i bruch simlpePropertys süns
+		// TODO: @mnewmedia mach do das es funktioniert xD cha susch nid teste xD hahhah..... okee vilivht sette mir eh mol Unit Tests schribe xP
 		// Change Name to changed of a departement
 		Department dep = this.depList.get(2);
 		dep.setName("changed");
