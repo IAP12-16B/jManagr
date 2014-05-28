@@ -1,7 +1,10 @@
 package ch.jmanagr.ui.tickets;
 
 import ch.jmanagr.bl.Tickets;
+import ch.jmanagr.bo.Department;
+import ch.jmanagr.bo.Resource;
 import ch.jmanagr.bo.Ticket;
+import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -14,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class TicketController implements Initializable
@@ -60,18 +64,29 @@ public class TicketController implements Initializable
 
     public void newTicket()
     {
+        //todo @kim make this working @pablo missing params for created objs, anyway wait for kim fixing this
+        /*
+        Date d = new Date();
+        Resource r = new Resource();
+        User u = new User();
+        Department de = new Department();
+        Ticket ticket = new Ticket("test", "", null, d, r, u, de, u, true, false);
+        bl.save(ticket);
+        this.refresh();
+        Logger.log("Insertet new Department: ");
         //todo change view on newTicket()
+        */
     }
 
     // only archiv and only for admin?
     public void deleteDep()
-    {
+    {/*
         Ticket ticket = this.ticketTable.getSelectionModel().getSelectedItem();
         if (ticket != null) {
             Logger.log("Deleting ticket:" + ticket.getName() + " " + ticket.getId());
             bl.delete(ticket);
         } else {
             Logger.log("Nothing selected to delete");
-        }
+        }*/
     }
 }

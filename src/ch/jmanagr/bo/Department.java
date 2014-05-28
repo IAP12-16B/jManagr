@@ -1,11 +1,14 @@
 package ch.jmanagr.bo;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 import java.util.List;
 
 public class Department implements BusinessObject
 {
 	private int id;
-	private String name;
+	private SimpleStringProperty name = new SimpleStringProperty("");
 	private List<User> agents;
 	private boolean active;
 	private boolean deleted;
@@ -43,7 +46,7 @@ public class Department implements BusinessObject
 	public Department(int id, String name, List<User> agents, boolean active, boolean deleted)
 	{
 		this.id = id;
-		this.name = name;
+		this.name.set(name);
 		this.agents = agents;
 		this.active = active;
 		this.deleted = deleted;
@@ -52,7 +55,7 @@ public class Department implements BusinessObject
 
 	public Department(String name, List<User> agents, boolean active, boolean deleted)
 	{
-		this.name = name;
+		this.name.set(name);
 		this.agents = agents;
 		this.active = active;
 		this.deleted = deleted;
@@ -74,13 +77,17 @@ public class Department implements BusinessObject
 
 	public String getName()
 	{
-		return name;
+		return name.getName();
 	}
 
 	public void setName(String name)
 	{
-		this.name = name;
+		this.name.set(name);
 	}
+
+    public SimpleStringProperty nameProperty() {
+        return this.name;
+    }
 
 	public List<User> getAgents()
 	{

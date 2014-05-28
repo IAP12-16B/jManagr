@@ -3,6 +3,7 @@ package ch.jmanagr.ui.departments;
 import ch.jmanagr.bl.Departments;
 import ch.jmanagr.bo.Department;
 import ch.jmanagr.lib.Logger;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -32,14 +33,14 @@ public class DepartmentController implements Initializable {
 
     // Fill Table with Data
     public void initialize(URL location, ResourceBundle resources) {
-        idCol.setCellValueFactory(new PropertyValueFactory("id"));
-        nameCol.setCellValueFactory(new PropertyValueFactory<Department, String>("name"));
+        this.idCol.setCellValueFactory(new PropertyValueFactory("id"));
+        this.nameCol.setCellValueFactory(new PropertyValueFactory<Department, String>("name"));
 
         // makes nameCol to a textField
-        nameCol.setCellFactory(TextFieldTableCell.<Department>forTableColumn());
+        this.nameCol.setCellFactory(TextFieldTableCell.<Department>forTableColumn());
 
         // sets the new Value after enterPressed in the ObserverList
-        nameCol.setOnEditCommit(
+        this.nameCol.setOnEditCommit(
                 new EventHandler<CellEditEvent<Department, String>>() {
                     public void handle(CellEditEvent<Department, String> t) {
 
