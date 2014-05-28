@@ -1,16 +1,19 @@
 package ch.jmanagr.bo;
 
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Resource implements BusinessObject
 {
-	protected int id;
+	protected SimpleIntegerProperty id;
 	protected boolean active;
 	protected boolean deleted;
 
-	private String name;
+	private SimpleStringProperty name;
 	private List<ResourceData> data;
 	private ArrayList<Ticket> tickets;
 	private Resource parent;
@@ -19,6 +22,8 @@ public class Resource implements BusinessObject
 	public Resource(int id, String name, List<ResourceData> data, ArrayList<Ticket> tickets, Resource parent,
 	                ArrayList<Resource> children, boolean active, boolean deleted)
 	{
+		this.id = new SimpleIntegerProperty();
+		this.name = new SimpleStringProperty();
 		this.setId(id);
 		this.setActive(active);
 		this.setDeleted(deleted);
@@ -32,6 +37,8 @@ public class Resource implements BusinessObject
 	public Resource(String name, List<ResourceData> data, ArrayList<Ticket> tickets, Resource parent,
 	                ArrayList<Resource> children, boolean active, boolean deleted)
 	{
+		this.id = new SimpleIntegerProperty();
+		this.name = new SimpleStringProperty();
 		this.setActive(active);
 		this.setDeleted(deleted);
 		this.setName(name);
@@ -41,17 +48,20 @@ public class Resource implements BusinessObject
 		this.setChildren(children);
 	}
 
-	public Resource() {}
+	public Resource() {
+		this.id = new SimpleIntegerProperty();
+		this.name = new SimpleStringProperty();
+	}
 
 
 	public String getName()
 	{
-		return name;
+		return name.get();
 	}
 
 	public void setName(String name)
 	{
-		this.name = name;
+		this.name.set(name);
 	}
 
 	public List<ResourceData> getData()
@@ -129,11 +139,11 @@ public class Resource implements BusinessObject
 	public int getId()
 
 	{
-		return id;
+		return id.get();
 	}
 
 	public void setId(int id)
 	{
-		this.id = id;
+		this.id.set(id);
 	}
 }

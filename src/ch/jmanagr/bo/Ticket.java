@@ -1,17 +1,19 @@
 package ch.jmanagr.bo;
 
 import ch.jmanagr.lib.TICKET_STATE;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.util.Date;
 
 public class Ticket implements BusinessObject
 {
-	protected int id;
+	protected SimpleIntegerProperty id;
 	protected boolean active;
 	protected boolean deleted;
 
-	private String name;
-	private String description;
+	private SimpleStringProperty name;
+	private SimpleStringProperty description;
 	private TICKET_STATE status;
 	private Date date;
 	private Resource resource;
@@ -23,6 +25,9 @@ public class Ticket implements BusinessObject
 	              User agent, Department department, User user, boolean active,
 	              boolean deleted)
 	{
+		this.id = new SimpleIntegerProperty();
+		this.name = new SimpleStringProperty();
+		this.description = new SimpleStringProperty();
 		this.setId(id);
 		this.setActive(active);
 		this.setDeleted(deleted);
@@ -40,6 +45,9 @@ public class Ticket implements BusinessObject
 	              User agent, Department department, User user, boolean active,
 	              boolean deleted)
 	{
+		this.id = new SimpleIntegerProperty();
+		this.name = new SimpleStringProperty();
+		this.description = new SimpleStringProperty();
 		this.setActive(active);
 		this.setDeleted(deleted);
 		this.setName(name);
@@ -52,27 +60,31 @@ public class Ticket implements BusinessObject
 		this.setUser(user);
 	}
 
-	public Ticket() {}
+	public Ticket() {
+		this.id = new SimpleIntegerProperty();
+		this.name = new SimpleStringProperty();
+		this.description = new SimpleStringProperty();
+	}
 
 
 	public String getName()
 	{
-		return name;
+		return name.get();
 	}
 
 	public void setName(String name)
 	{
-		this.name = name;
+		this.name.set(name);
 	}
 
 	public String getDescription()
 	{
-		return description;
+		return description.get();
 	}
 
 	public void setDescription(String description)
 	{
-		this.description = description;
+		this.description.set(description);
 	}
 
 	public TICKET_STATE getStatus()
@@ -169,11 +181,11 @@ public class Ticket implements BusinessObject
 	public int getId()
 
 	{
-		return id;
+		return id.get();
 	}
 
 	public void setId(int id)
 	{
-		this.id = id;
+		this.id.set(id);
 	}
 }

@@ -4,20 +4,22 @@ import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.PasswordHash;
 import ch.jmanagr.lib.USER_ROLE;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 public class User implements BusinessObject, IUser, IAgent
 {
-	protected int id;
+	protected SimpleIntegerProperty id;
 	protected boolean active;
 	protected boolean deleted;
 
-	protected String firstname;
-	protected String lastname;
-	protected String username;
-	protected String password;
+	protected SimpleStringProperty firstname;
+	protected SimpleStringProperty lastname;
+	protected SimpleStringProperty username;
+	protected SimpleStringProperty password;
 	protected USER_ROLE role;
 	protected Department department;
 
@@ -25,6 +27,11 @@ public class User implements BusinessObject, IUser, IAgent
 	public User(int id, String firstname, String lastname, String username, String password, USER_ROLE role,
 	            Department department, boolean active, boolean deleted)
 	{
+		this.id = new SimpleIntegerProperty();
+		this.firstname = new SimpleStringProperty();
+		this.lastname = new SimpleStringProperty();
+		this.username = new SimpleStringProperty();
+		this.password = new SimpleStringProperty();
 		this.setId(id);
 		this.setActive(active);
 		this.setDeleted(deleted);
@@ -40,6 +47,11 @@ public class User implements BusinessObject, IUser, IAgent
 	            Department department, boolean active,
 	            boolean deleted)
 	{
+		this.id = new SimpleIntegerProperty();
+		this.firstname = new SimpleStringProperty();
+		this.lastname = new SimpleStringProperty();
+		this.username = new SimpleStringProperty();
+		this.password = new SimpleStringProperty();
 		this.setActive(active);
 		this.setDeleted(deleted);
 		this.setFirstname(firstname);
@@ -53,6 +65,11 @@ public class User implements BusinessObject, IUser, IAgent
 	public User(int id, String firstname, String lastname, String username, String password, USER_ROLE role,
 	            boolean active, boolean deleted)
 	{
+		this.id = new SimpleIntegerProperty();
+		this.firstname = new SimpleStringProperty();
+		this.lastname = new SimpleStringProperty();
+		this.username = new SimpleStringProperty();
+		this.password = new SimpleStringProperty();
 		this.setId(id);
 		this.setActive(active);
 		this.setDeleted(deleted);
@@ -66,6 +83,11 @@ public class User implements BusinessObject, IUser, IAgent
 	public User(String firstname, String lastname, String username, String password, USER_ROLE role, boolean active,
 	            boolean deleted)
 	{
+		this.id = new SimpleIntegerProperty();
+		this.firstname = new SimpleStringProperty();
+		this.lastname = new SimpleStringProperty();
+		this.username = new SimpleStringProperty();
+		this.password = new SimpleStringProperty();
 		this.setActive(active);
 		this.setDeleted(deleted);
 		this.setFirstname(firstname);
@@ -76,7 +98,13 @@ public class User implements BusinessObject, IUser, IAgent
 	}
 
 
-	public User() {}
+	public User() {
+		this.id = new SimpleIntegerProperty();
+		this.firstname = new SimpleStringProperty();
+		this.lastname = new SimpleStringProperty();
+		this.username = new SimpleStringProperty();
+		this.password = new SimpleStringProperty();
+	}
 
 	/**
 	 * Hashes a passwor, so it can be stored securely into the DB
@@ -120,38 +148,38 @@ public class User implements BusinessObject, IUser, IAgent
 
 	public String getFirstname()
 	{
-		return firstname;
+		return firstname.get();
 	}
 
 	public void setFirstname(String firstname)
 	{
-		this.firstname = firstname;
+		this.firstname.set(firstname);
 	}
 
 	public String getLastname()
 	{
-		return lastname;
+		return lastname.get();
 	}
 
 	public void setLastname(String lastname)
 	{
-		this.lastname = lastname;
+		this.lastname.set(lastname);
 	}
 
 	public String getUsername()
 	{
-		return username;
+		return username.get();
 	}
 
 	public void setUsername(String username)
 	{
-		this.username = username;
+		this.username.set(username);
 	}
 
 	public String getPassword()
 	{
 
-		return password;
+		return password.get();
 	}
 
 	/**
@@ -161,12 +189,12 @@ public class User implements BusinessObject, IUser, IAgent
 	 */
 	public void setPassword(String password)
 	{
-		this.password = User.hashPassword(password);
+		this.password.set(User.hashPassword(password));
 	}
 
 	public void setHashedPassword(String hash)
 	{
-		this.password = hash;
+		this.password.set(hash);
 	}
 
 	public USER_ROLE getRole()
@@ -236,11 +264,11 @@ public class User implements BusinessObject, IUser, IAgent
 	public int getId()
 
 	{
-		return id;
+		return id.get();
 	}
 
 	public void setId(int id)
 	{
-		this.id = id;
+		this.id.set(id);
 	}
 }

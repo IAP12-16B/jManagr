@@ -16,6 +16,7 @@ public class Department implements BusinessObject
 
 	public Department(int id, String name, List<User> agents, boolean active, boolean deleted)
 	{
+		this.id = new SimpleIntegerProperty();
 		this.setId(id);
 		this.setActive(active);
 		this.setDeleted(deleted);
@@ -26,6 +27,7 @@ public class Department implements BusinessObject
 
 	public Department(String name, List<User> agents, boolean active, boolean deleted)
 	{
+		this.id = new SimpleIntegerProperty();
 		this.setActive(active);
 		this.setDeleted(deleted);
 		this.name = new SimpleStringProperty();
@@ -33,11 +35,14 @@ public class Department implements BusinessObject
 		this.setAgents(agents);
 	}
 
-	public Department() {}
+	public Department() {
+		this.id = new SimpleIntegerProperty();
+		this.name = new SimpleStringProperty();
+	}
 
 	public String getName()
 	{
-		return name.getName();
+		return name.get();
 	}
 
 	public void setName(String name)
@@ -98,7 +103,7 @@ public class Department implements BusinessObject
 	public int getId()
 
 	{
-		return id.getValue();
+		return id.get();
 	}
 
 	public void setId(int id)
