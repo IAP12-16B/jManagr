@@ -71,10 +71,6 @@ public class Users extends AbstractBL<User, ch.jmanagr.dal.Users>
 			return STATUS_CODE.NAME_INVALID;
 		}
 
-		if (!this.validatePassword(bo.getPassword())) { // Todo: how to get the unhashed password?
-			return STATUS_CODE.PASSWORD_INVALID;
-		}
-
 		// Todo: check if user already exists
 
 		return STATUS_CODE.OK;
@@ -112,11 +108,11 @@ public class Users extends AbstractBL<User, ch.jmanagr.dal.Users>
 	 * @param passwort The password
 	 *
 	 * @return true if it passed the test, false if not.
-	 */
-	private boolean validatePassword(String passwort)
+
+	public boolean validatePassword(String passwort)
 	{
-		return passwort.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?!.*(.+)\\1\\1).{4,}$");
-	}
+	return passwort.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?!.*(.+)\\1\\1).{4,}$");
+	} */
 
 
 }

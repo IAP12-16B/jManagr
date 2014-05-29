@@ -47,7 +47,8 @@ public class BusinessObjectPool
 		}
 	}
 
-	public <T extends BusinessObject> T get(Class<T> cls, int id) {
+	public <T extends BusinessObject> T get(Class<T> cls, int id)
+	{
 		Logger.logln("Get from Pool");
 		Logger.logln(cls.getName() + "\t id: " + id);
 		if (this.contains(cls, id)) {
@@ -71,11 +72,13 @@ public class BusinessObjectPool
 		}
 	}
 
-	public <T extends BusinessObject> boolean contains(Class<T> cls, int id) {
+	public <T extends BusinessObject> boolean contains(Class<T> cls, int id)
+	{
 		return this.cache.containsKey(cls) && this.cache.get(cls).containsKey(id);
 	}
 
-	public <T extends BusinessObject> boolean contains(T bo) {
+	public <T extends BusinessObject> boolean contains(T bo)
+	{
 		return this.contains(bo.getClass(), bo.getId());
 	}
 }

@@ -44,7 +44,7 @@ public class Settings
 			preferences.put("DB_PASSWORD", settings.getPassword());
 			preferences.put("DB_DATABASE", settings.getDatabase());
 		} catch (IllegalStateException e) {
-			Logger.log(LOG_LEVEL.ERROR, "Fail on store settings",e);
+			Logger.log(LOG_LEVEL.ERROR, "Fail on store settings", e);
 			return STATUS_CODE.FAIL;
 		}
 

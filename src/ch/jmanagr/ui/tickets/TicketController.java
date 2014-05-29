@@ -109,7 +109,7 @@ public class TicketController implements Initializable
 		User agent = new User("", "", "", "hkj", USER_ROLE.AGENT, de, true, false);
 		Ticket ticket = new Ticket("test", "", TICKET_STATE.OPEN, d, r, agent, de, u, true, false);
 		bl.save(ticket);
-        this.refresh();
+		this.refresh();
 		Logger.logln("Insertet new Department: ");
 		//todo change view on newTicket()
 

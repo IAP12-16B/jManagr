@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Resource implements BusinessObject<Resource>
 {
+	// Todo: ordering, parent/child, etc...
 	protected SimpleIntegerProperty id;
 	protected boolean active;
 	protected boolean deleted;

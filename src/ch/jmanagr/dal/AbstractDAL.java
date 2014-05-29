@@ -18,10 +18,9 @@ import java.util.Map;
 
 public abstract class AbstractDAL<BusinessObjectType extends BusinessObject> implements DAL<BusinessObjectType>
 {
-	protected DB db;
-
 	protected final String tableName;
 	protected final Class<BusinessObjectType> tClass;
+	protected DB db;
 
 	protected AbstractDAL(Class<BusinessObjectType> cls)
 	{
@@ -101,18 +100,37 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject> imp
 		return this.fetch(new HashMap<String, String>(), -1);
 	}
 
-	// todo abstract as good as possible
 
-
-	/* EXPERIMENTAL */
-
+	/**
+	 * Get required fields for saving Hashmap structure: HashMap<DB_COLUMN_NAME, VALUE>
+	 *
+	 * @return HashMap
+	 */
 	protected abstract HashMap<String, String> getSaveFields();
 
-	protected Query beforeSave(Query q, BusinessObjectType bo) {
+	/**
+	 * Hook before save. Add additional paramteres to Query or save referenced objects
+	 *
+	 * @param q
+	 * @param bo
+	 *
+	 * @return
+	 */
+	protected Query beforeSave(Query q, BusinessObjectType bo)
+	{
 		return q;
 	}
 
-	protected String formatFields(HashMap<String, String> fields, boolean keysOrValues) {
+	/**
+	 * Method to format a HashMap for use in SQL query
+	 *
+	 * @param fields
+	 * @param keysOrValues
+	 *
+	 * @return
+	 */
+	protected String formatFields(HashMap<String, String> fields, boolean keysOrValues)
+	{
 		String res = "";
 
 		Iterator<Map.Entry<String, String>> it = fields.entrySet().iterator();
@@ -133,7 +151,13 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject> imp
 		return res;
 	}
 
-	protected void afterSave(BusinessObjectType bo){}
+	/**
+	 * Hook execute after save.
+	 *
+	 * @param bo
+	 */
+	protected void afterSave(BusinessObjectType bo)
+	{}
 
 	@Override
 	public STATUS_CODE save(BusinessObjectType bo)
@@ -178,11 +202,23 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject> imp
 		return STATUS_CODE.FAIL;
 	}
 
-
+	/**
+	 * @return
+	 *
+	 * @see this.getSaveField() Fields for fetch
+	 */
 	protected abstract HashMap<String, String> getFetchFields();
 
 
-	protected Query beforeFetch(Query q) {
+	/**
+	 * Hook executed before fetch. Add parameters to query etc...
+	 *
+	 * @param q
+	 *
+	 * @return
+	 */
+	protected Query beforeFetch(Query q)
+	{
 		return q;
 	}
 
@@ -229,5 +265,11 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject> imp
 		return null;
 	}
 
-	protected void afterFetch(BusinessObjectType bo){}
+	/**
+	 * Hook executed after fetch. Here you can fetch e.g. referenced Objects etc...
+	 *
+	 * @param bo
+	 */
+	protected void afterFetch(BusinessObjectType bo)
+	{}
 }

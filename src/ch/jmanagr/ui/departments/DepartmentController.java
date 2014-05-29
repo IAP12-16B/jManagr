@@ -65,8 +65,8 @@ public class DepartmentController implements Initializable
 		);
 
 		// Only checking if add or delete - so dont need it, but leave it for maybe later
-	    /*ObservableList<Department> b = bl.getAll();
-        b.addListener(new ListChangeListener<Department>() {
+		/*ObservableList<Department> b = bl.getAll();
+	    b.addListener(new ListChangeListener<Department>() {
             @Override
             public void onChanged(Change change) {
                 System.out.println("Detected a change! ");
@@ -84,7 +84,8 @@ public class DepartmentController implements Initializable
 
 	public void addDep()
 	{
-		// TODO: @mnewmedia mach do das es funktioniert xD cha susch nid teste xD hahhah..... okee vilivht sette mir eh mol Unit Tests schribe xP
+		// TODO: @mnewmedia mach do das es funktioniert xD cha susch nid teste xD hahhah..... okee vilivht sette mir
+		// eh mol Unit Tests schribe xP
 		// Change Name to changed of a departement
 		/*Department dep = this.depList.get(2);
 		dep.setName("changed");
@@ -93,17 +94,18 @@ public class DepartmentController implements Initializable
 
 
 		// Add Deparment
-	    Department dep = new Department(nameField.getText(), new ArrayList<User>(), true, false);
+		Department dep = new Department(nameField.getText(), new ArrayList<User>(), true, false);
 		Logger.logln(dep); // logger can log BusinessObjects :D
 		bl.save(dep);
-	    this.refresh();
+		this.refresh();
 		Logger.logln("Insertet new Department: " + nameField.getText());
 
 	}
 
 	public void deleteDep()
 	{
-		// TODO: @mnewmedia only display BO's where the deleted flag is set to false and the active flag is set to true! -> from bl, you will only get the not deleted ones, but what if i delete it via gui
+		// TODO: @mnewmedia only display BO's where the deleted flag is set to false and the active flag is set to
+		// true! -> from bl, you will only get the not deleted ones, but what if i delete it via gui
 		Department dep = this.depTable.getSelectionModel().getSelectedItem();
 		if (dep != null) {
 			Logger.logln("Deleting dep:" + dep.getName() + " " + dep.getId());

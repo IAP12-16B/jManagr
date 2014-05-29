@@ -55,7 +55,6 @@ public class Ticket implements BusinessObject<Ticket>
 	}
 
 	/**
-	 *
 	 * @param name
 	 * @param description
 	 * @param status
@@ -95,7 +94,6 @@ public class Ticket implements BusinessObject<Ticket>
 
 
 	/**
-	 *
 	 * @return
 	 */
 	public String getName()
@@ -104,7 +102,6 @@ public class Ticket implements BusinessObject<Ticket>
 	}
 
 	/**
-	 *
 	 * @param name
 	 */
 	public void setName(String name)
@@ -113,7 +110,6 @@ public class Ticket implements BusinessObject<Ticket>
 	}
 
 	/**
-	 *
 	 * @return
 	 */
 	public String getDescription()
@@ -122,7 +118,6 @@ public class Ticket implements BusinessObject<Ticket>
 	}
 
 	/**
-	 *
 	 * @param description
 	 */
 	public void setDescription(String description)
@@ -131,7 +126,6 @@ public class Ticket implements BusinessObject<Ticket>
 	}
 
 	/**
-	 *
 	 * @return
 	 */
 	public TICKET_STATE getStatus()
@@ -140,7 +134,6 @@ public class Ticket implements BusinessObject<Ticket>
 	}
 
 	/**
-	 *
 	 * @param status
 	 */
 	public void setStatus(TICKET_STATE status)
@@ -149,7 +142,6 @@ public class Ticket implements BusinessObject<Ticket>
 	}
 
 	/**
-	 *
 	 * @return
 	 */
 	public Date getDate()
@@ -158,7 +150,6 @@ public class Ticket implements BusinessObject<Ticket>
 	}
 
 	/**
-	 *
 	 * @param date
 	 */
 	public void setDate(Date date)
@@ -167,7 +158,6 @@ public class Ticket implements BusinessObject<Ticket>
 	}
 
 	/**
-	 *
 	 * @return
 	 */
 	public Resource getResource()

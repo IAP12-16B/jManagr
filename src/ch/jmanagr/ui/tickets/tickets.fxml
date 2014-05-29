@@ -10,7 +10,7 @@
     <children>
         <TableView fx:id="ticketTable" editable="true" layoutX="14.0" layoutY="14.0" prefHeight="200.0"
                    prefWidth="741.0">
-        <columns>
+            <columns>
                 <TableColumn fx:id="idCol" editable="false" prefWidth="75.0" text="ID"/>
                 <TableColumn fx:id="nameCol" editable="true" prefWidth="75.0" text="Name"/>
             </columns>
