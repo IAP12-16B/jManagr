@@ -36,22 +36,39 @@ public class BusinessObjectPool
 		int id = bo.getId();
 		Class<? extends BusinessObject> cls = bo.getClass();
 
-
 		if (!this.cache.containsKey(cls)) {
 			this.cache.put(cls, new HashMap<Integer, BusinessObject>());
 		}
 
-		this.cache.get(cls).put(id, bo);
+		if (this.cache.get(cls).containsKey(id)) {
+			this.update(bo);
+		} else {
+			this.cache.get(cls).put(id, bo);
+		}
 	}
 
 	public <T extends BusinessObject> T get(Class<T> cls, int id) {
-		Logger.log("Get from cache");
-		Logger.log(cls.getName() + "\t id: "+id);
+		Logger.logln("Get from Pool");
+		Logger.logln(cls.getName() + "\t id: " + id);
 		if (this.contains(cls, id)) {
 			return (T) this.cache.get(cls).get(id);
 		}
 
 		return null;
+	}
+
+	public void update(BusinessObject bo)
+	{
+		int id = bo.getId();
+		Class<? extends BusinessObject> cls = bo.getClass();
+		if (this.cache.get(cls).containsKey(id)) {
+			Logger.logln("Update obj in pool");
+			Logger.logln(cls.getName() + "\t id: " + id);
+			BusinessObject b = this.get(cls, bo.getId());
+			b.copyFromObject(bo);
+			bo = b; // fixme THIS DOES NOT WORK :////// BECAUSE JAVA IS PASS BY VALUE..... F**k JAVA..........
+			// todo find solution
+		}
 	}
 
 	public <T extends BusinessObject> boolean contains(Class<T> cls, int id) {

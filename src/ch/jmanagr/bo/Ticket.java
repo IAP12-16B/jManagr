@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 import java.util.Date;
 
-public class Ticket implements BusinessObject
+public class Ticket implements BusinessObject<Ticket>
 {
 	protected SimpleIntegerProperty id;
 	protected boolean active;
@@ -21,6 +21,19 @@ public class Ticket implements BusinessObject
 	private Department department;
 	private User user;
 
+	/**
+	 * @param id
+	 * @param name
+	 * @param description
+	 * @param status
+	 * @param date
+	 * @param resource
+	 * @param agent
+	 * @param department
+	 * @param user
+	 * @param active
+	 * @param deleted
+	 */
 	public Ticket(int id, String name, String description, TICKET_STATE status, Date date, Resource resource,
 	              User agent, Department department, User user, boolean active,
 	              boolean deleted)
@@ -41,6 +54,19 @@ public class Ticket implements BusinessObject
 		this.setUser(user);
 	}
 
+	/**
+	 *
+	 * @param name
+	 * @param description
+	 * @param status
+	 * @param date
+	 * @param resource
+	 * @param agent
+	 * @param department
+	 * @param user
+	 * @param active
+	 * @param deleted
+	 */
 	public Ticket(String name, String description, TICKET_STATE status, Date date, Resource resource,
 	              User agent, Department department, User user, boolean active,
 	              boolean deleted)
@@ -60,53 +86,90 @@ public class Ticket implements BusinessObject
 		this.setUser(user);
 	}
 
-	public Ticket() {
+	public Ticket()
+	{
 		this.id = new SimpleIntegerProperty();
 		this.name = new SimpleStringProperty();
 		this.description = new SimpleStringProperty();
 	}
 
 
+	/**
+	 *
+	 * @return
+	 */
 	public String getName()
 	{
 		return name.get();
 	}
 
+	/**
+	 *
+	 * @param name
+	 */
 	public void setName(String name)
 	{
 		this.name.set(name);
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public String getDescription()
 	{
 		return description.get();
 	}
 
+	/**
+	 *
+	 * @param description
+	 */
 	public void setDescription(String description)
 	{
 		this.description.set(description);
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public TICKET_STATE getStatus()
 	{
 		return status;
 	}
 
+	/**
+	 *
+	 * @param status
+	 */
 	public void setStatus(TICKET_STATE status)
 	{
 		this.status = status;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public Date getDate()
 	{
 		return date;
 	}
 
+	/**
+	 *
+	 * @param date
+	 */
 	public void setDate(Date date)
 	{
 		this.date = date;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public Resource getResource()
 	{
 		return resource;
@@ -166,6 +229,27 @@ public class Ticket implements BusinessObject
 	public void setDeleted(boolean deleted)
 	{
 		this.deleted = deleted;
+	}
+
+	/**
+	 * Copies the values from an other object
+	 *
+	 * @param bo
+	 */
+	@Override
+	public void copyFromObject(Ticket bo)
+	{
+		this.setId(bo.getId());
+		this.setActive(bo.getActive());
+		this.setDeleted(bo.getDeleted());
+		this.setName(bo.getName());
+		this.setDescription(bo.getDescription());
+		this.setStatus(bo.getStatus());
+		this.setDate(bo.getDate());
+		this.setResource(bo.getResource());
+		this.setAgent(bo.getAgent());
+		this.setDepartment(bo.getDepartment());
+		this.setUser(bo.getUser());
 	}
 
 	public boolean isActive()

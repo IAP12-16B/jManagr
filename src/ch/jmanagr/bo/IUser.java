@@ -3,7 +3,7 @@ package ch.jmanagr.bo;
 
 import ch.jmanagr.lib.USER_ROLE;
 
-public interface IUser extends BusinessObject
+public interface IUser<T extends BusinessObject> extends BusinessObject<T>
 {
 	public boolean isDeleted();
 

@@ -1,7 +1,7 @@
 package ch.jmanagr.bo;
 
 
-public interface IAgent extends IUser
+public interface IAgent<T extends BusinessObject> extends IUser<T>
 {
 	public Department getDepartment();
 

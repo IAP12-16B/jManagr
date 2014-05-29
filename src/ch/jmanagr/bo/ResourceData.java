@@ -1,9 +1,7 @@
 package ch.jmanagr.bo;
 
 
-import java.util.Observable;
-
-public class ResourceData extends Observable
+public class ResourceData
 {
 	private Resource resource;
 	private String key;

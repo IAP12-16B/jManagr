@@ -47,11 +47,37 @@ public class Tickets extends AbstractDAL<Ticket>
 	@Override
 	protected Query beforeSave(Query q, Ticket bo)
 	{
-		return super.beforeSave(q, bo)
-		            .addParameter("resource_id", bo.getResource().getId())
-		            .addParameter("agent_id", bo.getAgent().getId())
-		            .addParameter("department_id", bo.getDepartment().getId())
-		            .addParameter("user_id", bo.getUser().getId());
+		Integer resource_id = null;
+		Integer agent_id = null;
+		Integer department_id = null;
+		Integer user_id = null;
+
+		// save referenced objs -> order is important
+		if (bo.getDepartment() != null) {
+			Departments.getInstance().save(bo.getDepartment());
+			department_id = bo.getDepartment().getId();
+		}
+		if (bo.getUser() != null) {
+			Users.getInstance().save(bo.getUser());
+			user_id = bo.getUser().getId();
+		}
+		if (bo.getAgent() != null) {
+			Users.getInstance().save(bo.getAgent());
+			agent_id = bo.getAgent().getId();
+		}
+		if (bo.getResource() != null) {
+			Resources.getInstance().save(bo.getResource());
+			resource_id = bo.getResource().getId();
+		}
+
+		q = super.beforeSave(q, bo);
+
+		q.addParameter("resource_id", resource_id);
+		q.addParameter("agent_id", agent_id);
+		q.addParameter("department_id", department_id);
+		q.addParameter("user_id", user_id);
+
+		return q;
 	}
 
 	@Override

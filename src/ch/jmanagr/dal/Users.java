@@ -46,7 +46,12 @@ public class Users extends AbstractDAL<User>
 	@Override
 	protected Query beforeSave(Query q, User bo)
 	{
-		return super.beforeSave(q, bo).addParameter("department_id", bo.getDepartment().getId());
+		Integer department_id = null;
+		if (bo.getDepartment() != null) {
+			Departments.getInstance().save(bo.getDepartment());
+			department_id = bo.getDepartment().getId();
+		}
+		return super.beforeSave(q, bo).addParameter("department_id", department_id);
 	}
 
 	@Override

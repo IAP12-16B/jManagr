@@ -1,8 +1,10 @@
 package ch.jmanagr.ui.tickets;
 
 import ch.jmanagr.bl.Tickets;
-import ch.jmanagr.bo.Ticket;
+import ch.jmanagr.bo.*;
 import ch.jmanagr.lib.Logger;
+import ch.jmanagr.lib.TICKET_STATE;
+import ch.jmanagr.lib.USER_ROLE;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,6 +16,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class TicketController implements Initializable
@@ -65,23 +69,50 @@ public class TicketController implements Initializable
 	{
 		this.ticketList = bl.getAll();
 		this.ticketTable.setItems(this.ticketList);
-		Logger.log("Refreshed list!");
+		Logger.logln("Refreshed list!");
 	}
 
 	public void newTicket()
 	{
-		//todo @kim make this working @pablo missing params for created objs, anyway wait for kim fixing this
-	    /*
-        Date d = new Date();
-        Resource r = new Resource();
-        User u = new User();
-        Department de = new Department();
-        Ticket ticket = new Ticket("test", "", null, d, r, u, de, u, true, false);
-        bl.save(ticket);
+		//todo @pablo missing params for created objs, anyway wait for kim fixing this
+
+		// Todo: @kije simplify this.... It should not be neccessary to first create a bunch of dummy objects before
+		// you can save the main object itselfs
+		Date d = new Date();
+		Resource r = new Resource(
+				"",
+				new ArrayList<ResourceData>(),
+				new ArrayList<Ticket>(),
+				null,
+				new ArrayList<Resource>(),
+				true,
+				false
+		);
+
+		Department de;
+		ObservableList<Department> l = ch.jmanagr.bl.Departments.getInstance().getAll();
+		if (!l.isEmpty()) {
+			de = l.get(0);
+		} else {
+			de = new Department("", new ArrayList<User>(), true, false);
+		}
+		User u = new User(
+				"",
+				"",
+				"" + Math.random(),
+				"hkj",
+				USER_ROLE.USER,
+				de,
+				true,
+				false
+		); //Users.getInstance().getCurrentUser();
+		User agent = new User("", "", "", "hkj", USER_ROLE.AGENT, de, true, false);
+		Ticket ticket = new Ticket("test", "", TICKET_STATE.OPEN, d, r, agent, de, u, true, false);
+		bl.save(ticket);
         this.refresh();
-        Logger.log("Insertet new Department: ");
-        //todo change view on newTicket()
-        */
+		Logger.logln("Insertet new Department: ");
+		//todo change view on newTicket()
+
 	}
 
 	// only archiv and only for admin?

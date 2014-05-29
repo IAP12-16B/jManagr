@@ -10,7 +10,7 @@ import javafx.beans.property.SimpleStringProperty;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-public class User implements BusinessObject, IUser, IAgent
+public class User implements BusinessObject<User>, IUser<User>, IAgent<User>
 {
 	protected SimpleIntegerProperty id;
 	protected boolean active;
@@ -98,7 +98,8 @@ public class User implements BusinessObject, IUser, IAgent
 	}
 
 
-	public User() {
+	public User()
+	{
 		this.id = new SimpleIntegerProperty();
 		this.firstname = new SimpleStringProperty();
 		this.lastname = new SimpleStringProperty();
@@ -249,6 +250,25 @@ public class User implements BusinessObject, IUser, IAgent
 	public void setDeleted(boolean deleted)
 	{
 		this.deleted = deleted;
+	}
+
+	/**
+	 * Copies the values from an other object
+	 *
+	 * @param bo
+	 */
+	@Override
+	public void copyFromObject(User bo)
+	{
+		this.setId(bo.getId());
+		this.setActive(bo.getActive());
+		this.setDeleted(bo.getDeleted());
+		this.setFirstname(bo.getFirstname());
+		this.setLastname(bo.getLastname());
+		this.setUsername(bo.getUsername());
+		this.setPassword(bo.getPassword());
+		this.setRole(bo.getRole());
+		this.setDepartment(bo.getDepartment());
 	}
 
 	public boolean isActive()

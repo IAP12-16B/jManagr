@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Resource implements BusinessObject
+public class Resource implements BusinessObject<Resource>
 {
 	protected SimpleIntegerProperty id;
 	protected boolean active;
@@ -48,7 +48,8 @@ public class Resource implements BusinessObject
 		this.setChildren(children);
 	}
 
-	public Resource() {
+	public Resource()
+	{
 		this.id = new SimpleIntegerProperty();
 		this.name = new SimpleStringProperty();
 	}
@@ -124,6 +125,24 @@ public class Resource implements BusinessObject
 	public void setDeleted(boolean deleted)
 	{
 		this.deleted = deleted;
+	}
+
+	/**
+	 * Copies the values from an other object
+	 *
+	 * @param bo
+	 */
+	@Override
+	public void copyFromObject(Resource bo)
+	{
+		this.setId(bo.getId());
+		this.setActive(bo.getActive());
+		this.setDeleted(bo.getDeleted());
+		this.setName(bo.getName());
+		this.setData(bo.getData());
+		this.setTickets(bo.getTickets());
+		this.setParent(bo.getParent());
+		this.setChildren(bo.getChildren());
 	}
 
 	public boolean isActive()

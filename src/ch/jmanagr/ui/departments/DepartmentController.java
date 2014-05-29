@@ -59,7 +59,7 @@ public class DepartmentController implements Initializable
 						); //get changed object
 						dep.setName(t.getNewValue()); // set changed value
 						bl.save(dep);
-						Logger.log("Updated in table: " + t.getNewValue() + " " + dep.getId());
+						Logger.logln("Updated in table: " + t.getNewValue() + " " + dep.getId());
 					}
 				}
 		);
@@ -79,7 +79,7 @@ public class DepartmentController implements Initializable
 	{
 		this.depList = bl.getAll();
 		this.depTable.setItems(this.depList);
-		Logger.log("Refreshed list!");
+		Logger.logln("Refreshed list!");
 	}
 
 	public void addDep()
@@ -89,14 +89,15 @@ public class DepartmentController implements Initializable
 		/*Department dep = this.depList.get(2);
 		dep.setName("changed");
 		Department dep2 = this.depList.get(2);
-		Logger.log(dep2.getName());*/
+		Logger.logln(dep2.getName());*/
 
 
-        // Add Deparment
+		// Add Deparment
 	    Department dep = new Department(nameField.getText(), new ArrayList<User>(), true, false);
-	    bl.save(dep);
+		Logger.logln(dep); // logger can log BusinessObjects :D
+		bl.save(dep);
 	    this.refresh();
-	    Logger.log("Insertet new Department: " + nameField.getText());
+		Logger.logln("Insertet new Department: " + nameField.getText());
 
 	}
 
@@ -105,10 +106,10 @@ public class DepartmentController implements Initializable
 		// TODO: @mnewmedia only display BO's where the deleted flag is set to false and the active flag is set to true! -> from bl, you will only get the not deleted ones, but what if i delete it via gui
 		Department dep = this.depTable.getSelectionModel().getSelectedItem();
 		if (dep != null) {
-			Logger.log("Deleting dep:" + dep.getName() + " " + dep.getId());
+			Logger.logln("Deleting dep:" + dep.getName() + " " + dep.getId());
 			bl.delete(dep);
 		} else {
-			Logger.log("Nothing selected to delete");
+			Logger.logln("Nothing selected to delete");
 		}
 	}
 }

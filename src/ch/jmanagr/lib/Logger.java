@@ -44,22 +44,22 @@ public class Logger
 		message = String.format("%s: \t\t%s", level.toString(), message);
 		switch (level) {
 			case VERBOSE:
-				logVerbose(message+"\n");
+				logVerbose(message + "\n");
 				break;
 			case DEBUG:
-				logDebug(message+"\n");
+				logDebug(message + "\n");
 				break;
 			case MESSAGE:
-				logMessage(message+"\n");
+				logMessage(message + "\n");
 				break;
 			case WARNING:
-				logWarning(message+"\n");
+				logWarning(message + "\n");
 				break;
 			case ERROR:
-				logError(message+"\n");
+				logError(message + "\n");
 				break;
 			case FATAL_ERROR:
-				logFatalError(message+"\n");
+				logFatalError(message + "\n");
 				break;
 		}
 	}
@@ -150,28 +150,34 @@ public class Logger
 
 	}
 
-	public static void log(Class cls) {
+	public static void log(Class cls)
+	{
 		log(cls.getName());
 	}
 
-	public static void log(boolean b) {
+	public static void log(boolean b)
+	{
 		log(String.valueOf(b));
 	}
 
-	public static void log(Enum value) {
+	public static void log(Enum value)
+	{
 		log(value.toString());
 	}
 
-	public static void log(Integer i) {
+	public static void log(Integer i)
+	{
 		log(i.toString());
 	}
 
-	public static void log(Object o) {
+	public static void log(Object o)
+	{
 		log(String.valueOf(o));
 	}
 
-	public static void log(BusinessObject bo) {
-		log(
+	public static void log(BusinessObject bo)
+	{
+		logln(
 				String.format(
 						"BusinessObject %s: \n\t ID: %d \n\t active: %b \n\t deleted: %b",
 						bo.getClass(),
@@ -180,22 +186,22 @@ public class Logger
 						bo.getDeleted()
 				)
 		);
-		log();
 	}
 
-	public static void log(Department department) {
+	public static void log(Department department)
+	{
 		log((BusinessObject) department);
-		log(
+		logln(
 				String.format(
 						"\t Name: %s",
 						department.getName()
 				)
 		);
-		log(department.getAgents());
-		log();
+		logln(department.getAgents());
 	}
 
-	public static void log() {
+	public static void log()
+	{
 		log("\n");
 	}
 
@@ -206,6 +212,7 @@ public class Logger
 
 	/**
 	 * Logs to a new line
+	 *
 	 * @param m
 	 * @param <T>
 	 */

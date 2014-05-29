@@ -40,7 +40,7 @@ public class Resources extends AbstractDAL<Resource>
 		HashMap<String, String> fields = new HashMap<>();
 		fields.put("id", "id");
 		fields.put("name", "name");
-		fields.put("icon", "icon");
+		//fields.put("icon", "icon");
 		fields.put("active", "active");
 		fields.put("deleted", "deleted");
 		return fields;

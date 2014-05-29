@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 import java.util.List;
 
-public class Department implements BusinessObject
+public class Department implements BusinessObject<Department>
 {
 	protected SimpleIntegerProperty id;
 	protected boolean active;
@@ -35,7 +35,8 @@ public class Department implements BusinessObject
 		this.setAgents(agents);
 	}
 
-	public Department() {
+	public Department()
+	{
 		this.id = new SimpleIntegerProperty();
 		this.name = new SimpleStringProperty();
 	}
@@ -89,6 +90,22 @@ public class Department implements BusinessObject
 	{
 		this.deleted = deleted;
 	}
+
+	/**
+	 * Copies the values from an other object
+	 *
+	 * @param bo
+	 */
+	@Override
+	public void copyFromObject(Department bo)
+	{
+		this.setId(bo.getId());
+		this.setActive(bo.getActive());
+		this.setDeleted(bo.getDeleted());
+		this.setName(bo.getName());
+		this.setAgents(bo.getAgents());
+	}
+
 
 	public boolean isActive()
 	{

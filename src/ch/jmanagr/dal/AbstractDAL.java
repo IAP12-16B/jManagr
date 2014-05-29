@@ -10,6 +10,7 @@ import org.sql2o.Connection;
 import org.sql2o.Query;
 import org.sql2o.Sql2oException;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -35,6 +36,8 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject> imp
 		try (Connection con = DB.getSql2o().open()) {
 			this.db.softDelete(tableName, "`id` = :id").addParameter("id", bo.getId()).executeUpdate();
 			bo.setDeleted(true);
+
+			// todo delete referenced
 			return STATUS_CODE.OK;
 		} catch (Sql2oException e) {
 			Logger.log(
@@ -135,36 +138,42 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject> imp
 	@Override
 	public STATUS_CODE save(BusinessObjectType bo)
 	{
-		try (Connection con = DB.getSql2o().open()) {
-			Query q = this.db.save(
-					tableName,
-					this.formatFields(this.getSaveFields(), true),
-					this.formatFields(this.getSaveFields(), false),
-					true
-			);
-			q.bind(bo);
-			this.beforeSave(q, bo);
+		if (bo != null) {
+			try (Connection con = DB.getSql2o().open()) {
+				Query q = this.db.save(
+						tableName,
+						this.formatFields(this.getSaveFields(), true),
+						this.formatFields(this.getSaveFields(), false),
+						true
+				);
+				q.bind(bo);
+				this.beforeSave(q, bo);
 
-			bo.setId(
-					q.executeUpdate().<Integer>getKey(Integer.class)
-			);
+				bo.setId(
+						q.executeUpdate().<Integer>getKey(Integer.class)
+				);
 
-			this.afterSave(bo);
+				this.afterSave(bo);
 
-			if (!BusinessObjectPool.getInstance().contains(bo)) {
+
 				BusinessObjectPool.getInstance().add(bo);
+				return STATUS_CODE.OK;
+			} catch (Sql2oException e) {
+				Logger.log(
+						LOG_LEVEL.ERROR,
+						String.format(
+								"Save of %s with id %d failed!",
+								bo.getClass().getName(),
+								bo.getId()
+						),
+						e
+				);
+
+				SQLException sqlE = ((SQLException) e.getCause());
+				int error_code = sqlE.getErrorCode();
+
+				return STATUS_CODE.FAIL_WITH_UNKOWN_REASON;
 			}
-			return STATUS_CODE.OK;
-		} catch (Sql2oException e) {
-			Logger.log(
-					LOG_LEVEL.ERROR,
-					String.format(
-							"Save of %s with id %d failed!",
-							bo.getClass().getName(),
-							bo.getId()
-					),
-					e
-			);
 		}
 		return STATUS_CODE.FAIL;
 	}
@@ -203,9 +212,8 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject> imp
 			List<BusinessObjectType> bos = this.beforeFetch(q).executeAndFetch(tClass);
 
 			for (BusinessObjectType bo : bos) {
-				if (!BusinessObjectPool.getInstance().contains(bo)) {
-					BusinessObjectPool.getInstance().add(bo);
-				}
+
+				BusinessObjectPool.getInstance().add(bo);
 
 				this.afterFetch(bo);
 			}
