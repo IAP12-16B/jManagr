@@ -1,6 +1,9 @@
 package ch.jmanagr.lib;
 
 
+import ch.jmanagr.bo.BusinessObject;
+import ch.jmanagr.bo.Department;
+
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,7 +14,7 @@ public class Logger
 {
 	private static void unifiedLog(PrintStream outputStream, String message)
 	{
-		outputStream.println(message);
+		outputStream.print(message);
 	}
 
 	private static String formatStackTrace(StackTraceElement[] stack)
@@ -41,22 +44,22 @@ public class Logger
 		message = String.format("%s: \t\t%s", level.toString(), message);
 		switch (level) {
 			case VERBOSE:
-				logVerbose(message);
+				logVerbose(message+"\n");
 				break;
 			case DEBUG:
-				logDebug(message);
+				logDebug(message+"\n");
 				break;
 			case MESSAGE:
-				logMessage(message);
+				logMessage(message+"\n");
 				break;
 			case WARNING:
-				logWarning(message);
+				logWarning(message+"\n");
 				break;
 			case ERROR:
-				logError(message);
+				logError(message+"\n");
 				break;
 			case FATAL_ERROR:
-				logFatalError(message);
+				logFatalError(message+"\n");
 				break;
 		}
 	}
@@ -106,7 +109,9 @@ public class Logger
 		Iterator<? extends Map.Entry<?, ?>> it = map.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry pairs = it.next();
-			log(String.format("%s:\t %s\n", pairs.getKey(), pairs.getValue()));
+			log(pairs.getKey());
+			log(": \n\t");
+			logln(pairs.getValue());
 			it.remove();
 		}
 	}
@@ -114,14 +119,25 @@ public class Logger
 	public static void log(List list)
 	{
 		for (Object o : list) {
-			log(o.toString() + "\n");
+			log("\t");
+			logln(o);
 		}
 	}
 
 	public static void log(String[] array)
 	{
 		for (String s : array) {
-			log(s + "\n");
+			log("\t");
+			logln(s);
+		}
+
+	}
+
+	public static void log(Object[] obj)
+	{
+		for (Object o : obj) {
+			log("\t");
+			logln(o);
 		}
 
 	}
@@ -129,7 +145,7 @@ public class Logger
 	public static void log(Integer[] array)
 	{
 		for (Integer integer : array) {
-			log(integer.toString() + "\n");
+			logln(integer);
 		}
 
 	}
@@ -139,11 +155,63 @@ public class Logger
 	}
 
 	public static void log(boolean b) {
-		log(b+"");
+		log(String.valueOf(b));
+	}
+
+	public static void log(Enum value) {
+		log(value.toString());
+	}
+
+	public static void log(Integer i) {
+		log(i.toString());
+	}
+
+	public static void log(Object o) {
+		log(String.valueOf(o));
+	}
+
+	public static void log(BusinessObject bo) {
+		log(
+				String.format(
+						"BusinessObject %s: \n\t ID: %d \n\t active: %b \n\t deleted: %b",
+						bo.getClass(),
+						bo.getId(),
+						bo.getActive(),
+						bo.getDeleted()
+				)
+		);
+		log();
+	}
+
+	public static void log(Department department) {
+		log((BusinessObject) department);
+		log(
+				String.format(
+						"\t Name: %s",
+						department.getName()
+				)
+		);
+		log(department.getAgents());
+		log();
+	}
+
+	public static void log() {
+		log("\n");
 	}
 
 	public static void log(String string)
 	{
 		logMessage(string);
+	}
+
+	/**
+	 * Logs to a new line
+	 * @param m
+	 * @param <T>
+	 */
+	public static <T> void logln(T m)
+	{
+		log(m);
+		log();
 	}
 }
