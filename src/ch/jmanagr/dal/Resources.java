@@ -78,7 +78,7 @@ public class Resources extends AbstractDAL<Resource>
 
 	public STATUS_CODE saveData(ResourceData data)
 	{
-		try (Connection con = DB.getSql2o().open()) {
+		try (Connection con = DB.getSql2o().beginTransaction()) {
 			this.db.save(
 					tableName,
 					"`resource`,`key`,`value`",
@@ -86,7 +86,7 @@ public class Resources extends AbstractDAL<Resource>
 					true
 			).bind(data)
 			       .addParameter("resource_id", data.getResource().getId())
-			       .executeUpdate();
+			       .executeUpdate().commit(true);
 			return STATUS_CODE.OK;
 		} catch (Sql2oException e) {
 			Logger.log(

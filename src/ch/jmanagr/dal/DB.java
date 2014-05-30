@@ -17,6 +17,8 @@ public class DB
 
 	private ch.jmanagr.bo.Settings settings;
 
+	private Connection connection;
+
 	/**
 	 *
 	 */
@@ -62,7 +64,7 @@ public class DB
 
 	public Query insert(String table, String columns, String values, boolean returnGeneratedKey)
 	{
-		return this.sql2o.createQuery(
+		return this.sql2o.beginTransaction().createQuery(
 				String.format("INSERT INTO (%s) VALUES (%s);", columns, values),
 				returnGeneratedKey
 		);
@@ -70,12 +72,15 @@ public class DB
 
 	public Query update(String table, String query, boolean returnGeneratedKey)
 	{
-		return this.sql2o.createQuery(String.format("UPDATE %s SET %s;", table, query), returnGeneratedKey);
+		return this.sql2o.beginTransaction().createQuery(
+				String.format("UPDATE %s SET %s;", table, query),
+				returnGeneratedKey
+		);
 	}
 
 	public Query delete(String table, String where)
 	{
-		return this.sql2o.createQuery(String.format("DELETE FROM %s WHERE %s;", table, where));
+		return this.sql2o.beginTransaction().createQuery(String.format("DELETE FROM %s WHERE %s;", table, where));
 	}
 
 	public Query save(String table, String columns, String values, boolean returnGeneratedKey)
@@ -90,7 +95,7 @@ public class DB
 			}
 		}
 
-		return this.sql2o.createQuery(
+		return this.sql2o.beginTransaction().createQuery(
 				String.format(
 						"INSERT INTO %s (%s) VALUES (%s) ON DUPLICATE KEY UPDATE %s;",
 						table,

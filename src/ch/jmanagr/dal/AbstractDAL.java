@@ -163,7 +163,7 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject> imp
 	public STATUS_CODE save(BusinessObjectType bo)
 	{
 		if (bo != null) {
-			try (Connection con = DB.getSql2o().open()) {
+			try (Connection con = DB.getSql2o().beginTransaction()) {
 				Query q = this.db.save(
 						tableName,
 						this.formatFields(this.getSaveFields(), true),
@@ -181,6 +181,7 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject> imp
 
 
 				BusinessObjectPool.getInstance().add(bo);
+				q.getConnection().commit(true);
 				return STATUS_CODE.OK;
 			} catch (Sql2oException e) {
 				Logger.log(
