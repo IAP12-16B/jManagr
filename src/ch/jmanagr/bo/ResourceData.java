@@ -9,9 +9,9 @@ public class ResourceData
 
 	public ResourceData(Resource resource, String key, String value)
 	{
-		this.resource = resource;
-		this.key = key;
-		this.value = value;
+		this.setResource(resource);
+		this.setKey(key);
+		this.setValue(value);
 	}
 
 	public ResourceData() {}

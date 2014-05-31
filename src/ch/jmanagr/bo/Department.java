@@ -1,83 +1,59 @@
 package ch.jmanagr.bo;
 
+import com.sun.istack.internal.NotNull;
+import com.sun.javafx.beans.IDProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.util.List;
 
-public class Department implements BusinessObject
+@IDProperty("id")
+public class Department implements BusinessObject<Department>
 {
-	private int id;
-	private SimpleStringProperty name = new SimpleStringProperty("");
+	protected SimpleIntegerProperty id;
+	@NotNull
+	protected boolean active;
+	@NotNull
+	protected boolean deleted;
+
+	@NotNull
+	private SimpleStringProperty name;
+	@NotNull
 	private List<User> agents;
-	private boolean active;
-	private boolean deleted;
-
-	public boolean isActive()
-	{
-		return active;
-	}
-
-	public boolean getActive()
-	{
-		return active;
-	}
-
-	public void setActive(boolean active)
-	{
-		this.active = active;
-	}
-
-	public boolean isDeleted()
-	{
-		return deleted;
-	}
-
-	public boolean getDeleted()
-	{
-		return deleted;
-	}
-
-	public void setDeleted(boolean deleted)
-	{
-		this.deleted = deleted;
-	}
 
 	public Department(int id, String name, List<User> agents, boolean active, boolean deleted)
 	{
-		this.id = id;
-		this.name.set(name);
-		this.agents = agents;
-		this.active = active;
-		this.deleted = deleted;
-
+		this.initProperties();
+		this.setId(id);
+		this.setActive(active);
+		this.setDeleted(deleted);
+		this.setName(name);
+		this.setAgents(agents);
 	}
 
 	public Department(String name, List<User> agents, boolean active, boolean deleted)
 	{
-		this.name.set(name);
-		this.agents = agents;
-		this.active = active;
-		this.deleted = deleted;
-
+		this.initProperties();
+		this.setActive(active);
+		this.setDeleted(deleted);
+		this.setName(name);
+		this.setAgents(agents);
 	}
 
-	public Department() {}
-
-	public int getId()
+	public Department()
 	{
-		return id;
+		this.initProperties();
 	}
 
-
-	public void setId(int id)
+	private void initProperties()
 	{
-		this.id = id;
+		this.id = new SimpleIntegerProperty();
+		this.name = new SimpleStringProperty();
 	}
 
 	public String getName()
 	{
-		return name.getName();
+		return name.get();
 	}
 
 	public void setName(String name)
@@ -85,9 +61,15 @@ public class Department implements BusinessObject
 		this.name.set(name);
 	}
 
-    public SimpleStringProperty nameProperty() {
-        return this.name;
-    }
+	public SimpleStringProperty nameProperty()
+	{
+		return this.name;
+	}
+
+	public SimpleIntegerProperty idProperty()
+	{
+		return this.id;
+	}
 
 	public List<User> getAgents()
 	{
@@ -97,5 +79,62 @@ public class Department implements BusinessObject
 	public void setAgents(List<User> agents)
 	{
 		this.agents = agents;
+	}
+
+	public boolean getActive()
+	{
+		return active;
+	}
+
+	public boolean getDeleted()
+	{
+		return deleted;
+	}
+
+	public boolean isDeleted()
+	{
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted)
+	{
+		this.deleted = deleted;
+	}
+
+	/**
+	 * Copies the values from an other object
+	 *
+	 * @param bo
+	 */
+	@Override
+	public void copyFromObject(Department bo)
+	{
+		this.setId(bo.getId());
+		this.setActive(bo.getActive());
+		this.setDeleted(bo.getDeleted());
+		this.setName(bo.getName());
+		this.setAgents(bo.getAgents());
+	}
+
+
+	public boolean isActive()
+	{
+		return active;
+	}
+
+	public void setActive(boolean active)
+	{
+		this.active = active;
+	}
+
+	public int getId()
+
+	{
+		return id.get();
+	}
+
+	public void setId(int id)
+	{
+		this.id.set(id);
 	}
 }

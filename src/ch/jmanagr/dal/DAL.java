@@ -35,6 +35,8 @@ public interface DAL<BusinessObjectType extends BusinessObject>
 	 */
 	public List<BusinessObjectType> fetch(HashMap<String, String> parameters, int limit);
 
+	public List<BusinessObjectType> fetch(HashMap<String, String> parameters);
+
 	/**
 	 * Fetch a BusinessObject by id
 	 *

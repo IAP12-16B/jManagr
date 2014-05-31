@@ -19,6 +19,6 @@ public enum USER_ROLE
 	@Override
 	public String toString()
 	{
-		return Integer.toString(value);
+		return "" + value;
 	}
 }

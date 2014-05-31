@@ -3,7 +3,7 @@ package ch.jmanagr.dal;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by kije on 4/1/14.
@@ -24,6 +24,6 @@ public class SettingsTest
 	{
 		testSettings = settings.retrieve();
 		settings.store(testSettings);
-		assertTrue(testSettings.equals(settings.retrieve()));
+		assertEquals(settings.retrieve(), testSettings);
 	}
 }

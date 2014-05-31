@@ -1,9 +1,9 @@
 package ch.jmanagr.dal;
 
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 /**
  * Created by kije on 4/1/14.
@@ -16,17 +16,5 @@ public class DBTest
 		assertNotNull(DB.getSql2o());
 	}
 
-	@Test
-	public void testExecuteAndFetch() throws Exception
-	{
-		// Todo: implement test
-		fail("Not yet implemented!");
-	}
-
-	@Test
-	public void testExecuteAndFetchWithColumnMapping() throws Exception
-	{
-		// Todo: implement test
-		fail("Not yet implemented!");
-	}
+	// TODO do more tests?
 }

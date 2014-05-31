@@ -4,51 +4,97 @@ import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.PasswordHash;
 import ch.jmanagr.lib.USER_ROLE;
+import com.sun.istack.internal.NotNull;
+import com.sun.javafx.beans.IDProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-public class User implements BusinessObject, IUser, IAgent
+@IDProperty("id")
+public class User implements BusinessObject<User>, IUser<User>, IAgent<User>
 {
-	protected int id;
-	protected String firstname;
-	protected String lastname;
-	protected String username;
-	protected String password;
+	protected SimpleIntegerProperty id;
+	@NotNull
+	protected boolean active;
+	@NotNull
+	protected boolean deleted;
+
+
+	protected SimpleStringProperty firstname;
+	protected SimpleStringProperty lastname;
+	@NotNull
+	protected SimpleStringProperty username;
+	@NotNull
+	protected SimpleStringProperty password;
+	@NotNull
 	protected USER_ROLE role;
 	protected Department department;
-	protected boolean active;
-	protected boolean deleted;
+
 
 	public User(int id, String firstname, String lastname, String username, String password, USER_ROLE role,
 	            Department department, boolean active, boolean deleted)
 	{
-		this.id = id;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.username = username;
-		this.password = password;
-		this.role = role;
-		this.department = department;
-		this.active = active;
-		this.deleted = deleted;
+		this.initProperties();
+		this.setId(id);
+		this.setActive(active);
+		this.setDeleted(deleted);
+		this.setFirstname(firstname);
+		this.setLastname(lastname);
+		this.setUsername(username);
+		this.setPassword(password);
+		this.setRole(role);
+		this.setDepartment(department);
 	}
 
 	public User(String firstname, String lastname, String username, String password, USER_ROLE role,
 	            Department department, boolean active,
 	            boolean deleted)
 	{
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.username = username;
-		this.password = password;
-		this.role = role;
-		this.department = department;
-		this.active = active;
-		this.deleted = deleted;
+		this.initProperties();
+		this.setActive(active);
+		this.setDeleted(deleted);
+		this.setFirstname(firstname);
+		this.setLastname(lastname);
+		this.setUsername(username);
+		this.setPassword(password);
+		this.setRole(role);
+		this.setDepartment(department);
 	}
 
-	public User() {}
+	public User(int id, String firstname, String lastname, String username, String password, USER_ROLE role,
+	            boolean active, boolean deleted)
+	{
+		this.initProperties();
+		this.setId(id);
+		this.setActive(active);
+		this.setDeleted(deleted);
+		this.setFirstname(firstname);
+		this.setLastname(lastname);
+		this.setUsername(username);
+		this.setPassword(password);
+		this.setRole(role);
+	}
+
+	public User(String firstname, String lastname, String username, String password, USER_ROLE role, boolean active,
+	            boolean deleted)
+	{
+		this.initProperties();
+		this.setActive(active);
+		this.setDeleted(deleted);
+		this.setFirstname(firstname);
+		this.setLastname(lastname);
+		this.setUsername(username);
+		this.setPassword(password);
+		this.setRole(role);
+	}
+
+
+	public User()
+	{
+		this.initProperties();
+	}
 
 	/**
 	 * Hashes a passwor, so it can be stored securely into the DB
@@ -89,71 +135,49 @@ public class User implements BusinessObject, IUser, IAgent
 		return false;
 	}
 
-	public boolean isDeleted()
+	private void initProperties()
 	{
-		return deleted;
-	}
-
-	public void setDeleted(boolean deleted)
-	{
-		this.deleted = deleted;
-	}
-
-	public boolean isActive()
-	{
-		return active;
-	}
-
-	public void setActive(boolean active)
-	{
-		this.active = active;
-	}
-
-	public int getId()
-
-	{
-		return id;
-	}
-
-	public void setId(int id)
-	{
-		this.id = id;
+		this.id = new SimpleIntegerProperty();
+		this.firstname = new SimpleStringProperty();
+		this.lastname = new SimpleStringProperty();
+		this.username = new SimpleStringProperty();
+		this.password = new SimpleStringProperty();
 	}
 
 	public String getFirstname()
 	{
-		return firstname;
+		return firstname.get();
 	}
 
 	public void setFirstname(String firstname)
 	{
-		this.firstname = firstname;
+		this.firstname.set(firstname);
 	}
 
 	public String getLastname()
 	{
-		return lastname;
+		return lastname.get();
 	}
 
 	public void setLastname(String lastname)
 	{
-		this.lastname = lastname;
+		this.lastname.set(lastname);
 	}
 
 	public String getUsername()
 	{
-		return username;
+		return username.get();
 	}
 
 	public void setUsername(String username)
 	{
-		this.username = username;
+		this.username.set(username);
 	}
 
 	public String getPassword()
 	{
 
-		return password;
+		return password.get();
 	}
 
 	/**
@@ -163,12 +187,12 @@ public class User implements BusinessObject, IUser, IAgent
 	 */
 	public void setPassword(String password)
 	{
-		this.password = User.hashPassword(password);
+		this.password.set(User.hashPassword(password));
 	}
 
 	public void setHashedPassword(String hash)
 	{
-		this.password = hash;
+		this.password.set(hash);
 	}
 
 	public USER_ROLE getRole()
@@ -205,4 +229,96 @@ public class User implements BusinessObject, IUser, IAgent
 	}
 
 
+	@Override
+	public boolean getActive()
+	{
+		return active;
+	}
+
+	@Override
+	public boolean getDeleted()
+	{
+		return deleted;
+	}
+
+	@Override
+	public boolean isDeleted()
+	{
+		return deleted;
+	}
+
+	@Override
+	public void setDeleted(boolean deleted)
+	{
+		this.deleted = deleted;
+	}
+
+	/**
+	 * Copies the values from an other object
+	 *
+	 * @param bo
+	 */
+	@Override
+	public void copyFromObject(User bo)
+	{
+		this.setId(bo.getId());
+		this.setActive(bo.getActive());
+		this.setDeleted(bo.getDeleted());
+		this.setFirstname(bo.getFirstname());
+		this.setLastname(bo.getLastname());
+		this.setUsername(bo.getUsername());
+		this.setPassword(bo.getPassword());
+		this.setRole(bo.getRole());
+		this.setDepartment(bo.getDepartment());
+	}
+
+	@Override
+	public boolean isActive()
+	{
+		return active;
+	}
+
+	@Override
+	public void setActive(boolean active)
+	{
+		this.active = active;
+	}
+
+	@Override
+	public int getId()
+
+	{
+		return id.get();
+	}
+
+	@Override
+	public void setId(int id)
+	{
+		this.id.set(id);
+	}
+
+	public SimpleIntegerProperty idProperty()
+	{
+		return this.id;
+	}
+
+	public SimpleStringProperty firstnameProperty()
+	{
+		return this.firstname;
+	}
+
+	public SimpleStringProperty lastnameProperty()
+	{
+		return this.lastname;
+	}
+
+	public SimpleStringProperty usernameProperty()
+	{
+		return this.username;
+	}
+
+	public SimpleStringProperty passwordProperty()
+	{
+		return this.password;
+	}
 }

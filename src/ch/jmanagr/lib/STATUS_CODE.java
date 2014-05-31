@@ -6,14 +6,15 @@ package ch.jmanagr.lib;
 public enum STATUS_CODE
 {
 	OK(0),
-	FAIL(1),
-	ALREADY_EXISTS(2),
-	UNKOWN_REASON(3),
-	NAME_INVALID(4),
-	PASSWORD_INVALID(5),
-	PASSWOR_MISSMATCH(6),
-	NOT_AUTHORIZED(7),
-	USERNAME_INVALID(8);
+	FAIL(10),
+	ALREADY_EXISTS(20),
+	FAIL_WITH_UNKOWN_REASON(30),
+	NAME_INVALID(40),
+	PASSWORD_INVALID(50),
+	PASSWOR_MISSMATCH(60),
+	NOT_AUTHORIZED(70),
+	USERNAME_INVALID(80),
+	NO_CONNECTION_TO_SERVER(90);
 
 	public final int value;
 
@@ -25,6 +26,6 @@ public enum STATUS_CODE
 	@Override
 	public String toString()
 	{
-		return Integer.toString(value);
+		return "" + value;
 	}
 }

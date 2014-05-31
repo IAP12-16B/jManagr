@@ -18,6 +18,6 @@ public enum TICKET_STATE
 	@Override
 	public String toString()
 	{
-		return Integer.toString(value);
+		return "" + value;
 	}
 }

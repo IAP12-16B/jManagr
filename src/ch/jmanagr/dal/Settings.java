@@ -1,5 +1,7 @@
 package ch.jmanagr.dal;
 
+import ch.jmanagr.lib.LOG_LEVEL;
+import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.STATUS_CODE;
 
 import java.util.prefs.Preferences;
@@ -42,8 +44,7 @@ public class Settings
 			preferences.put("DB_PASSWORD", settings.getPassword());
 			preferences.put("DB_DATABASE", settings.getDatabase());
 		} catch (IllegalStateException e) {
-			e.printStackTrace();
-			System.err.println(e.getLocalizedMessage());
+			Logger.log(LOG_LEVEL.ERROR, "Fail on store settings", e);
 			return STATUS_CODE.FAIL;
 		}
 

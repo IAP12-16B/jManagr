@@ -6,13 +6,13 @@ import ch.jmanagr.lib.STATUS_CODE;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.List;
+import java.util.HashMap;
 
 /**
  * @param <BusinessObjectType> The BusinessObject to use
  * @param <DALType>            The DAL class to use
  */
-public abstract class AbstractBL<BusinessObjectType extends BusinessObject,
+public abstract class AbstractBL<BusinessObjectType extends BusinessObject<BusinessObjectType>,
 		DALType extends AbstractDAL<BusinessObjectType>>
 		implements BL<BusinessObjectType>
 {
@@ -27,8 +27,10 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject,
 	@Override
 	public ObservableList<BusinessObjectType> getAll()
 	{
-		ObservableList<BusinessObjectType> depList = FXCollections.observableArrayList(this.dal.fetch());
-		return depList; // Todo
+		HashMap<String, String> map = new HashMap<>();
+		map.put("deleted", "0");
+		ObservableList<BusinessObjectType> depList = FXCollections.observableArrayList(this.dal.fetch(map));
+		return depList; // Todo return observable list
 	}
 
 	public BusinessObjectType getById(int id)

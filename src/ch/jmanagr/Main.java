@@ -16,9 +16,7 @@ public class Main extends Application
 		try {
 			launch(args);
 		} catch (Exception e) {
-			Logger.log(LOG_LEVEL.ERROR, e);
-		} finally {
-			Logger.log(LOG_LEVEL.ERROR, "Uncatched Exception!");
+			Logger.log(LOG_LEVEL.ERROR, "Oh that was close. Cached exception in main() ", e);
 		}
 
 	}

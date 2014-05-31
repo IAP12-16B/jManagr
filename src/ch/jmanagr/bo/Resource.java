@@ -1,68 +1,75 @@
 package ch.jmanagr.bo;
 
 
+import com.sun.istack.internal.NotNull;
+import com.sun.javafx.beans.IDProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Resource implements BusinessObject
+@IDProperty("id")
+public class Resource implements BusinessObject<Resource>
 {
-	private int id;
-	private String name;
+	// Todo: ordering, parent/child, etc...
+	protected SimpleIntegerProperty id;
+	@NotNull
+	protected boolean active;
+	@NotNull
+	protected boolean deleted;
+
+	@NotNull
+	private SimpleStringProperty name;
 	private List<ResourceData> data;
 	private ArrayList<Ticket> tickets;
 	private Resource parent;
 	private ArrayList<Resource> children;
-	private boolean active;
-	private boolean deleted;
 
 	public Resource(int id, String name, List<ResourceData> data, ArrayList<Ticket> tickets, Resource parent,
 	                ArrayList<Resource> children, boolean active, boolean deleted)
 	{
-		this.id = id;
-		this.name = name;
-		this.data = data;
-		this.tickets = tickets;
-		this.parent = parent;
-		this.children = children;
-		this.active = active;
-		this.deleted = deleted;
+		this.id = new SimpleIntegerProperty();
+		this.name = new SimpleStringProperty();
+		this.setId(id);
+		this.setActive(active);
+		this.setDeleted(deleted);
+		this.setName(name);
+		this.setData(data);
+		this.setTickets(tickets);
+		this.setParent(parent);
+		this.setChildren(children);
 	}
 
 	public Resource(String name, List<ResourceData> data, ArrayList<Ticket> tickets, Resource parent,
 	                ArrayList<Resource> children, boolean active, boolean deleted)
 	{
-		this.name = name;
-		this.data = data;
-		this.tickets = tickets;
-		this.parent = parent;
-		this.children = children;
-		this.active = active;
-		this.deleted = deleted;
+		this.id = new SimpleIntegerProperty();
+		this.name = new SimpleStringProperty();
+		this.setActive(active);
+		this.setDeleted(deleted);
+		this.setName(name);
+		this.setData(data);
+		this.setTickets(tickets);
+		this.setParent(parent);
+		this.setChildren(children);
 	}
 
-	public Resource() {}
-
-
-	public int getId()
+	public Resource()
 	{
-		return id;
+		this.id = new SimpleIntegerProperty();
+		this.name = new SimpleStringProperty();
 	}
 
-
-	public void setId(int id)
-
-	{
-		this.id = id;
-	}
 
 	public String getName()
 	{
-		return name;
+		return name.get();
 	}
 
 	public void setName(String name)
 	{
-		this.name = name;
+		this.name.set(name);
 	}
 
 	public List<ResourceData> getData()
@@ -105,5 +112,74 @@ public class Resource implements BusinessObject
 	public void setChildren(ArrayList<Resource> children)
 	{
 		this.children = children;
+	}
+
+	public boolean getActive()
+	{
+		return active;
+	}
+
+	public boolean getDeleted()
+	{
+		return deleted;
+	}
+
+	public boolean isDeleted()
+	{
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted)
+	{
+		this.deleted = deleted;
+	}
+
+	/**
+	 * Copies the values from an other object
+	 *
+	 * @param bo
+	 */
+	@Override
+	public void copyFromObject(Resource bo)
+	{
+		this.setId(bo.getId());
+		this.setActive(bo.getActive());
+		this.setDeleted(bo.getDeleted());
+		this.setName(bo.getName());
+		this.setData(bo.getData());
+		this.setTickets(bo.getTickets());
+		this.setParent(bo.getParent());
+		this.setChildren(bo.getChildren());
+	}
+
+	public boolean isActive()
+	{
+		return active;
+	}
+
+	public void setActive(boolean active)
+	{
+		this.active = active;
+	}
+
+	public int getId()
+
+	{
+		return id.get();
+	}
+
+	public void setId(int id)
+	{
+		this.id.set(id);
+	}
+
+	public SimpleIntegerProperty idProperty()
+	{
+		return this.id;
+	}
+
+	public SimpleStringProperty nameProperty()
+	{
+		return this.name;
 	}
 }

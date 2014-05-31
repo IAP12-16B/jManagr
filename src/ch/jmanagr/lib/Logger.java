@@ -1,6 +1,9 @@
 package ch.jmanagr.lib;
 
 
+import ch.jmanagr.bo.BusinessObject;
+import ch.jmanagr.bo.Department;
+
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -11,7 +14,7 @@ public class Logger
 {
 	private static void unifiedLog(PrintStream outputStream, String message)
 	{
-		outputStream.println(message);
+		outputStream.print(message);
 	}
 
 	private static String formatStackTrace(StackTraceElement[] stack)
@@ -23,40 +26,51 @@ public class Logger
 		return traceString;
 	}
 
-	private static String formatMessage(Exception e, String adidionalInfo)
+	private static String formatMessage(Throwable e, String adidionalInfo)
 	{
+
+		String suppressed = "";
+		for (Throwable throwable : e.getSuppressed()) {
+			suppressed += formatMessage(throwable);
+		}
+
 		return String.format(
-				"%s\nReason: %s \nMessage: %s \nTrace: \n%s\n", adidionalInfo, e.getCause(),
-				e.getMessage(), formatStackTrace(e.getStackTrace())
+				"%s\nReason: \t%s \nMessage: \t%s \nLocalized:\t%s \nTrace: \n%s\n\nSuppressed: \n%s\n",
+				adidionalInfo,
+				e.getCause(),
+				e.getMessage(),
+				e.getLocalizedMessage(),
+				formatStackTrace(e.getStackTrace()),
+				suppressed
 		);
 	}
 
-	private static String formatMessage(Exception e)
+	private static String formatMessage(Throwable e)
 	{
 		return formatMessage(e, "");
 	}
 
 	public static void log(LOG_LEVEL level, String message)
 	{
-		message = String.format("%s: %s", level.toString(), message);
+		message = String.format("%s: \t\t%s", level.toString(), message);
 		switch (level) {
 			case VERBOSE:
-				logVerbose(message);
+				logVerbose(message + "\n");
 				break;
 			case DEBUG:
-				logDebug(message);
+				logDebug(message + "\n");
 				break;
 			case MESSAGE:
-				logMessage(message);
+				logMessage(message + "\n");
 				break;
 			case WARNING:
-				logWarning(message);
+				logWarning(message + "\n");
 				break;
 			case ERROR:
-				logError(message);
+				logError(message + "\n");
 				break;
 			case FATAL_ERROR:
-				logFatalError(message);
+				logFatalError(message + "\n");
 				break;
 		}
 	}
@@ -101,12 +115,14 @@ public class Logger
 		unifiedLog(System.out, message);
 	}
 
-	public static void log(HashMap<String, ?> map)
+	public static void log(HashMap<?, ?> map)
 	{
-		Iterator<? extends Map.Entry<String, ?>> it = map.entrySet().iterator();
+		Iterator<? extends Map.Entry<?, ?>> it = map.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry pairs = it.next();
-			log(String.format("%s:\t %s\n", pairs.getKey(), pairs.getValue()));
+			log(pairs.getKey());
+			log(": \n\t");
+			logln(pairs.getValue());
 			it.remove();
 		}
 	}
@@ -114,14 +130,25 @@ public class Logger
 	public static void log(List list)
 	{
 		for (Object o : list) {
-			log(o.toString() + "\n");
+			log("\t");
+			logln(o);
 		}
 	}
 
 	public static void log(String[] array)
 	{
 		for (String s : array) {
-			log(s + "\n");
+			log("\t");
+			logln(s);
+		}
+
+	}
+
+	public static void log(Object[] obj)
+	{
+		for (Object o : obj) {
+			log("\t");
+			logln(o);
 		}
 
 	}
@@ -129,9 +156,64 @@ public class Logger
 	public static void log(Integer[] array)
 	{
 		for (Integer integer : array) {
-			log(integer.toString() + "\n");
+			logln(integer);
 		}
 
+	}
+
+	public static void log(Class cls)
+	{
+		log(cls.getName());
+	}
+
+	public static void log(boolean b)
+	{
+		log(String.valueOf(b));
+	}
+
+	public static void log(Enum value)
+	{
+		log(value.toString());
+	}
+
+	public static void log(Integer i)
+	{
+		log(i.toString());
+	}
+
+	public static void log(Object o)
+	{
+		log(String.valueOf(o));
+	}
+
+	public static void log(BusinessObject bo)
+	{
+		logln(
+				String.format(
+						"BusinessObject %s: \n\t ID: %d \n\t active: %b \n\t deleted: %b",
+						bo.getClass(),
+						bo.getId(),
+						bo.getActive(),
+						bo.getDeleted()
+				)
+		);
+	}
+
+	public static void log(Department department)
+	{
+		log((BusinessObject) department);
+		logln(
+				String.format(
+						"\t Name: %s",
+						department.getName()
+				)
+		);
+		logln(department.getAgents());
+	}
+
+	public static void log()
+	{
+		log("\n");
 	}
 
 	public static void log(String string)
@@ -139,5 +221,15 @@ public class Logger
 		logMessage(string);
 	}
 
-
+	/**
+	 * Logs to a new line
+	 *
+	 * @param m
+	 * @param <T>
+	 */
+	public static <T> void logln(T m)
+	{
+		log(m);
+		log();
+	}
 }
