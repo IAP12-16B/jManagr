@@ -1,6 +1,7 @@
 package ch.jmanagr.bo;
 
 
+import com.sun.istack.internal.NotNull;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -11,9 +12,12 @@ public class Resource implements BusinessObject<Resource>
 {
 	// Todo: ordering, parent/child, etc...
 	protected SimpleIntegerProperty id;
+	@NotNull
 	protected boolean active;
+	@NotNull
 	protected boolean deleted;
 
+	@NotNull
 	private SimpleStringProperty name;
 	private List<ResourceData> data;
 	private ArrayList<Ticket> tickets;

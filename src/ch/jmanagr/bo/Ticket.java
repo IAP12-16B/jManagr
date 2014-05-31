@@ -1,6 +1,7 @@
 package ch.jmanagr.bo;
 
 import ch.jmanagr.lib.TICKET_STATE;
+import com.sun.istack.internal.NotNull;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -9,11 +10,14 @@ import java.util.Date;
 public class Ticket implements BusinessObject<Ticket>
 {
 	protected SimpleIntegerProperty id;
+	@NotNull
 	protected boolean active;
+	@NotNull
 	protected boolean deleted;
 
 	private SimpleStringProperty name;
 	private SimpleStringProperty description;
+	@NotNull
 	private TICKET_STATE status;
 	private Date date;
 	private Resource resource;

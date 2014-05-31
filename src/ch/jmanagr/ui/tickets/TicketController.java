@@ -74,8 +74,8 @@ public class TicketController implements Initializable
 	{
 		//todo @pablo missing params for created objs, anyway wait for kim fixing this
 
-		// Todo: @kije simplify this.... It should not be neccessary to first create a bunch of dummy objects before
-		// you can save the main object itselfs
+		// Todo: @kije simplify this.... It should not be necessary to first create a bunch of dummy objects before
+		// you can save the main object itself
 		Date d = new Date();
 		Resource r = BusinessObjects.getInstance(Resource.class, null);
 		Department de = BusinessObjects.getInstance(Department.class, null);

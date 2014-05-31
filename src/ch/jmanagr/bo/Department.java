@@ -1,5 +1,6 @@
 package ch.jmanagr.bo;
 
+import com.sun.istack.internal.NotNull;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -8,10 +9,14 @@ import java.util.List;
 public class Department implements BusinessObject<Department>
 {
 	protected SimpleIntegerProperty id;
+	@NotNull
 	protected boolean active;
+	@NotNull
 	protected boolean deleted;
 
+	@NotNull
 	private SimpleStringProperty name;
+	@NotNull
 	private List<User> agents;
 
 	public Department(int id, String name, List<User> agents, boolean active, boolean deleted)

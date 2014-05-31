@@ -3,6 +3,8 @@ package ch.jmanagr.bo;
 
 public interface BusinessObject<T extends BusinessObject>
 {
+	// TODO Implement fluid interface (bo.setId(1).setName(2)... ect...) on getters and methods without return value
+
 	/**
 	 * Get the id of the BusinessObject
 	 *

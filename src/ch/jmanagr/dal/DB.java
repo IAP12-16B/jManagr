@@ -17,7 +17,7 @@ public class DB
 
 	private ch.jmanagr.bo.Settings settings;
 
-	private Connection connection;
+	private Connection connection; // todo maybe a persistent connection?
 
 	/**
 	 *

@@ -4,6 +4,7 @@ import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.PasswordHash;
 import ch.jmanagr.lib.USER_ROLE;
+import com.sun.istack.internal.NotNull;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -13,13 +14,19 @@ import java.security.spec.InvalidKeySpecException;
 public class User implements BusinessObject<User>, IUser<User>, IAgent<User>
 {
 	protected SimpleIntegerProperty id;
+	@NotNull
 	protected boolean active;
+	@NotNull
 	protected boolean deleted;
+
 
 	protected SimpleStringProperty firstname;
 	protected SimpleStringProperty lastname;
+	@NotNull
 	protected SimpleStringProperty username;
+	@NotNull
 	protected SimpleStringProperty password;
+	@NotNull
 	protected USER_ROLE role;
 	protected Department department;
 
@@ -27,11 +34,7 @@ public class User implements BusinessObject<User>, IUser<User>, IAgent<User>
 	public User(int id, String firstname, String lastname, String username, String password, USER_ROLE role,
 	            Department department, boolean active, boolean deleted)
 	{
-		this.id = new SimpleIntegerProperty();
-		this.firstname = new SimpleStringProperty();
-		this.lastname = new SimpleStringProperty();
-		this.username = new SimpleStringProperty();
-		this.password = new SimpleStringProperty();
+		this.initProperties();
 		this.setId(id);
 		this.setActive(active);
 		this.setDeleted(deleted);
@@ -47,11 +50,7 @@ public class User implements BusinessObject<User>, IUser<User>, IAgent<User>
 	            Department department, boolean active,
 	            boolean deleted)
 	{
-		this.id = new SimpleIntegerProperty();
-		this.firstname = new SimpleStringProperty();
-		this.lastname = new SimpleStringProperty();
-		this.username = new SimpleStringProperty();
-		this.password = new SimpleStringProperty();
+		this.initProperties();
 		this.setActive(active);
 		this.setDeleted(deleted);
 		this.setFirstname(firstname);
@@ -65,11 +64,7 @@ public class User implements BusinessObject<User>, IUser<User>, IAgent<User>
 	public User(int id, String firstname, String lastname, String username, String password, USER_ROLE role,
 	            boolean active, boolean deleted)
 	{
-		this.id = new SimpleIntegerProperty();
-		this.firstname = new SimpleStringProperty();
-		this.lastname = new SimpleStringProperty();
-		this.username = new SimpleStringProperty();
-		this.password = new SimpleStringProperty();
+		this.initProperties();
 		this.setId(id);
 		this.setActive(active);
 		this.setDeleted(deleted);
@@ -83,11 +78,7 @@ public class User implements BusinessObject<User>, IUser<User>, IAgent<User>
 	public User(String firstname, String lastname, String username, String password, USER_ROLE role, boolean active,
 	            boolean deleted)
 	{
-		this.id = new SimpleIntegerProperty();
-		this.firstname = new SimpleStringProperty();
-		this.lastname = new SimpleStringProperty();
-		this.username = new SimpleStringProperty();
-		this.password = new SimpleStringProperty();
+		this.initProperties();
 		this.setActive(active);
 		this.setDeleted(deleted);
 		this.setFirstname(firstname);
@@ -99,6 +90,11 @@ public class User implements BusinessObject<User>, IUser<User>, IAgent<User>
 
 
 	public User()
+	{
+		this.initProperties();
+	}
+
+	private void initProperties()
 	{
 		this.id = new SimpleIntegerProperty();
 		this.firstname = new SimpleStringProperty();

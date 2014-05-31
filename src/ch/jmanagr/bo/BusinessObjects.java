@@ -49,6 +49,7 @@ public class BusinessObjects
 				if (boInstance == null) {
 					try {
 						boInstance = this.businessObjectClass.newInstance();
+						boInstance.setId(id);
 						instances.put(id, boInstance);
 					} catch (InstantiationException | IllegalAccessException e) {
 						Logger.log(LOG_LEVEL.ERROR, e);
