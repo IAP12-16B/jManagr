@@ -3,6 +3,7 @@ package ch.jmanagr.bo;
 
 import ch.jmanagr.lib.USER_ROLE;
 
+@Deprecated
 public interface IUser<T extends BusinessObject> extends BusinessObject<T>
 {
 	public boolean isDeleted();

@@ -1,6 +1,6 @@
 package ch.jmanagr.bo;
 
-
+@Deprecated
 public interface IAgent<T extends BusinessObject> extends IUser<T>
 {
 	public Department getDepartment();
