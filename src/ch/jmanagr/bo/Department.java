@@ -1,11 +1,13 @@
 package ch.jmanagr.bo;
 
 import com.sun.istack.internal.NotNull;
+import com.sun.javafx.beans.IDProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.util.List;
 
+@IDProperty("id")
 public class Department implements BusinessObject<Department>
 {
 	protected SimpleIntegerProperty id;
@@ -21,26 +23,29 @@ public class Department implements BusinessObject<Department>
 
 	public Department(int id, String name, List<User> agents, boolean active, boolean deleted)
 	{
-		this.id = new SimpleIntegerProperty();
+		this.initProperties();
 		this.setId(id);
 		this.setActive(active);
 		this.setDeleted(deleted);
-		this.name = new SimpleStringProperty();
 		this.setName(name);
 		this.setAgents(agents);
 	}
 
 	public Department(String name, List<User> agents, boolean active, boolean deleted)
 	{
-		this.id = new SimpleIntegerProperty();
+		this.initProperties();
 		this.setActive(active);
 		this.setDeleted(deleted);
-		this.name = new SimpleStringProperty();
 		this.setName(name);
 		this.setAgents(agents);
 	}
 
 	public Department()
+	{
+		this.initProperties();
+	}
+
+	private void initProperties()
 	{
 		this.id = new SimpleIntegerProperty();
 		this.name = new SimpleStringProperty();
@@ -56,7 +61,7 @@ public class Department implements BusinessObject<Department>
 		this.name.set(name);
 	}
 
-	public SimpleStringProperty nameProperty() // FIXME @mnewmedia Question: do we need this property? -> answer: yes
+	public SimpleStringProperty nameProperty()
 	{
 		return this.name;
 	}

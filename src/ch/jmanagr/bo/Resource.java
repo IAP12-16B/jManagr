@@ -2,12 +2,14 @@ package ch.jmanagr.bo;
 
 
 import com.sun.istack.internal.NotNull;
+import com.sun.javafx.beans.IDProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@IDProperty("id")
 public class Resource implements BusinessObject<Resource>
 {
 	// Todo: ordering, parent/child, etc...
@@ -169,5 +171,15 @@ public class Resource implements BusinessObject<Resource>
 	public void setId(int id)
 	{
 		this.id.set(id);
+	}
+
+	public SimpleIntegerProperty idProperty()
+	{
+		return this.id;
+	}
+
+	public SimpleStringProperty nameProperty()
+	{
+		return this.name;
 	}
 }

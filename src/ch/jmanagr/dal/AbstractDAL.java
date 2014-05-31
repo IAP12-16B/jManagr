@@ -31,10 +31,12 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 	public STATUS_CODE delete(BusinessObjectType bo)
 	{
 		try (Connection con = DB.getSql2o().open()) {
-			this.db.softDelete(tableName, "`id` = :id").addParameter("id", bo.getId()).executeUpdate();
+			this.db.softDelete(tableName, "`id` = :id").addParameter("id", bo.getId()).executeUpdate().commit(true);
 			bo.setDeleted(true);
 
 			// todo delete referenced
+
+
 			return STATUS_CODE.OK;
 		} catch (Sql2oException e) {
 			Logger.log(

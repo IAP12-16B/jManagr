@@ -5,12 +5,14 @@ import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.PasswordHash;
 import ch.jmanagr.lib.USER_ROLE;
 import com.sun.istack.internal.NotNull;
+import com.sun.javafx.beans.IDProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
+@IDProperty("id")
 public class User implements BusinessObject<User>, IUser<User>, IAgent<User>
 {
 	protected SimpleIntegerProperty id;
@@ -94,15 +96,6 @@ public class User implements BusinessObject<User>, IUser<User>, IAgent<User>
 		this.initProperties();
 	}
 
-	private void initProperties()
-	{
-		this.id = new SimpleIntegerProperty();
-		this.firstname = new SimpleStringProperty();
-		this.lastname = new SimpleStringProperty();
-		this.username = new SimpleStringProperty();
-		this.password = new SimpleStringProperty();
-	}
-
 	/**
 	 * Hashes a passwor, so it can be stored securely into the DB
 	 *
@@ -142,6 +135,14 @@ public class User implements BusinessObject<User>, IUser<User>, IAgent<User>
 		return false;
 	}
 
+	private void initProperties()
+	{
+		this.id = new SimpleIntegerProperty();
+		this.firstname = new SimpleStringProperty();
+		this.lastname = new SimpleStringProperty();
+		this.username = new SimpleStringProperty();
+		this.password = new SimpleStringProperty();
+	}
 
 	public String getFirstname()
 	{
@@ -228,21 +229,25 @@ public class User implements BusinessObject<User>, IUser<User>, IAgent<User>
 	}
 
 
+	@Override
 	public boolean getActive()
 	{
 		return active;
 	}
 
+	@Override
 	public boolean getDeleted()
 	{
 		return deleted;
 	}
 
+	@Override
 	public boolean isDeleted()
 	{
 		return deleted;
 	}
 
+	@Override
 	public void setDeleted(boolean deleted)
 	{
 		this.deleted = deleted;
@@ -267,24 +272,53 @@ public class User implements BusinessObject<User>, IUser<User>, IAgent<User>
 		this.setDepartment(bo.getDepartment());
 	}
 
+	@Override
 	public boolean isActive()
 	{
 		return active;
 	}
 
+	@Override
 	public void setActive(boolean active)
 	{
 		this.active = active;
 	}
 
+	@Override
 	public int getId()
 
 	{
 		return id.get();
 	}
 
+	@Override
 	public void setId(int id)
 	{
 		this.id.set(id);
+	}
+
+	public SimpleIntegerProperty idProperty()
+	{
+		return this.id;
+	}
+
+	public SimpleStringProperty firstnameProperty()
+	{
+		return this.firstname;
+	}
+
+	public SimpleStringProperty lastnameProperty()
+	{
+		return this.lastname;
+	}
+
+	public SimpleStringProperty usernameProperty()
+	{
+		return this.username;
+	}
+
+	public SimpleStringProperty passwordProperty()
+	{
+		return this.password;
 	}
 }

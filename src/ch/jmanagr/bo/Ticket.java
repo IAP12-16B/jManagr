@@ -2,11 +2,13 @@ package ch.jmanagr.bo;
 
 import ch.jmanagr.lib.TICKET_STATE;
 import com.sun.istack.internal.NotNull;
+import com.sun.javafx.beans.IDProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.util.Date;
 
+@IDProperty("id")
 public class Ticket implements BusinessObject<Ticket>
 {
 	protected SimpleIntegerProperty id;
@@ -265,5 +267,20 @@ public class Ticket implements BusinessObject<Ticket>
 	public void setId(int id)
 	{
 		this.id.set(id);
+	}
+
+	public SimpleIntegerProperty idProperty()
+	{
+		return this.id;
+	}
+
+	public SimpleStringProperty nameProperty()
+	{
+		return this.name;
+	}
+
+	public SimpleStringProperty descriptionProperty()
+	{
+		return this.description;
 	}
 }
