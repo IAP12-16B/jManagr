@@ -67,7 +67,7 @@ public class DepartmentController implements Initializable
 
 		// Only checking if add or delete - so dont need it, but leave it for maybe later
 		/*ObservableList<Department> b = bl.getAll();
-	    b.addListener(new ListChangeListener<Department>() {
+		b.addListener(new ListChangeListener<Department>() {
             @Override
             public void onChanged(Change change) {
                 System.out.println("Detected a change! ");
