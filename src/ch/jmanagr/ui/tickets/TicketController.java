@@ -4,6 +4,7 @@ import ch.jmanagr.bl.Tickets;
 import ch.jmanagr.bo.*;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.TICKET_STATE;
+import ch.jmanagr.ui.main.MainController;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -72,8 +73,9 @@ public class TicketController implements Initializable
 
 	public void newTicket()
 	{
-		//todo @pablo missing params for created objs, anyway wait for kim fixing this
-
+        MainController.changeTabContent("ticketDetail");
+        /*
+		// Todo @kije Errors maybe cause sql2o 1.5?
 		// Todo: @kije simplify this.... It should not be necessary to first create a bunch of dummy objects before
 		// you can save the main object itself
 		Date d = new Date();
@@ -91,11 +93,10 @@ public class TicketController implements Initializable
 		bl.save(ticket);
 		this.refresh();
 		Logger.logln("Insertet new Department: ");
-		//todo change view on newTicket()
-
+		*/
 	}
 
-	// only archiv and only for admin?
+	// Todo only archiv and only for admin?
 	public void deleteDep()
 	{/*
 	    Ticket ticket = this.ticketTable.getSelectionModel().getSelectedItem();
