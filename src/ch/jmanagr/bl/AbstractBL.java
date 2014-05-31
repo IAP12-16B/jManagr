@@ -12,7 +12,7 @@ import java.util.HashMap;
  * @param <BusinessObjectType> The BusinessObject to use
  * @param <DALType>            The DAL class to use
  */
-public abstract class AbstractBL<BusinessObjectType extends BusinessObject,
+public abstract class AbstractBL<BusinessObjectType extends BusinessObject<BusinessObjectType>,
 		DALType extends AbstractDAL<BusinessObjectType>>
 		implements BL<BusinessObjectType>
 {

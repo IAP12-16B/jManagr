@@ -1,6 +1,7 @@
 package ch.jmanagr.ui.departments;
 
 import ch.jmanagr.bl.Departments;
+import ch.jmanagr.bo.BusinessObjects;
 import ch.jmanagr.bo.Department;
 import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.Logger;
@@ -94,7 +95,14 @@ public class DepartmentController implements Initializable
 
 
 		// Add Deparment
-		Department dep = new Department(nameField.getText(), new ArrayList<User>(), true, false);
+		Department dep = BusinessObjects.getInstance(
+				Department.class,
+				null
+		); // @mnewmedia ab jetzt immer so neui instanze vo BO's mache.
+		dep.setName(nameField.getText());
+		dep.setAgents(new ArrayList<User>());
+		dep.setActive(true);
+		dep.setDeleted(false);
 		Logger.logln(dep); // logger can log BusinessObjects :D
 		bl.save(dep);
 		this.refresh();

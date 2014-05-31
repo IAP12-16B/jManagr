@@ -2,7 +2,7 @@ package ch.jmanagr.dal;
 
 
 import ch.jmanagr.bo.BusinessObject;
-import ch.jmanagr.bo.BusinessObjectPool;
+import ch.jmanagr.bo.BusinessObjects;
 import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.STATUS_CODE;
@@ -11,12 +11,10 @@ import org.sql2o.Query;
 import org.sql2o.Sql2oException;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public abstract class AbstractDAL<BusinessObjectType extends BusinessObject> implements DAL<BusinessObjectType>
+public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<BusinessObjectType>>
+		implements DAL<BusinessObjectType>
 {
 	protected final String tableName;
 	protected final Class<BusinessObjectType> tClass;
@@ -76,16 +74,11 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject> imp
 	public BusinessObjectType fetch(int id)
 	{
 		BusinessObjectType u = null;
-		if (!BusinessObjectPool.getInstance().contains(tClass, id)) {
-			HashMap<String, String> map = new HashMap<>();
-			map.put("id", ((Integer) id).toString());
-			u = this.fetch(map, 1).get(0);
-			if (u != null) {
-				BusinessObjectPool.getInstance().add(u);
-			}
-		} else {
-			u = BusinessObjectPool.getInstance().get(tClass, id);
-		}
+
+		HashMap<String, String> map = new HashMap<>();
+		map.put("id", ((Integer) id).toString());
+		u = this.fetch(map, 1).get(0);
+
 		return u;
 	}
 
@@ -179,8 +172,6 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject> imp
 
 				this.afterSave(bo);
 
-
-				BusinessObjectPool.getInstance().add(bo);
 				q.getConnection().commit(true);
 				return STATUS_CODE.OK;
 			} catch (Sql2oException e) {
@@ -247,15 +238,16 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject> imp
 			}
 
 			List<BusinessObjectType> bos = this.beforeFetch(q).executeAndFetch(tClass);
+			List<BusinessObjectType> results = new ArrayList<>();
 
 			for (BusinessObjectType bo : bos) {
-
-				BusinessObjectPool.getInstance().add(bo);
-
-				this.afterFetch(bo);
+				BusinessObjectType resBo = BusinessObjects.getInstance(tClass, bo.getId());
+				resBo.copyFromObject(bo);
+				this.afterFetch(resBo);
+				results.add(resBo);
 			}
 
-			return bos;
+			return results;
 		} catch (Sql2oException e) {
 			Logger.log(
 					LOG_LEVEL.ERROR,

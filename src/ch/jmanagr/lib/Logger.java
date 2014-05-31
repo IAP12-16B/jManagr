@@ -26,15 +26,26 @@ public class Logger
 		return traceString;
 	}
 
-	private static String formatMessage(Exception e, String adidionalInfo)
+	private static String formatMessage(Throwable e, String adidionalInfo)
 	{
+
+		String suppressed = "";
+		for (Throwable throwable : e.getSuppressed()) {
+			suppressed += formatMessage(throwable);
+		}
+
 		return String.format(
-				"%s\nReason: \t%s \nMessage: \t%s \nTrace: \n%s\n", adidionalInfo, e.getCause(),
-				e.getMessage(), formatStackTrace(e.getStackTrace())
+				"%s\nReason: \t%s \nMessage: \t%s \nLocalized:\t%s \nTrace: \n%s\n\nSuppressed: \n%s\n",
+				adidionalInfo,
+				e.getCause(),
+				e.getMessage(),
+				e.getLocalizedMessage(),
+				formatStackTrace(e.getStackTrace()),
+				suppressed
 		);
 	}
 
-	private static String formatMessage(Exception e)
+	private static String formatMessage(Throwable e)
 	{
 		return formatMessage(e, "");
 	}
