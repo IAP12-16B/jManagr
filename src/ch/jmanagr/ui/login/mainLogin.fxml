@@ -6,23 +6,18 @@
 
 <GridPane alignment="CENTER" hgap="10.0" prefHeight="617.0" prefWidth="769.0" vgap="10.0"
           xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
-          fx:controller="ch.jmanagr.ui.main.MainController">
+          fx:controller="ch.jmanagr.ui.login.MainLoginController">
 
     <!-- define includes for later use in content attribute -> http://blog.ngopal.com.np/2012/01/26/fxml-stuffs-include-and-define/ -->
     <fx:define>
-        <fx:include source="../departments/departments.fxml" fx:id="departmentView"/>
-        <fx:include source="../tickets/tickets.fxml" fx:id="ticketView"/>
-        <fx:include source="../tickets/ticketDetail.fxml" fx:id="ticketDetailView" />
-        <fx:include source="../users/users.fxml" fx:id="userView" />
-        <fx:include source="../users/userDetail.fxml" fx:id="userDetailView" />
+        <fx:include source="login.fxml" fx:id="loginView"/>
+        <fx:include source="../settings/settings.fxml" fx:id="settingsView"/>
     </fx:define>
 
         <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="ALL_TABS" GridPane.columnIndex="0" GridPane.rowIndex="0">
             <tabs>
-                <Tab fx:id="tabTickets" text="Tickets" content="$ticketView"/>
-                <Tab fx:id="tabDepartment" text="Abteilungen" content="$departmentView"/>
-                <Tab fx:id="tabResource" text="Ressourcen" />
-                <Tab fx:id="tabUser" text="User" content="$userView"/>
+                <Tab fx:id="tabLogin" text="Anmelden" content="$loginView"/>
+                <Tab fx:id="tabSettings" text="Einstellungen" content="$settingsView"/>
             </tabs>
         </TabPane>
 
