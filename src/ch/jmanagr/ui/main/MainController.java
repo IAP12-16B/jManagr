@@ -28,10 +28,10 @@ public class MainController implements Initializable
         //tabPane.getTabs().remove(tabTickets);
     }
 
-    public static void changeTabContent(String $view) {
-        if ($view.equals("ticketDetail")) {
+    public static void changeTabContent(String view) {
+        if (view.equals("ticketDetail")) {
             tabTickets.setContent(ticketDetailView);
-        } else if ($view.equals("tickets")) {
+        } else if (view.equals("tickets")) {
             tabTickets.setContent(ticketView);
         }
     }
