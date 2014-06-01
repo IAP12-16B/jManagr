@@ -2,7 +2,7 @@ package ch.jmanagr.dal;
 
 
 import ch.jmanagr.bo.BusinessObject;
-import ch.jmanagr.bo.BusinessObjects;
+import ch.jmanagr.bo.BusinessObjectManager;
 import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.STATUS_CODE;
@@ -34,7 +34,7 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 			this.db.softDelete(tableName, "`id` = :id").addParameter("id", bo.getId()).executeUpdate().commit(true);
 			bo.setDeleted(true);
 
-			// todo delete referenced
+			// todo delete referenced?
 
 
 			return STATUS_CODE.OK;
@@ -75,13 +75,10 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 	@Override
 	public BusinessObjectType fetch(int id)
 	{
-		BusinessObjectType u = null;
-
 		HashMap<String, String> map = new HashMap<>();
 		map.put("id", ((Integer) id).toString());
-		u = this.fetch(map, 1).get(0);
 
-		return u;
+		return this.fetch(map, 1).get(0);
 	}
 
 	/**
@@ -243,7 +240,7 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 			List<BusinessObjectType> results = new ArrayList<>();
 
 			for (BusinessObjectType bo : bos) {
-				BusinessObjectType resBo = BusinessObjects.getInstance(tClass, bo.getId());
+				BusinessObjectType resBo = BusinessObjectManager.getInstance(tClass, bo.getId());
 				resBo.copyFromObject(bo);
 				this.afterFetch(resBo);
 				results.add(resBo);

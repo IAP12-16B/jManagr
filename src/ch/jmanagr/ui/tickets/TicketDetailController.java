@@ -5,9 +5,7 @@ import ch.jmanagr.bo.*;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.TICKET_STATE;
 import ch.jmanagr.ui.main.MainController;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 
 import java.net.URL;
 import java.util.Date;
@@ -25,11 +23,11 @@ public class TicketDetailController implements Initializable
         // Todo: @kije simplify this.... It should not be necessary to first create a bunch of dummy objects before
         // you can save the main object itself
         Date d = new Date();
-        Resource r = BusinessObjects.getInstance(Resource.class, null);
-        Department de = BusinessObjects.getInstance(Department.class, null);
-        User u = BusinessObjects.getInstance(User.class, null); //Users.getInstance().getCurrentUser();
-        User agent = BusinessObjects.getInstance(User.class, null);
-        Ticket ticket = BusinessObjects.getInstance(Ticket.class, null);
+        Resource r = BusinessObjectManager.getInstance(Resource.class, null);
+        Department de = BusinessObjectManager.getInstance(Department.class, null);
+        User u = BusinessObjectManager.getInstance(User.class, null); //Users.getInstance().getCurrentUser();
+        User agent = BusinessObjectManager.getInstance(User.class, null);
+        Ticket ticket = BusinessObjectManager.getInstance(Ticket.class, null);
         ticket.setUser(u);
         ticket.setAgent(agent);
         ticket.setDepartment(de);
