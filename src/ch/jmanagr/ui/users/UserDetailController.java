@@ -15,11 +15,9 @@ public class UserDetailController implements Initializable
 {
     private Tickets bl = Tickets.getInstance();
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 
     public void saveUser() {
-        // Todo @kije Errors maybe cause sql2o 1.5?
         // Todo: @kije simplify this.... It should not be necessary to first create a bunch of dummy objects before
         // you can save the main object itself
         Date d = new Date();
@@ -39,6 +37,10 @@ public class UserDetailController implements Initializable
 
         //If it worked, return to list
         MainController.changeTabContent("userDetail");
+
+	    /*for (USER_ROLE role : USER_ROLE.values()) {
+		    Logger.logln(role.getName());
+	    }*/
     }
 
     public void cancelUser() {

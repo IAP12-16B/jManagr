@@ -28,4 +28,8 @@ public enum STATUS_CODE
 	{
 		return "" + value;
 	}
+
+	public String getName() {
+		return super.toString();
+	}
 }

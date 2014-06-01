@@ -54,6 +54,7 @@ public class DepartmentController implements Initializable
 					public void handle(CellEditEvent<Department, String> t)
 					{
 
+						// Todo Wenn bim umbenenne nüt gänderet wir, gits e NullPointerException.... suscht (wenn öbbis gänderet worde isch) funktioniert alles ... wieso? @kije @mnewmedia
 						Department dep = t.getTableView().getItems().get(
 								t.getTablePosition()
 								 .getRow()
