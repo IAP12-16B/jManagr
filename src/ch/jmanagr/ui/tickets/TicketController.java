@@ -71,28 +71,10 @@ public class TicketController implements Initializable
 		Logger.logln("Refreshed list!");
 	}
 
-	public void newTicket()
+	public void newTicket() //pass actionEvent?
 	{
         MainController.changeTabContent("ticketDetail");
         /*
-		// Todo @kije Errors maybe cause sql2o 1.5?
-		// Todo: @kije simplify this.... It should not be necessary to first create a bunch of dummy objects before
-		// you can save the main object itself
-		Date d = new Date();
-		Resource r = BusinessObjects.getInstance(Resource.class, null);
-		Department de = BusinessObjects.getInstance(Department.class, null);
-		User u = BusinessObjects.getInstance(User.class, null); //Users.getInstance().getCurrentUser();
-		User agent = BusinessObjects.getInstance(User.class, null);
-		Ticket ticket = BusinessObjects.getInstance(Ticket.class, null);
-		ticket.setUser(u);
-		ticket.setAgent(agent);
-		ticket.setDepartment(de);
-		ticket.setResource(r);
-		ticket.setDate(d);
-		ticket.setStatus(TICKET_STATE.OPEN);
-		bl.save(ticket);
-		this.refresh();
-		Logger.logln("Insertet new Department: ");
 		*/
 	}
 
