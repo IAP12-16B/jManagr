@@ -17,7 +17,7 @@
         <fx:include source="../users/userDetail.fxml" fx:id="userDetailView" />
     </fx:define>
 
-        <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="ALL_TABS" GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="0" GridPane.rowIndex="0">
             <tabs>
                 <Tab fx:id="tabTickets" text="Tickets" content="$ticketView"/>
                 <Tab fx:id="tabDepartment" text="Abteilungen" content="$departmentView"/>
