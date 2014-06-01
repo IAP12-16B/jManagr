@@ -30,6 +30,7 @@ out
 # tmp
 *~
 *~*
+*.working
 
 !lib/sql2o*
 !.idea/libraries
