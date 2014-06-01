@@ -18,7 +18,9 @@
         <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="ALL_TABS" GridPane.columnIndex="0" GridPane.rowIndex="0">
             <tabs>
                 <Tab fx:id="tabTickets" text="Tickets" content="$ticketView"/>
-                <Tab fx:id="tabAbteilungen" text="Abteilungen" content="$departmentView"/>
+                <Tab fx:id="tabDepartment" text="Abteilungen" content="$departmentView"/>
+                <Tab fx:id="tabResource" text="Ressourcen" />
+                <Tab fx:id="tabUser" text="User" />
             </tabs>
         </TabPane>
 
