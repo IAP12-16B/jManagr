@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="Content" fx:id="userView" cache="false" minHeight="0.0" minWidth="0.0" prefHeight="588.0" prefWidth="769.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.jmanagr.ui.users.UsersController">
+    <children>
+        <TableView fx:id="ticketTable" editable="true" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="741.0">
+            <columns>
+                <TableColumn fx:id="idCol" editable="false" prefWidth="75.0" text="ID" />
+                <TableColumn fx:id="nameCol" editable="true" prefWidth="75.0" text="Nachname" />
+                <TableColumn prefWidth="75.0" text="Vorname" />
+                <TableColumn prefWidth="87.0" text="Benutzername" />
+                <TableColumn prefWidth="69.0" text="Abteilung" />
+                <TableColumn prefWidth="69.0" text="Rolle" />
+            </columns>
+        </TableView>
+        <Button fx:id="newUserBtn" layoutX="14.1875" layoutY="223.5" mnemonicParsing="false" onAction="#newUser" text="Neuer Benutzer" />
+    </children>
+</AnchorPane>

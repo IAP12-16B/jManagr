@@ -14,7 +14,10 @@ public class MainController implements Initializable
 {
     @FXML private static AnchorPane ticketView;
     @FXML private static AnchorPane ticketDetailView;
+    @FXML private static AnchorPane userView;
+    @FXML private static AnchorPane userDetailView;
     @FXML private static Tab tabTickets;
+    @FXML private static Tab tabUser;
     @FXML private static TabPane tabPane;
 
     @Override
@@ -33,6 +36,10 @@ public class MainController implements Initializable
             tabTickets.setContent(ticketDetailView);
         } else if (view.equals("tickets")) {
             tabTickets.setContent(ticketView);
+        } else if (view.equals("users")) {
+            tabUser.setContent(userView);
+        } else if (view.equals("userDetail")) {
+            tabUser.setContent(userDetailView);
         }
     }
 
