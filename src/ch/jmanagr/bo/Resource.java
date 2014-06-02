@@ -162,15 +162,15 @@ public class Resource implements BusinessObject<Resource>
 		this.active = active;
 	}
 
-	public int getId()
+	public Integer getId()
 
 	{
-		return id.get();
+		return id.getValue();
 	}
 
 	public void setId(int id)
 	{
-		this.id.set(id);
+		this.id.setValue(id);
 	}
 
 	public SimpleIntegerProperty idProperty()

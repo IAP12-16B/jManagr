@@ -76,7 +76,16 @@ public class Users extends AbstractBL<User, ch.jmanagr.dal.Users>
 			return STATUS_CODE.NAME_INVALID;
 		}
 
-		// Todo: check if user already exists
+		// todo: maybe create a exists() function in dal
+		HashMap<String, String> map = new HashMap<>();
+		if (bo.getId() != null) {
+			map.put("id", bo.getId().toString());
+		} else {
+			map.put("username", bo.getUsername());
+		}
+		if (!this.dal.fetch(map, 1).isEmpty()) {
+			return STATUS_CODE.ALREADY_EXISTS;
+		}
 
 		return STATUS_CODE.OK;
 	}

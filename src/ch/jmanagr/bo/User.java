@@ -285,10 +285,10 @@ public class User implements BusinessObject<User>, IUser<User>, IAgent<User>
 	}
 
 	@Override
-	public int getId()
+	public Integer getId()
 
 	{
-		return id.get();
+		return id.getValue();
 	}
 
 	@Override

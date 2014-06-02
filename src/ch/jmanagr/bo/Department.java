@@ -127,14 +127,14 @@ public class Department implements BusinessObject<Department>
 		this.active = active;
 	}
 
-	public int getId()
+	public Integer getId()
 
 	{
-		return id.get();
+		return id.getValue();
 	}
 
 	public void setId(int id)
 	{
-		this.id.set(id);
+		this.id.setValue(id);
 	}
 }
