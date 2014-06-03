@@ -1,7 +1,7 @@
 package ch.jmanagr.ui.departments;
 
 import ch.jmanagr.bl.Departments;
-import ch.jmanagr.bo.BusinessObjects;
+import ch.jmanagr.bo.BusinessObjectManager;
 import ch.jmanagr.bo.Department;
 import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.Logger;
@@ -54,6 +54,7 @@ public class DepartmentController implements Initializable
 					public void handle(CellEditEvent<Department, String> t)
 					{
 
+						// Todo Wenn bim umbenenne nüt gänderet wir, gits e NullPointerException.... suscht (wenn öbbis gänderet worde isch) funktioniert alles ... wieso? @kije @mnewmedia
 						Department dep = t.getTableView().getItems().get(
 								t.getTablePosition()
 								 .getRow()
@@ -95,7 +96,7 @@ public class DepartmentController implements Initializable
 
 
 		// Add Deparment
-		Department dep = BusinessObjects.getInstance(
+		Department dep = BusinessObjectManager.getInstance(
 				Department.class,
 				null
 		); // @mnewmedia ab jetzt immer so neui instanze vo BO's mache.

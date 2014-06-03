@@ -21,4 +21,8 @@ public enum USER_ROLE
 	{
 		return "" + value;
 	}
+
+	public String getName() {
+		return super.toString();
+	}
 }

@@ -27,11 +27,12 @@ public class UserDetailController implements Initializable
     @FXML private ComboBox roleCbox;
 
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 
     public void saveUser() {
+        // Todo: @kije simplify this.... It should not be necessary to first create a bunch of dummy objects before
         // you can save the main object itself
+        Logger.logln("Insertet new Ticket: ");
         User user = new User();
         user.setLastname(lastnameFld.getText());
         user.setFirstname(firstnameFld.getText());
@@ -42,7 +43,9 @@ public class UserDetailController implements Initializable
         bl.save(user);
         Logger.logln("Insertet new User: ");
 
-        //If it worked, return to list
+	    /*for (USER_ROLE role : USER_ROLE.values()) {
+		    Logger.logln(role.getName());
+	    }*/
         MainController.changeTabContent("users");
     }
 

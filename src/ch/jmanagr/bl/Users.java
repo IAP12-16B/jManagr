@@ -44,7 +44,7 @@ public class Users extends AbstractBL<User, ch.jmanagr.dal.Users>
 		map.put("username", username);
 		User u = this.dal.fetch(map, 1).get(0);
 		if (u.checkPassword(password)) {
-			this.currentUser = u;
+			this.setCurrentUser(u);
 			return u;
 		}
 		return null;
@@ -58,6 +58,11 @@ public class Users extends AbstractBL<User, ch.jmanagr.dal.Users>
 	public User getCurrentUser()
 	{
 		return currentUser;
+	}
+
+	private void setCurrentUser(User u)
+	{
+		this.currentUser = u;
 	}
 
 	@Override

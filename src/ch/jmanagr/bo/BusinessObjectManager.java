@@ -9,7 +9,7 @@ import java.util.HashMap;
  * Multiton This class provides the functionality of a singelton on the per-BusinessObject level. Every BO should only
  * exist once
  */
-public class BusinessObjects
+public class BusinessObjectManager
 {
 	private static final
 	HashMap<Class<? extends BusinessObject>, BusinessObjectMultiton<? extends BusinessObject>>

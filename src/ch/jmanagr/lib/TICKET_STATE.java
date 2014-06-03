@@ -20,4 +20,8 @@ public enum TICKET_STATE
 	{
 		return "" + value;
 	}
+
+	public String getName() {
+		return super.toString();
+	}
 }
