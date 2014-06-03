@@ -1,10 +1,9 @@
 package ch.jmanagr.ui.users;
 
-import ch.jmanagr.bl.Tickets;
+import ch.jmanagr.bl.Departments;
 import ch.jmanagr.bl.Users;
 import ch.jmanagr.bo.*;
 import ch.jmanagr.lib.Logger;
-import ch.jmanagr.lib.TICKET_STATE;
 import ch.jmanagr.lib.USER_ROLE;
 import ch.jmanagr.ui.main.MainController;
 import javafx.fxml.FXML;
@@ -13,12 +12,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class UserDetailController implements Initializable
 {
     private Users bl = Users.getInstance();
+    //private Departments blDP
     @FXML private TextField lastnameFld;
     @FXML private TextField firstnameFld;
     @FXML private TextField usernameFld;
@@ -27,6 +26,12 @@ public class UserDetailController implements Initializable
     @FXML private ComboBox roleCbox;
 
     public void initialize(URL location, ResourceBundle resources) {
+       /* ObservableList<USER_ROLE> l = new ArrayList<>();
+        for (USER_ROLE r : USER_ROLE.values()) {
+            r
+        }
+        departementCbox.*/
+
     }
 
     public void saveUser() {
