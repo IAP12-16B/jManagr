@@ -79,7 +79,11 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 		HashMap<String, String> map = new HashMap<>();
 		map.put("id", ((Integer) id).toString());
 
-		return this.fetch(map, 1).get(0);
+		List<BusinessObjectType> fetch = this.fetch(map, 1);
+		if (fetch.isEmpty()) {
+			return null;
+		}
+		return fetch.get(0);
 	}
 
 	/**
