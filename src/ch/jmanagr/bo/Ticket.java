@@ -283,4 +283,46 @@ public class Ticket implements BusinessObject<Ticket>
 	{
 		return this.description;
 	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) { return true; }
+		if (!(o instanceof Ticket)) { return false; }
+
+		Ticket ticket = (Ticket) o;
+
+		if (active != ticket.active) { return false; }
+		if (deleted != ticket.deleted) { return false; }
+		if (agent != null ? !agent.equals(ticket.agent) : ticket.agent != null) { return false; }
+		if (date != null ? !date.equals(ticket.date) : ticket.date != null) { return false; }
+		if (department != null ? !department.equals(ticket.department) : ticket.department != null) { return false; }
+		if (description != null ? !description.equals(ticket.description) : ticket.description != null) {
+			return false;
+		}
+		if (id != null ? !id.equals(ticket.id) : ticket.id != null) { return false; }
+		if (name != null ? !name.equals(ticket.name) : ticket.name != null) { return false; }
+		if (resource != null ? !resource.equals(ticket.resource) : ticket.resource != null) { return false; }
+		if (status != ticket.status) { return false; }
+		if (user != null ? !user.equals(ticket.user) : ticket.user != null) { return false; }
+
+		return true;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = id != null ? id.hashCode() : 0;
+		result = 31 * result + (active ? 1 : 0);
+		result = 31 * result + (deleted ? 1 : 0);
+		result = 31 * result + (name != null ? name.hashCode() : 0);
+		result = 31 * result + (description != null ? description.hashCode() : 0);
+		result = 31 * result + (status != null ? status.hashCode() : 0);
+		result = 31 * result + (date != null ? date.hashCode() : 0);
+		result = 31 * result + (resource != null ? resource.hashCode() : 0);
+		result = 31 * result + (agent != null ? agent.hashCode() : 0);
+		result = 31 * result + (department != null ? department.hashCode() : 0);
+		result = 31 * result + (user != null ? user.hashCode() : 0);
+		return result;
+	}
 }
