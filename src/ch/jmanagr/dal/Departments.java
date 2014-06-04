@@ -4,6 +4,7 @@ import ch.jmanagr.bo.Department;
 import ch.jmanagr.bo.User;
 
 import java.util.HashMap;
+import java.util.List;
 
 
 public class Departments extends AbstractDAL<Department>
@@ -58,9 +59,13 @@ public class Departments extends AbstractDAL<Department>
 	{
 		super.afterFetch(department);
 		HashMap<String, String> map = new HashMap<>();
-		map.put("Department", ((Integer) department.getId()).toString());
-		department.setAgents(
-				Users.getInstance().fetch(map, -1)
-		);
+		map.put("Department", department.getId().toString());
+		if (department.getAgents() == null || department.getAgents().isEmpty()) {
+			List<User> us = Users.getInstance().fetch(map, -1);
+			department.setAgents(
+					us
+			);
+		}
+
 	}
 }

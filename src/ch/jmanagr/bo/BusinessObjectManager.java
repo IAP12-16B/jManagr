@@ -49,7 +49,7 @@ public class BusinessObjectManager
 				if (boInstance == null) {
 					try {
 						boInstance = this.businessObjectClass.newInstance();
-						Logger.logln(boInstance);
+						Logger.logln(String.format("%s with %d from pool", boInstance.getClass(), id));
 						instances.put(boInstance.getId(), boInstance);
 					} catch (InstantiationException | IllegalAccessException e) {
 						Logger.log(LOG_LEVEL.ERROR, e);

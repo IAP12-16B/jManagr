@@ -1,7 +1,9 @@
-package ch.jmanagr.dal;
+package ch.jmanagr.dal.db;
 
 
 import ch.jmanagr.bo.BusinessObject;
+import ch.jmanagr.dal.DAL;
+import ch.jmanagr.dal.Settings;
 import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import org.sql2o.Connection;
@@ -177,15 +179,20 @@ public class DB
 			                                                                                      relationsDAL,
 	                                                                                      String field)
 	{
-		try (Connection con = DB.getSql2o().open()) {
-			Integer relationalId = this.select(field, bo.getClass().getSimpleName(), "`id` = :id", 1).addParameter(
-					"id",
-					bo.getId()
-			).executeScalar(Integer.class);
-			return relationsDAL.fetch(relationalId); // here potentially exists the possibility of an endless
-			// recursion loop
-		} catch (Sql2oException e) {
-			Logger.log(LOG_LEVEL.ERROR, "Relation mapping failed!", e);
+		if (bo.getId() != null) {
+			try (Connection con = DB.getSql2o().open()) {
+				Integer relationalId = this.select(field, bo.getClass().getSimpleName(), "`id` = :id", 1).addParameter(
+						"id",
+						bo.getId()
+				).executeScalar(Integer.class);
+
+				if (relationalId == 0) {
+					return relationsDAL.fetch(relationalId); // here potentially exists the possibility of an endless
+					// recursion loop
+				}
+			} catch (Sql2oException e) {
+				Logger.log(LOG_LEVEL.ERROR, "Relation mapping failed!", e);
+			}
 		}
 
 		return null;
