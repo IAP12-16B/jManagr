@@ -20,11 +20,11 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>com.j256</groupId>
             <artifactId>ormlite</artifactId>
             <version>3.0</version>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>com.j256.ormlite</groupId>
