@@ -1,99 +1,75 @@
 package ch.jmanagr.bo;
 
 import ch.jmanagr.lib.TICKET_STATE;
-import com.sun.istack.internal.NotNull;
-import com.sun.javafx.beans.IDProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import com.j256.ormlite.field.DataType;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.util.Date;
 
-@IDProperty("id")
-public class Ticket implements BusinessObject<Ticket>
+@DatabaseTable(tableName = "User")
+public class Ticket extends AbstractBO<Ticket>
 {
-	protected SimpleIntegerProperty id;
-	@NotNull
-	protected boolean active;
-	@NotNull
-	protected boolean deleted;
 
+	@DatabaseField(useGetSet = true, canBeNull = true)
 	private SimpleStringProperty name;
+
+	@DatabaseField(useGetSet = true, canBeNull = true)
 	private SimpleStringProperty description;
-	@NotNull
+
+	@DatabaseField(useGetSet = true,
+	               defaultValue = "0",
+	               unknownEnumName = "0",
+	               dataType = DataType.ENUM_INTEGER,
+	               canBeNull = false)
 	private TICKET_STATE status;
+
+	@DatabaseField(useGetSet = true, canBeNull = true)
 	private Date date;
+
+	@DatabaseField(useGetSet = true,
+	               canBeNull = false,
+	               foreign = true,
+	               foreignAutoCreate = true,
+	               foreignAutoRefresh = true)
 	private Resource resource;
+
+	@DatabaseField(useGetSet = true,
+	               canBeNull = true,
+	               foreign = true,
+	               foreignAutoCreate = true,
+	               foreignAutoRefresh = true)
 	private User agent;
+
+	@DatabaseField(useGetSet = true,
+	               canBeNull = true,
+	               foreign = true,
+	               foreignAutoCreate = true,
+	               foreignAutoRefresh = true)
 	private Department department;
+
+	@DatabaseField(useGetSet = true,
+	               canBeNull = false,
+	               foreign = true,
+	               foreignAutoCreate = true,
+	               foreignAutoRefresh = true)
 	private User user;
 
-	/**
-	 * @param id
-	 * @param name
-	 * @param description
-	 * @param status
-	 * @param date
-	 * @param resource
-	 * @param agent
-	 * @param department
-	 * @param user
-	 * @param active
-	 * @param deleted
-	 */
-	public Ticket(int id, String name, String description, TICKET_STATE status, Date date, Resource resource,
-	              User agent, Department department, User user, boolean active,
-	              boolean deleted)
-	{
-		this.id = new SimpleIntegerProperty();
-		this.name = new SimpleStringProperty();
-		this.description = new SimpleStringProperty();
-		this.setId(id);
-		this.setActive(active);
-		this.setDeleted(deleted);
-		this.setName(name);
-		this.setDescription(description);
-		this.setStatus(status);
-		this.setDate(date);
-		this.setResource(resource);
-		this.setAgent(agent);
-		this.setDepartment(department);
-		this.setUser(user);
-	}
-
-	/**
-	 * @param name
-	 * @param description
-	 * @param status
-	 * @param date
-	 * @param resource
-	 * @param agent
-	 * @param department
-	 * @param user
-	 * @param active
-	 * @param deleted
-	 */
-	public Ticket(String name, String description, TICKET_STATE status, Date date, Resource resource,
-	              User agent, Department department, User user, boolean active,
-	              boolean deleted)
-	{
-		this.id = new SimpleIntegerProperty();
-		this.name = new SimpleStringProperty();
-		this.description = new SimpleStringProperty();
-		this.setActive(active);
-		this.setDeleted(deleted);
-		this.setName(name);
-		this.setDescription(description);
-		this.setStatus(status);
-		this.setDate(date);
-		this.setResource(resource);
-		this.setAgent(agent);
-		this.setDepartment(department);
-		this.setUser(user);
-	}
 
 	public Ticket()
 	{
-		this.id = new SimpleIntegerProperty();
+		super();
+	}
+
+	public Ticket(int id)
+	{
+		super(id);
+	}
+
+	protected void initProperties()
+	{
+		super.initProperties();
 		this.name = new SimpleStringProperty();
 		this.description = new SimpleStringProperty();
 	}
@@ -207,25 +183,6 @@ public class Ticket implements BusinessObject<Ticket>
 		this.user = user;
 	}
 
-	public boolean getActive()
-	{
-		return active;
-	}
-
-	public boolean getDeleted()
-	{
-		return deleted;
-	}
-
-	public boolean isDeleted()
-	{
-		return deleted;
-	}
-
-	public void setDeleted(boolean deleted)
-	{
-		this.deleted = deleted;
-	}
 
 	/**
 	 * Copies the values from an other object
@@ -246,32 +203,6 @@ public class Ticket implements BusinessObject<Ticket>
 		this.setAgent(bo.getAgent());
 		this.setDepartment(bo.getDepartment());
 		this.setUser(bo.getUser());
-	}
-
-	public boolean isActive()
-	{
-		return active;
-	}
-
-	public void setActive(boolean active)
-	{
-		this.active = active;
-	}
-
-	public Integer getId()
-
-	{
-		return id.getValue();
-	}
-
-	public void setId(int id)
-	{
-		this.id.setValue(id);
-	}
-
-	public SimpleIntegerProperty idProperty()
-	{
-		return this.id;
 	}
 
 	public SimpleStringProperty nameProperty()

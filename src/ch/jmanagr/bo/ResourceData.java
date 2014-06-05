@@ -1,10 +1,23 @@
 package ch.jmanagr.bo;
 
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable(tableName = "ResourceData")
 public class ResourceData
 {
+	@DatabaseField(useGetSet = true,
+	               uniqueCombo = true,
+	               foreign = true,
+	               foreignAutoCreate = true,
+	               foreignAutoRefresh = true)
 	private Resource resource;
+
+	@DatabaseField(useGetSet = true, uniqueCombo = true, id = true)
 	private String key;
+
+	@DatabaseField(useGetSet = true, canBeNull = true)
 	private String value;
 
 	public ResourceData(Resource resource, String key, String value)

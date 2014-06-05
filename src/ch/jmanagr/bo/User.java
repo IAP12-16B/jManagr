@@ -4,96 +4,48 @@ import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.PasswordHash;
 import ch.jmanagr.lib.USER_ROLE;
-import com.sun.istack.internal.NotNull;
-import com.sun.javafx.beans.IDProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import com.j256.ormlite.field.DataType;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-@IDProperty("id")
-public class User implements BusinessObject<User>, IUser<User>, IAgent<User>
+@DatabaseTable(tableName = "User")
+public class User extends AbstractBO<User>
 {
-	protected SimpleIntegerProperty id;
-	@NotNull
-	protected boolean active;
-	@NotNull
-	protected boolean deleted;
-
-
+	@DatabaseField(useGetSet = true, canBeNull = true)
 	protected SimpleStringProperty firstname;
+
+	@DatabaseField(useGetSet = true, canBeNull = true)
 	protected SimpleStringProperty lastname;
-	@NotNull
+
+	@DatabaseField(useGetSet = true, canBeNull = false, unique = true)
 	protected SimpleStringProperty username;
-	@NotNull
+
+	@DatabaseField(useGetSet = true, canBeNull = false)
 	protected SimpleStringProperty password;
-	@NotNull
+
+	@DatabaseField(useGetSet = true, defaultValue = "0", unknownEnumName = "0", dataType = DataType.ENUM_INTEGER)
 	protected USER_ROLE role;
+
+	@DatabaseField(useGetSet = true,
+	               canBeNull = true,
+	               foreign = true,
+	               foreignAutoCreate = true,
+	               foreignAutoRefresh = true)
 	protected Department department;
-
-
-	public User(int id, String firstname, String lastname, String username, String password, USER_ROLE role,
-	            Department department, boolean active, boolean deleted)
-	{
-		this.initProperties();
-		this.setId(id);
-		this.setActive(active);
-		this.setDeleted(deleted);
-		this.setFirstname(firstname);
-		this.setLastname(lastname);
-		this.setUsername(username);
-		this.setPassword(password);
-		this.setRole(role);
-		this.setDepartment(department);
-	}
-
-	public User(String firstname, String lastname, String username, String password, USER_ROLE role,
-	            Department department, boolean active,
-	            boolean deleted)
-	{
-		this.initProperties();
-		this.setActive(active);
-		this.setDeleted(deleted);
-		this.setFirstname(firstname);
-		this.setLastname(lastname);
-		this.setUsername(username);
-		this.setPassword(password);
-		this.setRole(role);
-		this.setDepartment(department);
-	}
-
-	public User(int id, String firstname, String lastname, String username, String password, USER_ROLE role,
-	            boolean active, boolean deleted)
-	{
-		this.initProperties();
-		this.setId(id);
-		this.setActive(active);
-		this.setDeleted(deleted);
-		this.setFirstname(firstname);
-		this.setLastname(lastname);
-		this.setUsername(username);
-		this.setPassword(password);
-		this.setRole(role);
-	}
-
-	public User(String firstname, String lastname, String username, String password, USER_ROLE role, boolean active,
-	            boolean deleted)
-	{
-		this.initProperties();
-		this.setActive(active);
-		this.setDeleted(deleted);
-		this.setFirstname(firstname);
-		this.setLastname(lastname);
-		this.setUsername(username);
-		this.setPassword(password);
-		this.setRole(role);
-	}
 
 
 	public User()
 	{
-		this.initProperties();
+		super();
+	}
+
+	public User(int id)
+	{
+		super(id);
 	}
 
 	/**
@@ -135,9 +87,9 @@ public class User implements BusinessObject<User>, IUser<User>, IAgent<User>
 		return false;
 	}
 
-	private void initProperties()
+	protected void initProperties()
 	{
-		this.id = new SimpleIntegerProperty();
+		super.initProperties();
 		this.firstname = new SimpleStringProperty();
 		this.lastname = new SimpleStringProperty();
 		this.username = new SimpleStringProperty();
@@ -228,31 +180,6 @@ public class User implements BusinessObject<User>, IUser<User>, IAgent<User>
 		this.department = department;
 	}
 
-
-	@Override
-	public boolean getActive()
-	{
-		return active;
-	}
-
-	@Override
-	public boolean getDeleted()
-	{
-		return deleted;
-	}
-
-	@Override
-	public boolean isDeleted()
-	{
-		return deleted;
-	}
-
-	@Override
-	public void setDeleted(boolean deleted)
-	{
-		this.deleted = deleted;
-	}
-
 	/**
 	 * Copies the values from an other object
 	 *
@@ -270,36 +197,6 @@ public class User implements BusinessObject<User>, IUser<User>, IAgent<User>
 		this.setPassword(bo.getPassword());
 		this.setRole(bo.getRole());
 		this.setDepartment(bo.getDepartment());
-	}
-
-	@Override
-	public boolean isActive()
-	{
-		return active;
-	}
-
-	@Override
-	public void setActive(boolean active)
-	{
-		this.active = active;
-	}
-
-	@Override
-	public Integer getId()
-
-	{
-		return id.getValue();
-	}
-
-	@Override
-	public void setId(int id)
-	{
-		this.id.set(id);
-	}
-
-	public SimpleIntegerProperty idProperty()
-	{
-		return this.id;
 	}
 
 	public SimpleStringProperty firstnameProperty()

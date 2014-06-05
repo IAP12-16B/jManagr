@@ -1,53 +1,28 @@
 package ch.jmanagr.bo;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.javafx.beans.IDProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import com.j256.ormlite.dao.ForeignCollection;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
+import com.j256.ormlite.table.DatabaseTable;
 import javafx.beans.property.SimpleStringProperty;
 
-import java.util.List;
-
-@IDProperty("id")
-public class Department implements BusinessObject<Department>
+@DatabaseTable(tableName = "Department")
+public class Department extends AbstractBO<Department>
 {
-	protected SimpleIntegerProperty id;
-	@NotNull
-	protected boolean active;
-	@NotNull
-	protected boolean deleted;
-
-	@NotNull
+	@DatabaseField(useGetSet = true, canBeNull = true)
 	private SimpleStringProperty name;
-	@NotNull
-	private List<User> agents;
 
-	public Department(int id, String name, List<User> agents, boolean active, boolean deleted)
-	{
-		this.initProperties();
-		this.setId(id);
-		this.setActive(active);
-		this.setDeleted(deleted);
-		this.setName(name);
-		this.setAgents(agents);
-	}
-
-	public Department(String name, List<User> agents, boolean active, boolean deleted)
-	{
-		this.initProperties();
-		this.setActive(active);
-		this.setDeleted(deleted);
-		this.setName(name);
-		this.setAgents(agents);
-	}
+	@ForeignCollectionField(eager = true, foreignFieldName = "department")
+	private ForeignCollection<User> agents;
 
 	public Department()
 	{
-		this.initProperties();
+		super();
 	}
 
-	private void initProperties()
+	protected void initProperties()
 	{
-		this.id = new SimpleIntegerProperty();
+		super.initProperties();
 		this.name = new SimpleStringProperty();
 	}
 
@@ -66,39 +41,14 @@ public class Department implements BusinessObject<Department>
 		return this.name;
 	}
 
-	public SimpleIntegerProperty idProperty()
-	{
-		return this.id;
-	}
-
-	public List<User> getAgents()
+	public ForeignCollection<User> getAgents()
 	{
 		return agents;
 	}
 
-	public void setAgents(List<User> agents)
+	public void setAgents(ForeignCollection<User> agents)
 	{
 		this.agents = agents;
-	}
-
-	public boolean getActive()
-	{
-		return active;
-	}
-
-	public boolean getDeleted()
-	{
-		return deleted;
-	}
-
-	public boolean isDeleted()
-	{
-		return deleted;
-	}
-
-	public void setDeleted(boolean deleted)
-	{
-		this.deleted = deleted;
 	}
 
 	/**
@@ -116,27 +66,6 @@ public class Department implements BusinessObject<Department>
 		this.setAgents(bo.getAgents());
 	}
 
-
-	public boolean isActive()
-	{
-		return active;
-	}
-
-	public void setActive(boolean active)
-	{
-		this.active = active;
-	}
-
-	public Integer getId()
-
-	{
-		return id.getValue();
-	}
-
-	public void setId(int id)
-	{
-		this.id.setValue(id);
-	}
 
 	@Override
 	public boolean equals(Object o)
