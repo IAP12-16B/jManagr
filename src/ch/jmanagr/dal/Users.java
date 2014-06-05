@@ -74,9 +74,9 @@ public class Users extends AbstractDAL<User>
 	{
 		super.afterFetch(user);
 		if (user.getDepartment() == null) {
-			user.setDepartment(
-					this.db.resolveRelation(user, Departments.getInstance(), "Department")
-			);
+			/*user.setDepartment(
+					this.db.resolveRelation(user, Departments.getInstance(), "Department", Department.class)
+			);*/
 		}
 	}
 }

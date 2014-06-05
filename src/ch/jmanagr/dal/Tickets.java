@@ -98,28 +98,28 @@ public class Tickets extends AbstractDAL<Ticket>
 	protected void afterFetch(Ticket ticket)
 	{
 		super.afterFetch(ticket);
-		if (ticket.getResource() == null) {
+		/*if (ticket.getResource() == null) {
 			ticket.setResource(
-					this.db.resolveRelation(ticket, Resources.getInstance(), "Resource")
+					this.db.resolveRelation(ticket, Resources.getInstance(), "Resource", Resource.class)
 			);
 		}
 
 		if (ticket.getAgent() == null) {
 			ticket.setAgent(
-					this.db.resolveRelation(ticket, Users.getInstance(), "Agent")
+					this.db.resolveRelation(ticket, Users.getInstance(), "Agent", User.class)
 			);
 		}
 
 		if (ticket.getUser() == null) {
 			ticket.setUser(
-					this.db.resolveRelation(ticket, Users.getInstance(), "User")
+					this.db.resolveRelation(ticket, Users.getInstance(), "User", User.class)
 			);
 		}
 
 		if (ticket.getDepartment() == null) {
 			ticket.setDepartment(
-					this.db.resolveRelation(ticket, Departments.getInstance(), "Department")
+					this.db.resolveRelation(ticket, Departments.getInstance(), "Department", Department.class)
 			);
-		}
+		}*/
 	}
 }

@@ -27,6 +27,11 @@ public class BusinessObjectManager
 		}
 	}
 
+	public static <T extends BusinessObject<T>> boolean hasInstance(Class<T> cls, Integer id)
+	{
+		return multitonInstances.containsKey(cls) && multitonInstances.get(cls).hasInstance(id);
+	}
+
 	// Todo getUser(), getTicket(), etc...
 
 
@@ -58,6 +63,11 @@ public class BusinessObjectManager
 
 				return boInstance;
 			}
+		}
+
+		public boolean hasInstance(Integer id)
+		{
+			return instances.containsKey(id);
 		}
 
 	}

@@ -2,6 +2,7 @@ package ch.jmanagr.dal.db;
 
 
 import ch.jmanagr.bo.BusinessObject;
+import ch.jmanagr.bo.BusinessObjectManager;
 import ch.jmanagr.dal.DAL;
 import ch.jmanagr.dal.Settings;
 import ch.jmanagr.lib.LOG_LEVEL;
@@ -174,10 +175,12 @@ public class DB
 		return this.sql2o.createQuery(query + ";");
 	}
 
-	public <BusinessObjectType extends BusinessObject> BusinessObjectType resolveRelation(BusinessObject bo,
-	                                                                                      DAL<BusinessObjectType>
+	public <BusinessObjectType extends BusinessObject<BusinessObjectType>> BusinessObjectType resolveRelation(
+			BusinessObject bo,
+			DAL<BusinessObjectType>
 			                                                                                      relationsDAL,
-	                                                                                      String field)
+			String field,
+			Class<BusinessObjectType> relationCls)
 	{
 		if (bo.getId() != null) {
 			try (Connection con = DB.getSql2o().open()) {
@@ -186,7 +189,10 @@ public class DB
 						bo.getId()
 				).executeScalar(Integer.class);
 
-				if (relationalId == 0) {
+				if (relationalId != null && relationalId != 0) {
+					if (BusinessObjectManager.hasInstance(relationCls, relationalId)) {
+						return BusinessObjectManager.getInstance(relationCls, relationalId);
+					}
 					return relationsDAL.fetch(relationalId); // here potentially exists the possibility of an endless
 					// recursion loop
 				}
