@@ -183,7 +183,11 @@ public class Logger
 
 	public static void log(Object o)
 	{
-		log(String.valueOf(o));
+		if (o == null) {
+			log("[null]");
+		} else {
+			log(String.valueOf(o));
+		}
 	}
 
 	public static void log(BusinessObject bo)

@@ -27,6 +27,11 @@ public class BusinessObjectManager
 		}
 	}
 
+	public static <T extends BusinessObject<T>> boolean hasInstance(Class<T> cls, Integer id)
+	{
+		return multitonInstances.containsKey(cls) && multitonInstances.get(cls).hasInstance(id);
+	}
+
 	// Todo getUser(), getTicket(), etc...
 
 
@@ -49,7 +54,7 @@ public class BusinessObjectManager
 				if (boInstance == null) {
 					try {
 						boInstance = this.businessObjectClass.newInstance();
-						Logger.logln(boInstance);
+						Logger.logln(String.format("%s with %d from pool", boInstance.getClass(), id));
 						instances.put(boInstance.getId(), boInstance);
 					} catch (InstantiationException | IllegalAccessException e) {
 						Logger.log(LOG_LEVEL.ERROR, e);
@@ -58,6 +63,11 @@ public class BusinessObjectManager
 
 				return boInstance;
 			}
+		}
+
+		public boolean hasInstance(Integer id)
+		{
+			return instances.containsKey(id);
 		}
 
 	}

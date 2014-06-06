@@ -10,7 +10,7 @@ public interface BusinessObject<T extends BusinessObject>
 	 *
 	 * @return the id
 	 */
-	public int getId();
+	public Integer getId();
 
 	/**
 	 * Set ID

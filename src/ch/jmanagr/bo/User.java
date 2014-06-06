@@ -285,10 +285,10 @@ public class User implements BusinessObject<User>, IUser<User>, IAgent<User>
 	}
 
 	@Override
-	public int getId()
+	public Integer getId()
 
 	{
-		return id.get();
+		return id.getValue();
 	}
 
 	@Override
@@ -320,5 +320,41 @@ public class User implements BusinessObject<User>, IUser<User>, IAgent<User>
 	public SimpleStringProperty passwordProperty()
 	{
 		return this.password;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) { return true; }
+		if (!(o instanceof User)) { return false; }
+
+		User user = (User) o;
+
+		if (active != user.active) { return false; }
+		if (deleted != user.deleted) { return false; }
+		if (department != null ? !department.equals(user.department) : user.department != null) { return false; }
+		if (firstname != null ? !firstname.equals(user.firstname) : user.firstname != null) { return false; }
+		if (id != null ? !id.equals(user.id) : user.id != null) { return false; }
+		if (lastname != null ? !lastname.equals(user.lastname) : user.lastname != null) { return false; }
+		if (password != null ? !password.equals(user.password) : user.password != null) { return false; }
+		if (role != user.role) { return false; }
+		if (username != null ? !username.equals(user.username) : user.username != null) { return false; }
+
+		return true;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = id != null ? id.hashCode() : 0;
+		result = 31 * result + (active ? 1 : 0);
+		result = 31 * result + (deleted ? 1 : 0);
+		result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
+		result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+		result = 31 * result + (username != null ? username.hashCode() : 0);
+		result = 31 * result + (password != null ? password.hashCode() : 0);
+		result = 31 * result + (role != null ? role.hashCode() : 0);
+		result = 31 * result + (department != null ? department.hashCode() : 0);
+		return result;
 	}
 }

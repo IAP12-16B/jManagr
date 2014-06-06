@@ -1,6 +1,7 @@
 package ch.jmanagr.dal;
 
 
+import ch.jmanagr.dal.db.DB;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;

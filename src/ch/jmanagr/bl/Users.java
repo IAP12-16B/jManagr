@@ -2,8 +2,10 @@ package ch.jmanagr.bl;
 
 import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.STATUS_CODE;
+import ch.jmanagr.lib.USER_ROLE;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class Users extends AbstractBL<User, ch.jmanagr.dal.Users>
 {
@@ -76,7 +78,16 @@ public class Users extends AbstractBL<User, ch.jmanagr.dal.Users>
 			return STATUS_CODE.NAME_INVALID;
 		}
 
-		// Todo: check if user already exists
+		// todo: maybe create a exists() function in dal
+		HashMap<String, String> map = new HashMap<>();
+		if (bo.getId() != null) {
+			map.put("id", bo.getId().toString());
+		} else {
+			map.put("username", bo.getUsername());
+		}
+		if (!this.dal.fetch(map, 1).isEmpty()) {
+			return STATUS_CODE.ALREADY_EXISTS;
+		}
 
 		return STATUS_CODE.OK;
 	}
@@ -119,5 +130,17 @@ public class Users extends AbstractBL<User, ch.jmanagr.dal.Users>
 	return passwort.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?!.*(.+)\\1\\1).{4,}$");
 	} */
 
+
+	/**
+	 * @param role
+	 *
+	 * @return
+	 */
+	public List<User> getByUserRole(USER_ROLE role)
+	{
+		HashMap<String, String> map = new HashMap<>();
+		map.put("role", role.toString());
+		return this.dal.fetch(map);
+	}
 
 }

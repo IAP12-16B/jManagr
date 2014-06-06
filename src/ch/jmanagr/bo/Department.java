@@ -127,14 +127,42 @@ public class Department implements BusinessObject<Department>
 		this.active = active;
 	}
 
-	public int getId()
+	public Integer getId()
 
 	{
-		return id.get();
+		return id.getValue();
 	}
 
 	public void setId(int id)
 	{
-		this.id.set(id);
+		this.id.setValue(id);
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) { return true; }
+		if (!(o instanceof Department)) { return false; }
+
+		Department that = (Department) o;
+
+		if (active != that.active) { return false; }
+		if (deleted != that.deleted) { return false; }
+		if (agents != null ? !agents.equals(that.agents) : that.agents != null) { return false; }
+		if (id != null ? !id.equals(that.id) : that.id != null) { return false; }
+		if (name != null ? !name.equals(that.name) : that.name != null) { return false; }
+
+		return true;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = id != null ? id.hashCode() : 0;
+		result = 31 * result + (active ? 1 : 0);
+		result = 31 * result + (deleted ? 1 : 0);
+		result = 31 * result + (name != null ? name.hashCode() : 0);
+		result = 31 * result + (agents != null ? agents.hashCode() : 0);
+		return result;
 	}
 }

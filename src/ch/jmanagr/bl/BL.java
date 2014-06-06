@@ -8,8 +8,7 @@ import java.util.List;
 /**
  * @param <BussinessObjectType> The BusinessObject to use
  */
-public interface BL<BussinessObjectType extends BusinessObject> // BussinessObjectType is a placeholder for the
-// BusinessObject. We need this, to retrieve around return type incompatibility
+public interface BL<BussinessObjectType extends BusinessObject>
 {
 	/**
 	 * Get all BusinessObjects

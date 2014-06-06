@@ -2,6 +2,7 @@ package ch.jmanagr.dal;
 
 import ch.jmanagr.bo.Resource;
 import ch.jmanagr.bo.ResourceData;
+import ch.jmanagr.dal.db.DB;
 import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.STATUS_CODE;

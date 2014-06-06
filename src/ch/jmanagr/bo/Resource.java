@@ -162,15 +162,15 @@ public class Resource implements BusinessObject<Resource>
 		this.active = active;
 	}
 
-	public int getId()
+	public Integer getId()
 
 	{
-		return id.get();
+		return id.getValue();
 	}
 
 	public void setId(int id)
 	{
-		this.id.set(id);
+		this.id.setValue(id);
 	}
 
 	public SimpleIntegerProperty idProperty()
@@ -181,5 +181,39 @@ public class Resource implements BusinessObject<Resource>
 	public SimpleStringProperty nameProperty()
 	{
 		return this.name;
+	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) { return true; }
+		if (!(o instanceof Resource)) { return false; }
+
+		Resource resource = (Resource) o;
+
+		if (active != resource.active) { return false; }
+		if (deleted != resource.deleted) { return false; }
+		if (children != null ? !children.equals(resource.children) : resource.children != null) { return false; }
+		if (data != null ? !data.equals(resource.data) : resource.data != null) { return false; }
+		if (id != null ? !id.equals(resource.id) : resource.id != null) { return false; }
+		if (name != null ? !name.equals(resource.name) : resource.name != null) { return false; }
+		if (parent != null ? !parent.equals(resource.parent) : resource.parent != null) { return false; }
+		if (tickets != null ? !tickets.equals(resource.tickets) : resource.tickets != null) { return false; }
+
+		return true;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int result = id != null ? id.hashCode() : 0;
+		result = 31 * result + (active ? 1 : 0);
+		result = 31 * result + (deleted ? 1 : 0);
+		result = 31 * result + (name != null ? name.hashCode() : 0);
+		result = 31 * result + (data != null ? data.hashCode() : 0);
+		result = 31 * result + (tickets != null ? tickets.hashCode() : 0);
+		result = 31 * result + (parent != null ? parent.hashCode() : 0);
+		result = 31 * result + (children != null ? children.hashCode() : 0);
+		return result;
 	}
 }

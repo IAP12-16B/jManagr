@@ -1,7 +1,10 @@
-package ch.jmanagr.dal;
+package ch.jmanagr.dal.db;
 
 
 import ch.jmanagr.bo.BusinessObject;
+import ch.jmanagr.bo.BusinessObjectManager;
+import ch.jmanagr.dal.DAL;
+import ch.jmanagr.dal.Settings;
 import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import org.sql2o.Connection;
@@ -172,20 +175,30 @@ public class DB
 		return this.sql2o.createQuery(query + ";");
 	}
 
-	public <BusinessObjectType extends BusinessObject> BusinessObjectType resolveRelation(BusinessObject bo,
-	                                                                                      DAL<BusinessObjectType>
+	public <BusinessObjectType extends BusinessObject<BusinessObjectType>> BusinessObjectType resolveRelation(
+			BusinessObject bo,
+			DAL<BusinessObjectType>
 			                                                                                      relationsDAL,
-	                                                                                      String field)
+			String field,
+			Class<BusinessObjectType> relationCls)
 	{
-		try (Connection con = DB.getSql2o().open()) {
-			Integer relationalId = this.select(field, bo.getClass().getSimpleName(), "`id` = :id", 1).addParameter(
-					"id",
-					bo.getId()
-			).executeScalar(Integer.class);
-			return relationsDAL.fetch(relationalId); // here potentially exists the possibility of an endless
-			// recursion loop
-		} catch (Sql2oException e) {
-			Logger.log(LOG_LEVEL.ERROR, "Relation mapping failed!", e);
+		if (bo.getId() != null) {
+			try (Connection con = DB.getSql2o().open()) {
+				Integer relationalId = this.select(field, bo.getClass().getSimpleName(), "`id` = :id", 1).addParameter(
+						"id",
+						bo.getId()
+				).executeScalar(Integer.class);
+
+				if (relationalId != null && relationalId != 0) {
+					if (BusinessObjectManager.hasInstance(relationCls, relationalId)) {
+						return BusinessObjectManager.getInstance(relationCls, relationalId);
+					}
+					return relationsDAL.fetch(relationalId); // here potentially exists the possibility of an endless
+					// recursion loop
+				}
+			} catch (Sql2oException e) {
+				Logger.log(LOG_LEVEL.ERROR, "Relation mapping failed!", e);
+			}
 		}
 
 		return null;
