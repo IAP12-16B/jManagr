@@ -28,15 +28,11 @@ public class DepartmentController implements Initializable
 	private ObservableList<Department> depList;
 	private Departments bl = Departments.getInstance();
 
-	@FXML
-	private TableView<Department> depTable;
-	@FXML
-	private TableColumn idCol;
-	@FXML
-	private TableColumn<Department, String> nameCol;
+	@FXML private TableView<Department> depTable;
+	@FXML private TableColumn idCol;
+	@FXML private TableColumn<Department, String> nameCol;
 
-	@FXML
-	private TextField nameField;
+	@FXML private TextField nameField;
 
 	// Fill Table with Data
 	public void initialize(URL location, ResourceBundle resources)

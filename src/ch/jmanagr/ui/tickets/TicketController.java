@@ -24,15 +24,11 @@ public class TicketController implements Initializable
 	private ObservableList<Ticket> ticketList;
 	private Tickets bl = Tickets.getInstance();
 
-	@FXML
-	private TableView<Ticket> ticketTable;
-	@FXML
-	private TableColumn idCol;
-	@FXML
-	private TableColumn<Ticket, String> nameCol;
+	@FXML private TableView<Ticket> ticketTable;
+	@FXML private TableColumn idCol;
+	@FXML private TableColumn<Ticket, String> nameCol;
 
-	@FXML
-	private TextField nameField;
+	@FXML private TextField nameField;
 
 	// Fill Table with Data
 	public void initialize(URL location, ResourceBundle resources)
