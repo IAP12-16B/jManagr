@@ -11,15 +11,11 @@ import java.util.List;
 public class Department implements BusinessObject<Department>
 {
 	protected SimpleIntegerProperty id;
-	@NotNull
-	protected boolean active;
-	@NotNull
-	protected boolean deleted;
+	@NotNull protected boolean active;
+	@NotNull protected boolean deleted;
 
-	@NotNull
-	private SimpleStringProperty name;
-	@NotNull
-	private List<User> agents;
+	@NotNull private SimpleStringProperty name;
+	@NotNull private List<User> agents;
 
 	public Department(int id, String name, List<User> agents, boolean active, boolean deleted)
 	{
@@ -165,4 +161,8 @@ public class Department implements BusinessObject<Department>
 		result = 31 * result + (agents != null ? agents.hashCode() : 0);
 		return result;
 	}
+
+    public String toString() {
+        return this.name.getValue();
+    }
 }
