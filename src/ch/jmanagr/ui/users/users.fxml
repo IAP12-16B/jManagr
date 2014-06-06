@@ -9,11 +9,11 @@
         <TableView fx:id="ticketTable" editable="true" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="741.0">
             <columns>
                 <TableColumn fx:id="idCol" editable="false" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="nameCol" editable="true" prefWidth="75.0" text="Nachname" />
-                <TableColumn prefWidth="75.0" text="Vorname" />
-                <TableColumn prefWidth="87.0" text="Benutzername" />
-                <TableColumn prefWidth="69.0" text="Abteilung" />
-                <TableColumn prefWidth="69.0" text="Rolle" />
+                <TableColumn fx:id="lastnameCol" editable="true" prefWidth="75.0" text="Nachname" />
+                <TableColumn fx:id="firstnameCol" prefWidth="75.0" text="Vorname" />
+                <TableColumn fx:id="usernameCol" prefWidth="87.0" text="Benutzername" />
+                <TableColumn fx:id="departmentCol" prefWidth="69.0" text="Abteilung" />
+                <TableColumn fx:id="roleCol" prefWidth="69.0" text="Rolle" />
             </columns>
         </TableView>
         <Button fx:id="newUserBtn" layoutX="14.1875" layoutY="223.5" mnemonicParsing="false" onAction="#newUser" text="Neuer Benutzer" />
