@@ -1,16 +1,17 @@
 package ch.jmanagr.bl;
 
 
+import ch.jmanagr.dal.SettingsDAL;
 import ch.jmanagr.lib.STATUS_CODE;
 
 public class Settings
 {
 	private static volatile Settings instance;
-	private ch.jmanagr.dal.Settings dal;
+	private SettingsDAL dal;
 
 	private Settings()
 	{
-		dal = ch.jmanagr.dal.Settings.getInstance();
+		dal = SettingsDAL.getInstance();
 	}
 
 	public static Settings getInstance()

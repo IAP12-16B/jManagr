@@ -2,45 +2,29 @@ package ch.jmanagr.dal.db;
 
 
 import ch.jmanagr.bo.BusinessObject;
-import ch.jmanagr.bo.BusinessObjectManager;
-import ch.jmanagr.dal.DAL;
-import ch.jmanagr.dal.Settings;
-import ch.jmanagr.lib.LOG_LEVEL;
-import ch.jmanagr.lib.Logger;
-import org.sql2o.Connection;
-import org.sql2o.Query;
-import org.sql2o.Sql2o;
-import org.sql2o.Sql2oException;
+import ch.jmanagr.dal.SettingsDAL;
+import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
+import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.DatabaseTableConfig;
+import com.j256.ormlite.table.TableUtils;
+
+import java.sql.SQLException;
 
 public class DB
 {
 	private static volatile DB instance;
-
-	private Sql2o sql2o;
-
 	private ch.jmanagr.bo.Settings settings;
 
-	private Connection connection; // todo maybe a persistent connection?
+	private JdbcPooledConnectionSource connectionSource;
+
 
 	/**
 	 *
 	 */
 	private DB()
 	{
-		this.setSettings(Settings.getInstance().retrieve());
+		this.setSettings(SettingsDAL.getInstance().retrieve());
 	}
-
-	public void setSettings(ch.jmanagr.bo.Settings settings)
-	{
-		this.settings = settings;
-		sql2o = new Sql2o(
-				String.format(
-						"jdbc:mysql://%s:%d/%s", settings.getHost(), settings.getPort(),
-						settings.getDatabase()
-				), settings.getUser(), settings.getPassword()
-		);
-	}
-
 
 	/**
 	 * @return DB instance
@@ -57,151 +41,126 @@ public class DB
 		return instance;
 	}
 
+	public void setSettings(ch.jmanagr.bo.Settings settings)
+	{
+		this.settings = settings;
+		this.updateConnection();
+
+	}
+
+	protected void updateConnection()
+	{
+		try {
+			connectionSource =
+					new JdbcPooledConnectionSource(
+							String.format(
+									"jdbc:mysql://%s:%d/%s",
+									this.settings.getHost(),
+									this.settings.getPort(),
+									settings.getDatabase()
+							),
+							this.settings.getUser(),
+							this.settings.getPassword()
+					);
+
+			// setup connectionsource
+			connectionSource.setMaxConnectionAgeMillis(4 * 60 * 1000);
+			connectionSource.setCheckConnectionsEveryMillis(60 * 1000);
+			connectionSource.setTestBeforeGet(true);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void closeConnection()
+	{
+		try {
+			connectionSource.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void shutdown()
+	{
+		this.closeConnection();
+	}
+
+	public ConnectionSource getConnectionSource()
+	{
+		return this.connectionSource;
+	}
+
+	public int createTable(Class<? extends BusinessObject> cls) throws SQLException
+	{
+		return TableUtils.createTable(this.connectionSource, cls);
+	}
+
+	public int createTableIfNotExists(Class<? extends BusinessObject> cls) throws SQLException
+	{
+		return TableUtils.createTableIfNotExists(this.connectionSource, cls);
+	}
+
+	public int createTable(DatabaseTableConfig conf) throws SQLException
+	{
+		return TableUtils.createTable(this.connectionSource, conf);
+	}
+
+	public int createTableIfNotExists(DatabaseTableConfig conf) throws SQLException
+	{
+		return TableUtils.createTableIfNotExists(this.connectionSource, conf);
+	}
+
 	/**
-	 * @return Sql2o object
+	 * Clear all data out of the table. For certain database types and with large sized tables, which may take a long
+	 * time. In some configurations, it may be faster to drop and re-create the table. <p/> <p> <b>WARNING:</b> This is
+	 * [obviously] very destructive and is unrecoverable. </p>
+	 *
+	 * @param connectionSource
+	 * @param tableConfig
 	 */
-	public static Sql2o getSql2o()
-	{
-		return getInstance().sql2o;
-	}
+	public <T> int clearTable(DatabaseTableConfig<T> tableConfig) throws SQLException
+	{return TableUtils.clearTable(this.connectionSource, tableConfig);}
 
-	public Query insert(String table, String columns, String values, boolean returnGeneratedKey)
-	{
-		return this.sql2o.beginTransaction().createQuery(
-				String.format("INSERT INTO (%s) VALUES (%s);", columns, values),
-				returnGeneratedKey
-		);
-	}
+	/**
+	 * Issue the database statements to drop the table associated with a class. <p/> <p> <b>WARNING:</b> This is
+	 * [obviously] very destructive and is unrecoverable. </p>
+	 *
+	 * @param connectionSource Associated connection source.
+	 * @param dataClass        The class for which a table will be dropped.
+	 * @param ignoreErrors     If set to true then try each statement regardless of {@link java.sql.SQLException}
+	 *                            thrown
+	 *                         previously.
+	 *
+	 * @return The number of statements executed to do so.
+	 */
+	public <T, ID> int dropTable(Class<? extends BusinessObject> dataClass, boolean ignoreErrors) throws SQLException
+	{return TableUtils.dropTable(this.connectionSource, dataClass, ignoreErrors);}
 
-	public Query update(String table, String query, boolean returnGeneratedKey)
-	{
-		return this.sql2o.beginTransaction().createQuery(
-				String.format("UPDATE %s SET %s;", table, query),
-				returnGeneratedKey
-		);
-	}
+	/**
+	 * Issue the database statements to drop the table associated with a table configuration. <p/> <p> <b>WARNING:</b>
+	 * This is [obviously] very destructive and is unrecoverable. </p>
+	 *
+	 * @param connectionSource Associated connection source.
+	 * @param tableConfig      Hand or spring wired table configuration. If null then the class must have {@link
+	 *                         DatabaseField} annotations.
+	 * @param ignoreErrors     If set to true then try each statement regardless of {@link java.sql.SQLException}
+	 *                            thrown
+	 *                         previously.
+	 *
+	 * @return The number of statements executed to do so.
+	 */
+	public <T, ID> int dropTable(DatabaseTableConfig<T> tableConfig, boolean ignoreErrors) throws SQLException
+	{return TableUtils.dropTable(this.connectionSource, tableConfig, ignoreErrors);}
 
-	public Query delete(String table, String where)
-	{
-		return this.sql2o.beginTransaction().createQuery(String.format("DELETE FROM %s WHERE %s;", table, where));
-	}
-
-	public Query save(String table, String columns, String values, boolean returnGeneratedKey)
-	{
-		String pairs = "";
-		String[] cols = columns.split(",");
-
-		for (int i = 0; i < cols.length; i++) {
-			pairs += String.format("%s = VALUES(%s)", cols[i], cols[i]);
-			if (i != (cols.length - 1)) {
-				pairs += ", ";
-			}
-		}
-
-		return this.sql2o.beginTransaction().createQuery(
-				String.format(
-						"INSERT INTO %s (%s) VALUES (%s) ON DUPLICATE KEY UPDATE %s;",
-						table,
-						columns,
-						values,
-						pairs
-				),
-				returnGeneratedKey
-		);
-	}
-
-	public Query softDelete(String table, String where)
-	{
-		return this.update(table, " deleted = 1 WHERE " + where, false);
-	}
-
-	public Query select(String columns, String table, String where, String groupBy, String having, String orderBy,
-	                    int limit)
-	{
-		String query = String.format("SELECT %s FROM %s", columns, table);
-
-		if (!where.isEmpty()) {
-			query += String.format(" WHERE %s", where);
-		}
-
-		if (!groupBy.isEmpty()) {
-			query += String.format(" GROUP BY %s", groupBy);
-		}
-
-		if (!having.isEmpty()) {
-			query += String.format(" HAVING %s", having);
-		}
-
-		if (!orderBy.isEmpty()) {
-			query += String.format(" ORDER BY %s", orderBy);
-		}
-
-		if (limit != -1) {
-			query += String.format(" LIMIT %d", limit);
-		}
-
-		query += ";";
-
-		return this.sql2o.createQuery(query);
-	}
-
-	public Query select(String columns, String table, String where, String groupBy, String having, String orderBy)
-	{
-		return this.select(columns, table, where, groupBy, having, orderBy, -1);
-	}
-
-	public Query select(String columns, String table, String where, int limit)
-	{
-		return this.select(columns, table, where, "", "", "", limit);
-	}
-
-	public Query select(String columns, String table, int limit)
-	{
-		return this.select(columns, table, "", limit);
-	}
-
-	public Query select(String columns, String table, String where)
-	{
-		return this.select(columns, table, where, -1);
-	}
-
-	public Query select(String columns, String table)
-	{
-		return this.select(columns, table, -1);
-	}
-
-	public Query rawQuery(String query)
-	{
-		return this.sql2o.createQuery(query + ";");
-	}
-
-	public <BusinessObjectType extends BusinessObject<BusinessObjectType>> BusinessObjectType resolveRelation(
-			BusinessObject bo,
-			DAL<BusinessObjectType>
-			                                                                                      relationsDAL,
-			String field,
-			Class<BusinessObjectType> relationCls)
-	{
-		if (bo.getId() != null) {
-			try (Connection con = DB.getSql2o().open()) {
-				Integer relationalId = this.select(field, bo.getClass().getSimpleName(), "`id` = :id", 1).addParameter(
-						"id",
-						bo.getId()
-				).executeScalar(Integer.class);
-
-				if (relationalId != null && relationalId != 0) {
-					if (BusinessObjectManager.hasInstance(relationCls, relationalId)) {
-						return BusinessObjectManager.getInstance(relationCls, relationalId);
-					}
-					return relationsDAL.fetch(relationalId); // here potentially exists the possibility of an endless
-					// recursion loop
-				}
-			} catch (Sql2oException e) {
-				Logger.log(LOG_LEVEL.ERROR, "Relation mapping failed!", e);
-			}
-		}
-
-		return null;
-	}
-
+	/**
+	 * Clear all data out of the table. For certain database types and with large sized tables, which may take a long
+	 * time. In some configurations, it may be faster to drop and re-create the table. <p/> <p> <b>WARNING:</b> This is
+	 * [obviously] very destructive and is unrecoverable. </p>
+	 *
+	 * @param connectionSource
+	 * @param dataClass
+	 */
+	public <T> int clearTable(Class<? extends BusinessObject> dataClass) throws SQLException
+	{return TableUtils.clearTable(this.connectionSource, dataClass);}
 }

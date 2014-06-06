@@ -2,57 +2,26 @@ package ch.jmanagr.dal;
 
 
 import ch.jmanagr.bo.BusinessObject;
-import ch.jmanagr.lib.STATUS_CODE;
 
-import java.util.HashMap;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public interface DAL<BusinessObjectType extends BusinessObject>
 {
-	/**
-	 * Saves a BusinessObject to DB
-	 *
-	 * @param bo
-	 *
-	 * @return
-	 */
-	public STATUS_CODE save(BusinessObjectType bo);
+	public BusinessObjectType fetchById(Integer id) throws SQLException;
 
-	/**
-	 * Fetch all BusinessObjects from DB
-	 *
-	 * @return a list of all BusinessObjects
-	 */
-	public List<BusinessObjectType> fetch();
+	public void createTable() throws SQLException;
 
-	/**
-	 * Fetch all matching the criteria provided via parameters (checks for every hash map entry key == value)
-	 *
-	 * @param parameters
-	 * @param limit
-	 *
-	 * @return List of BusinessObjects
-	 */
-	public List<BusinessObjectType> fetch(HashMap<String, String> parameters, int limit);
+	public void clearTable() throws SQLException;
 
-	public List<BusinessObjectType> fetch(HashMap<String, String> parameters);
+	public void dropTable() throws SQLException;
 
-	/**
-	 * Fetch a BusinessObject by id
-	 *
-	 * @param id the id of the BusinessObject
-	 *
-	 * @return the BusinessObject
-	 */
-	public BusinessObjectType fetch(int id);
+	public List<BusinessObjectType> fetchAll() throws SQLException;
 
-	/**
-	 * Deletes a BusinessObject
-	 *
-	 * @param bo the BusinessObject
-	 *
-	 * @return Whether it was successful or not.
-	 */
-	public STATUS_CODE delete(BusinessObjectType bo);
+	public List<BusinessObjectType> fetch(String fieldName, Object value) throws SQLException;
 
+	public List<BusinessObjectType> fetch(Map<String, Object> params) throws SQLException;
+
+	public List<BusinessObjectType> fetch(String fieldName, Object value, Integer limit) throws SQLException;
 }

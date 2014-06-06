@@ -6,22 +6,22 @@ import ch.jmanagr.lib.STATUS_CODE;
 
 import java.util.prefs.Preferences;
 
-public class Settings
+public class SettingsDAL
 {
-	private static volatile Settings instance;
+	private static volatile SettingsDAL instance;
 	private Preferences preferences;
 
-	private Settings()
+	private SettingsDAL()
 	{
 		preferences = Preferences.userRoot().node(this.getClass().getName());
 	}
 
-	public static Settings getInstance()
+	public static SettingsDAL getInstance()
 	{
 		if (instance == null) {
-			synchronized (Settings.class) {
+			synchronized (SettingsDAL.class) {
 				if (instance == null) {
-					instance = new Settings();
+					instance = new SettingsDAL();
 				}
 			}
 		}

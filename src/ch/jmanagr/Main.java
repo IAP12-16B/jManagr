@@ -1,5 +1,6 @@
 package ch.jmanagr;
 
+import ch.jmanagr.dal.db.DB;
 import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import javafx.application.Application;
@@ -17,6 +18,9 @@ public class Main extends Application
 			launch(args);
 		} catch (Exception e) {
 			Logger.log(LOG_LEVEL.ERROR, "Oh that was close. Cached exception in main() ", e);
+		} finally {
+			// shutdown db connection
+			DB.getInstance().shutdown();
 		}
 
 	}

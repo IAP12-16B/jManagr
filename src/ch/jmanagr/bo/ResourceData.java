@@ -7,7 +7,8 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "ResourceData")
 public class ResourceData
 {
-	@DatabaseField(useGetSet = true,
+	@DatabaseField(id = true,
+	               useGetSet = true,
 	               uniqueCombo = true,
 	               foreign = true,
 	               foreignAutoCreate = true,

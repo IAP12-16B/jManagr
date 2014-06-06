@@ -8,22 +8,22 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by kije on 4/1/14.
  */
-public class SettingsTest
+public class SettingsDALTest
 {
-	private Settings settings;
+	private SettingsDAL settingsDAL;
 	private ch.jmanagr.bo.Settings testSettings;
 
 	@Before
 	public void setUp() throws Exception
 	{
-		settings = Settings.getInstance();
+		settingsDAL = SettingsDAL.getInstance();
 	}
 
 	@Test
 	public void testPutAndGet() throws Exception
 	{
-		testSettings = settings.retrieve();
-		settings.store(testSettings);
-		assertEquals(settings.retrieve(), testSettings);
+		testSettings = settingsDAL.retrieve();
+		settingsDAL.store(testSettings);
+		assertEquals(settingsDAL.retrieve(), testSettings);
 	}
 }
