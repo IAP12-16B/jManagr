@@ -1,13 +1,15 @@
 package ch.jmanagr.bl;
 
 import ch.jmanagr.bo.User;
+import ch.jmanagr.dal.UsersDAL;
 import ch.jmanagr.lib.STATUS_CODE;
 import ch.jmanagr.lib.USER_ROLE;
 
-import java.util.HashMap;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Users extends AbstractBL<User, ch.jmanagr.dal.Users>
+public class Users extends AbstractBL<User, UsersDAL>
 {
 	private static volatile Users instance;
 
@@ -16,7 +18,11 @@ public class Users extends AbstractBL<User, ch.jmanagr.dal.Users>
 	protected Users()
 	{
 		super();
-		dal = ch.jmanagr.dal.Users.getInstance();
+		try {
+			dal = UsersDAL.getInstance();
+		} catch (SQLException e) {
+			e.printStackTrace(); // todo log
+		}
 	}
 
 
@@ -42,13 +48,20 @@ public class Users extends AbstractBL<User, ch.jmanagr.dal.Users>
 	 */
 	public User login(String username, String password)
 	{
-		HashMap<String, String> map = new HashMap<>();
-		map.put("username", username);
-		User u = this.dal.fetch(map, 1).get(0);
-		if (u.checkPassword(password)) {
-			this.setCurrentUser(u);
-			return u;
+		try {
+			List<User> user = this.dal.fetch("username", username, 1);
+			if (!user.isEmpty()) {
+				User u = user.get(0);
+				if (u.checkPassword(password)) {
+					this.setCurrentUser(u);
+					return u;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // todo log
 		}
+
+
 		return null;
 	}
 
@@ -78,15 +91,14 @@ public class Users extends AbstractBL<User, ch.jmanagr.dal.Users>
 			return STATUS_CODE.NAME_INVALID;
 		}
 
-		// todo: maybe create a exists() function in dal
-		HashMap<String, String> map = new HashMap<>();
-		if (bo.getId() != null) {
-			map.put("id", bo.getId().toString());
-		} else {
-			map.put("username", bo.getUsername());
-		}
-		if (!this.dal.fetch(map, 1).isEmpty()) {
-			return STATUS_CODE.ALREADY_EXISTS;
+
+		try {
+			if (!this.dal.exists(bo)) {
+				return STATUS_CODE.ALREADY_EXISTS;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return STATUS_CODE.FAIL;
 		}
 
 		return STATUS_CODE.OK;
@@ -138,9 +150,13 @@ public class Users extends AbstractBL<User, ch.jmanagr.dal.Users>
 	 */
 	public List<User> getByUserRole(USER_ROLE role)
 	{
-		HashMap<String, String> map = new HashMap<>();
-		map.put("role", role.toString());
-		return this.dal.fetch(map);
+		try {
+			return this.dal.fetch("role", role.toString());
+		} catch (SQLException e) {
+			e.printStackTrace(); // todo log
+		}
+
+		return new ArrayList<>();
 	}
 
 }

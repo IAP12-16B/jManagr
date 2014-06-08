@@ -6,6 +6,7 @@ import ch.jmanagr.lib.STATUS_CODE;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 
 /**
@@ -29,13 +30,19 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject<Busin
 	{
 		HashMap<String, String> map = new HashMap<>();
 		map.put("deleted", "0");
-		ObservableList<BusinessObjectType> depList = FXCollections.observableArrayList(this.dal.fetch(map));
+		ObservableList<BusinessObjectType> depList = FXCollections.observableArrayList(this.dal.fetch("deleted", "0"));
 		return depList; // Todo return observable list
 	}
 
 	public BusinessObjectType getById(int id)
 	{
-		return this.dal.fetch(id);
+		try {
+			return this.dal.fetchById(id);
+		} catch (SQLException e) {
+			e.printStackTrace(); // todo log
+		}
+
+		return null;
 	}
 
 

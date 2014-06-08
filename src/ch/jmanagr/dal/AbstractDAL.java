@@ -2,11 +2,13 @@ package ch.jmanagr.dal;
 
 import ch.jmanagr.bo.BusinessObject;
 import ch.jmanagr.dal.db.DB;
+import ch.jmanagr.lib.STATUS_CODE;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -76,5 +78,42 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 		qb.setWhere(qb.where().eq(fieldName, value));
 
 		return dao.query(qb.prepare());
+	}
+
+	@Override
+	public boolean exists(BusinessObjectType bo) throws SQLException
+	{
+		return dao.idExists(bo.getId());
+	}
+
+	@Override
+	public STATUS_CODE delete(BusinessObjectType bo) throws SQLException
+	{
+		if (dao.delete(bo) == 1) {
+			return STATUS_CODE.OK;
+		}
+
+		return STATUS_CODE.FAIL;
+	}
+
+	@Override
+	public STATUS_CODE delete(Collection<BusinessObjectType> bos) throws SQLException
+	{
+		if (dao.delete(bos) == bos.size()) {
+			return STATUS_CODE.OK;
+		}
+
+		return STATUS_CODE.FAIL;
+	}
+
+	@Override
+	public STATUS_CODE save(BusinessObjectType bo) throws SQLException
+	{
+		Dao.CreateOrUpdateStatus status = dao.createOrUpdate(bo);
+		if (status.isCreated() || status.isUpdated()) {
+			return STATUS_CODE.OK;
+		}
+
+		return STATUS_CODE.FAIL;
 	}
 }

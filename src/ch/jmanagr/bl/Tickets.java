@@ -1,22 +1,32 @@
 package ch.jmanagr.bl;
 
 
-import ch.jmanagr.bo.*;
+import ch.jmanagr.bo.Department;
+import ch.jmanagr.bo.Resource;
+import ch.jmanagr.bo.Ticket;
+import ch.jmanagr.bo.User;
+import ch.jmanagr.dal.TicketsDAL;
 import ch.jmanagr.lib.STATUS_CODE;
 import ch.jmanagr.lib.TICKET_STATE;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 
-public class Tickets extends AbstractBL<Ticket, ch.jmanagr.dal.Tickets>
+public class Tickets extends AbstractBL<Ticket, TicketsDAL>
 {
 	private static volatile Tickets instance;
 
 	private Tickets()
 	{
 		super();
-		dal = ch.jmanagr.dal.Tickets.getInstance();
+		try {
+			dal = TicketsDAL.getInstance();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 
@@ -50,10 +60,16 @@ public class Tickets extends AbstractBL<Ticket, ch.jmanagr.dal.Tickets>
 	 */
 	public List<Ticket> getAllByUser(User user, TICKET_STATE state)
 	{
-		HashMap<String, String> map = new HashMap<>();
-		map.put("User", ((Integer) user.getId()).toString());
-		map.put("status", state.toString());
-		return dal.fetch(map, -1);
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("User", user);
+		map.put("status", state);
+		try {
+			return dal.fetch(map);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return new ArrayList<>();
 	}
 
 	/**
@@ -64,12 +80,18 @@ public class Tickets extends AbstractBL<Ticket, ch.jmanagr.dal.Tickets>
 	 *
 	 * @return A list of Tickets, which are assigned to the provided Agent
 	 */
-	public List<Ticket> getAllByAgent(IAgent agent, TICKET_STATE state)
+	public List<Ticket> getAllByAgent(User agent, TICKET_STATE state)
 	{
-		HashMap<String, String> map = new HashMap<>();
-		map.put("Agent", ((Integer) agent.getId()).toString());
-		map.put("status", state.toString());
-		return dal.fetch(map, -1);
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("Agent", agent);
+		map.put("status", state);
+		try {
+			return dal.fetch(map);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return new ArrayList<>();
 	}
 
 	/**
@@ -82,10 +104,16 @@ public class Tickets extends AbstractBL<Ticket, ch.jmanagr.dal.Tickets>
 	 */
 	public List<Ticket> getAllByResource(Resource resource, TICKET_STATE state)
 	{
-		HashMap<String, String> map = new HashMap<>();
-		map.put("Resource", ((Integer) resource.getId()).toString());
-		map.put("status", state.toString());
-		return dal.fetch(map, -1);
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("Resource", resource);
+		map.put("status", state);
+		try {
+			return dal.fetch(map);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return new ArrayList<>();
 	}
 
 	/**
@@ -99,10 +127,16 @@ public class Tickets extends AbstractBL<Ticket, ch.jmanagr.dal.Tickets>
 	 */
 	public List<Ticket> getAllByDepartment(Department department, TICKET_STATE state)
 	{
-		HashMap<String, String> map = new HashMap<>();
-		map.put("Department", ((Integer) department.getId()).toString());
-		map.put("status", state.toString());
-		return dal.fetch(map, -1);
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("Department", department);
+		map.put("status", state);
+		try {
+			return dal.fetch(map);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return new ArrayList<>();
 	}
 
 }
