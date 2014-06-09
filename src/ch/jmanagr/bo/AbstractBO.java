@@ -1,6 +1,7 @@
 package ch.jmanagr.bo;
 
 
+import ch.jmanagr.lib.SimpleIntegerPropertyPersister;
 import com.j256.ormlite.field.DatabaseField;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -9,7 +10,11 @@ public abstract class AbstractBO<BusinessObjectType extends BusinessObject<Busin
 {
 	// todo add versioning
 
-	@DatabaseField(id = true, useGetSet = true, generatedId = true, allowGeneratedIdInsert = true)
+	@DatabaseField(id = true,
+	               useGetSet = true,
+	               generatedId = true,
+	               allowGeneratedIdInsert = true,
+	               persisterClass = SimpleIntegerPropertyPersister.class)
 	protected SimpleIntegerProperty id;
 
 	@DatabaseField(defaultValue = "1", useGetSet = true)

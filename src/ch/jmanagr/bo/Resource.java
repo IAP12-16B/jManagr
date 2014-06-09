@@ -1,6 +1,7 @@
 package ch.jmanagr.bo;
 
 
+import ch.jmanagr.lib.SimpleStringPropertyPersister;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -12,7 +13,7 @@ import java.util.Collection;
 public class Resource extends AbstractBO<Resource>
 {
 
-	@DatabaseField(useGetSet = true, canBeNull = false)
+	@DatabaseField(useGetSet = true, canBeNull = false, persisterClass = SimpleStringPropertyPersister.class)
 	private SimpleStringProperty name;
 
 	@ForeignCollectionField(eager = true, foreignFieldName = "resource")

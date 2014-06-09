@@ -1,5 +1,6 @@
 package ch.jmanagr.bo;
 
+import ch.jmanagr.lib.SimpleStringPropertyPersister;
 import ch.jmanagr.lib.TICKET_STATE;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
@@ -12,10 +13,10 @@ import java.util.Date;
 public class Ticket extends AbstractBO<Ticket>
 {
 
-	@DatabaseField(useGetSet = true, canBeNull = true)
+	@DatabaseField(useGetSet = true, canBeNull = true, persisterClass = SimpleStringPropertyPersister.class)
 	private SimpleStringProperty name;
 
-	@DatabaseField(useGetSet = true, canBeNull = true)
+	@DatabaseField(useGetSet = true, canBeNull = true, persisterClass = SimpleStringPropertyPersister.class)
 	private SimpleStringProperty description;
 
 	@DatabaseField(useGetSet = true,

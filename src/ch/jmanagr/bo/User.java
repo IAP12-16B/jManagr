@@ -1,9 +1,6 @@
 package ch.jmanagr.bo;
 
-import ch.jmanagr.lib.LOG_LEVEL;
-import ch.jmanagr.lib.Logger;
-import ch.jmanagr.lib.PasswordHash;
-import ch.jmanagr.lib.USER_ROLE;
+import ch.jmanagr.lib.*;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -15,16 +12,19 @@ import java.security.spec.InvalidKeySpecException;
 @DatabaseTable(tableName = "User")
 public class User extends AbstractBO<User>
 {
-	@DatabaseField(useGetSet = true, canBeNull = true)
+	@DatabaseField(useGetSet = true, canBeNull = true, persisterClass = SimpleStringPropertyPersister.class)
 	protected SimpleStringProperty firstname;
 
-	@DatabaseField(useGetSet = true, canBeNull = true)
+	@DatabaseField(useGetSet = true, canBeNull = true, persisterClass = SimpleStringPropertyPersister.class)
 	protected SimpleStringProperty lastname;
 
-	@DatabaseField(useGetSet = true, canBeNull = false, unique = true)
+	@DatabaseField(useGetSet = true,
+	               canBeNull = false,
+	               unique = true,
+	               persisterClass = SimpleStringPropertyPersister.class)
 	protected SimpleStringProperty username;
 
-	@DatabaseField(useGetSet = true, canBeNull = false)
+	@DatabaseField(useGetSet = true, canBeNull = false, persisterClass = SimpleStringPropertyPersister.class)
 	protected SimpleStringProperty password;
 
 	@DatabaseField(useGetSet = true, defaultValue = "0", unknownEnumName = "0", dataType = DataType.ENUM_INTEGER)
