@@ -5,14 +5,12 @@ import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.ui.main.MainController;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,11 +21,19 @@ public class UsersController implements Initializable
 	private Users bl = Users.getInstance();
 
 	@FXML
-    private TableView<User> ticketTable;
+	private TableView<User> ticketTable;
 	@FXML
 	private TableColumn idCol;
 	@FXML
-	private TableColumn<User, String> nameCol;
+	private TableColumn<User, String> lastnameCol;
+	@FXML
+	private TableColumn<User, String> firstnameCol;
+	@FXML
+	private TableColumn<User, String> usernameCol;
+	@FXML
+	private TableColumn<User, String> departmentCol;
+	@FXML
+	private TableColumn<User, String> roleCol;
 
 	@FXML
 	private TextField nameField;
@@ -37,28 +43,22 @@ public class UsersController implements Initializable
 	{
 
 		idCol.setCellValueFactory(new PropertyValueFactory("id"));
-		nameCol.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
+		lastnameCol.setCellValueFactory(new PropertyValueFactory<User, String>("lastname"));
+		firstnameCol.setCellValueFactory(new PropertyValueFactory<User, String>("firstname"));
+		usernameCol.setCellValueFactory(new PropertyValueFactory<User, String>("username"));
+		departmentCol.setCellValueFactory(new PropertyValueFactory<User, String>("department"));
+		roleCol.setCellValueFactory(new PropertyValueFactory("role"));
 
-		// makes nameCol to a textField
-		nameCol.setCellFactory(TextFieldTableCell.<User>forTableColumn());
-
-		// sets the new Value after enterPressed in the ObserverList
-		nameCol.setOnEditCommit(
-				new EventHandler<TableColumn.CellEditEvent<User, String>>()
-				{
-					public void handle(TableColumn.CellEditEvent<User, String> t)
-					{
-
-						User user = t.getTableView().getItems().get(
-								t.getTablePosition()
-								 .getRow()
-						); //get changed object
-						user.setLastname(t.getNewValue()); // set changed value
-						bl.save(user);
-						Logger.log("Updated in table ticket: " + t.getNewValue() + " " + user.getId());
-					}
-				}
-		);
+       /* roleCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, String>,
+       ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> a) {
+                USER_ROLE b = a.getValue().getRole();
+                SimpleStringProperty c = new SimpleStringProperty(b.getName());
+                return c;
+            }
+        });
+        */
 		this.refresh();
 	}
 
@@ -71,7 +71,7 @@ public class UsersController implements Initializable
 
 	public void newUser() //pass actionEvent?
 	{
-        MainController.changeTabContent("userDetail");
+		MainController.changeTabContent("userDetail");
 	}
 
 	// Todo only archiv and only for admin?

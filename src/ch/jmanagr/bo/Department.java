@@ -15,6 +15,15 @@ public class Department extends AbstractBO<Department>
 	@ForeignCollectionField(eager = true, foreignFieldName = "department")
 	private ForeignCollection<User> agents;
 
+	public Department(String name, ForeignCollection<User> agents, boolean active, boolean deleted)
+	{
+		this.initProperties();
+		this.setActive(active);
+		this.setDeleted(deleted);
+		this.setName(name);
+		this.setAgents(agents);
+	}
+
 	public Department()
 	{
 		super();
@@ -43,12 +52,33 @@ public class Department extends AbstractBO<Department>
 
 	public ForeignCollection<User> getAgents()
 	{
-		return agents;
+		return this.agents;
 	}
+
 
 	public void setAgents(ForeignCollection<User> agents)
 	{
 		this.agents = agents;
+	}
+
+	public boolean getActive()
+	{
+		return active;
+	}
+
+	public boolean getDeleted()
+	{
+		return deleted;
+	}
+
+	public boolean isDeleted()
+	{
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted)
+	{
+		this.deleted = deleted;
 	}
 
 	/**
@@ -66,6 +96,27 @@ public class Department extends AbstractBO<Department>
 		this.setAgents(bo.getAgents());
 	}
 
+
+	public boolean isActive()
+	{
+		return active;
+	}
+
+	public void setActive(boolean active)
+	{
+		this.active = active;
+	}
+
+	public Integer getId()
+
+	{
+		return id.getValue();
+	}
+
+	public void setId(int id)
+	{
+		this.id.setValue(id);
+	}
 
 	@Override
 	public boolean equals(Object o)
@@ -93,5 +144,10 @@ public class Department extends AbstractBO<Department>
 		result = 31 * result + (name != null ? name.hashCode() : 0);
 		result = 31 * result + (agents != null ? agents.hashCode() : 0);
 		return result;
+	}
+
+	public String toString()
+	{
+		return this.name.getValue();
 	}
 }

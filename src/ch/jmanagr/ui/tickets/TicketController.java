@@ -1,9 +1,8 @@
 package ch.jmanagr.ui.tickets;
 
 import ch.jmanagr.bl.Tickets;
-import ch.jmanagr.bo.*;
+import ch.jmanagr.bo.Ticket;
 import ch.jmanagr.lib.Logger;
-import ch.jmanagr.lib.TICKET_STATE;
 import ch.jmanagr.ui.main.MainController;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -16,7 +15,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 import java.net.URL;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class TicketController implements Initializable
@@ -73,8 +71,8 @@ public class TicketController implements Initializable
 
 	public void newTicket() //pass actionEvent?
 	{
-        MainController.changeTabContent("ticketDetail");
-        /*
+		MainController.changeTabContent("ticketDetail");
+		/*
 		*/
 	}
 
