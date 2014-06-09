@@ -5,12 +5,14 @@ import ch.jmanagr.dal.db.DB;
 import ch.jmanagr.lib.STATUS_CODE;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.misc.TransactionManager;
 import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<BusinessObjectType>>
 		implements DAL<BusinessObjectType>
@@ -91,33 +93,62 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 	}
 
 	@Override
-	public STATUS_CODE delete(BusinessObjectType bo) throws SQLException
+	public STATUS_CODE delete(final BusinessObjectType bo) throws SQLException
 	{
-		if (dao.delete(bo) == 1) {
-			return STATUS_CODE.OK;
-		}
+		return TransactionManager.callInTransaction(
+				this.db.getConnectionSource(), new Callable<STATUS_CODE>()
+		{
+			@Override
+			public STATUS_CODE call() throws SQLException
+			{
+				if (dao.delete(bo) == 1) {
+					return STATUS_CODE.OK;
+				}
 
-		return STATUS_CODE.FAIL;
+				return STATUS_CODE.FAIL;
+			}
+		}
+		);
 	}
 
 	@Override
-	public STATUS_CODE delete(Collection<BusinessObjectType> bos) throws SQLException
+	public STATUS_CODE delete(final Collection<BusinessObjectType> bos) throws SQLException
 	{
-		if (dao.delete(bos) == bos.size()) {
-			return STATUS_CODE.OK;
-		}
+		return TransactionManager.callInTransaction(
+				this.db.getConnectionSource(), new Callable<STATUS_CODE>()
+		{
+			@Override
+			public STATUS_CODE call() throws SQLException
+			{
+				if (dao.delete(bos) == bos.size()) {
+					return STATUS_CODE.OK;
+				}
 
-		return STATUS_CODE.FAIL;
+				return STATUS_CODE.FAIL;
+			}
+		}
+		);
 	}
 
 	@Override
-	public STATUS_CODE save(BusinessObjectType bo) throws SQLException
+	public STATUS_CODE save(final BusinessObjectType bo) throws SQLException
 	{
-		Dao.CreateOrUpdateStatus status = dao.createOrUpdate(bo);
-		if (status.isCreated() || status.isUpdated()) {
-			return STATUS_CODE.OK;
-		}
+		return TransactionManager.callInTransaction(
+				this.db.getConnectionSource(), new Callable<STATUS_CODE>()
+		{
+			@Override
+			public STATUS_CODE call() throws SQLException
+			{
+				Dao.CreateOrUpdateStatus status = dao.createOrUpdate(bo);
+				if (status.isCreated() || status.isUpdated()) {
+					return STATUS_CODE.OK;
+				}
 
-		return STATUS_CODE.FAIL;
+				return STATUS_CODE.FAIL;
+			}
+		}
+		);
+
+
 	}
 }
