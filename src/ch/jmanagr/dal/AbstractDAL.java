@@ -28,6 +28,7 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 		this.db = DB.getInstance();
 
 		this.dao = DaoManager.createDao(this.db.getConnectionSource(), this.typeClass);
+		this.dao.setObjectCache(true); // enable object cache
 
 		if (!this.dao.isTableExists()) {
 			this.createTable();
