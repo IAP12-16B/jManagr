@@ -1,17 +1,24 @@
 package ch.jmanagr.bl;
 
 import ch.jmanagr.bo.Department;
+import ch.jmanagr.dal.DepartmentsDAL;
 import ch.jmanagr.lib.STATUS_CODE;
 
+import java.sql.SQLException;
 
-public class Departments extends AbstractBL<Department, ch.jmanagr.dal.Departments>
+
+public class Departments extends AbstractBL<Department, DepartmentsDAL>
 {
 	private static volatile Departments instance;
 
 	private Departments()
 	{
 		super();
-		dal = ch.jmanagr.dal.Departments.getInstance();
+		try {
+			dal = DepartmentsDAL.getInstance();
+		} catch (SQLException e) {
+			e.printStackTrace(); // todo log
+		}
 	}
 
 

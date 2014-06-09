@@ -7,7 +7,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @param <BusinessObjectType> The BusinessObject to use
@@ -28,10 +29,13 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject<Busin
 	@Override
 	public ObservableList<BusinessObjectType> getAll()
 	{
-		HashMap<String, String> map = new HashMap<>();
-		map.put("deleted", "0");
-		ObservableList<BusinessObjectType> depList = FXCollections.observableArrayList(this.dal.fetch("deleted", "0"));
-		return depList; // Todo return observable list
+		List<BusinessObjectType> depList = new ArrayList<>();
+		try {
+			depList = this.dal.fetch("deleted", "0");
+		} catch (SQLException e) {
+			e.printStackTrace(); // todo log
+		}
+		return FXCollections.observableArrayList(depList); // Todo return observable list
 	}
 
 	public BusinessObjectType getById(int id)
@@ -49,12 +53,24 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject<Busin
 	@Override
 	public STATUS_CODE delete(BusinessObjectType bo)
 	{
-		return this.dal.delete(bo);
+		try {
+			return this.dal.delete(bo);
+		} catch (SQLException e) {
+			e.printStackTrace(); // todo log
+		}
+
+		return STATUS_CODE.FAIL;
 	}
 
 	@Override
 	public STATUS_CODE save(BusinessObjectType bo)
 	{
-		return this.dal.save(bo);
+		try {
+			return this.dal.save(bo);
+		} catch (SQLException e) {
+			e.printStackTrace();// todo log
+		}
+
+		return STATUS_CODE.FAIL;
 	}
 }
