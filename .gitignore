@@ -32,5 +32,5 @@ out
 *~*
 *.working
 
-!lib/sql2o*
 !.idea/libraries
+!.idea/artifacts
