@@ -1,11 +1,12 @@
 package ch.jmanagr.bo;
 
 
-import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import javafx.beans.property.SimpleStringProperty;
+
+import java.util.Collection;
 
 @DatabaseTable(tableName = "Resource")
 public class Resource extends AbstractBO<Resource>
@@ -15,10 +16,10 @@ public class Resource extends AbstractBO<Resource>
 	private SimpleStringProperty name;
 
 	@ForeignCollectionField(eager = true, foreignFieldName = "resource")
-	private ForeignCollection<ResourceData> data;
+	private Collection<ResourceData> data;
 
 	@ForeignCollectionField(eager = true, foreignFieldName = "resource")
-	private ForeignCollection<Ticket> tickets;
+	private Collection<Ticket> tickets;
 
 	@DatabaseField(useGetSet = true,
 	               canBeNull = true,
@@ -28,7 +29,7 @@ public class Resource extends AbstractBO<Resource>
 	private Resource parent;
 
 	@ForeignCollectionField(eager = true, foreignFieldName = "parent")
-	private ForeignCollection<Resource> children;
+	private Collection<Resource> children;
 
 	public Resource()
 	{
@@ -57,22 +58,22 @@ public class Resource extends AbstractBO<Resource>
 		this.name.set(name);
 	}
 
-	public ForeignCollection<ResourceData> getData()
+	public Collection<ResourceData> getData()
 	{
 		return data;
 	}
 
-	public void setData(ForeignCollection<ResourceData> data)
+	public void setData(Collection<ResourceData> data)
 	{
 		this.data = data;
 	}
 
-	public ForeignCollection<Ticket> getTickets()
+	public Collection<Ticket> getTickets()
 	{
 		return tickets;
 	}
 
-	public void setTickets(ForeignCollection<Ticket> tickets)
+	public void setTickets(Collection<Ticket> tickets)
 	{
 		this.tickets = tickets;
 	}
@@ -89,12 +90,12 @@ public class Resource extends AbstractBO<Resource>
 		this.parent = parent;
 	}
 
-	public ForeignCollection<Resource> getChildren()
+	public Collection<Resource> getChildren()
 	{
 		return children;
 	}
 
-	public void setChildren(ForeignCollection<Resource> children)
+	public void setChildren(Collection<Resource> children)
 	{
 		this.children = children;
 	}

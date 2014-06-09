@@ -67,4 +67,8 @@ public interface BusinessObject<T extends BusinessObject>
 	 * @param bo
 	 */
 	public void copyFromObject(T bo);
+
+	public Integer getVersion();
+
+	public void setVersion(Integer version);
 }

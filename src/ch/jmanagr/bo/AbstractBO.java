@@ -18,6 +18,9 @@ public abstract class AbstractBO<BusinessObjectType extends BusinessObject<Busin
 	@DatabaseField(defaultValue = "0", useGetSet = true)
 	protected boolean deleted;
 
+	@DatabaseField(version = true, useGetSet = true)
+	protected Integer version;
+
 	public AbstractBO()
 	{
 		super();
@@ -45,6 +48,16 @@ public abstract class AbstractBO<BusinessObjectType extends BusinessObject<Busin
 		this.id = new SimpleIntegerProperty();
 	}
 
+
+	public Integer getVersion()
+	{
+		return version;
+	}
+
+	public void setVersion(Integer version)
+	{
+		this.version = version;
+	}
 
 	@Override
 	public boolean isActive()

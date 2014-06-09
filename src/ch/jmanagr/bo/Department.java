@@ -1,10 +1,12 @@
 package ch.jmanagr.bo;
 
-import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 import javafx.beans.property.SimpleStringProperty;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @DatabaseTable(tableName = "Department")
 public class Department extends AbstractBO<Department>
@@ -13,20 +15,13 @@ public class Department extends AbstractBO<Department>
 	private SimpleStringProperty name;
 
 	@ForeignCollectionField(eager = true, foreignFieldName = "department")
-	private ForeignCollection<User> agents;
+	private Collection<User> agents;
 
-	public Department(String name, ForeignCollection<User> agents, boolean active, boolean deleted)
-	{
-		this.initProperties();
-		this.setActive(active);
-		this.setDeleted(deleted);
-		this.setName(name);
-		this.setAgents(agents);
-	}
 
 	public Department()
 	{
 		super();
+		this.agents = new ArrayList<>();
 	}
 
 	protected void initProperties()
@@ -50,15 +45,21 @@ public class Department extends AbstractBO<Department>
 		return this.name;
 	}
 
-	public ForeignCollection<User> getAgents()
+	public Collection<User> getAgents()
 	{
 		return this.agents;
 	}
 
 
-	public void setAgents(ForeignCollection<User> agents)
+	public void setAgents(Collection<User> agents)
 	{
 		this.agents = agents;
+	}
+
+
+	public void addAgent(User agent)
+	{
+		this.agents.add(agent);
 	}
 
 	public boolean getActive()
