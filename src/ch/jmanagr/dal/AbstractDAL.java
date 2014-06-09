@@ -26,6 +26,10 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 		this.db = DB.getInstance();
 
 		this.dao = DaoManager.createDao(this.db.getConnectionSource(), this.typeClass);
+
+		if (!this.dao.isTableExists()) {
+			this.createTable();
+		}
 	}
 
 	@Override
