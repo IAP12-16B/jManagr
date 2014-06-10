@@ -30,7 +30,7 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject<Busin
 		HashMap<String, String> map = new HashMap<>();
 		map.put("deleted", "0");
 		ObservableList<BusinessObjectType> depList = FXCollections.observableArrayList(this.dal.fetch(map));
-		return depList; // Todo return observable list
+		return depList;
 	}
 
 	public BusinessObjectType getById(int id)

@@ -163,6 +163,6 @@ public class Department implements BusinessObject<Department>
 	}
 
     public String toString() {
-        return this.name.getValue();
+        return this.name.get();
     }
 }

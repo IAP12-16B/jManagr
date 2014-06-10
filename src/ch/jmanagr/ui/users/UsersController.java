@@ -47,15 +47,15 @@ public class UsersController implements Initializable
         departmentCol.setCellValueFactory(new PropertyValueFactory<User, String>("department"));
         roleCol.setCellValueFactory(new PropertyValueFactory("role"));
 
-       /* roleCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>>() {
+       roleCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> a) {
                 USER_ROLE b = a.getValue().getRole();
                 SimpleStringProperty c = new SimpleStringProperty(b.getName());
                 return c;
             }
-        });
-        */
+       });
+
 		this.refresh();
 	}
 
