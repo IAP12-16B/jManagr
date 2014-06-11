@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 public class Main extends Application
 {
 
+    private static Scene scene;
+    private static Stage stage;
+
 	public static void main(String[] args) throws InterruptedException
 	{
 		try {
@@ -28,15 +31,20 @@ public class Main extends Application
 	@Override
 	public void start(Stage primaryStage) throws Exception
 	{
-		Parent root = FXMLLoader.load(getClass().getResource("ui/main/main.fxml"));
-		primaryStage.setTitle("jManagr");
-		primaryStage.setScene(new Scene(root));
-		primaryStage.setMinHeight(650);
-		primaryStage.setMinWidth(500);
-		primaryStage.setMaxHeight(700);
+        stage = primaryStage;
+        Parent root = FXMLLoader.load(getClass().getResource("ui/login/mainLogin.fxml"));
+        scene = new Scene(root);
+		stage.setTitle("jManagr");
+        stage.setScene(scene);
+		stage.setMinHeight(650);
+		stage.setMinWidth(500);
+		stage.setMaxHeight(700);
 
-		primaryStage.show();
+		stage.show();
 	}
 
-	// Todo login
+    public static void loggedIn(Scene scene) {
+        stage.setScene(scene);
+    }
+
 }
