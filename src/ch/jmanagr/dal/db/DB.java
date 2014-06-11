@@ -116,7 +116,6 @@ public class DB
 	 * time. In some configurations, it may be faster to drop and re-create the table. <p/> <p> <b>WARNING:</b> This is
 	 * [obviously] very destructive and is unrecoverable. </p>
 	 *
-	 * @param connectionSource
 	 * @param tableConfig
 	 */
 	public <T> int clearTable(DatabaseTableConfig<T> tableConfig) throws SQLException
@@ -126,11 +125,9 @@ public class DB
 	 * Issue the database statements to drop the table associated with a class. <p/> <p> <b>WARNING:</b> This is
 	 * [obviously] very destructive and is unrecoverable. </p>
 	 *
-	 * @param connectionSource Associated connection source.
-	 * @param dataClass        The class for which a table will be dropped.
-	 * @param ignoreErrors     If set to true then try each statement regardless of {@link java.sql.SQLException}
-	 *                            thrown
-	 *                         previously.
+	 * @param dataClass    The class for which a table will be dropped.
+	 * @param ignoreErrors If set to true then try each statement regardless of {@link java.sql.SQLException} thrown
+	 *                     previously.
 	 *
 	 * @return The number of statements executed to do so.
 	 */
@@ -141,12 +138,10 @@ public class DB
 	 * Issue the database statements to drop the table associated with a table configuration. <p/> <p> <b>WARNING:</b>
 	 * This is [obviously] very destructive and is unrecoverable. </p>
 	 *
-	 * @param connectionSource Associated connection source.
-	 * @param tableConfig      Hand or spring wired table configuration. If null then the class must have {@link
-	 *                         DatabaseField} annotations.
-	 * @param ignoreErrors     If set to true then try each statement regardless of {@link java.sql.SQLException}
-	 *                            thrown
-	 *                         previously.
+	 * @param tableConfig  Hand or spring wired table configuration. If null then the class must have {@link
+	 *                     DatabaseField} annotations.
+	 * @param ignoreErrors If set to true then try each statement regardless of {@link java.sql.SQLException} thrown
+	 *                     previously.
 	 *
 	 * @return The number of statements executed to do so.
 	 */
@@ -158,7 +153,6 @@ public class DB
 	 * time. In some configurations, it may be faster to drop and re-create the table. <p/> <p> <b>WARNING:</b> This is
 	 * [obviously] very destructive and is unrecoverable. </p>
 	 *
-	 * @param connectionSource
 	 * @param dataClass
 	 */
 	public <T> int clearTable(Class<? extends BusinessObject> dataClass) throws SQLException
