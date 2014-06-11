@@ -1,20 +1,37 @@
 package ch.jmanagr.bo;
 
 
-import ch.jmanagr.lib.SimpleStringPropertyPersister;
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.util.Collection;
 
 @DatabaseTable(tableName = "Resource")
-public class Resource extends AbstractBO<Resource>
+public class Resource implements BusinessObject<Resource>
 {
+	@DatabaseField(useGetSet = true, generatedId = true, allowGeneratedIdInsert = true)
+	private Integer id;
 
-	@DatabaseField(useGetSet = true, canBeNull = false, persisterClass = SimpleStringPropertyPersister.class)
-	private SimpleStringProperty name;
+	protected SimpleIntegerProperty idProperty;
+
+	@DatabaseField(defaultValue = "1", useGetSet = true)
+	protected boolean active;
+
+	@DatabaseField(defaultValue = "0", useGetSet = true)
+	protected boolean deleted;
+
+	@DatabaseField(version = true, useGetSet = true)
+	protected Integer version;
+
+
+	@DatabaseField(useGetSet = true, canBeNull = false, dataType = DataType.STRING)
+	private String name;
+
+	private SimpleStringProperty nameProperty;
 
 	@ForeignCollectionField(eager = true, foreignFieldName = "resource")
 	private Collection<ResourceData> data;
@@ -34,29 +51,30 @@ public class Resource extends AbstractBO<Resource>
 
 	public Resource()
 	{
-		super();
+		this.initProperties();
 	}
 
 	public Resource(int id)
 	{
-		super(id);
+		this.initProperties();
+		this.setId(id);
 	}
 
 	protected void initProperties()
 	{
-		super.initProperties();
-		this.name = new SimpleStringProperty();
+		this.idProperty = new SimpleIntegerProperty();
+		this.nameProperty = new SimpleStringProperty();
 	}
 
 
 	public String getName()
 	{
-		return name.get();
+		return nameProperty.get();
 	}
 
 	public void setName(String name)
 	{
-		this.name.set(name);
+		this.nameProperty.set(name);
 	}
 
 	public Collection<ResourceData> getData()
@@ -123,7 +141,7 @@ public class Resource extends AbstractBO<Resource>
 
 	public SimpleStringProperty nameProperty()
 	{
-		return this.name;
+		return this.nameProperty;
 	}
 
 	@Override
@@ -138,8 +156,12 @@ public class Resource extends AbstractBO<Resource>
 		if (deleted != resource.deleted) { return false; }
 		if (children != null ? !children.equals(resource.children) : resource.children != null) { return false; }
 		if (data != null ? !data.equals(resource.data) : resource.data != null) { return false; }
-		if (id != null ? !id.equals(resource.id) : resource.id != null) { return false; }
-		if (name != null ? !name.equals(resource.name) : resource.name != null) { return false; }
+		if (idProperty != null ? !idProperty.equals(resource.idProperty) : resource.idProperty != null) {
+			return false;
+		}
+		if (nameProperty != null ? !nameProperty.equals(resource.nameProperty) : resource.nameProperty != null) {
+			return false;
+		}
 		if (parent != null ? !parent.equals(resource.parent) : resource.parent != null) { return false; }
 		if (tickets != null ? !tickets.equals(resource.tickets) : resource.tickets != null) { return false; }
 
@@ -149,10 +171,10 @@ public class Resource extends AbstractBO<Resource>
 	@Override
 	public int hashCode()
 	{
-		int result = id != null ? id.hashCode() : 0;
+		int result = idProperty != null ? idProperty.hashCode() : 0;
 		result = 31 * result + (active ? 1 : 0);
 		result = 31 * result + (deleted ? 1 : 0);
-		result = 31 * result + (name != null ? name.hashCode() : 0);
+		result = 31 * result + (nameProperty != null ? nameProperty.hashCode() : 0);
 		result = 31 * result + (data != null ? data.hashCode() : 0);
 		result = 31 * result + (tickets != null ? tickets.hashCode() : 0);
 		result = 31 * result + (parent != null ? parent.hashCode() : 0);
@@ -161,4 +183,68 @@ public class Resource extends AbstractBO<Resource>
 	}
 
 	// todo addData?
+
+	public Integer getVersion()
+	{
+		return version;
+	}
+
+	public void setVersion(Integer version)
+	{
+		this.version = version;
+	}
+
+	@Override
+	public boolean isActive()
+	{
+		return active;
+	}
+
+	@Override
+	public Integer getId()
+
+	{
+		return idProperty.getValue();
+	}
+
+	@Override
+	public void setId(Integer id)
+	{
+		this.idProperty.set(id);
+	}
+
+	public SimpleIntegerProperty idProperty()
+	{
+		return this.idProperty;
+	}
+
+	@Override
+	public boolean getActive()
+	{
+		return active;
+	}
+
+	@Override
+	public void setActive(boolean active)
+	{
+		this.active = active;
+	}
+
+	@Override
+	public boolean getDeleted()
+	{
+		return deleted;
+	}
+
+	@Override
+	public boolean isDeleted()
+	{
+		return deleted;
+	}
+
+	@Override
+	public void setDeleted(boolean deleted)
+	{
+		this.deleted = deleted;
+	}
 }

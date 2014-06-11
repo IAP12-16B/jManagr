@@ -17,7 +17,7 @@ public interface BusinessObject<T extends BusinessObject>
 	 *
 	 * @param id
 	 */
-	public void setId(int id);
+	public void setId(Integer id);
 
 	/**
 	 * Return wether the obejct is active

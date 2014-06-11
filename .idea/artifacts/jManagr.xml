@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="javafx" build-on-make="true" name="jManagr">
+  <artifact type="javafx" name="jManagr">
     <output-path>$PROJECT_DIR$/out/artifacts/jManagr</output-path>
     <properties id="javafx-properties">
       <options>

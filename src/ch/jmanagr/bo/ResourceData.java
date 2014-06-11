@@ -7,19 +7,22 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "ResourceData")
 public class ResourceData
 {
-	@DatabaseField(id = true,
-	               useGetSet = true,
+	@DatabaseField(
+			useGetSet = true,
 	               uniqueCombo = true,
 	               foreign = true,
 	               foreignAutoCreate = true,
 	               foreignAutoRefresh = true)
 	private Resource resource;
 
-	@DatabaseField(useGetSet = true, uniqueCombo = true, id = true)
-	private String key;
+	@DatabaseField(useGetSet = true, uniqueCombo = true)
+	private String key; // todo simple string property
 
 	@DatabaseField(useGetSet = true, canBeNull = true)
-	private String value;
+	private String value; // todo simple string property
+
+	@DatabaseField(version = true, useGetSet = true)
+	protected Integer version;
 
 	public ResourceData(Resource resource, String key, String value)
 	{
@@ -58,6 +61,16 @@ public class ResourceData
 	public void setValue(String value)
 	{
 		this.value = value;
+	}
+
+	public Integer getVersion()
+	{
+		return version;
+	}
+
+	public void setVersion(Integer version)
+	{
+		this.version = version;
 	}
 
 	@Override

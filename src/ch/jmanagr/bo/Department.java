@@ -1,19 +1,37 @@
 package ch.jmanagr.bo;
 
-import ch.jmanagr.lib.SimpleStringPropertyPersister;
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 @DatabaseTable(tableName = "Department")
-public class Department extends AbstractBO<Department>
+public class Department implements BusinessObject<Department>
 {
-	@DatabaseField(useGetSet = true, canBeNull = true, persisterClass = SimpleStringPropertyPersister.class)
-	private SimpleStringProperty name;
+	@DatabaseField(useGetSet = true, generatedId = true, allowGeneratedIdInsert = true)
+	private Integer id;
+
+	protected SimpleIntegerProperty idProperty;
+
+	@DatabaseField(defaultValue = "1", useGetSet = true)
+	protected boolean active;
+
+	@DatabaseField(defaultValue = "0", useGetSet = true)
+	protected boolean deleted;
+
+	@DatabaseField(version = true, useGetSet = true)
+	protected Integer version;
+
+
+	@DatabaseField(useGetSet = true, canBeNull = true, dataType = DataType.STRING)
+	private String name; // dummy
+
+	private SimpleStringProperty nameProperty;
 
 	@ForeignCollectionField(eager = true, foreignFieldName = "department")
 	private Collection<User> agents;
@@ -21,29 +39,29 @@ public class Department extends AbstractBO<Department>
 
 	public Department()
 	{
-		super();
+		this.initProperties();
 		this.agents = new ArrayList<>();
 	}
 
 	protected void initProperties()
 	{
-		super.initProperties();
-		this.name = new SimpleStringProperty();
+		this.idProperty = new SimpleIntegerProperty();
+		this.nameProperty = new SimpleStringProperty();
 	}
 
 	public String getName()
 	{
-		return name.get();
+		return nameProperty.get();
 	}
 
 	public void setName(String name)
 	{
-		this.name.set(name);
+		this.nameProperty.set(name);
 	}
 
 	public SimpleStringProperty nameProperty()
 	{
-		return this.name;
+		return this.nameProperty;
 	}
 
 	public Collection<User> getAgents()
@@ -63,25 +81,6 @@ public class Department extends AbstractBO<Department>
 		this.agents.add(agent);
 	}
 
-	public boolean getActive()
-	{
-		return active;
-	}
-
-	public boolean getDeleted()
-	{
-		return deleted;
-	}
-
-	public boolean isDeleted()
-	{
-		return deleted;
-	}
-
-	public void setDeleted(boolean deleted)
-	{
-		this.deleted = deleted;
-	}
 
 	/**
 	 * Copies the values from an other object
@@ -99,27 +98,6 @@ public class Department extends AbstractBO<Department>
 	}
 
 
-	public boolean isActive()
-	{
-		return active;
-	}
-
-	public void setActive(boolean active)
-	{
-		this.active = active;
-	}
-
-	public Integer getId()
-
-	{
-		return id.getValue();
-	}
-
-	public void setId(int id)
-	{
-		this.id.setValue(id);
-	}
-
 	@Override
 	public boolean equals(Object o)
 	{
@@ -131,8 +109,10 @@ public class Department extends AbstractBO<Department>
 		if (active != that.active) { return false; }
 		if (deleted != that.deleted) { return false; }
 		if (agents != null ? !agents.equals(that.agents) : that.agents != null) { return false; }
-		if (id != null ? !id.equals(that.id) : that.id != null) { return false; }
-		if (name != null ? !name.equals(that.name) : that.name != null) { return false; }
+		if (idProperty != null ? !idProperty.equals(that.idProperty) : that.idProperty != null) { return false; }
+		if (nameProperty != null ? !nameProperty.equals(that.nameProperty) : that.nameProperty != null) {
+			return false;
+		}
 
 		return true;
 	}
@@ -140,16 +120,80 @@ public class Department extends AbstractBO<Department>
 	@Override
 	public int hashCode()
 	{
-		int result = id != null ? id.hashCode() : 0;
+		int result = idProperty != null ? idProperty.hashCode() : 0;
 		result = 31 * result + (active ? 1 : 0);
 		result = 31 * result + (deleted ? 1 : 0);
-		result = 31 * result + (name != null ? name.hashCode() : 0);
+		result = 31 * result + (nameProperty != null ? nameProperty.hashCode() : 0);
 		result = 31 * result + (agents != null ? agents.hashCode() : 0);
 		return result;
 	}
 
 	public String toString()
 	{
-		return this.name.getValue();
+		return this.nameProperty.getValue();
+	}
+
+	public Integer getVersion()
+	{
+		return version;
+	}
+
+	public void setVersion(Integer version)
+	{
+		this.version = version;
+	}
+
+	@Override
+	public boolean isActive()
+	{
+		return active;
+	}
+
+	@Override
+	public Integer getId()
+
+	{
+		return idProperty.getValue();
+	}
+
+	@Override
+	public void setId(Integer id)
+	{
+		this.idProperty.set(id);
+	}
+
+	public SimpleIntegerProperty idProperty()
+	{
+		return this.idProperty;
+	}
+
+	@Override
+	public boolean getActive()
+	{
+		return active;
+	}
+
+	@Override
+	public void setActive(boolean active)
+	{
+		this.active = active;
+	}
+
+	@Override
+	public boolean getDeleted()
+	{
+		return deleted;
+	}
+
+	@Override
+	public boolean isDeleted()
+	{
+		return deleted;
+	}
+
+	@Override
+	public void setDeleted(boolean deleted)
+	{
+		this.deleted = deleted;
 	}
 }

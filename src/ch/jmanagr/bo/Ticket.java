@@ -1,28 +1,45 @@
 package ch.jmanagr.bo;
 
-import ch.jmanagr.lib.SimpleStringPropertyPersister;
 import ch.jmanagr.lib.TICKET_STATE;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.util.Date;
 
-@DatabaseTable(tableName = "User")
-public class Ticket extends AbstractBO<Ticket>
+@DatabaseTable(tableName = "Ticket")
+public class Ticket implements BusinessObject<Ticket>
 {
+	@DatabaseField(useGetSet = true, generatedId = true, allowGeneratedIdInsert = true)
+	private Integer id;
 
-	@DatabaseField(useGetSet = true, canBeNull = true, persisterClass = SimpleStringPropertyPersister.class)
-	private SimpleStringProperty name;
+	protected SimpleIntegerProperty idProperty;
 
-	@DatabaseField(useGetSet = true, canBeNull = true, persisterClass = SimpleStringPropertyPersister.class)
-	private SimpleStringProperty description;
+	@DatabaseField(defaultValue = "1", useGetSet = true)
+	protected boolean active;
+
+	@DatabaseField(defaultValue = "0", useGetSet = true)
+	protected boolean deleted;
+
+	@DatabaseField(version = true, useGetSet = true)
+	protected Integer version;
+
+
+	@DatabaseField(useGetSet = true, canBeNull = true, dataType = DataType.STRING)
+	private String name;
+
+	private SimpleStringProperty nameProperty;
+
+	@DatabaseField(useGetSet = true, canBeNull = true, dataType = DataType.STRING)
+	private String description;
+
+	private SimpleStringProperty descriptionProperty;
 
 	@DatabaseField(useGetSet = true,
-	               defaultValue = "0",
-	               unknownEnumName = "0",
-	               dataType = DataType.ENUM_INTEGER,
+	               defaultValue = "OPEN",
+	               unknownEnumName = "OPEN",
 	               canBeNull = false)
 	private TICKET_STATE status;
 
@@ -60,19 +77,20 @@ public class Ticket extends AbstractBO<Ticket>
 
 	public Ticket()
 	{
-		super();
+		this.initProperties();
 	}
 
 	public Ticket(int id)
 	{
-		super(id);
+		this.initProperties();
+		this.setId(id);
 	}
 
 	protected void initProperties()
 	{
-		super.initProperties();
-		this.name = new SimpleStringProperty();
-		this.description = new SimpleStringProperty();
+		this.idProperty = new SimpleIntegerProperty();
+		this.nameProperty = new SimpleStringProperty();
+		this.descriptionProperty = new SimpleStringProperty();
 	}
 
 
@@ -81,7 +99,7 @@ public class Ticket extends AbstractBO<Ticket>
 	 */
 	public String getName()
 	{
-		return name.get();
+		return nameProperty.get();
 	}
 
 	/**
@@ -89,7 +107,7 @@ public class Ticket extends AbstractBO<Ticket>
 	 */
 	public void setName(String name)
 	{
-		this.name.set(name);
+		this.nameProperty.set(name);
 	}
 
 	/**
@@ -97,7 +115,7 @@ public class Ticket extends AbstractBO<Ticket>
 	 */
 	public String getDescription()
 	{
-		return description.get();
+		return descriptionProperty.get();
 	}
 
 	/**
@@ -105,7 +123,7 @@ public class Ticket extends AbstractBO<Ticket>
 	 */
 	public void setDescription(String description)
 	{
-		this.description.set(description);
+		this.descriptionProperty.set(description);
 	}
 
 	/**
@@ -208,12 +226,12 @@ public class Ticket extends AbstractBO<Ticket>
 
 	public SimpleStringProperty nameProperty()
 	{
-		return this.name;
+		return this.nameProperty;
 	}
 
 	public SimpleStringProperty descriptionProperty()
 	{
-		return this.description;
+		return this.descriptionProperty;
 	}
 
 	@Override
@@ -229,11 +247,15 @@ public class Ticket extends AbstractBO<Ticket>
 		if (agent != null ? !agent.equals(ticket.agent) : ticket.agent != null) { return false; }
 		if (date != null ? !date.equals(ticket.date) : ticket.date != null) { return false; }
 		if (department != null ? !department.equals(ticket.department) : ticket.department != null) { return false; }
-		if (description != null ? !description.equals(ticket.description) : ticket.description != null) {
+		if (descriptionProperty != null ?
+		    !descriptionProperty.equals(ticket.descriptionProperty) :
+		    ticket.descriptionProperty != null) {
 			return false;
 		}
-		if (id != null ? !id.equals(ticket.id) : ticket.id != null) { return false; }
-		if (name != null ? !name.equals(ticket.name) : ticket.name != null) { return false; }
+		if (idProperty != null ? !idProperty.equals(ticket.idProperty) : ticket.idProperty != null) { return false; }
+		if (nameProperty != null ? !nameProperty.equals(ticket.nameProperty) : ticket.nameProperty != null) {
+			return false;
+		}
 		if (resource != null ? !resource.equals(ticket.resource) : ticket.resource != null) { return false; }
 		if (status != ticket.status) { return false; }
 		if (user != null ? !user.equals(ticket.user) : ticket.user != null) { return false; }
@@ -244,11 +266,11 @@ public class Ticket extends AbstractBO<Ticket>
 	@Override
 	public int hashCode()
 	{
-		int result = id != null ? id.hashCode() : 0;
+		int result = idProperty != null ? idProperty.hashCode() : 0;
 		result = 31 * result + (active ? 1 : 0);
 		result = 31 * result + (deleted ? 1 : 0);
-		result = 31 * result + (name != null ? name.hashCode() : 0);
-		result = 31 * result + (description != null ? description.hashCode() : 0);
+		result = 31 * result + (nameProperty != null ? nameProperty.hashCode() : 0);
+		result = 31 * result + (descriptionProperty != null ? descriptionProperty.hashCode() : 0);
 		result = 31 * result + (status != null ? status.hashCode() : 0);
 		result = 31 * result + (date != null ? date.hashCode() : 0);
 		result = 31 * result + (resource != null ? resource.hashCode() : 0);
@@ -256,5 +278,69 @@ public class Ticket extends AbstractBO<Ticket>
 		result = 31 * result + (department != null ? department.hashCode() : 0);
 		result = 31 * result + (user != null ? user.hashCode() : 0);
 		return result;
+	}
+
+	public Integer getVersion()
+	{
+		return version;
+	}
+
+	public void setVersion(Integer version)
+	{
+		this.version = version;
+	}
+
+	@Override
+	public boolean isActive()
+	{
+		return active;
+	}
+
+	@Override
+	public Integer getId()
+
+	{
+		return idProperty.getValue();
+	}
+
+	@Override
+	public void setId(Integer id)
+	{
+		this.idProperty.set(id);
+	}
+
+	public SimpleIntegerProperty idProperty()
+	{
+		return this.idProperty;
+	}
+
+	@Override
+	public boolean getActive()
+	{
+		return active;
+	}
+
+	@Override
+	public void setActive(boolean active)
+	{
+		this.active = active;
+	}
+
+	@Override
+	public boolean getDeleted()
+	{
+		return deleted;
+	}
+
+	@Override
+	public boolean isDeleted()
+	{
+		return deleted;
+	}
+
+	@Override
+	public void setDeleted(boolean deleted)
+	{
+		this.deleted = deleted;
 	}
 }

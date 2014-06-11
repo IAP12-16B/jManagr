@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <GridPane alignment="CENTER" hgap="10.0" prefHeight="617.0" prefWidth="769.0" vgap="10.0"
           xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
           fx:controller="ch.jmanagr.ui.main.MainController">
@@ -12,19 +10,20 @@
     <fx:define>
         <fx:include source="../departments/departments.fxml" fx:id="departmentView"/>
         <fx:include source="../tickets/tickets.fxml" fx:id="ticketView"/>
-        <fx:include source="../tickets/ticketDetail.fxml" fx:id="ticketDetailView" />
-        <fx:include source="../users/users.fxml" fx:id="userView" />
-        <fx:include source="../users/userDetail.fxml" fx:id="userDetailView" />
+        <fx:include source="../tickets/ticketDetail.fxml" fx:id="ticketDetailView"/>
+        <fx:include source="../users/users.fxml" fx:id="userView"/>
+        <fx:include source="../users/userDetail.fxml" fx:id="userDetailView"/>
     </fx:define>
 
-        <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="0" GridPane.rowIndex="0">
-            <tabs>
-                <Tab fx:id="tabTickets" text="Tickets" content="$ticketView"/>
-                <Tab fx:id="tabDepartment" text="Abteilungen" content="$departmentView"/>
-                <Tab fx:id="tabResource" text="Ressourcen" />
-                <Tab fx:id="tabUser" text="User" content="$userView"/>
-            </tabs>
-        </TabPane>
+    <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE"
+             GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <tabs>
+            <Tab fx:id="tabTickets" text="Tickets" content="$ticketView"/>
+            <Tab fx:id="tabDepartment" text="Abteilungen" content="$departmentView"/>
+            <Tab fx:id="tabResource" text="Ressourcen"/>
+            <Tab fx:id="tabUser" text="User" content="$userView"/>
+        </tabs>
+    </TabPane>
 
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>

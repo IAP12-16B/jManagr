@@ -4,6 +4,7 @@ import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.STATUS_CODE;
 
+import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 public class SettingsDAL
@@ -43,10 +44,16 @@ public class SettingsDAL
 			preferences.put("DB_USER", settings.getUser());
 			preferences.put("DB_PASSWORD", settings.getPassword());
 			preferences.put("DB_DATABASE", settings.getDatabase());
+			preferences.sync();
+			preferences.flush();
 		} catch (IllegalStateException e) {
 			Logger.log(LOG_LEVEL.ERROR, "Fail on store settings", e);
 			return STATUS_CODE.FAIL;
+		} catch (BackingStoreException e) {
+			Logger.log(LOG_LEVEL.ERROR, "Fail on store settings", e);
+			return STATUS_CODE.FAIL;
 		}
+
 
 		return STATUS_CODE.OK;
 	}

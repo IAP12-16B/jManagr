@@ -1,33 +1,57 @@
 package ch.jmanagr.bo;
 
-import ch.jmanagr.lib.*;
+import ch.jmanagr.lib.LOG_LEVEL;
+import ch.jmanagr.lib.Logger;
+import ch.jmanagr.lib.PasswordHash;
+import ch.jmanagr.lib.USER_ROLE;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 @DatabaseTable(tableName = "User")
-public class User extends AbstractBO<User>
+public class User implements BusinessObject<User>
 {
-	@DatabaseField(useGetSet = true, canBeNull = true, persisterClass = SimpleStringPropertyPersister.class)
-	protected SimpleStringProperty firstname;
+	@DatabaseField(useGetSet = true, generatedId = true, allowGeneratedIdInsert = true)
+	private Integer id;
 
-	@DatabaseField(useGetSet = true, canBeNull = true, persisterClass = SimpleStringPropertyPersister.class)
-	protected SimpleStringProperty lastname;
+	protected SimpleIntegerProperty idProperty;
 
-	@DatabaseField(useGetSet = true,
-	               canBeNull = false,
-	               unique = true,
-	               persisterClass = SimpleStringPropertyPersister.class)
-	protected SimpleStringProperty username;
+	@DatabaseField(defaultValue = "1", useGetSet = true)
+	protected boolean active;
 
-	@DatabaseField(useGetSet = true, canBeNull = false, persisterClass = SimpleStringPropertyPersister.class)
-	protected SimpleStringProperty password;
+	@DatabaseField(defaultValue = "0", useGetSet = true)
+	protected boolean deleted;
 
-	@DatabaseField(useGetSet = true, defaultValue = "0", unknownEnumName = "0", dataType = DataType.ENUM_INTEGER)
+	@DatabaseField(version = true, useGetSet = true)
+	protected Integer version;
+
+
+	@DatabaseField(useGetSet = true, canBeNull = true)
+	protected String firstname;
+
+	protected SimpleStringProperty firstnameProperty;
+
+	@DatabaseField(useGetSet = true, canBeNull = true)
+	private String lastname;
+
+	protected SimpleStringProperty lastnameProperty;
+
+	@DatabaseField(useGetSet = true, canBeNull = false)
+	private String username;
+
+	protected SimpleStringProperty usernameProperty;
+
+	@DatabaseField(useGetSet = true, canBeNull = false, dataType = DataType.STRING, width = 160)
+	private String password;
+
+	protected SimpleStringProperty passwordProperty;
+
+	@DatabaseField(useGetSet = true, defaultValue = "USER", unknownEnumName = "USER")
 	protected USER_ROLE role;
 
 	@DatabaseField(useGetSet = true,
@@ -40,12 +64,13 @@ public class User extends AbstractBO<User>
 
 	public User()
 	{
-		super();
+		this.initProperties();
 	}
 
 	public User(int id)
 	{
-		super(id);
+		this.initProperties();
+		this.setId(id);
 	}
 
 	/**
@@ -89,47 +114,47 @@ public class User extends AbstractBO<User>
 
 	protected void initProperties()
 	{
-		super.initProperties();
-		this.firstname = new SimpleStringProperty();
-		this.lastname = new SimpleStringProperty();
-		this.username = new SimpleStringProperty();
-		this.password = new SimpleStringProperty();
+		this.idProperty = new SimpleIntegerProperty();
+		this.firstnameProperty = new SimpleStringProperty();
+		this.lastnameProperty = new SimpleStringProperty();
+		this.usernameProperty = new SimpleStringProperty();
+		this.passwordProperty = new SimpleStringProperty();
 	}
 
 	public String getFirstname()
 	{
-		return firstname.get();
+		return firstnameProperty.get();
 	}
 
-	public void setFirstname(String firstname)
+	public void setFirstname(String firstnameProperty)
 	{
-		this.firstname.set(firstname);
+		this.firstnameProperty.set(firstnameProperty);
 	}
 
 	public String getLastname()
 	{
-		return lastname.get();
+		return lastnameProperty.get();
 	}
 
 	public void setLastname(String lastname)
 	{
-		this.lastname.set(lastname);
+		this.lastnameProperty.set(lastname);
 	}
 
 	public String getUsername()
 	{
-		return username.get();
+		return usernameProperty.get();
 	}
 
 	public void setUsername(String username)
 	{
-		this.username.set(username);
+		this.usernameProperty.set(username);
 	}
 
 	public String getPassword()
 	{
 
-		return password.get();
+		return passwordProperty.get();
 	}
 
 	/**
@@ -139,12 +164,12 @@ public class User extends AbstractBO<User>
 	 */
 	public void setPassword(String password)
 	{
-		this.password.set(User.hashPassword(password));
+		this.passwordProperty.set(User.hashPassword(password));
 	}
 
 	public void setHashedPassword(String hash)
 	{
-		this.password.set(hash);
+		this.passwordProperty.set(hash);
 	}
 
 	public USER_ROLE getRole()
@@ -201,22 +226,22 @@ public class User extends AbstractBO<User>
 
 	public SimpleStringProperty firstnameProperty()
 	{
-		return this.firstname;
+		return this.firstnameProperty;
 	}
 
 	public SimpleStringProperty lastnameProperty()
 	{
-		return this.lastname;
+		return this.lastnameProperty;
 	}
 
 	public SimpleStringProperty usernameProperty()
 	{
-		return this.username;
+		return this.usernameProperty;
 	}
 
 	public SimpleStringProperty passwordProperty()
 	{
-		return this.password;
+		return this.passwordProperty;
 	}
 
 	@Override
@@ -230,12 +255,20 @@ public class User extends AbstractBO<User>
 		if (active != user.active) { return false; }
 		if (deleted != user.deleted) { return false; }
 		if (department != null ? !department.equals(user.department) : user.department != null) { return false; }
-		if (firstname != null ? !firstname.equals(user.firstname) : user.firstname != null) { return false; }
-		if (id != null ? !id.equals(user.id) : user.id != null) { return false; }
-		if (lastname != null ? !lastname.equals(user.lastname) : user.lastname != null) { return false; }
-		if (password != null ? !password.equals(user.password) : user.password != null) { return false; }
+		if (firstnameProperty != null ?
+		    !firstnameProperty.equals(user.firstnameProperty) :
+		    user.firstnameProperty != null) { return false; }
+		if (idProperty != null ? !idProperty.equals(user.idProperty) : user.idProperty != null) { return false; }
+		if (lastnameProperty != null ?
+		    !lastnameProperty.equals(user.lastnameProperty) :
+		    user.lastnameProperty != null) { return false; }
+		if (passwordProperty != null ?
+		    !passwordProperty.equals(user.passwordProperty) :
+		    user.passwordProperty != null) { return false; }
 		if (role != user.role) { return false; }
-		if (username != null ? !username.equals(user.username) : user.username != null) { return false; }
+		if (usernameProperty != null ?
+		    !usernameProperty.equals(user.usernameProperty) :
+		    user.usernameProperty != null) { return false; }
 
 		return true;
 	}
@@ -243,15 +276,79 @@ public class User extends AbstractBO<User>
 	@Override
 	public int hashCode()
 	{
-		int result = id != null ? id.hashCode() : 0;
+		int result = idProperty != null ? idProperty.hashCode() : 0;
 		result = 31 * result + (active ? 1 : 0);
 		result = 31 * result + (deleted ? 1 : 0);
-		result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
-		result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
-		result = 31 * result + (username != null ? username.hashCode() : 0);
-		result = 31 * result + (password != null ? password.hashCode() : 0);
+		result = 31 * result + (firstnameProperty != null ? firstnameProperty.hashCode() : 0);
+		result = 31 * result + (lastnameProperty != null ? lastnameProperty.hashCode() : 0);
+		result = 31 * result + (usernameProperty != null ? usernameProperty.hashCode() : 0);
+		result = 31 * result + (passwordProperty != null ? passwordProperty.hashCode() : 0);
 		result = 31 * result + (role != null ? role.hashCode() : 0);
 		result = 31 * result + (department != null ? department.hashCode() : 0);
 		return result;
+	}
+
+	public Integer getVersion()
+	{
+		return version;
+	}
+
+	public void setVersion(Integer version)
+	{
+		this.version = version;
+	}
+
+	@Override
+	public boolean isActive()
+	{
+		return active;
+	}
+
+	@Override
+	public Integer getId()
+
+	{
+		return idProperty.getValue();
+	}
+
+	@Override
+	public void setId(Integer id)
+	{
+		this.idProperty.set(id);
+	}
+
+	public SimpleIntegerProperty idProperty()
+	{
+		return this.idProperty;
+	}
+
+	@Override
+	public boolean getActive()
+	{
+		return active;
+	}
+
+	@Override
+	public void setActive(boolean active)
+	{
+		this.active = active;
+	}
+
+	@Override
+	public boolean getDeleted()
+	{
+		return deleted;
+	}
+
+	@Override
+	public boolean isDeleted()
+	{
+		return deleted;
+	}
+
+	@Override
+	public void setDeleted(boolean deleted)
+	{
+		this.deleted = deleted;
 	}
 }
