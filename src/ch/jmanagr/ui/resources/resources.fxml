@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane id="Content" fx:id="departmentView" minHeight="0.0" minWidth="0.0" prefHeight="588.0" prefWidth="769.0"
-            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="ch.jmanagr.ui.departments.DepartmentController">
-    <children>
+<?import javafx.scene.layout.*?>
 
-    </children>
+<AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="588.0" prefWidth="769.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.jmanagr.ui.resources.resourceController">
+<children>
+    <TreeView fx:id="treeView" layoutX="226.0" layoutY="141.0" prefHeight="200.0" prefWidth="200.0" />
+</children>
 </AnchorPane>
