@@ -1,6 +1,6 @@
 package ch.jmanagr.ui.tickets;
 
-import ch.jmanagr.bl.Tickets;
+import ch.jmanagr.bl.TicketsBL;
 import ch.jmanagr.bo.Ticket;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.ui.main.MainController;
@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 public class TicketController implements Initializable
 {
 	private ObservableList<Ticket> ticketList;
-	private Tickets bl = Tickets.getInstance();
+	private TicketsBL bl = TicketsBL.getInstance();
 
 	@FXML
 	private TableView<Ticket> ticketTable;

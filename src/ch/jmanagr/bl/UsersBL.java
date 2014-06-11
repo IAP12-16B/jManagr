@@ -9,13 +9,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Users extends AbstractBL<User, UsersDAL>
+public class UsersBL extends AbstractBL<User, UsersDAL>
 {
-	private static volatile Users instance;
+	private static volatile UsersBL instance;
 
 	protected User currentUser;
 
-	protected Users()
+	protected UsersBL()
 	{
 		super();
 		try {
@@ -26,12 +26,12 @@ public class Users extends AbstractBL<User, UsersDAL>
 	}
 
 
-	public static Users getInstance()
+	public static UsersBL getInstance()
 	{
 		if (instance == null) {
-			synchronized (Users.class) {
+			synchronized (UsersBL.class) {
 				if (instance == null) {
-					instance = new Users();
+					instance = new UsersBL();
 				}
 			}
 		}

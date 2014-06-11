@@ -1,6 +1,6 @@
 package ch.jmanagr.ui.departments;
 
-import ch.jmanagr.bl.Departments;
+import ch.jmanagr.bl.DepartmentsBL;
 import ch.jmanagr.bo.Department;
 import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.Logger;
@@ -25,7 +25,7 @@ public class DepartmentController implements Initializable
 {
 
 	private ObservableList<Department> depList;
-	private Departments bl = Departments.getInstance();
+	private DepartmentsBL bl = DepartmentsBL.getInstance();
 
 	@FXML
 	private TableView<Department> depTable;

@@ -1,7 +1,7 @@
 package ch.jmanagr.ui.users;
 
-import ch.jmanagr.bl.Departments;
-import ch.jmanagr.bl.Users;
+import ch.jmanagr.bl.DepartmentsBL;
+import ch.jmanagr.bl.UsersBL;
 import ch.jmanagr.bo.Department;
 import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.Logger;
@@ -17,8 +17,8 @@ import java.util.ResourceBundle;
 
 public class UserDetailController implements Initializable
 {
-	private Users bl = Users.getInstance();
-	private Departments depBl = Departments.getInstance();
+	private UsersBL bl = UsersBL.getInstance();
+	private DepartmentsBL depBl = DepartmentsBL.getInstance();
 	@FXML
 	private TextField lastnameFld;
 	@FXML

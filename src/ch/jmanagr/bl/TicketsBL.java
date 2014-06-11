@@ -15,11 +15,11 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class Tickets extends AbstractBL<Ticket, TicketsDAL>
+public class TicketsBL extends AbstractBL<Ticket, TicketsDAL>
 {
-	private static volatile Tickets instance;
+	private static volatile TicketsBL instance;
 
-	private Tickets()
+	private TicketsBL()
 	{
 		super();
 		try {
@@ -30,12 +30,12 @@ public class Tickets extends AbstractBL<Ticket, TicketsDAL>
 	}
 
 
-	public static Tickets getInstance()
+	public static TicketsBL getInstance()
 	{
 		if (instance == null) {
-			synchronized (Tickets.class) {
+			synchronized (TicketsBL.class) {
 				if (instance == null) {
-					instance = new Tickets();
+					instance = new TicketsBL();
 				}
 			}
 		}

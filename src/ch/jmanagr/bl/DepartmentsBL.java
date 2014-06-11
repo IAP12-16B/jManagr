@@ -7,11 +7,11 @@ import ch.jmanagr.lib.STATUS_CODE;
 import java.sql.SQLException;
 
 
-public class Departments extends AbstractBL<Department, DepartmentsDAL>
+public class DepartmentsBL extends AbstractBL<Department, DepartmentsDAL>
 {
-	private static volatile Departments instance;
+	private static volatile DepartmentsBL instance;
 
-	private Departments()
+	private DepartmentsBL()
 	{
 		super();
 		try {
@@ -22,12 +22,12 @@ public class Departments extends AbstractBL<Department, DepartmentsDAL>
 	}
 
 
-	public static Departments getInstance()
+	public static DepartmentsBL getInstance()
 	{
 		if (instance == null) {
-			synchronized (Departments.class) {
+			synchronized (DepartmentsBL.class) {
 				if (instance == null) {
-					instance = new Departments();
+					instance = new DepartmentsBL();
 				}
 			}
 		}

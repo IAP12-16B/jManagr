@@ -1,6 +1,6 @@
 package ch.jmanagr.ui.users;
 
-import ch.jmanagr.bl.Users;
+import ch.jmanagr.bl.UsersBL;
 import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.USER_ROLE;
@@ -8,14 +8,12 @@ import ch.jmanagr.ui.main.MainController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.Callback;
 
 import java.net.URL;
@@ -24,17 +22,25 @@ import java.util.ResourceBundle;
 public class UsersController implements Initializable
 {
 	private ObservableList<User> userList;
-	private Users bl = Users.getInstance();
+	private UsersBL bl = UsersBL.getInstance();
 
-	@FXML private TableView<User> ticketTable;
-	@FXML private TableColumn idCol;
-	@FXML private TableColumn<User, String> lastnameCol;
-    @FXML private TableColumn<User, String> firstnameCol;
-    @FXML private TableColumn<User, String> usernameCol;
-    @FXML private TableColumn<User, String> departmentCol;
-    @FXML private TableColumn<User, String> roleCol;
+	@FXML
+	private TableView<User> ticketTable;
+	@FXML
+	private TableColumn idCol;
+	@FXML
+	private TableColumn<User, String> lastnameCol;
+	@FXML
+	private TableColumn<User, String> firstnameCol;
+	@FXML
+	private TableColumn<User, String> usernameCol;
+	@FXML
+	private TableColumn<User, String> departmentCol;
+	@FXML
+	private TableColumn<User, String> roleCol;
 
-	@FXML private TextField nameField;
+	@FXML
+	private TextField nameField;
 
 	// Fill Table with Data
 	public void initialize(URL location, ResourceBundle resources)
@@ -42,19 +48,23 @@ public class UsersController implements Initializable
 
 		idCol.setCellValueFactory(new PropertyValueFactory("id"));
 		lastnameCol.setCellValueFactory(new PropertyValueFactory<User, String>("lastname"));
-        firstnameCol.setCellValueFactory(new PropertyValueFactory<User, String>("firstname"));
-        usernameCol.setCellValueFactory(new PropertyValueFactory<User, String>("username"));
-        departmentCol.setCellValueFactory(new PropertyValueFactory<User, String>("department"));
-        roleCol.setCellValueFactory(new PropertyValueFactory("role"));
+		firstnameCol.setCellValueFactory(new PropertyValueFactory<User, String>("firstname"));
+		usernameCol.setCellValueFactory(new PropertyValueFactory<User, String>("username"));
+		departmentCol.setCellValueFactory(new PropertyValueFactory<User, String>("department"));
+		roleCol.setCellValueFactory(new PropertyValueFactory("role"));
 
-       roleCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> a) {
-                USER_ROLE b = a.getValue().getRole();
-                SimpleStringProperty c = new SimpleStringProperty(b.getName());
-                return c;
-            }
-       });
+		roleCol.setCellValueFactory(
+				new Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>>()
+				{
+					@Override
+					public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> a)
+					{
+						USER_ROLE b = a.getValue().getRole();
+						SimpleStringProperty c = new SimpleStringProperty(b.getName());
+						return c;
+					}
+				}
+		);
 
 		this.refresh();
 	}
@@ -68,7 +78,7 @@ public class UsersController implements Initializable
 
 	public void newUser() //pass actionEvent?
 	{
-        MainController.changeTabContent("userDetail");
+		MainController.changeTabContent("userDetail");
 	}
 
 	// Todo only archiv and only for admin?

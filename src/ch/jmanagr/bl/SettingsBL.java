@@ -4,22 +4,22 @@ package ch.jmanagr.bl;
 import ch.jmanagr.dal.SettingsDAL;
 import ch.jmanagr.lib.STATUS_CODE;
 
-public class Settings
+public class SettingsBL
 {
-	private static volatile Settings instance;
+	private static volatile SettingsBL instance;
 	private SettingsDAL dal;
 
-	private Settings()
+	private SettingsBL()
 	{
 		dal = SettingsDAL.getInstance();
 	}
 
-	public static Settings getInstance()
+	public static SettingsBL getInstance()
 	{
 		if (instance == null) {
-			synchronized (Settings.class) {
+			synchronized (SettingsBL.class) {
 				if (instance == null) {
-					instance = new Settings();
+					instance = new SettingsBL();
 				}
 			}
 		}

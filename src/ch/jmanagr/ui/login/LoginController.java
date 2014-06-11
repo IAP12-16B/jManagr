@@ -1,7 +1,7 @@
 package ch.jmanagr.ui.login;
 
 import ch.jmanagr.Main;
-import ch.jmanagr.bl.Users;
+import ch.jmanagr.bl.UsersBL;
 import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
@@ -19,30 +19,34 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable {
+public class LoginController implements Initializable
+{
 
-    private Stage newStage;
-    private Users bl = Users.getInstance();
-    private User bo;
+	private Stage newStage;
+	private UsersBL bl = UsersBL.getInstance();
+	private User bo;
 
-    @FXML private TextField userFld;
-    @FXML private PasswordField passwordFld;
-    @FXML private Label passwordErrorLbl;
+	@FXML
+	private TextField userFld;
+	@FXML
+	private PasswordField passwordFld;
+	@FXML
+	private Label passwordErrorLbl;
 
-    public void initialize(URL location, ResourceBundle resources)
-    {
-        passwordErrorLbl.setVisible(false);
-    }
+	public void initialize(URL location, ResourceBundle resources)
+	{
+		passwordErrorLbl.setVisible(false);
+	}
 
-    public void login()
-    {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("../main/main.fxml"));
-            Main.loggedIn(new Scene(root));
-        } catch (IOException e) {
-            Logger.log(LOG_LEVEL.ERROR, e);
-        }
-        /*bo = bl.login(userFld.getText(),passwordFld.getText());
+	public void login()
+	{
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("../main/main.fxml"));
+			Main.loggedIn(new Scene(root));
+		} catch (IOException e) {
+			Logger.log(LOG_LEVEL.ERROR, e);
+		}
+	    /*bo = bl.login(userFld.getText(),passwordFld.getText());
         if(bo != null) {
             try {
                 this.changeStage();
@@ -52,5 +56,5 @@ public class LoginController implements Initializable {
         } else {
             passwordErrorLbl.setVisible(true);
         }*/
-    }
+	}
 }

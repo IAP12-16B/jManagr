@@ -9,11 +9,11 @@ import ch.jmanagr.lib.STATUS_CODE;
 import java.sql.SQLException;
 
 
-public class Resources extends AbstractBL<Resource, ResourcesDAL>
+public class ResourcesBL extends AbstractBL<Resource, ResourcesDAL>
 {
-	private static volatile Resources instance;
+	private static volatile ResourcesBL instance;
 
-	private Resources()
+	private ResourcesBL()
 	{
 		super();
 		try {
@@ -24,12 +24,12 @@ public class Resources extends AbstractBL<Resource, ResourcesDAL>
 	}
 
 
-	public static Resources getInstance()
+	public static ResourcesBL getInstance()
 	{
 		if (instance == null) {
-			synchronized (Resources.class) {
+			synchronized (ResourcesBL.class) {
 				if (instance == null) {
-					instance = new Resources();
+					instance = new ResourcesBL();
 				}
 			}
 		}

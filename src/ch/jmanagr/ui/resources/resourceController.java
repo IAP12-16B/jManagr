@@ -1,6 +1,6 @@
 package ch.jmanagr.ui.resources;
 
-import ch.jmanagr.bl.Resources;
+import ch.jmanagr.bl.ResourcesBL;
 import ch.jmanagr.bo.Resource;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,17 +11,19 @@ import javafx.scene.control.TreeView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class resourceController implements Initializable {
+public class resourceController implements Initializable
+{
 
-    private Resources bl;
-    private ObservableList<Resource> res;
-    private TreeItem<Resource> parentItem;
+	private ResourcesBL bl;
+	private ObservableList<Resource> res;
+	private TreeItem<Resource> parentItem;
 
-    @FXML private TreeView<Resource> treeView;
+	@FXML
+	private TreeView<Resource> treeView;
 
-    public void initialize(URL location, ResourceBundle resources)
-    {
-        //this.res = bl.getAll();
+	public void initialize(URL location, ResourceBundle resources)
+	{
+		//this.res = bl.getAll();
 
         /* for(Resource r : o) {
             TreeItem<Resource> newItem = new TreeItem<>();
@@ -32,5 +34,5 @@ public class resourceController implements Initializable {
             }
            // newItem.getChildren().add(r.getChildren().get(0));
         }*/
-    }
+	}
 }

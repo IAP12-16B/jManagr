@@ -1,6 +1,6 @@
 package ch.jmanagr.ui.tickets;
 
-import ch.jmanagr.bl.Tickets;
+import ch.jmanagr.bl.TicketsBL;
 import ch.jmanagr.bo.Department;
 import ch.jmanagr.bo.Resource;
 import ch.jmanagr.bo.Ticket;
@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 
 public class TicketDetailController implements Initializable
 {
-	private Tickets bl = Tickets.getInstance();
+	private TicketsBL bl = TicketsBL.getInstance();
 
 	public void initialize(URL location, ResourceBundle resources)
 	{
