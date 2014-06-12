@@ -37,6 +37,11 @@ public class SettingsController implements Initializable
 	public void initialize(URL location, ResourceBundle resources)
 	{
 		this.bo = this.bl.retrieve();
+		this.hostFld.setText(bo.getHost());
+		this.dbFld.setText(bo.getDatabase());
+		this.portFld.setText(String.valueOf(bo.getPort()));
+		this.userFld.setText(bo.getUser());
+
 	}
 
 	public void saveSettings()
