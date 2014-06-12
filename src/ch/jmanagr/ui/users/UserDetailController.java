@@ -65,7 +65,7 @@ public class UserDetailController implements Initializable
 		user.setFirstname(firstnameFld.getText());
 		user.setUsername(usernameFld.getText());
 		user.setUnhashedPassword(passwordFld.getText());
-		user.setDepartment(d); //Todo Super High Priority: @kije was für e fehler isch das?
+		user.setDepartment(d); //Todo Super High Priority: @kije was für e fehler isch das? @mnewmedia ????
 		user.setRole(USER_ROLE.USER);
 		bl.save(user);
 
