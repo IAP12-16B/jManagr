@@ -28,6 +28,8 @@ public class UserDetailController implements Initializable
 	@FXML
 	private TextField passwordFld;
 	@FXML
+	private TextField password2Fld;
+	@FXML
 	private ComboBox departementCbox;
 	@FXML
 	private ComboBox roleCbox;
@@ -56,21 +58,27 @@ public class UserDetailController implements Initializable
 
 	public void saveUser()
 	{
-		Department d = (Department) departementCbox.getSelectionModel().getSelectedItem();
-		String roleName = (String) roleCbox.getSelectionModel().getSelectedItem();
-		USER_ROLE r = USER_ROLE.fromString(roleName);
+		if (!this.usernameFld.getText().isEmpty() ||
+		    !(this.passwordFld.getText().equals(this.password2Fld.getText()))) {
+			Department d = (Department) departementCbox.getSelectionModel().getSelectedItem();
+			String roleName = (String) roleCbox.getSelectionModel().getSelectedItem();
+			USER_ROLE r = USER_ROLE.fromString(roleName);
 
-		User user = new User();
-		user.setLastname(lastnameFld.getText());
-		user.setFirstname(firstnameFld.getText());
-		user.setUsername(usernameFld.getText());
-		user.setUnhashedPassword(passwordFld.getText());
-		user.setDepartment(d); //Todo Super High Priority: @kije was für e fehler isch das? @mnewmedia ????
-		user.setRole(USER_ROLE.USER);
-		bl.save(user);
+			User user = new User();
+			user.setLastname(lastnameFld.getText());
+			user.setFirstname(firstnameFld.getText());
+			user.setUsername(usernameFld.getText());
+			user.setUnhashedPassword(passwordFld.getText());
+			user.setDepartment(d); //Todo Super High Priority: @kije was für e fehler isch das? @mnewmedia ????
+			user.setRole(USER_ROLE.USER);
+			bl.save(user);
 
-		Logger.logln("Insertet new User: ");
-		MainController.changeTabContent("users");
+			Logger.logln("Insertet new User: ");
+			MainController.changeTabContent("users");
+		} else {
+			// Todo warn that pws are not equal or username not set
+		}
+
 	}
 
 	public void cancelUser()
