@@ -6,24 +6,28 @@
             prefWidth="769.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ch.jmanagr.ui.users.UserDetailController">
     <children>
+        <TextField fx:id="firstnameFld" layoutX="127.0" layoutY="34.0"/>
+        <TextField fx:id="lastnameFld" layoutX="127.0" layoutY="77.0"/>
+        <TextField fx:id="usernameFld" layoutX="127.0" layoutY="117.0"/>
+        <PasswordField fx:id="passwordFld" layoutX="127.74609375" layoutY="159.0"/>
+        <PasswordField fx:id="password2Fld" layoutX="127.74609375" layoutY="189.0"/>
+        <ComboBox fx:id="roleCbox" layoutX="127.24609375" layoutY="229.0" prefWidth="150.0"/>
+        <ComboBox fx:id="departementCbox" layoutX="127.0" layoutY="262.0" prefWidth="150.0"/>
         <Button fx:id="saveBtn" layoutX="123.0" layoutY="317.0" mnemonicParsing="false" onAction="#saveUser"
                 text="erstellen/speichern"/>
         <Button fx:id="cancelBtn" layoutX="32.0" layoutY="317.0" mnemonicParsing="false" onAction="#cancelUser"
                 text="abbrechen"/>
-        <TextField fx:id="lastnameFld" layoutX="127.0" layoutY="34.0"/>
-        <Label fx:id="lastnameLbl" layoutX="32.0" layoutY="39.0" text="Nachname"/>
-        <Label fx:id="firstnameLbl" layoutX="31.0" layoutY="83.0" text="Vorname"/>
+
+
+        <Label fx:id="firstnameLbl" layoutX="32.0" layoutY="39.0" text="Vorname"/>
+        <Label fx:id="lastnameLbl" layoutX="31.0" layoutY="83.0" text="Nachname"/>
+
         <Label fx:id="departmentLbl" layoutX="32.0048828125" layoutY="265.5" text="Department"/>
-        <ComboBox fx:id="departementCbox" layoutX="127.0" layoutY="262.0" prefWidth="150.0"/>
-        <TextField fx:id="firstnameFld" layoutX="127.0" layoutY="77.0"/>
+
         <Label fx:id="usernameLbl" layoutX="31.0" layoutY="123.0" text="Benutzername"/>
-        <TextField fx:id="usernameFld" layoutX="127.0" layoutY="117.0"/>
         <Label fx:id="passwordLbl" layoutX="31.0" layoutY="163.0" text="Passwort"/>
-        <PasswordField fx:id="passwordFld" layoutX="127.74609375" layoutY="159.0"/>
-        <PasswordField fx:id="password2Fld" layoutX="127.74609375" layoutY="189.0"/>
         <Label fx:id="password2Lbl" layoutX="31.0" layoutY="193.0" text="Wiederholen"/>
         <Label fx:id="roleLbl" layoutX="31.0" layoutY="233.0" text="Rolle"/>
-        <ComboBox fx:id="roleCbox" layoutX="127.24609375" layoutY="229.0" prefWidth="150.0"/>
         <Label fx:id="userDetailErrorLbl" layoutX="255.0" layoutY="321.0" text="Passwort stimmt nicht überein"
                textFill="RED"/>
     </children>
