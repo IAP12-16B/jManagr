@@ -46,8 +46,13 @@ public class LoginController implements Initializable
 	public void login()
 	{
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("../main/main.fxml"));
-			Main.loggedIn(new Scene(root));
+			User usr = this.bl.login(this.userFld.getText(), this.passwordFld.getText());
+			if (usr != null) {
+				Parent root = FXMLLoader.load(getClass().getResource("../main/main.fxml"));
+				Main.loggedIn(new Scene(root));
+			} else {
+				// todo show message that login failed
+			}
 		} catch (IOException e) {
 			Logger.log(LOG_LEVEL.ERROR, e);
 		}
