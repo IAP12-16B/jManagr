@@ -15,6 +15,6 @@
         <Label layoutX="32.0" layoutY="39.0" text="Name"/>
         <Label layoutX="31.0" layoutY="133.0" text="Beschreibung"/>
         <Label layoutX="32.0048828125" layoutY="85.5" text="Department"/>
-        <ComboBox layoutX="127.0" layoutY="82.0" prefWidth="150.0"/>
+        <ComboBox fx:id="departementCbox" layoutX="127.0" layoutY="82.0" prefWidth="150.0"/>
     </children>
 </AnchorPane>

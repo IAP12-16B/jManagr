@@ -1,6 +1,8 @@
 package ch.jmanagr.ui.tickets;
 
+import ch.jmanagr.bl.DepartmentsBL;
 import ch.jmanagr.bl.TicketsBL;
+import ch.jmanagr.bl.UsersBL;
 import ch.jmanagr.bo.Department;
 import ch.jmanagr.bo.Resource;
 import ch.jmanagr.bo.Ticket;
@@ -8,7 +10,9 @@ import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.TICKET_STATE;
 import ch.jmanagr.ui.main.MainController;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 
 import java.net.URL;
 import java.util.Date;
@@ -16,11 +20,16 @@ import java.util.ResourceBundle;
 
 public class TicketDetailController implements Initializable
 {
+	@FXML
+	private ComboBox departementCbox;
 	private TicketsBL bl = TicketsBL.getInstance();
+	private DepartmentsBL depBl = DepartmentsBL.getInstance();
 
 	public void initialize(URL location, ResourceBundle resources)
 	{
-
+		// Fill Departement Combobox
+		departementCbox.setItems(depBl.getAll()); // use ToString in order To Display nice name in ComboBox
+		departementCbox.getSelectionModel().selectFirst();
 	}
 
 	public void saveTicket()
@@ -31,7 +40,7 @@ public class TicketDetailController implements Initializable
 		Date d = new Date();
 		Resource r = new Resource();
 		Department de = new Department();
-		User u = new User(); //Users.getInstance().getCurrentUser();
+		User u = UsersBL.getInstance().getCurrentUser();
 		User agent = new User();
 		Ticket ticket = new Ticket();
 		ticket.setUser(u);
