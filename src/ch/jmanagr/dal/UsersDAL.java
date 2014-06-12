@@ -21,7 +21,7 @@ public class UsersDAL extends AbstractDAL<User>
 			rootUser.setDeleted(true);
 			rootUser.setRole(USER_ROLE.ADMIN);
 			rootUser.setUsername("root");
-			rootUser.setPassword("123"); // fixme hardcoded
+			rootUser.setUnhashedPassword("123"); // fixme hardcoded
 
 			this.save(rootUser);
 		}

@@ -58,13 +58,13 @@ public class UserDetailController implements Initializable
 	{
 		Department d = (Department) departementCbox.getSelectionModel().getSelectedItem();
 		String roleName = (String) roleCbox.getSelectionModel().getSelectedItem();
-		USER_ROLE r = USER_ROLE.valueOf(roleName);
+		USER_ROLE r = USER_ROLE.fromString(roleName);
 
 		User user = new User();
 		user.setLastname(lastnameFld.getText());
 		user.setFirstname(firstnameFld.getText());
 		user.setUsername(usernameFld.getText());
-		user.setPassword(passwordFld.getText());
+		user.setUnhashedPassword(passwordFld.getText());
 		user.setDepartment(d); //Todo Super High Priority: @kije was für e fehler isch das?
 		user.setRole(USER_ROLE.USER);
 		bl.save(user);

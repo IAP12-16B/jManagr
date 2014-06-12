@@ -162,12 +162,12 @@ public class User implements BusinessObject<User>
 	 *
 	 * @param password unhashed password
 	 */
-	public void setPassword(String password)
+	public void setUnhashedPassword(String password)
 	{
 		this.passwordProperty.set(User.hashPassword(password));
 	}
 
-	public void setHashedPassword(String hash)
+	public void setPassword(String hash)
 	{
 		this.passwordProperty.set(hash);
 	}
