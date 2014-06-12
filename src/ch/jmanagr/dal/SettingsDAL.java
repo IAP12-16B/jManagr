@@ -1,5 +1,6 @@
 package ch.jmanagr.dal;
 
+import ch.jmanagr.dal.db.DB;
 import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.STATUS_CODE;
@@ -46,6 +47,9 @@ public class SettingsDAL
 			preferences.put("DB_DATABASE", settings.getDatabase());
 			preferences.sync();
 			preferences.flush();
+
+			DB.getInstance().setSettings(settings);
+
 		} catch (IllegalStateException e) {
 			Logger.log(LOG_LEVEL.ERROR, "Fail on store settings", e);
 			return STATUS_CODE.FAIL;
