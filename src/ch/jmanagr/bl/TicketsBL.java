@@ -46,8 +46,16 @@ public class TicketsBL extends AbstractBL<Ticket, TicketsDAL>
 	@Override
 	public STATUS_CODE validate(Ticket bo)
 	{
-		// Todo: implement
-		return STATUS_CODE.OK;
+
+		try {
+			if (this.dal.exists(bo)) {
+				return STATUS_CODE.OK;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // Todo: log
+		}
+
+		return STATUS_CODE.FAIL;
 	}
 
 	/**

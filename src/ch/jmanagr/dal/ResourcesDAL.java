@@ -4,6 +4,7 @@ package ch.jmanagr.dal;
 import ch.jmanagr.bo.Resource;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class ResourcesDAL extends AbstractDAL<Resource>
 {
@@ -24,5 +25,10 @@ public class ResourcesDAL extends AbstractDAL<Resource>
 			}
 		}
 		return instance;
+	}
+
+	public List<Resource> fetchOnlyRootResources() throws SQLException
+	{
+		return this.fetch("parent", null);
 	}
 }

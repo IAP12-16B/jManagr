@@ -7,6 +7,8 @@ import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.STATUS_CODE;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ResourcesBL extends AbstractBL<Resource, ResourcesDAL>
@@ -50,6 +52,18 @@ public class ResourcesBL extends AbstractBL<Resource, ResourcesDAL>
 			return STATUS_CODE.FAIL;
 		}
 		return STATUS_CODE.ALREADY_EXISTS;
+	}
+
+	public List<Resource> getAllRootResources()
+	{
+		List<Resource> rootResources = new ArrayList<>();
+		try {
+			rootResources = this.dal.fetchOnlyRootResources();
+		} catch (SQLException e) {
+			e.printStackTrace(); // todo log
+		}
+
+		return rootResources;
 	}
 
 

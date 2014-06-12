@@ -25,4 +25,5 @@ public class TicketsDAL extends AbstractDAL<Ticket>
 		}
 		return instance;
 	}
+
 }
