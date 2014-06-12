@@ -50,6 +50,8 @@ public class LoginController implements Initializable
 			if (usr != null) {
 				Parent root = FXMLLoader.load(getClass().getResource("../main/main.fxml"));
 				Main.loggedIn(new Scene(root));
+
+				Main.stage.setTitle(usr.getUsername() + " - jManagr");
 			} else {
 				// todo show message that login failed
 			}
