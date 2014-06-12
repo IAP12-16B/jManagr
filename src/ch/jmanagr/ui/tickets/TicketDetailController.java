@@ -3,12 +3,8 @@ package ch.jmanagr.ui.tickets;
 import ch.jmanagr.bl.DepartmentsBL;
 import ch.jmanagr.bl.TicketsBL;
 import ch.jmanagr.bl.UsersBL;
-import ch.jmanagr.bo.Department;
-import ch.jmanagr.bo.Resource;
-import ch.jmanagr.bo.Ticket;
 import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.Logger;
-import ch.jmanagr.lib.TICKET_STATE;
 import ch.jmanagr.ui.main.MainController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -43,9 +39,9 @@ public class TicketDetailController implements Initializable
 	public void saveTicket()
 	{
 		Date d = new Date();
-		Resource r = new Resource();
-		Department de = new Department();
 		User u = UsersBL.getInstance().getCurrentUser();
+		/*Resource r = new Resource();
+		Department de = new Department();
 		User agent = new User();
 		Ticket ticket = new Ticket();
 		ticket.setUser(u);
@@ -54,7 +50,7 @@ public class TicketDetailController implements Initializable
 		ticket.setResource(r);
 		ticket.setDate(d);
 		ticket.setStatus(TICKET_STATE.OPEN);
-		bl.save(ticket);
+		bl.save(ticket);*/
 		Logger.logln("Insertet new Ticket: ");
 
 		//If it worked, return to list

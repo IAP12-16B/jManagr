@@ -21,10 +21,10 @@ public class User implements BusinessObject<User>
 
 	protected SimpleIntegerProperty idProperty;
 
-	@DatabaseField(defaultValue = "1", useGetSet = true)
+	@DatabaseField(defaultValue = "true", useGetSet = true)
 	protected boolean active;
 
-	@DatabaseField(defaultValue = "0", useGetSet = true)
+	@DatabaseField(defaultValue = "false", useGetSet = true)
 	protected boolean deleted;
 
 	@DatabaseField(version = true, useGetSet = true)
