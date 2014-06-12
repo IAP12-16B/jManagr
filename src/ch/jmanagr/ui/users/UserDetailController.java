@@ -73,7 +73,7 @@ public class UserDetailController implements Initializable
 			user.setRole(USER_ROLE.USER);
 			bl.save(user);
 
-			Logger.logln("Insertet new User: ");
+			Logger.logln("Inserted new User: ");
 			MainController.changeTabContent("users");
 		} else {
 			// Todo warn that pws are not equal or username not set
