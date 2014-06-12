@@ -15,8 +15,8 @@ import java.util.ResourceBundle;
 public class SettingsController implements Initializable
 {
 
-	SettingsBL bl = SettingsBL.getInstance();
-	ch.jmanagr.bo.Settings bo = new ch.jmanagr.bo.Settings();
+	SettingsBL bl;
+	ch.jmanagr.bo.Settings bo;
 
 	@FXML
 	TextField passwordFld;
@@ -33,6 +33,13 @@ public class SettingsController implements Initializable
 	Label connectionErrorLbl;
 	@FXML
 	Button saveBtn;
+
+	public SettingsController()
+	{
+		this.bl = SettingsBL.getInstance();
+		this.bo = new ch.jmanagr.bo.Settings();
+	}
+
 
 	public void initialize(URL location, ResourceBundle resources)
 	{

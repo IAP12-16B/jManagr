@@ -11,7 +11,7 @@ import javafx.scene.control.TreeView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class resourceController implements Initializable
+public class ResourceController implements Initializable
 {
 
 	private ResourcesBL bl;
@@ -20,6 +20,11 @@ public class resourceController implements Initializable
 
 	@FXML
 	private TreeView<Resource> treeView;
+
+	public ResourceController()
+	{
+		this.bl = ResourcesBL.getInstance();
+	}
 
 	public void initialize(URL location, ResourceBundle resources)
 	{

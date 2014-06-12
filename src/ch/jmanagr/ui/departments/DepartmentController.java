@@ -25,7 +25,7 @@ public class DepartmentController implements Initializable
 {
 
 	private ObservableList<Department> depList;
-	private DepartmentsBL bl = DepartmentsBL.getInstance();
+	private DepartmentsBL bl;
 
 	@FXML
 	private TableView<Department> depTable;
@@ -36,6 +36,11 @@ public class DepartmentController implements Initializable
 
 	@FXML
 	private TextField nameField;
+
+	public DepartmentController()
+	{
+		this.bl = DepartmentsBL.getInstance();
+	}
 
 	// Fill Table with Data
 	public void initialize(URL location, ResourceBundle resources)

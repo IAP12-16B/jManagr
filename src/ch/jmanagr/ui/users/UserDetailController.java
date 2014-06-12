@@ -17,8 +17,8 @@ import java.util.ResourceBundle;
 
 public class UserDetailController implements Initializable
 {
-	private UsersBL bl = UsersBL.getInstance();
-	private DepartmentsBL depBl = DepartmentsBL.getInstance();
+	private UsersBL bl;
+	private DepartmentsBL depBl;
 	@FXML
 	private TextField lastnameFld;
 	@FXML
@@ -31,6 +31,14 @@ public class UserDetailController implements Initializable
 	private ComboBox departementCbox;
 	@FXML
 	private ComboBox roleCbox;
+
+	public UserDetailController()
+	{
+		// @mnewmedia Use constructor to set BL instances -> This way, DB connection etc... only gets established when
+		// the controller is instantiated
+		this.bl = UsersBL.getInstance();
+		this.depBl = DepartmentsBL.getInstance();
+	}
 
 	public void initialize(URL location, ResourceBundle resources)
 	{

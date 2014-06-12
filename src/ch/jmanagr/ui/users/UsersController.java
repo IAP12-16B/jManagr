@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 public class UsersController implements Initializable
 {
 	private ObservableList<User> userList;
-	private UsersBL bl = UsersBL.getInstance();
+	private UsersBL bl;
 
 	@FXML
 	private TableView<User> ticketTable;
@@ -41,6 +41,13 @@ public class UsersController implements Initializable
 
 	@FXML
 	private TextField nameField;
+
+	public UsersController()
+	{
+		// @mnewmedia Use constructor to set BL instances -> This way, DB connection etc... only gets established when
+		// the controller is instantiated
+		this.bl = UsersBL.getInstance();
+	}
 
 	// Fill Table with Data
 	public void initialize(URL location, ResourceBundle resources)

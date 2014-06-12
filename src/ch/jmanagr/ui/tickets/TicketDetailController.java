@@ -22,8 +22,16 @@ public class TicketDetailController implements Initializable
 {
 	@FXML
 	private ComboBox departementCbox;
-	private TicketsBL bl = TicketsBL.getInstance();
-	private DepartmentsBL depBl = DepartmentsBL.getInstance();
+	private TicketsBL bl;
+	private DepartmentsBL depBl;
+
+	public TicketDetailController()
+	{
+		// @mnewmedia Use constructor to set BL instances -> This way, DB connection etc... only gets established when
+		// the controller is instantiated
+		bl = TicketsBL.getInstance();
+		depBl = DepartmentsBL.getInstance();
+	}
 
 	public void initialize(URL location, ResourceBundle resources)
 	{
@@ -34,9 +42,6 @@ public class TicketDetailController implements Initializable
 
 	public void saveTicket()
 	{
-		// Todo @kije Errors maybe cause sql2o 1.5?
-		// Todo: @kije simplify this.... It should not be necessary to first create a bunch of dummy objects before
-		// you can save the main object itself
 		Date d = new Date();
 		Resource r = new Resource();
 		Department de = new Department();

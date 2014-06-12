@@ -23,7 +23,7 @@ public class LoginController implements Initializable
 {
 
 	private Stage newStage;
-	private UsersBL bl = UsersBL.getInstance();
+	private UsersBL bl;
 	private User bo;
 
 	@FXML
@@ -32,6 +32,11 @@ public class LoginController implements Initializable
 	private PasswordField passwordFld;
 	@FXML
 	private Label passwordErrorLbl;
+
+	public LoginController()
+	{
+		this.bl = UsersBL.getInstance();
+	}
 
 	public void initialize(URL location, ResourceBundle resources)
 	{
