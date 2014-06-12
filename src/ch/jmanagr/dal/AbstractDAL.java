@@ -22,6 +22,9 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 
 	protected DB db;
 
+	// If this class is instantiated for the first time
+	protected boolean firstUse = false;
+
 	protected AbstractDAL(Class<BusinessObjectType> typeClass) throws SQLException
 	{
 		this.typeClass = typeClass;
@@ -34,6 +37,7 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 
 		if (!this.dao.isTableExists()) {
 			this.createTable();
+			this.firstUse = true;
 		}
 	}
 
