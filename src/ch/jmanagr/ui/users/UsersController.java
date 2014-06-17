@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 
 public class UsersController implements Initializable
 {
-	private ObservableList<User> userList;
+	public static ObservableList<User> userList;
 	private UsersBL bl;
 
 	@FXML
@@ -72,14 +72,13 @@ public class UsersController implements Initializable
 					}
 				}
 		);
-
 		this.refresh();
 	}
 
 	public void refresh()
 	{
-		this.userList = bl.getAll();
-		this.ticketTable.setItems(this.userList);
+		userList = bl.getAll();
+		this.ticketTable.setItems(userList);
 		Logger.logln("Refreshed list!");
 	}
 

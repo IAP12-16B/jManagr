@@ -7,6 +7,7 @@ import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.USER_ROLE;
 import ch.jmanagr.ui.main.MainController;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -36,8 +37,6 @@ public class UserDetailController implements Initializable
 
 	public UserDetailController()
 	{
-		// @mnewmedia Use constructor to set BL instances -> This way, DB connection etc... only gets established when
-		// the controller is instantiated
 		this.bl = UsersBL.getInstance();
 		this.depBl = DepartmentsBL.getInstance();
 	}
@@ -69,9 +68,10 @@ public class UserDetailController implements Initializable
 			user.setFirstname(firstnameFld.getText());
 			user.setUsername(usernameFld.getText());
 			user.setUnhashedPassword(passwordFld.getText());
-			user.setDepartment(d); //Todo Super High Priority: @kije was für e fehler isch das? @mnewmedia ????
-			user.setRole(USER_ROLE.USER);
-			bl.save(user);
+			user.setDepartment(d);
+			user.setRole(r);
+            bl.save(user);
+            UsersController.userList.add(user);
 
 			Logger.logln("Inserted new User: ");
 			MainController.changeTabContent("users");
