@@ -1,9 +1,11 @@
 package ch.jmanagr.ui.departments;
 
 import ch.jmanagr.bl.DepartmentsBL;
+import ch.jmanagr.bl.UsersBL;
 import ch.jmanagr.bo.Department;
 import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.Logger;
+import ch.jmanagr.lib.USER_ROLE;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -26,6 +28,7 @@ public class DepartmentController implements Initializable
 
 	private ObservableList<Department> depList;
 	private DepartmentsBL bl;
+    private UsersBL usersBL = UsersBL.getInstance();
 
 	@FXML
 	private TableView<Department> depTable;
@@ -88,37 +91,30 @@ public class DepartmentController implements Initializable
 
 	public void addDep()
 	{
-		// TODO: @mnewmedia mach do das es funktioniert xD cha susch nid teste xD hahhah..... okee vilivht sette mir
-		// eh mol Unit Tests schribe xP
-		// Change Name to changed of a departement
-		/*Department dep = this.depList.get(2);
-		dep.setName("changed");
-		Department dep2 = this.depList.get(2);
-		Logger.logln(dep2.getName());*/
-
-
 		// Add Deparment
-		Department dep = new Department(); // @mnewmedia ab jetzt immer so neui instanze vo BO's mache.
+		Department dep = new Department();
 		dep.setName(nameField.getText());
 		dep.setAgents(new ArrayList<User>());
 		dep.setActive(true);
 		dep.setDeleted(false);
-		Logger.logln(dep); // logger can log BusinessObjects :D
+		Logger.logln(dep);
 		bl.save(dep);
-		this.refresh();
+        this.depList.add(dep);
 		Logger.logln("Insertet new Department: " + nameField.getText());
-
 	}
 
 	public void deleteDep()
 	{
-		Department dep = this.depTable.getSelectionModel().getSelectedItem();
-		if (dep != null) {
-			Logger.logln("Deleting dep:" + dep.getName() + " " + dep.getId());
-			bl.delete(dep);
-			depList.remove(this.depTable.getSelectionModel().getSelectedIndex());
-		} else {
-			Logger.logln("Nothing selected to delete");
-		}
+        User user = usersBL.getCurrentUser();
+        if((user.getRole() == USER_ROLE.AGENT) || (user.getRole() == USER_ROLE.ADMIN)) {
+            Department dep = this.depTable.getSelectionModel().getSelectedItem();
+            if (dep != null) {
+                Logger.logln("Deleting dep:" + dep.getName() + " " + dep.getId());
+                bl.delete(dep);
+                depList.remove(this.depTable.getSelectionModel().getSelectedIndex());
+            } else {
+                Logger.logln("Nothing selected to delete");
+            }
+        }
 	}
 }
