@@ -247,4 +247,9 @@ public class Resource implements BusinessObject<Resource>
 	{
 		this.deleted = deleted;
 	}
+
+    @Override
+    public String toString() {
+        return this.nameProperty.get();
+    }
 }

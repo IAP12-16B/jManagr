@@ -2,6 +2,7 @@ package ch.jmanagr.ui.resources;
 
 import ch.jmanagr.bl.ResourcesBL;
 import ch.jmanagr.bo.Resource;
+import ch.jmanagr.lib.Logger;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,9 +17,9 @@ public class ResourceController implements Initializable
 
 	private ResourcesBL bl;
 	private ObservableList<Resource> res;
-	private TreeItem<Resource> parentItem;
+    TreeItem<Resource> parentItem = new TreeItem<>();
 
-	@FXML
+    @FXML
 	private TreeView<Resource> treeView;
 
 	public ResourceController()
@@ -28,16 +29,38 @@ public class ResourceController implements Initializable
 
 	public void initialize(URL location, ResourceBundle resources)
 	{
-		//this.res = bl.getAll();
+        // setup
+		this.res = bl.getAll();
+        treeView.setShowRoot(false);
 
-        /* for(Resource r : o) {
+        // set root
+        TreeItem<Resource> rootItem = new TreeItem<>();
+        treeView.setRoot(rootItem);
+
+        // loop
+        for(Resource r : res) {
             TreeItem<Resource> newItem = new TreeItem<>();
             newItem.setValue(r);
 
+            // if is root item add it
             if(r.getParent() == null) {
-                treeView.setRoot(newItem);
+                rootItem.getChildren().add(newItem);
+            } else {
+                // if is not root, find root
+                TreeItem<Resource> parent = this.findParentItem(r);
+                parent.getChildren().add(newItem);
             }
-           // newItem.getChildren().add(r.getChildren().get(0));
-        }*/
+        }
 	}
+
+    public TreeItem<Resource> findParentItem(Resource r) {
+        TreeItem<Resource> rootItem = treeView.getRoot();
+
+        for(TreeItem<Resource> treeItem : rootItem.getChildren()) {
+            if (treeItem.getValue().equals(r.getParent())){
+                parentItem = treeItem;
+            }
+        }
+        return parentItem;
+    }
 }
