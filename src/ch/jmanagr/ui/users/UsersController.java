@@ -10,6 +10,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -38,6 +39,9 @@ public class UsersController implements Initializable
 	private TableColumn<User, String> departmentCol;
 	@FXML
 	private TableColumn<User, String> roleCol;
+
+	@FXML
+	private Button editUsrBtn;
 
 	@FXML
 	private TextField nameField;
@@ -73,6 +77,7 @@ public class UsersController implements Initializable
 				}
 		);
 
+
 		this.refresh();
 	}
 
@@ -98,5 +103,10 @@ public class UsersController implements Initializable
         } else {
             Logger.log("Nothing selected to delete");
         }*/
+	}
+
+	public void editUser()
+	{
+
 	}
 }

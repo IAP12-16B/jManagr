@@ -19,5 +19,7 @@
         </TableView>
         <Button fx:id="newUserBtn" layoutX="14.1875" layoutY="223.5" mnemonicParsing="false" onAction="#newUser"
                 text="Neuer Benutzer"/>
+        <Button fx:id="editUsrBtn" layoutX="80.1875" layoutY="223.5" mnemonicParsing="false" onAction="#editUser"
+                text="Benutzer Editieren"/>
     </children>
 </AnchorPane>

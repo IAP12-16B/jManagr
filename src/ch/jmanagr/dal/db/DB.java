@@ -63,6 +63,7 @@ public class DB
 							this.settings.getPassword()
 					);
 
+
 			// setup connectionsource
 			connectionSource.setMaxConnectionAgeMillis(4 * 60 * 1000);
 			connectionSource.setCheckConnectionsEveryMillis(60 * 1000);
@@ -77,7 +78,7 @@ public class DB
 		try {
 			connectionSource.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			e.printStackTrace(); // todo log
 		}
 	}
 
@@ -96,7 +97,7 @@ public class DB
 		return TableUtils.createTable(this.connectionSource, cls);
 	}
 
-	public int createTableIfNotExists(Class<? extends BusinessObject> cls) throws SQLException
+	public int createTableIfNotExists(Class cls) throws SQLException
 	{
 		return TableUtils.createTableIfNotExists(this.connectionSource, cls);
 	}
