@@ -130,7 +130,7 @@ public class Department implements BusinessObject<Department>
 
 	public String toString()
 	{
-		return this.nameProperty.getValue();
+		return this.nameProperty.get();
 	}
 
 	public Integer getVersion()

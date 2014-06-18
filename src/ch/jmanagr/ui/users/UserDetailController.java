@@ -71,7 +71,8 @@ public class UserDetailController implements Initializable
 			user.setUnhashedPassword(passwordFld.getText());
 			user.setDepartment(d);
 			user.setRole(r);
-			bl.save(user);
+            bl.save(user);
+            UsersController.userList.add(user);
 
 			Logger.logln("Inserted new User: ");
 			MainController.changeTabContent("users");

@@ -22,9 +22,7 @@ import java.util.ResourceBundle;
 public class LoginController implements Initializable
 {
 
-	private Stage newStage;
 	private UsersBL bl;
-	private User bo;
 
 	@FXML
 	private TextField userFld;
@@ -50,23 +48,12 @@ public class LoginController implements Initializable
 			if (usr != null) {
 				Parent root = FXMLLoader.load(getClass().getResource("../main/main.fxml"));
 				Main.loggedIn(new Scene(root));
-
 				Main.stage.setTitle(usr.getUsername() + " - jManagr");
 			} else {
-				// todo show message that login failed
-			}
+                passwordErrorLbl.setVisible(true);
+            }
 		} catch (IOException e) {
 			Logger.log(LOG_LEVEL.ERROR, e);
 		}
-	    /*bo = bl.login(userFld.getText(),passwordFld.getText());
-        if(bo != null) {
-            try {
-                this.changeStage();
-            } catch (Exception e) {
-                System.out.print(e);
-            }
-        } else {
-            passwordErrorLbl.setVisible(true);
-        }*/
 	}
 }

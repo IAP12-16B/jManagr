@@ -10,7 +10,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -22,7 +21,7 @@ import java.util.ResourceBundle;
 
 public class UsersController implements Initializable
 {
-	private ObservableList<User> userList;
+	public static ObservableList<User> userList;
 	private UsersBL bl;
 
 	@FXML
@@ -76,15 +75,13 @@ public class UsersController implements Initializable
 					}
 				}
 		);
-
-
 		this.refresh();
 	}
 
 	public void refresh()
 	{
-		this.userList = bl.getAll();
-		this.ticketTable.setItems(this.userList);
+		userList = bl.getAll();
+		this.ticketTable.setItems(userList);
 		Logger.logln("Refreshed list!");
 	}
 
