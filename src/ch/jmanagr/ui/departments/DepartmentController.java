@@ -28,7 +28,7 @@ public class DepartmentController implements Initializable
 
 	private ObservableList<Department> depList;
 	private DepartmentsBL bl;
-    private UsersBL usersBL = UsersBL.getInstance();
+	private UsersBL usersBL = UsersBL.getInstance();
 
 	@FXML
 	private TableView<Department> depTable;
@@ -99,8 +99,9 @@ public class DepartmentController implements Initializable
 		dep.setDeleted(false);
 		Logger.logln(dep);
 		bl.save(dep);
-        this.depList.add(dep);
+		this.depList.add(dep);
 		Logger.logln("Insertet new Department: " + nameField.getText());
+
 	}
 
 	public void deleteDep()

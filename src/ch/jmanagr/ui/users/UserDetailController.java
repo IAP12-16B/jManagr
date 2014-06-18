@@ -36,8 +36,6 @@ public class UserDetailController implements Initializable
 
 	public UserDetailController()
 	{
-		// @mnewmedia Use constructor to set BL instances -> This way, DB connection etc... only gets established when
-		// the controller is instantiated
 		this.bl = UsersBL.getInstance();
 		this.depBl = DepartmentsBL.getInstance();
 	}
@@ -71,8 +69,8 @@ public class UserDetailController implements Initializable
 			user.setUnhashedPassword(passwordFld.getText());
 			user.setDepartment(d);
 			user.setRole(r);
-            bl.save(user);
-            UsersController.userList.add(user);
+			bl.save(user);
+			UsersController.userList.add(user);
 
 			Logger.logln("Inserted new User: ");
 			MainController.changeTabContent("users");
