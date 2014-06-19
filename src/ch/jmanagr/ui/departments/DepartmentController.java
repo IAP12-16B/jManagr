@@ -106,16 +106,13 @@ public class DepartmentController implements Initializable
 
 	public void deleteDep()
 	{
-        User user = usersBL.getCurrentUser();
-        if((user.getRole() == USER_ROLE.AGENT) || (user.getRole() == USER_ROLE.ADMIN)) {
-            Department dep = this.depTable.getSelectionModel().getSelectedItem();
-            if (dep != null) {
-                Logger.logln("Deleting dep:" + dep.getName() + " " + dep.getId());
-                bl.delete(dep);
-                depList.remove(this.depTable.getSelectionModel().getSelectedIndex());
-            } else {
-                Logger.logln("Nothing selected to delete");
-            }
+        Department dep = this.depTable.getSelectionModel().getSelectedItem();
+        if (dep != null) {
+            Logger.logln("Deleting dep:" + dep.getName() + " " + dep.getId());
+            bl.delete(dep);
+            depList.remove(this.depTable.getSelectionModel().getSelectedIndex());
+        } else {
+            Logger.logln("Nothing selected to delete");
         }
 	}
 }

@@ -28,6 +28,8 @@ public class MainController implements Initializable
 	private static Tab tabTickets;
 	@FXML
 	private static Tab tabUser;
+    @FXML
+    private static Tab tabDepartment;
 	@FXML
 	private static TabPane tabPane;
 
@@ -42,6 +44,7 @@ public class MainController implements Initializable
         User user =  UsersBL.getInstance().getCurrentUser();
         if(user.getRole() == USER_ROLE.USER) {
             tabPane.getTabs().remove(tabUser);
+            tabPane.getTabs().remove(tabDepartment);
         }
 	}
 
