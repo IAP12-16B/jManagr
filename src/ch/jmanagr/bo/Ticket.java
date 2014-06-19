@@ -274,10 +274,6 @@ public class Ticket implements BusinessObject<Ticket>
 		result = 31 * result + (descriptionProperty != null ? descriptionProperty.hashCode() : 0);
 		result = 31 * result + (status != null ? status.hashCode() : 0);
 		result = 31 * result + (date != null ? date.hashCode() : 0);
-		result = 31 * result + (resource != null ? resource.hashCode() : 0);
-		result = 31 * result + (agent != null ? agent.hashCode() : 0);
-		result = 31 * result + (department != null ? department.hashCode() : 0);
-		result = 31 * result + (user != null ? user.hashCode() : 0);
 		return result;
 	}
 
