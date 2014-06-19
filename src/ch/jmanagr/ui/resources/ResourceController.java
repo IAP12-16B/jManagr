@@ -44,14 +44,31 @@ public class ResourceController implements Initializable
             if(r.getParent() == null) {
                 rootItem.getChildren().add(newItem);
             } else {
-                // if is not root, find root
-                TreeItem<Resource> parent = this.findParentItem(r);
-                parent.getChildren().add(newItem);
+	            TreeItem<Resource> parent = this.findParentItem(r);
+	            if (parent != null) {
+		            parent.getChildren().add(newItem);
+	            } else {
+		            // todo what if its parent is not in list? here we need recursion again,
+		            // I would suppose to add the items per level (e.g. first step add all root resources,
+		            // second step add all children of that resource, etc...
+	            }
+
             }
         }
 	}
 
-    public TreeItem<Resource> findParentItem(Resource r) {
+	public TreeItem<Resource> findNearestExistingParentItem(Resource r)
+	{
+		// if is not root, find root
+		TreeItem<Resource> parent = this.findParentItem(r);
+		if (parent != null) {
+			return parent;
+		}
+
+		return this.findNearestExistingParentItem(r.getParent());
+	}
+
+	public TreeItem<Resource> findParentItem(Resource r) {
         TreeItem<Resource> rootItem = treeView.getRoot();
 
 	    return this.findParentItem(r, rootItem);
@@ -60,10 +77,10 @@ public class ResourceController implements Initializable
 	public TreeItem<Resource> findParentItem(Resource r, TreeItem<Resource> rootItem)
 	{
 
-		// split this into 2 loops -> better performance
+		// split this into 2 loops -> hopefully better performance
 		for (TreeItem<Resource> treeItem : rootItem.getChildren()) {
 			if (treeItem.getValue().equals(r.getParent())) {
-				return treeItem;
+				return treeItem; // return it, as soon as we have found it, so the loop gets not further executed
 			}
 		}
 
