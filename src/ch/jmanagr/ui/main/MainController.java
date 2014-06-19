@@ -1,5 +1,8 @@
 package ch.jmanagr.ui.main;
 
+import ch.jmanagr.bl.UsersBL;
+import ch.jmanagr.bo.User;
+import ch.jmanagr.lib.USER_ROLE;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
@@ -12,6 +15,7 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable
 {
+    private static UsersBL usersBL;
 	@FXML
 	private static AnchorPane ticketView;
 	@FXML
@@ -24,19 +28,24 @@ public class MainController implements Initializable
 	private static Tab tabTickets;
 	@FXML
 	private static Tab tabUser;
+    @FXML
+    private static Tab tabDepartment;
 	@FXML
 	private static TabPane tabPane;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle)
 	{
-		// can't make new instance because then the fxml property wouldnt be loaded
-		// also cant make it singleton cause the constructor has to be public
+        removeTabsByUserRole();
 	}
 
 	public static void removeTabsByUserRole()
 	{
-		//tabPane.getTabs().remove(tabTickets);
+        User user =  UsersBL.getInstance().getCurrentUser();
+        if(user.getRole() == USER_ROLE.USER) {
+            tabPane.getTabs().remove(tabUser);
+            tabPane.getTabs().remove(tabDepartment);
+        }
 	}
 
 	public static <T> void changeTabContent(String view, T data)
