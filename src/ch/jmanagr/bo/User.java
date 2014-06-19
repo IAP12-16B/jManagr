@@ -21,15 +21,6 @@ public class User implements BusinessObject<User>
 
 	protected SimpleIntegerProperty idProperty;
 
-	@DatabaseField(defaultValue = "true", useGetSet = true)
-	protected boolean active;
-
-	@DatabaseField(defaultValue = "false", useGetSet = true)
-	protected boolean deleted;
-
-	@DatabaseField(version = true, useGetSet = true)
-	protected Integer version;
-
 
 	@DatabaseField(useGetSet = true, canBeNull = true)
 	protected String firstname;
@@ -60,6 +51,16 @@ public class User implements BusinessObject<User>
 	               foreignAutoCreate = true,
 	               foreignAutoRefresh = true)
 	protected Department department;
+
+
+	@DatabaseField(defaultValue = "true", useGetSet = true)
+	protected boolean active;
+
+	@DatabaseField(defaultValue = "false", useGetSet = true)
+	protected boolean deleted;
+
+	@DatabaseField(version = true, useGetSet = true)
+	protected Integer version;
 
 
 	public User()

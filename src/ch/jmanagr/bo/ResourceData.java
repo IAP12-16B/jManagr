@@ -91,7 +91,7 @@ public class ResourceData
 	@Override
 	public int hashCode()
 	{
-		int result = resource != null ? resource.hashCode() : 0;
+		int result = resource != null ? 1 : 0;
 		result = 31 * result + (key != null ? key.hashCode() : 0);
 		result = 31 * result + (value != null ? value.hashCode() : 0);
 		return result;

@@ -18,15 +18,6 @@ public class Department implements BusinessObject<Department>
 
 	protected SimpleIntegerProperty idProperty;
 
-	@DatabaseField(defaultValue = "1", useGetSet = true)
-	protected boolean active;
-
-	@DatabaseField(defaultValue = "0", useGetSet = true)
-	protected boolean deleted;
-
-	@DatabaseField(version = true, useGetSet = true)
-	protected Integer version;
-
 
 	@DatabaseField(useGetSet = true, canBeNull = true, dataType = DataType.STRING)
 	private String name; // dummy
@@ -35,6 +26,16 @@ public class Department implements BusinessObject<Department>
 
 	@ForeignCollectionField(eager = true, foreignFieldName = "department")
 	private Collection<User> agents;
+
+
+	@DatabaseField(defaultValue = "1", useGetSet = true)
+	protected boolean active;
+
+	@DatabaseField(defaultValue = "0", useGetSet = true)
+	protected boolean deleted;
+
+	@DatabaseField(version = true, useGetSet = true)
+	protected Integer version;
 
 
 	public Department()

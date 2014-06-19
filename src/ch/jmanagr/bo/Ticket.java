@@ -17,15 +17,6 @@ public class Ticket implements BusinessObject<Ticket>
 
 	protected SimpleIntegerProperty idProperty;
 
-	@DatabaseField(defaultValue = "1", useGetSet = true)
-	protected boolean active;
-
-	@DatabaseField(defaultValue = "0", useGetSet = true)
-	protected boolean deleted;
-
-	@DatabaseField(version = true, useGetSet = true)
-	protected Integer version;
-
 
 	@DatabaseField(useGetSet = true, canBeNull = true, dataType = DataType.STRING)
 	private String name;
@@ -73,6 +64,16 @@ public class Ticket implements BusinessObject<Ticket>
 	               foreignAutoCreate = true,
 	               foreignAutoRefresh = true)
 	private User user;
+
+
+	@DatabaseField(defaultValue = "1", useGetSet = true)
+	protected boolean active;
+
+	@DatabaseField(defaultValue = "0", useGetSet = true)
+	protected boolean deleted;
+
+	@DatabaseField(version = true, useGetSet = true)
+	protected Integer version;
 
 
 	public Ticket()

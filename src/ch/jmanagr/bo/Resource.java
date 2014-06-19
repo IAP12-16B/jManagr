@@ -15,39 +15,29 @@ public class Resource implements BusinessObject<Resource>
 {
 	@DatabaseField(useGetSet = true, generatedId = true, allowGeneratedIdInsert = true)
 	private Integer id;
-
 	protected SimpleIntegerProperty idProperty;
-
-	@DatabaseField(defaultValue = "1", useGetSet = true)
-	protected boolean active;
-
-	@DatabaseField(defaultValue = "0", useGetSet = true)
-	protected boolean deleted;
-
-	@DatabaseField(version = true, useGetSet = true)
-	protected Integer version;
-
-
 	@DatabaseField(useGetSet = true, canBeNull = false, dataType = DataType.STRING)
 	private String name;
-
 	private SimpleStringProperty nameProperty;
-
 	@ForeignCollectionField(eager = true, foreignFieldName = "resource")
 	private Collection<ResourceData> data;
-
 	@ForeignCollectionField(eager = true, foreignFieldName = "resource")
 	private Collection<Ticket> tickets;
-
 	@DatabaseField(useGetSet = true,
 	               canBeNull = true,
 	               foreign = true,
 	               foreignAutoRefresh = true,
 	               foreignAutoCreate = true)
 	private Resource parent;
-
 	@ForeignCollectionField(eager = true, foreignFieldName = "parent", maxEagerLevel = 5)
 	private Collection<Resource> children;
+	@DatabaseField(defaultValue = "1", useGetSet = true)
+	protected boolean active;
+	@DatabaseField(defaultValue = "0", useGetSet = true)
+	protected boolean deleted;
+	@DatabaseField(version = true, useGetSet = true)
+	protected Integer version;
+
 
 	public Resource()
 	{
@@ -245,8 +235,9 @@ public class Resource implements BusinessObject<Resource>
 		this.deleted = deleted;
 	}
 
-    @Override
-    public String toString() {
-        return this.nameProperty.get();
-    }
+	@Override
+	public String toString()
+	{
+		return this.nameProperty.get();
+	}
 }
