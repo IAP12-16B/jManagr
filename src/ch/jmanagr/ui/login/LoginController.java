@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -48,7 +47,7 @@ public class LoginController implements Initializable
 			if (usr != null) {
 				Parent root = FXMLLoader.load(getClass().getResource("../main/main.fxml"));
 				Main.loggedIn(new Scene(root));
-				Main.stage.setTitle(usr.getUsername() + " - jManagr");
+				Main.stage.setTitle(usr.getRole() + " - jManagr");
 			} else {
                 passwordErrorLbl.setVisible(true);
             }
