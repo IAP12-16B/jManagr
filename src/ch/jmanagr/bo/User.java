@@ -32,7 +32,7 @@ public class User implements BusinessObject<User>
 
 	protected SimpleStringProperty lastnameProperty;
 
-	@DatabaseField(useGetSet = true, canBeNull = false)
+	@DatabaseField(useGetSet = true, canBeNull = false, unique = true)
 	private String username;
 
 	protected SimpleStringProperty usernameProperty;
