@@ -66,11 +66,11 @@ public class Ticket implements BusinessObject<Ticket>
 	private User user;
 
 
-	@DatabaseField(defaultValue = "1", useGetSet = true)
-	protected boolean active;
+	@DatabaseField(useGetSet = true)
+	protected boolean active = true;
 
-	@DatabaseField(defaultValue = "0", useGetSet = true)
-	protected boolean deleted;
+	@DatabaseField(useGetSet = true)
+	protected boolean deleted = false;
 
 	@DatabaseField(version = true, useGetSet = true)
 	protected Integer version;

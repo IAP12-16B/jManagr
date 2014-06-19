@@ -53,11 +53,11 @@ public class User implements BusinessObject<User>
 	protected Department department;
 
 
-	@DatabaseField(defaultValue = "true", useGetSet = true)
-	protected boolean active;
+	@DatabaseField(useGetSet = true)
+	protected boolean active = true;
 
-	@DatabaseField(defaultValue = "false", useGetSet = true)
-	protected boolean deleted;
+	@DatabaseField(useGetSet = true)
+	protected boolean deleted = false;
 
 	@DatabaseField(version = true, useGetSet = true)
 	protected Integer version;

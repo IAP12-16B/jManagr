@@ -28,11 +28,11 @@ public class Department implements BusinessObject<Department>
 	private Collection<User> agents;
 
 
-	@DatabaseField(defaultValue = "1", useGetSet = true)
-	protected boolean active;
+	@DatabaseField(useGetSet = true)
+	protected boolean active = true;
 
-	@DatabaseField(defaultValue = "0", useGetSet = true)
-	protected boolean deleted;
+	@DatabaseField(useGetSet = true)
+	protected boolean deleted = false;
 
 	@DatabaseField(version = true, useGetSet = true)
 	protected Integer version;

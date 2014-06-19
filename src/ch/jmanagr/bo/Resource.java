@@ -31,10 +31,11 @@ public class Resource implements BusinessObject<Resource>
 	private Resource parent;
 	@ForeignCollectionField(eager = true, foreignFieldName = "parent", maxEagerLevel = 5)
 	private Collection<Resource> children;
-	@DatabaseField(defaultValue = "1", useGetSet = true)
-	protected boolean active;
-	@DatabaseField(defaultValue = "0", useGetSet = true)
-	protected boolean deleted;
+	@DatabaseField(useGetSet = true)
+	protected boolean active = true;
+
+	@DatabaseField(useGetSet = true)
+	protected boolean deleted = false;
 	@DatabaseField(version = true, useGetSet = true)
 	protected Integer version;
 
