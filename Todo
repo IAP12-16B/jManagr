@@ -4,3 +4,18 @@ TODO: @kije             Check SQLException for what went wrong and return approp
 TODO: @kije @mnewmedia  finish UML diagram
 TODO: @kije @mnewmedia  Find a solution for the JAVA FX Data type problem (we need for Java FX to work other data types than we would normally use -> e.g. SimpleStringProperty instead of String)
 TODO: @kije             Implements unit tests
+
+
+---- Pflichtenheft
+        Wer                     Priorität           Beschreibung
+TODO:   @mnewmedia              low                 Ticket-Filterung -> nach status
+TODO:   @mnewmedia              medium              Agenten sehen zusätzlich noch die ihnen zugewiesenen Tickets / Benutzer jene, welche sie erstellt haben.
+TODO:   @mnewmedia @kije        high                Bearbeiten-Funktionalität..... Haben wir mehrmals im Pflichtenheft deklariert
+TODO:   @mnewmedia              medium              Resourcen
+TODO:   @mnewmedia @kije        medium              Funktionalitäten nach User-Rolle aktivieren/deaktivieren
+TODO:   @kije                   medium              On change admin: check how many admins are still there?
+TODO:   @kije                   low                 Offene tickets können nicht gelöscht werden
+TODO:   @mnewmedia @kije        low/medium          Fehlermeldungen (Datenbank kann nicht erreicht werden, etc...)
+TODO:   @kije                   very low            CSS/Layout/Styling
+TODO:   @kije                   medium              Daten beim löschen aufräumen
+TODO:   @kije                   high                Datenbankscrip erstellen/DB automatisch generieren
