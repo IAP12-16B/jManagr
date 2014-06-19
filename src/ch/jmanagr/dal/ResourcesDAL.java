@@ -30,7 +30,7 @@ public class ResourcesDAL extends AbstractDAL<Resource>
 
 	public List<Resource> fetchOnlyRootResources() throws SQLException
 	{
-		return this.fetch("parent", null);
+		return this.fetch("parent_id", null);
 	}
 
 	@Override

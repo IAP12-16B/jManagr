@@ -80,6 +80,10 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 	@Override
 	public List<BusinessObjectType> fetch(String fieldName, Object value) throws SQLException
 	{
+		if (value == null) {
+			return dao.query(dao.queryBuilder().where().isNull(fieldName).prepare());
+		}
+
 		return dao.queryForEq(fieldName, value);
 	}
 

@@ -46,7 +46,7 @@ public class Resource implements BusinessObject<Resource>
 	               foreignAutoCreate = true)
 	private Resource parent;
 
-	@ForeignCollectionField(eager = true, foreignFieldName = "parent")
+	@ForeignCollectionField(eager = true, foreignFieldName = "parent", maxEagerLevel = 5)
 	private Collection<Resource> children;
 
 	public Resource()
@@ -172,13 +172,10 @@ public class Resource implements BusinessObject<Resource>
 	public int hashCode()
 	{
 		int result = idProperty != null ? idProperty.hashCode() : 0;
-		result = 31 * result + (active ? 1 : 0);
-		result = 31 * result + (deleted ? 1 : 0);
 		result = 31 * result + (nameProperty != null ? nameProperty.hashCode() : 0);
 		result = 31 * result + (data != null ? data.hashCode() : 0);
 		result = 31 * result + (tickets != null ? tickets.hashCode() : 0);
 		result = 31 * result + (parent != null ? parent.hashCode() : 0);
-		result = 31 * result + (children != null ? children.hashCode() : 0);
 		return result;
 	}
 
