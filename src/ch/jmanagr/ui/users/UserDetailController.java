@@ -7,6 +7,7 @@ import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.USER_ROLE;
 import ch.jmanagr.ui.main.MainController;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -53,7 +54,9 @@ public class UserDetailController implements Initializable
 		roleCbox.getSelectionModel().selectFirst();
 
 		// Fill Departement Combobox
-		departementCbox.setItems(depBl.getAll()); // use ToString in order To Display nice name in ComboBox
+		departementCbox.setItems(
+				FXCollections.observableArrayList(depBl.getAll())
+		); // use ToString in order To Display nice name in ComboBox
 		departementCbox.getSelectionModel().selectFirst();
 
 		this.setData();

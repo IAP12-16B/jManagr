@@ -4,6 +4,7 @@ import ch.jmanagr.bl.TicketsBL;
 import ch.jmanagr.bo.Ticket;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.ui.main.MainController;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -71,7 +72,7 @@ public class TicketController implements Initializable
 
 	public void refresh()
 	{
-		this.ticketList = bl.getAll();
+		this.ticketList = FXCollections.observableArrayList(bl.getAll());
 		this.ticketTable.setItems(this.ticketList);
 		Logger.logln("Refreshed list!");
 	}

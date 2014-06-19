@@ -7,6 +7,7 @@ import ch.jmanagr.lib.USER_ROLE;
 import ch.jmanagr.ui.main.MainController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -83,7 +84,7 @@ public class UsersController implements Initializable
 
 	public void refresh()
 	{
-		userList = bl.getAll();
+		userList = FXCollections.observableArrayList(bl.getAll());
 		this.ticketTable.setItems(userList);
 		Logger.logln("Refreshed list!");
 	}

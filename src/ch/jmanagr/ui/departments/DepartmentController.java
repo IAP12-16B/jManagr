@@ -5,7 +5,7 @@ import ch.jmanagr.bl.UsersBL;
 import ch.jmanagr.bo.Department;
 import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.Logger;
-import ch.jmanagr.lib.USER_ROLE;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -84,7 +84,7 @@ public class DepartmentController implements Initializable
 
 	public void refresh()
 	{
-		this.depList = bl.getAll();
+		this.depList = FXCollections.observableArrayList(bl.getAll());
 		this.depTable.setItems(this.depList);
 		Logger.logln("Refreshed list!");
 	}

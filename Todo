@@ -10,10 +10,8 @@ TODO:   @kije                   low                 Offene tickets können nicht
 TODO:   @mnewmedia  @kije       low/medium          Fehlermeldungen (Datenbank kann nicht erreicht werden, etc...)
 TODO:   @kije                   very low            CSS/Layout/Styling
 TODO:   @kije                   medium              Daten beim löschen aufräumen
-TODO:   @kije                   high                Datenbankscrip erstellen/DB automatisch generieren
 
 TODO:   @mnewmedia  @kije       low                 Code dokumentieren (kommentare, etc...)
 TODO:   @kije                   low                 SQLException: wenn diese exception geworfen wird, grund ermitteln und als STATUS_CODE zurück geben
 TODO:   @kije                   high                Diagramme anpassen/erstellen
-TODO:   @mnewmedia  @kije       medium              FX-Datentypen in GUI machen -> besser und flexibler, vorallem aber sicherer
 TODO:   @kije                   medium              Testklassen schreiben

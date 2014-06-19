@@ -3,8 +3,6 @@ package ch.jmanagr.bl;
 import ch.jmanagr.bo.BusinessObject;
 import ch.jmanagr.dal.AbstractDAL;
 import ch.jmanagr.lib.STATUS_CODE;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,7 +25,7 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject<Busin
 
 
 	@Override
-	public ObservableList<BusinessObjectType> getAll()
+	public List<BusinessObjectType> getAll()
 	{
 		List<BusinessObjectType> depList = new ArrayList<>();
 		try {
@@ -35,7 +33,7 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject<Busin
 		} catch (SQLException e) {
 			e.printStackTrace(); // todo log
 		}
-		return FXCollections.observableArrayList(depList); // Todo return observable list
+		return depList;
 	}
 
 	public BusinessObjectType getById(int id)
