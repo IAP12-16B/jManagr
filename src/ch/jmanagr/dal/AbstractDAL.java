@@ -30,7 +30,6 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 		this.typeClass = typeClass;
 		this.db = DB.getInstance();
 
-
 		this.dao = DaoManager.createDao(this.db.getConnectionSource(), this.typeClass);
 
 		this.dao.setObjectCache(true); // enable object cache
@@ -126,18 +125,39 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 	public STATUS_CODE delete(final Collection<BusinessObjectType> bos) throws SQLException
 	{
 		return TransactionManager.callInTransaction(
-				this.db.getConnectionSource(), new Callable<STATUS_CODE>()
-		{
-			@Override
-			public STATUS_CODE call() throws SQLException
-			{
-				if (dao.delete(bos) == bos.size()) {
-					return STATUS_CODE.OK;
-				}
+				this.db.getConnectionSource(),
+				new Callable<STATUS_CODE>()
+				{
+					@Override
+					public STATUS_CODE call() throws SQLException
+					{
+						if (dao.delete(bos) == bos.size()) {
+							return STATUS_CODE.OK;
+						}
 
-				return STATUS_CODE.FAIL;
-			}
-		}
+						return STATUS_CODE.FAIL;
+					}
+				}
+		);
+	}
+
+	public STATUS_CODE softDelete(final BusinessObjectType bo) throws SQLException
+	{
+		return TransactionManager.callInTransaction(
+				this.db.getConnectionSource(),
+				new Callable<STATUS_CODE>()
+				{
+					@Override
+					public STATUS_CODE call() throws SQLException
+					{
+						bo.setDeleted(true);
+						if (dao.update(bo) == 1) {
+							return STATUS_CODE.OK;
+						}
+
+						return STATUS_CODE.FAIL;
+					}
+				}
 		);
 	}
 

@@ -54,9 +54,7 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject<Busin
 	public STATUS_CODE delete(BusinessObjectType bo)
 	{
 		try {
-			bo.setDeleted(true);
-
-			return this.dal.save(bo);
+			return this.dal.softDelete(bo);
 			//return this.dal.delete(bo);
 		} catch (SQLException e) {
 			e.printStackTrace(); // todo log
