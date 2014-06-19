@@ -39,17 +39,26 @@ public class MainController implements Initializable
 		//tabPane.getTabs().remove(tabTickets);
 	}
 
-	public static void changeTabContent(String view)
+	public static <T> void changeTabContent(String view, T data)
 	{
 		if (view.equals("ticketDetail")) {
 			tabTickets.setContent(ticketDetailView);
+			ticketDetailView.setUserData(data);
 		} else if (view.equals("tickets")) {
 			tabTickets.setContent(ticketView);
+			ticketView.setUserData(data);
 		} else if (view.equals("users")) {
 			tabUser.setContent(userView);
+			userView.setUserData(data);
 		} else if (view.equals("userDetail")) {
 			tabUser.setContent(userDetailView);
+			userDetailView.setUserData(data);
 		}
+	}
+
+	public static void changeTabContent(String view)
+	{
+		changeTabContent(view, null);
 	}
 
 }

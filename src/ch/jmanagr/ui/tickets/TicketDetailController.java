@@ -75,5 +75,4 @@ public class TicketDetailController implements Initializable
 	{
 		MainController.changeTabContent("tickets");
 	}
-
 }

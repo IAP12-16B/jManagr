@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,9 +31,12 @@ public class UserDetailController implements Initializable
 	@FXML
 	private TextField password2Fld;
 	@FXML
-	private ComboBox departementCbox;
+	private ComboBox<Department> departementCbox;
 	@FXML
-	private ComboBox roleCbox;
+	private ComboBox<USER_ROLE> roleCbox;
+
+	@FXML
+	private AnchorPane userDetailView;
 
 	public UserDetailController()
 	{
@@ -42,25 +46,45 @@ public class UserDetailController implements Initializable
 
 	public void initialize(URL location, ResourceBundle resources)
 	{
-
 		// Fill UserRoles Combobox
 		for (USER_ROLE r : USER_ROLE.values()) {
-			roleCbox.getItems().add(r.getName());
+			roleCbox.getItems().add(r);
 		}
 		roleCbox.getSelectionModel().selectFirst();
 
 		// Fill Departement Combobox
 		departementCbox.setItems(depBl.getAll()); // use ToString in order To Display nice name in ComboBox
 		departementCbox.getSelectionModel().selectFirst();
+
+		this.setData();
+
+	}
+
+	protected void setData()
+	{
+		User data = (User) userDetailView.getUserData();
+		if (data != null) {
+			firstnameFld.setText(data.getFirstname());
+			lastnameFld.setText(data.getLastname());
+			usernameFld.setText(data.getUsername());
+			departementCbox.setValue(data.getDepartment());
+			roleCbox.setValue(data.getRole());
+		} else {
+			firstnameFld.setText(null);
+			lastnameFld.setText(null);
+			usernameFld.setText(null);
+			departementCbox.setValue(null);
+			roleCbox.setValue(null);
+		}
 	}
 
 	public void saveUser()
 	{
+		// todo save user when edit user
 		if (!this.usernameFld.getText().isEmpty() ||
 		    !(this.passwordFld.getText().equals(this.password2Fld.getText()))) {
-			Department d = (Department) departementCbox.getSelectionModel().getSelectedItem();
-			String roleName = (String) roleCbox.getSelectionModel().getSelectedItem();
-			USER_ROLE r = USER_ROLE.fromString(roleName);
+			Department d = departementCbox.getSelectionModel().getSelectedItem();
+			USER_ROLE r = roleCbox.getSelectionModel().getSelectedItem();
 
 			User user = new User();
 			user.setLastname(lastnameFld.getText());
@@ -84,5 +108,6 @@ public class UserDetailController implements Initializable
 	{
 		MainController.changeTabContent("users");
 	}
+
 
 }

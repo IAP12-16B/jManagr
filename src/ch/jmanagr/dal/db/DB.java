@@ -140,7 +140,7 @@ public class DB
 	 * This is [obviously] very destructive and is unrecoverable. </p>
 	 *
 	 * @param tableConfig  Hand or spring wired table configuration. If null then the class must have {@link
-	 *                     DatabaseField} annotations.
+	 *                     com.j256.ormlite.field.DatabaseField} annotations.
 	 * @param ignoreErrors If set to true then try each statement regardless of {@link java.sql.SQLException} thrown
 	 *                     previously.
 	 *

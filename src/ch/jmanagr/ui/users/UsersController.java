@@ -71,7 +71,7 @@ public class UsersController implements Initializable
 					public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> a)
 					{
 						USER_ROLE b = a.getValue().getRole();
-						SimpleStringProperty c = new SimpleStringProperty(b.getName());
+						SimpleStringProperty c = new SimpleStringProperty(b.toString());
 						return c;
 					}
 				}
@@ -107,6 +107,6 @@ public class UsersController implements Initializable
 
 	public void editUser()
 	{
-
+		MainController.changeTabContent("userDetail", ticketTable.getSelectionModel().getSelectedItem());
 	}
 }
