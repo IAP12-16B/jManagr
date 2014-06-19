@@ -2,7 +2,6 @@ package ch.jmanagr.ui.resources;
 
 import ch.jmanagr.bl.ResourcesBL;
 import ch.jmanagr.bo.Resource;
-import ch.jmanagr.lib.Logger;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,7 +16,6 @@ public class ResourceController implements Initializable
 
 	private ResourcesBL bl;
 	private ObservableList<Resource> res;
-    TreeItem<Resource> parentItem = new TreeItem<>();
 
     @FXML
 	private TreeView<Resource> treeView;
@@ -56,11 +54,27 @@ public class ResourceController implements Initializable
     public TreeItem<Resource> findParentItem(Resource r) {
         TreeItem<Resource> rootItem = treeView.getRoot();
 
-        for(TreeItem<Resource> treeItem : rootItem.getChildren()) {
-            if (treeItem.getValue().equals(r.getParent())){
-                parentItem = treeItem;
-            }
-        }
-        return parentItem;
+	    return this.findParentItem(r, rootItem);
     }
+
+	public TreeItem<Resource> findParentItem(Resource r, TreeItem<Resource> rootItem)
+	{
+
+		// split this into 2 loops -> better performance
+		for (TreeItem<Resource> treeItem : rootItem.getChildren()) {
+			if (treeItem.getValue().equals(r.getParent())) {
+				return treeItem;
+			}
+		}
+
+		// this loop gets only executed, when parentItem is not a direct child of rootItem
+		for (TreeItem<Resource> treeItem : rootItem.getChildren()) {
+			TreeItem<Resource> recursedTreeItem = this.findParentItem(r, treeItem);
+			if (recursedTreeItem != null) {
+				return recursedTreeItem;
+			}
+		}
+
+		return null;
+	}
 }
