@@ -88,7 +88,19 @@ public class Resource implements BusinessObject<Resource>
 		this.tickets = tickets;
 	}
 
-	// Todo: addChildren & removeChildren
+	public boolean addData(ResourceData resourceData)
+	{return data.add(resourceData);}
+
+
+	public boolean removeData(ResourceData o)
+	{return data.remove(o);}
+
+	public boolean addChild(Resource resource)
+	{return children.add(resource);}
+
+
+	public boolean removeChild(Resource o)
+	{return children.remove(o);}
 
 	public Resource getParent()
 	{
