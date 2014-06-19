@@ -3,7 +3,7 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.*?>
-<GridPane alignment="CENTER" hgap="10.0" prefHeight="350.0" prefWidth="769.0" vgap="10.0"
+<GridPane alignment="CENTER" hgap="10.0" prefHeight="617.0" prefWidth="769.0" vgap="10.0"
           xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
           fx:controller="ch.jmanagr.ui.login.MainLoginController">
 
