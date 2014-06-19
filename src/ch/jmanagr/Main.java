@@ -36,7 +36,7 @@ public class Main extends Application
         scene = new Scene(root);
 		stage.setTitle("jManagr");
         stage.setScene(scene);
-		stage.setMinHeight(650);
+		stage.setMinHeight(350);
 		stage.setMinWidth(500);
 		stage.setMaxHeight(700);
 
