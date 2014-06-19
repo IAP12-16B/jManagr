@@ -22,24 +22,4 @@ public enum STATUS_CODE
 	{
 		value = i;
 	}
-
-	@Override
-	public String toString()
-	{
-		return "" + value;
-	}
-
-	public String getName() {
-		return super.toString();
-	}
-
-	public static STATUS_CODE fromString(String code)
-	{
-		for (STATUS_CODE c : STATUS_CODE.values()) {
-			if (c.getName().equalsIgnoreCase(code)) {
-				return c;
-			}
-		}
-		return null;
-	}
 }

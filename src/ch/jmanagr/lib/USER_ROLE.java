@@ -15,24 +15,4 @@ public enum USER_ROLE
 	{
 		value = i;
 	}
-
-	@Override
-	public String toString()
-	{
-		return "" + value;
-	}
-
-	public String getName() {
-		return super.toString();
-	}
-
-	public static USER_ROLE fromString(String role)
-	{
-		for (USER_ROLE r : USER_ROLE.values()) {
-			if (r.getName().equalsIgnoreCase(role)) {
-				return r;
-			}
-		}
-		return null;
-	}
 }
