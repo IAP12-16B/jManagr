@@ -2,6 +2,8 @@ package ch.jmanagr.bl;
 
 import ch.jmanagr.bo.Department;
 import ch.jmanagr.dal.DepartmentsDAL;
+import ch.jmanagr.lib.LOG_LEVEL;
+import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.STATUS_CODE;
 
 import java.sql.SQLException;
@@ -17,7 +19,7 @@ public class DepartmentsBL extends AbstractBL<Department, DepartmentsDAL>
 		try {
 			dal = DepartmentsDAL.getInstance();
 		} catch (SQLException e) {
-			e.printStackTrace(); // todo log
+			Logger.log(LOG_LEVEL.ERROR, e);
 		}
 	}
 

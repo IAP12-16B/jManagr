@@ -3,6 +3,8 @@ package ch.jmanagr.dal.db;
 
 import ch.jmanagr.bo.BusinessObject;
 import ch.jmanagr.dal.SettingsDAL;
+import ch.jmanagr.lib.LOG_LEVEL;
+import ch.jmanagr.lib.Logger;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.DatabaseTableConfig;
@@ -78,7 +80,7 @@ public class DB
 		try {
 			connectionSource.close();
 		} catch (SQLException e) {
-			e.printStackTrace(); // todo log
+			Logger.log(LOG_LEVEL.ERROR, e);
 		}
 	}
 

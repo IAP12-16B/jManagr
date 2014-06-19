@@ -6,6 +6,8 @@ import ch.jmanagr.bo.Resource;
 import ch.jmanagr.bo.Ticket;
 import ch.jmanagr.bo.User;
 import ch.jmanagr.dal.TicketsDAL;
+import ch.jmanagr.lib.LOG_LEVEL;
+import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.STATUS_CODE;
 import ch.jmanagr.lib.TICKET_STATE;
 
@@ -52,7 +54,7 @@ public class TicketsBL extends AbstractBL<Ticket, TicketsDAL>
 				return STATUS_CODE.OK;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // Todo: log
+			Logger.log(LOG_LEVEL.ERROR, e);
 		}
 
 		return STATUS_CODE.FAIL;

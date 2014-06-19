@@ -5,7 +5,7 @@ TODO:   @mnewmedia              medium              Agenten sehen zusätzlich no
 TODO:   @mnewmedia  @kije       high                Bearbeiten-Funktionalität..... Haben wir mehrmals im Pflichtenheft deklariert
 TODO:   @mnewmedia              medium              Resourcen
 TODO:   @mnewmedia  @kije       medium              Funktionalitäten nach User-Rolle aktivieren/deaktivieren
-TODO:   @kije                   medium              On change admin: check how many admins are still there?
+TODO:   @kije                   medium              On delete admin: check how many admins are still there?
 TODO:   @kije                   low                 Offene tickets können nicht gelöscht werden
 TODO:   @mnewmedia  @kije       low/medium          Fehlermeldungen (Datenbank kann nicht erreicht werden, etc...)
 TODO:   @kije                   very low            CSS/Layout/Styling

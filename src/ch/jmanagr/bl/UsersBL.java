@@ -2,6 +2,8 @@ package ch.jmanagr.bl;
 
 import ch.jmanagr.bo.User;
 import ch.jmanagr.dal.UsersDAL;
+import ch.jmanagr.lib.LOG_LEVEL;
+import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.STATUS_CODE;
 import ch.jmanagr.lib.USER_ROLE;
 
@@ -21,7 +23,7 @@ public class UsersBL extends AbstractBL<User, UsersDAL>
 		try {
 			dal = UsersDAL.getInstance();
 		} catch (SQLException e) {
-			e.printStackTrace(); // todo log
+			Logger.log(LOG_LEVEL.ERROR, e);
 		}
 	}
 
@@ -58,7 +60,7 @@ public class UsersBL extends AbstractBL<User, UsersDAL>
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace(); // todo log
+			Logger.log(LOG_LEVEL.ERROR, e);
 		}
 
 
@@ -153,7 +155,7 @@ public class UsersBL extends AbstractBL<User, UsersDAL>
 		try {
 			return this.dal.fetch("role", role.toString());
 		} catch (SQLException e) {
-			e.printStackTrace(); // todo log
+			Logger.log(LOG_LEVEL.ERROR, e);
 		}
 
 		return new ArrayList<>();

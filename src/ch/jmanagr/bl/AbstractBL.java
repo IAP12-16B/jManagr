@@ -2,6 +2,8 @@ package ch.jmanagr.bl;
 
 import ch.jmanagr.bo.BusinessObject;
 import ch.jmanagr.dal.AbstractDAL;
+import ch.jmanagr.lib.LOG_LEVEL;
+import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.STATUS_CODE;
 
 import java.sql.SQLException;
@@ -31,7 +33,7 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject<Busin
 		try {
 			depList = this.dal.fetch("deleted", "0");
 		} catch (SQLException e) {
-			e.printStackTrace(); // todo log
+			Logger.log(LOG_LEVEL.ERROR, e);
 		}
 		return depList;
 	}
@@ -41,7 +43,7 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject<Busin
 		try {
 			return this.dal.fetchById(id);
 		} catch (SQLException e) {
-			e.printStackTrace(); // todo log
+			Logger.log(LOG_LEVEL.ERROR, e);
 		}
 
 		return null;
@@ -55,7 +57,7 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject<Busin
 			return this.dal.softDelete(bo);
 			//return this.dal.delete(bo);
 		} catch (SQLException e) {
-			e.printStackTrace(); // todo log
+			Logger.log(LOG_LEVEL.ERROR, e);
 		}
 
 		return STATUS_CODE.FAIL;
@@ -67,7 +69,7 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject<Busin
 		try {
 			return this.dal.save(bo);
 		} catch (SQLException e) {
-			e.printStackTrace();// todo log
+			Logger.log(LOG_LEVEL.ERROR, e);
 		}
 
 		return STATUS_CODE.FAIL;

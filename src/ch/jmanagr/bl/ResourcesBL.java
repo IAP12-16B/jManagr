@@ -60,7 +60,7 @@ public class ResourcesBL extends AbstractBL<Resource, ResourcesDAL>
 		try {
 			rootResources = this.dal.fetchOnlyRootResources();
 		} catch (SQLException e) {
-			e.printStackTrace(); // todo log
+			Logger.log(LOG_LEVEL.ERROR, e);
 		}
 
 		return rootResources;
