@@ -3,6 +3,7 @@ package ch.jmanagr.ui.users;
 import ch.jmanagr.bl.DepartmentsBL;
 import ch.jmanagr.bl.UsersBL;
 import ch.jmanagr.bo.Department;
+import ch.jmanagr.bo.Resource;
 import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.USER_ROLE;
@@ -22,22 +23,25 @@ public class UserDetailController implements Initializable
 	private UsersBL bl;
 	private DepartmentsBL depBl;
 	@FXML
-	private TextField lastnameFld;
+	private static TextField lastnameFld;
 	@FXML
-	private TextField firstnameFld;
+	private static TextField firstnameFld;
 	@FXML
-	private TextField usernameFld;
+	private static TextField usernameFld;
 	@FXML
-	private TextField passwordFld;
+	private static TextField passwordFld;
 	@FXML
-	private TextField password2Fld;
+	private static TextField password2Fld;
 	@FXML
-	private ComboBox<Department> departementCbox;
+	private static ComboBox<Department> departementCbox;
 	@FXML
-	private ComboBox<USER_ROLE> roleCbox;
+	private static ComboBox<USER_ROLE> roleCbox;
 
 	@FXML
 	private AnchorPane userDetailView;
+
+    private static User updateCurrUser;
+    private static int updateCurrIndex;
 
 	public UserDetailController()
 	{
@@ -47,6 +51,7 @@ public class UserDetailController implements Initializable
 
 	public void initialize(URL location, ResourceBundle resources)
 	{
+
 		// Fill UserRoles Combobox
 		for (USER_ROLE r : USER_ROLE.values()) {
 			roleCbox.getItems().add(r);
@@ -56,50 +61,68 @@ public class UserDetailController implements Initializable
 		// Fill Departement Combobox
 		departementCbox.setItems(
 				FXCollections.observableArrayList(depBl.getAll())
-		); // use ToString in order To Display nice name in ComboBox
+		);
 		departementCbox.getSelectionModel().selectFirst();
-
-		this.setData();
-
 	}
 
-	protected void setData()
-	{
-		User data = (User) userDetailView.getUserData();
-		if (data != null) {
-			firstnameFld.setText(data.getFirstname());
-			lastnameFld.setText(data.getLastname());
-			usernameFld.setText(data.getUsername());
-			departementCbox.setValue(data.getDepartment());
-			roleCbox.setValue(data.getRole());
-		} else {
-			firstnameFld.setText(null);
-			lastnameFld.setText(null);
-			usernameFld.setText(null);
-			departementCbox.setValue(null);
-			roleCbox.setValue(null);
-		}
-	}
+    public static void fillUser(User editingUser, int index) {
+        updateCurrUser = editingUser;
+        if (updateCurrUser != null) {
+            Logger.log("Loading stuff");
+            lastnameFld.setText(updateCurrUser.getLastname());
+            firstnameFld.setText(updateCurrUser.getFirstname());
+            usernameFld.setText(updateCurrUser.getUsername());
+            departementCbox.getSelectionModel().select(updateCurrUser.getDepartment());
+            roleCbox.getSelectionModel().select(updateCurrUser.getRole());
+        }
+        updateCurrIndex = index;
+    }
 
 	public void saveUser()
 	{
-		// todo save user when edit user
-		if (!this.usernameFld.getText().isEmpty() ||
-		    !(this.passwordFld.getText().equals(this.password2Fld.getText()))) {
+		if (!usernameFld.getText().isEmpty() ||
+		    !(passwordFld.getText().equals(password2Fld.getText()))) {
+
+            // get selected comboboxes
 			Department d = departementCbox.getSelectionModel().getSelectedItem();
 			USER_ROLE r = roleCbox.getSelectionModel().getSelectedItem();
 
-			User user = new User();
-			user.setLastname(lastnameFld.getText());
-			user.setFirstname(firstnameFld.getText());
-			user.setUsername(usernameFld.getText());
-			user.setUnhashedPassword(passwordFld.getText());
-			user.setDepartment(d);
-			user.setRole(r);
-			bl.save(user);
-			UsersController.userList.add(user);
+            // if new user
+            if(updateCurrUser == null) {
+                User user = new User();
+                user.setLastname(lastnameFld.getText());
+                user.setFirstname(firstnameFld.getText());
+                user.setUsername(usernameFld.getText());
+                user.setUnhashedPassword(passwordFld.getText());
+                user.setDepartment(d);
+                user.setRole(r);
 
-			Logger.logln("Inserted new User: ");
+                //save
+                bl.save(user);
+                UsersController.userList.add(user);
+            } else { //if update existing user
+                // set all edited stuff
+                updateCurrUser.setLastname(lastnameFld.getText());
+                updateCurrUser.setFirstname(firstnameFld.getText());
+                updateCurrUser.setUsername(usernameFld.getText());
+                updateCurrUser.setUnhashedPassword(password2Fld.getText());
+                updateCurrUser.setDepartment(d);
+                updateCurrUser.setRole(r);
+
+                // save
+                bl.save(updateCurrUser);
+                UsersController.userList.set(updateCurrIndex, updateCurrUser);
+
+                // clear fields
+                updateCurrUser = null;
+                lastnameFld.setText(null);
+                firstnameFld.setText(null);
+                usernameFld.setText(null);
+                password2Fld.setText(null);
+                passwordFld.setText(null);
+                departementCbox.getSelectionModel().selectFirst();
+                roleCbox.getSelectionModel().selectFirst();
+            }
 			MainController.changeTabContent("users");
 		} else {
 			// Todo warn that pws are not equal or username not set
@@ -111,6 +134,5 @@ public class UserDetailController implements Initializable
 	{
 		MainController.changeTabContent("users");
 	}
-
 
 }

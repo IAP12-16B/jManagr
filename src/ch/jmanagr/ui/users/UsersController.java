@@ -27,7 +27,7 @@ public class UsersController implements Initializable
 	private UsersBL bl;
 
 	@FXML
-	private TableView<User> ticketTable;
+	private TableView<User> userTable;
 	@FXML
 	private TableColumn idCol;
 	@FXML
@@ -49,8 +49,6 @@ public class UsersController implements Initializable
 
 	public UsersController()
 	{
-		// @mnewmedia Use constructor to set BL instances -> This way, DB connection etc... only gets established when
-		// the controller is instantiated
 		this.bl = UsersBL.getInstance();
 	}
 
@@ -78,36 +76,37 @@ public class UsersController implements Initializable
 				}
 		);
 
-
 		this.refresh();
 	}
 
 	public void refresh()
 	{
 		userList = FXCollections.observableArrayList(bl.getAll());
-		this.ticketTable.setItems(userList);
+		this.userTable.setItems(userList);
 		Logger.logln("Refreshed list!");
 	}
 
-	public void newUser() //pass actionEvent?
+	public void newUser()
 	{
 		MainController.changeTabContent("userDetail");
 	}
 
-	// Todo only archiv and only for admin?
 	public void deleteUser()
-	{/*
-	    Ticket ticket = this.ticketTable.getSelectionModel().getSelectedItem();
-        if (ticket != null) {
-            Logger.log("Deleting ticket:" + ticket.getName() + " " + ticket.getId());
-            bl.delete(ticket);
+	{
+	    User user = this.userTable.getSelectionModel().getSelectedItem();
+        if (user != null) {
+            Logger.log("Deleting ticket:" + user.getFirstname() + " " + user.getId());
+            bl.delete(user);
         } else {
             Logger.log("Nothing selected to delete");
-        }*/
+        }
 	}
 
-	public void editUser()
-	{
-		MainController.changeTabContent("userDetail", ticketTable.getSelectionModel().getSelectedItem());
-	}
+    public void editUser()
+    {
+        User selectedUser = userTable.getSelectionModel().getSelectedItem();
+        int index = userTable.getSelectionModel().getSelectedIndex();
+        UserDetailController.fillUser(selectedUser, index);
+        MainController.changeTabContent("userDetail");
+    }
 }
