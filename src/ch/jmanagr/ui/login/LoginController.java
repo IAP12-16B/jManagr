@@ -21,7 +21,6 @@ import java.util.ResourceBundle;
 public class LoginController implements Initializable
 {
 
-	private UsersBL bl;
 
 	@FXML
 	private TextField userFld;
@@ -32,7 +31,6 @@ public class LoginController implements Initializable
 
 	public LoginController()
 	{
-		this.bl = UsersBL.getInstance();
 	}
 
 	public void initialize(URL location, ResourceBundle resources)
@@ -43,7 +41,7 @@ public class LoginController implements Initializable
 	public void login()
 	{
 		try {
-			User usr = this.bl.login(this.userFld.getText(), this.passwordFld.getText());
+			User usr = UsersBL.getInstance().login(this.userFld.getText(), this.passwordFld.getText());
 			if (usr != null) {
 				Parent root = FXMLLoader.load(getClass().getResource("../main/main.fxml"));
 				Main.loggedIn(new Scene(root));
