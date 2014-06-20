@@ -79,13 +79,24 @@ public class TicketController implements Initializable
 
 	// Todo only archiv and only for admin?
 	public void deleteTicket()
-	{/*
+	{
 	    Ticket ticket = this.ticketTable.getSelectionModel().getSelectedItem();
         if (ticket != null) {
             Logger.log("Deleting ticket:" + ticket.getName() + " " + ticket.getId());
             bl.delete(ticket);
+            ticketList.remove(ticket);
         } else {
             Logger.log("Nothing selected to delete");
-        }*/
+        }
 	}
+
+    public void editTicket()
+    {
+        Ticket selectedTicket = ticketTable.getSelectionModel().getSelectedItem();
+        if(selectedTicket!= null) {
+            int index = ticketTable.getSelectionModel().getSelectedIndex();
+           // TicketDetailController.fillTicket(selectedTicket, index); todo
+            MainController.changeTabContent("userDetail");
+        }
+    }
 }
