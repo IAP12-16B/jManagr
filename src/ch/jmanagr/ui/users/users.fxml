@@ -6,8 +6,7 @@
             prefWidth="769.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ch.jmanagr.ui.users.UsersController">
     <children>
-        <TableView fx:id="ticketTable" editable="true" layoutX="14.0" layoutY="14.0" prefHeight="200.0"
-                   prefWidth="741.0">
+        <TableView fx:id="userTable" editable="true" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="741.0">
             <columns>
                 <TableColumn fx:id="idCol" editable="false" prefWidth="75.0" text="ID"/>
                 <TableColumn fx:id="lastnameCol" editable="true" prefWidth="75.0" text="Nachname"/>
@@ -18,8 +17,10 @@
             </columns>
         </TableView>
         <Button fx:id="newUserBtn" layoutX="14.1875" layoutY="223.5" mnemonicParsing="false" onAction="#newUser"
-                text="Neuer Benutzer"/>
-        <Button fx:id="editUsrBtn" layoutX="141.1875" layoutY="223.5" mnemonicParsing="false" onAction="#editUser"
-                text="Benutzer Editieren"/>
+                text="Neu"/>
+        <Button fx:id="editUsrBtn" layoutX="60.0" layoutY="224.0" mnemonicParsing="false" onAction="#editUser"
+                text="Editieren"/>
+        <Button fx:id="delBtn" layoutX="134.1875" layoutY="224.0" mnemonicParsing="false" onAction="#deleteUser"
+                text="Löschen"/>
     </children>
 </AnchorPane>

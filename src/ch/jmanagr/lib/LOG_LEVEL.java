@@ -16,7 +16,4 @@ public enum LOG_LEVEL
 		value = i;
 	}
 
-	public String getName() {
-		return super.toString();
-	}
 }

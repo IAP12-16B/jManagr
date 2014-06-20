@@ -28,7 +28,8 @@
         <Label fx:id="passwordLbl" layoutX="31.0" layoutY="163.0" text="Passwort"/>
         <Label fx:id="password2Lbl" layoutX="31.0" layoutY="193.0" text="Wiederholen"/>
         <Label fx:id="roleLbl" layoutX="31.0" layoutY="233.0" text="Rolle"/>
-        <Label fx:id="userDetailErrorLbl" layoutX="255.0" layoutY="321.0" text="Passwort stimmt nicht überein"
+        <Label fx:id="userDetailErrorLbl" layoutX="255.0" layoutY="321.0"
+               text="Passwort stimmt nicht überein oder benutzername ist leer!"
                textFill="RED"/>
     </children>
 </AnchorPane>

@@ -77,6 +77,10 @@ public class TicketDetailController implements Initializable
 		bl.save(ticket);
 		Logger.logln("Insertet new Ticket: ");
 
+		bl.save(ticket);
+		TicketController.ticketList.add(ticket);
+		Logger.logln("Insertet new Ticket: " + ticket);
+
 		//If it worked, return to list
 		MainController.changeTabContent("tickets");
 	}
@@ -85,4 +89,5 @@ public class TicketDetailController implements Initializable
 	{
 		MainController.changeTabContent("tickets");
 	}
+
 }

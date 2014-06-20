@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 
 public class TicketController implements Initializable
 {
-	private ObservableList<Ticket> ticketList;
+	public static ObservableList<Ticket> ticketList;
 	private TicketsBL bl;
 
 	@FXML
@@ -35,8 +35,6 @@ public class TicketController implements Initializable
 
 	public TicketController()
 	{
-		// @mnewmedia Use constructor to set BL instances -> This way, DB connection etc... only gets established when
-		// the controller is instantiated
 		this.bl = TicketsBL.getInstance();
 	}
 
@@ -46,6 +44,7 @@ public class TicketController implements Initializable
 
 		idCol.setCellValueFactory(new PropertyValueFactory("id"));
 		nameCol.setCellValueFactory(new PropertyValueFactory<Ticket, String>("name"));
+		//dateCol.setCellValueFactory(new PropertyValueFactory<Ticket, String>("date"));
 
 		// makes nameCol to a textField
 		nameCol.setCellFactory(TextFieldTableCell.<Ticket>forTableColumn());
@@ -77,22 +76,31 @@ public class TicketController implements Initializable
 		Logger.logln("Refreshed list!");
 	}
 
-	public void newTicket() //pass actionEvent?
+	public void newTicket()
 	{
 		MainController.changeTabContent("ticketDetail");
-		/*
-		*/
 	}
 
 	// Todo only archiv and only for admin?
-	public void deleteDep()
-	{/*
-	    Ticket ticket = this.ticketTable.getSelectionModel().getSelectedItem();
-        if (ticket != null) {
-            Logger.log("Deleting ticket:" + ticket.getName() + " " + ticket.getId());
-            bl.delete(ticket);
-        } else {
-            Logger.log("Nothing selected to delete");
-        }*/
+	public void deleteTicket()
+	{
+		Ticket ticket = this.ticketTable.getSelectionModel().getSelectedItem();
+		if (ticket != null) {
+			Logger.log("Deleting ticket:" + ticket.getName() + " " + ticket.getId());
+			bl.delete(ticket);
+			ticketList.remove(ticket);
+		} else {
+			Logger.log("Nothing selected to delete");
+		}
+	}
+
+	public void editTicket()
+	{
+		Ticket selectedTicket = ticketTable.getSelectionModel().getSelectedItem();
+		if (selectedTicket != null) {
+			int index = ticketTable.getSelectionModel().getSelectedIndex();
+			// TicketDetailController.fillTicket(selectedTicket, index); todo
+			MainController.changeTabContent("userDetail");
+		}
 	}
 }

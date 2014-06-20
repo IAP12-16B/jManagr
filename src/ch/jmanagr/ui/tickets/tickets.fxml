@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane id="Content" fx:id="ticketView" cache="false" minHeight="0.0" minWidth="0.0" prefHeight="588.0"
             prefWidth="769.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
@@ -12,10 +10,19 @@
                    prefWidth="741.0">
             <columns>
                 <TableColumn fx:id="idCol" editable="false" prefWidth="75.0" text="ID"/>
-                <TableColumn fx:id="nameCol" editable="true" prefWidth="75.0" text="Name"/>
+                <TableColumn fx:id="departmentCol" editable="false" prefWidth="75.0" text="Department"/>
+                <TableColumn fx:id="nameCol" editable="false" prefWidth="75.0" text="Name"/>
+                <TableColumn fx:id="dateCol" editable="false" prefWidth="75.0" text="Datum"/>
+                <TableColumn fx:id="userCol" editable="false" prefWidth="75.0" text="Benutzer"/>
+                <TableColumn fx:id="agentCol" editable="false" prefWidth="75.0" text="Agent"/>
+                <TableColumn fx:id="resourceCol" editable="false" prefWidth="75.0" text="Ressource"/>
             </columns>
         </TableView>
         <Button fx:id="newTicketBtn" layoutX="14.1875" layoutY="223.5" mnemonicParsing="false" onAction="#newTicket"
                 text="Neues Ticket"/>
+        <Button fx:id="editBtn" layoutX="60.0" layoutY="224.0" mnemonicParsing="false" onAction="#editTicket"
+                text="Editieren"/>
+        <Button fx:id="delBtn" layoutX="134.1875" layoutY="224.0" mnemonicParsing="false" onAction="#deleteTicket"
+                text="Löschen"/>
     </children>
 </AnchorPane>

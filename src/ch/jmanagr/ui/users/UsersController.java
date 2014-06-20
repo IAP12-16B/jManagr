@@ -29,7 +29,7 @@ public class UsersController implements Initializable
 	private UsersBL bl;
 
 	@FXML
-	private TableView<User> ticketTable;
+	private TableView<User> userTable;
 	@FXML
 	private TableColumn idCol;
 	@FXML
@@ -91,7 +91,7 @@ public class UsersController implements Initializable
 	public void refresh()
 	{
 		userList = FXCollections.observableArrayList(bl.getAll());
-		this.ticketTable.setItems(userList);
+		this.userTable.setItems(userList);
 		Logger.logln("Refreshed list!");
 	}
 
@@ -100,20 +100,25 @@ public class UsersController implements Initializable
 		MainController.changeTabContent("userDetail");
 	}
 
-	// Todo only archiv and only for admin?
 	public void deleteUser()
-	{/*
-	    Ticket ticket = this.ticketTable.getSelectionModel().getSelectedItem();
-        if (ticket != null) {
-            Logger.log("Deleting ticket:" + ticket.getName() + " " + ticket.getId());
-            bl.delete(ticket);
-        } else {
-            Logger.log("Nothing selected to delete");
-        }*/
+	{
+		User user = this.userTable.getSelectionModel().getSelectedItem();
+		if (user != null) {
+			Logger.log("Deleting user:" + user.getFirstname() + " " + user.getId());
+			bl.delete(user);
+			userList.remove(user);
+		} else {
+			Logger.log("Nothing selected to delete");
+		}
 	}
 
 	public void editUser()
 	{
-		MainController.changeTabContent("userDetail", ticketTable.getSelectionModel().getSelectedItem());
+		User selectedUser = userTable.getSelectionModel().getSelectedItem();
+		if (selectedUser != null) {
+			int index = userTable.getSelectionModel().getSelectedIndex();
+			UserDetailController.fillUser(selectedUser, index);
+			MainController.changeTabContent("userDetail");
+		}
 	}
 }
