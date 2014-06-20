@@ -6,12 +6,10 @@ TODO:   @mnewmedia  @kije       high                Bearbeiten-Funktionalität..
 TODO:   @mnewmedia              medium              Resourcen
 TODO:   @mnewmedia  @kije       medium              Funktionalitäten nach User-Rolle aktivieren/deaktivieren
 TODO:   @kije                   medium              On delete admin: check how many admins are still there?
-TODO:   @kije                   low                 Offene tickets können nicht gelöscht werden
-TODO:   @mnewmedia  @kije       low/medium          Fehlermeldungen (Datenbank kann nicht erreicht werden, etc...)
+TODO:   @kije                   low                 Offene tickets dürfen nicht gelöscht werden können
 TODO:   @kije                   very low            CSS/Layout/Styling
 TODO:   @kije                   medium              Daten beim löschen aufräumen
 
 TODO:   @mnewmedia  @kije       low                 Code dokumentieren (kommentare, etc...)
-TODO:   @kije                   low                 SQLException: wenn diese exception geworfen wird, grund ermitteln und als STATUS_CODE zurück geben
 TODO:   @kije                   high                Diagramme anpassen/erstellen
 TODO:   @kije                   medium              Testklassen schreiben
