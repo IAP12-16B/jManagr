@@ -12,7 +12,12 @@
                    prefWidth="741.0">
             <columns>
                 <TableColumn fx:id="idCol" editable="false" prefWidth="75.0" text="ID"/>
-                <TableColumn fx:id="nameCol" editable="true" prefWidth="75.0" text="Name"/>
+                <TableColumn fx:id="departmentCol" editable="false" prefWidth="75.0" text="Department"/>
+                <TableColumn fx:id="nameCol" editable="false" prefWidth="75.0" text="Name"/>
+                <TableColumn fx:id="dateCol" editable="false" prefWidth="75.0" text="Datum"/>
+                <TableColumn fx:id="userCol" editable="false" prefWidth="75.0" text="Benutzer"/>
+                <TableColumn fx:id="agentCol" editable="false" prefWidth="75.0" text="Agent"/>
+                <TableColumn fx:id="resourceCol" editable="false" prefWidth="75.0" text="Ressource"/>
             </columns>
         </TableView>
         <Button fx:id="newTicketBtn" layoutX="14.1875" layoutY="223.5" mnemonicParsing="false" onAction="#newTicket"

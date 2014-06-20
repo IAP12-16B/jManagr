@@ -70,12 +70,17 @@ public class TicketDetailController implements Initializable
 		bl.save(ticket);
 		Logger.logln("Insertet new Ticket: ");
 
-		//If it worked, return to list
-		MainController.changeTabContent("tickets");
-	}
+        bl.save(ticket);
+        TicketController.ticketList.add(ticket);
+        Logger.logln("Insertet new Ticket: " + ticket);
 
-	public void cancelTicket()
-	{
-		MainController.changeTabContent("tickets");
-	}
+        //If it worked, return to list
+        MainController.changeTabContent("tickets");
+    }
+
+    public void cancelTicket()
+    {
+        MainController.changeTabContent("tickets");
+    }
+
 }
