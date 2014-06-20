@@ -18,18 +18,19 @@ public class UsersBL extends AbstractBL<User, UsersDAL>
 
 	protected User currentUser;
 
-	protected UsersBL()
+	protected UsersBL() throws jManagrDBException
 	{
 		super();
+
 		try {
 			dal = UsersDAL.getInstance();
 		} catch (SQLException e) {
-			Logger.log(LOG_LEVEL.ERROR, e);
+			throw new jManagrDBException(e);
 		}
 	}
 
 
-	public static UsersBL getInstance()
+	public static UsersBL getInstance() throws jManagrDBException
 	{
 		if (instance == null) {
 			synchronized (UsersBL.class) {

@@ -6,6 +6,7 @@ import ch.jmanagr.bo.User;
 import ch.jmanagr.exceptions.jManagrDBException;
 import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
+import ch.jmanagr.ui.controls.MessageBox;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -51,8 +52,13 @@ public class LoginController implements Initializable
                 passwordErrorLbl.setVisible(true);
             }
 		} catch (jManagrDBException | IOException e) {
-			// todo display that something went wrong (no db connection, etc...)
-			Logger.log(LOG_LEVEL.ERROR, e);
+			MessageBox msgBx = new MessageBox(
+					"Fehler",
+					"Einfehler ist aufgetreten. Bitte überprüfen Sie die Verbindungseinstellungen und versuchen Sie es" +
+					" erneut!"
+			);
+			msgBx.show();
+			Logger.log(LOG_LEVEL.ERROR, "SMTH", e);
 		}
 	}
 }

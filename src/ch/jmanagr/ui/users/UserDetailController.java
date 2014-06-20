@@ -4,6 +4,8 @@ import ch.jmanagr.bl.DepartmentsBL;
 import ch.jmanagr.bl.UsersBL;
 import ch.jmanagr.bo.Department;
 import ch.jmanagr.bo.User;
+import ch.jmanagr.exceptions.jManagrDBException;
+import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.USER_ROLE;
 import ch.jmanagr.ui.main.MainController;
@@ -41,7 +43,11 @@ public class UserDetailController implements Initializable
 
 	public UserDetailController()
 	{
-		this.bl = UsersBL.getInstance();
+		try {
+			this.bl = UsersBL.getInstance();
+		} catch (jManagrDBException e) {
+			Logger.log(LOG_LEVEL.ERROR, e);
+		}
 		this.depBl = DepartmentsBL.getInstance();
 	}
 

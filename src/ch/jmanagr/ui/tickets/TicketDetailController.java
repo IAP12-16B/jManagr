@@ -6,6 +6,8 @@ import ch.jmanagr.bl.UsersBL;
 import ch.jmanagr.bo.Department;
 import ch.jmanagr.bo.Ticket;
 import ch.jmanagr.bo.User;
+import ch.jmanagr.exceptions.jManagrDBException;
+import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.TICKET_STATE;
 import ch.jmanagr.ui.main.MainController;
@@ -55,7 +57,12 @@ public class TicketDetailController implements Initializable
 		Ticket ticket = new Ticket();
 
 		Date d = new Date();
-		User u = UsersBL.getInstance().getCurrentUser();
+		User u = null;
+		try {
+			u = UsersBL.getInstance().getCurrentUser();
+		} catch (jManagrDBException e) {
+			Logger.log(LOG_LEVEL.ERROR, e);
+		}
 		Department de = departementCbox.getValue();
 		/*Resource r = new Resource(); // todo resource combo box
 		User agent = new User();

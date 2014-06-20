@@ -2,6 +2,8 @@ package ch.jmanagr.ui.users;
 
 import ch.jmanagr.bl.UsersBL;
 import ch.jmanagr.bo.User;
+import ch.jmanagr.exceptions.jManagrDBException;
+import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.USER_ROLE;
 import ch.jmanagr.ui.main.MainController;
@@ -51,7 +53,11 @@ public class UsersController implements Initializable
 	{
 		// @mnewmedia Use constructor to set BL instances -> This way, DB connection etc... only gets established when
 		// the controller is instantiated
-		this.bl = UsersBL.getInstance();
+		try {
+			this.bl = UsersBL.getInstance();
+		} catch (jManagrDBException e) {
+			Logger.log(LOG_LEVEL.ERROR, e);
+		}
 	}
 
 	// Fill Table with Data

@@ -2,6 +2,9 @@ package ch.jmanagr.ui.main;
 
 import ch.jmanagr.bl.UsersBL;
 import ch.jmanagr.bo.User;
+import ch.jmanagr.exceptions.jManagrDBException;
+import ch.jmanagr.lib.LOG_LEVEL;
+import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.USER_ROLE;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -41,9 +44,14 @@ public class MainController implements Initializable
 
 	public static void removeTabsByUserRole()
 	{
-        User user =  UsersBL.getInstance().getCurrentUser();
-        if(user.getRole() == USER_ROLE.USER) {
-            tabPane.getTabs().remove(tabUser);
+		User user = null;
+		try {
+			user = UsersBL.getInstance().getCurrentUser();
+		} catch (jManagrDBException e) {
+			Logger.log(LOG_LEVEL.ERROR, e);
+		}
+		if (user.getRole() == USER_ROLE.USER) {
+			tabPane.getTabs().remove(tabUser);
             tabPane.getTabs().remove(tabDepartment);
         }
 	}

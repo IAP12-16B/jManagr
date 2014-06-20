@@ -4,6 +4,8 @@ import ch.jmanagr.bl.DepartmentsBL;
 import ch.jmanagr.bl.UsersBL;
 import ch.jmanagr.bo.Department;
 import ch.jmanagr.bo.User;
+import ch.jmanagr.exceptions.jManagrDBException;
+import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,7 +30,7 @@ public class DepartmentController implements Initializable
 
 	private ObservableList<Department> depList;
 	private DepartmentsBL bl;
-	private UsersBL usersBL = UsersBL.getInstance();
+	private UsersBL usersBL;
 
 	@FXML
 	private TableView<Department> depTable;
@@ -43,6 +45,11 @@ public class DepartmentController implements Initializable
 	public DepartmentController()
 	{
 		this.bl = DepartmentsBL.getInstance();
+		try {
+			usersBL = UsersBL.getInstance();
+		} catch (jManagrDBException e) {
+			Logger.log(LOG_LEVEL.ERROR, e);
+		}
 	}
 
 	// Fill Table with Data
@@ -106,13 +113,13 @@ public class DepartmentController implements Initializable
 
 	public void deleteDep()
 	{
-        Department dep = this.depTable.getSelectionModel().getSelectedItem();
-        if (dep != null) {
-            Logger.logln("Deleting dep:" + dep.getName() + " " + dep.getId());
-            bl.delete(dep);
-            depList.remove(this.depTable.getSelectionModel().getSelectedIndex());
-        } else {
-            Logger.logln("Nothing selected to delete");
-        }
+		Department dep = this.depTable.getSelectionModel().getSelectedItem();
+		if (dep != null) {
+			Logger.logln("Deleting dep:" + dep.getName() + " " + dep.getId());
+			bl.delete(dep);
+			depList.remove(this.depTable.getSelectionModel().getSelectedIndex());
+		} else {
+			Logger.logln("Nothing selected to delete");
+		}
 	}
 }
