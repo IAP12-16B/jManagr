@@ -9,6 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
+
 public class Main extends Application
 {
 
@@ -23,7 +25,11 @@ public class Main extends Application
 			Logger.log(LOG_LEVEL.ERROR, "Oh that was close. Cached exception in main() ", e);
 		} finally {
 			// shutdown db connection
-			DB.getInstance().shutdown();
+			try {
+				DB.getInstance().shutdown();
+			} catch (SQLException e) {
+				Logger.log(LOG_LEVEL.ERROR, e);
+			}
 		}
 
 	}

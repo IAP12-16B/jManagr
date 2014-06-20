@@ -50,10 +50,9 @@ public class LoginController implements Initializable
 			} else {
                 passwordErrorLbl.setVisible(true);
             }
-		} catch (IOException e) {
-			Logger.log(LOG_LEVEL.ERROR, e);
-		} catch (jManagrDBException e) {
+		} catch (jManagrDBException | IOException e) {
 			// todo display that something went wrong (no db connection, etc...)
+			Logger.log(LOG_LEVEL.ERROR, e);
 		}
 	}
 }
