@@ -9,9 +9,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
- * Created by kije on 6/20/14.
- */
 public class MessageBox
 {
 	private Stage stage;
@@ -56,6 +53,8 @@ public class MessageBox
 	public void setTitle(String s) {stage.setTitle(s);}
 
 	public String getTitle() {return stage.getTitle();}
+
+	public void setMessage(String message) {controller.setMessage(message);}
 
 	public void close() {stage.close();}
 
