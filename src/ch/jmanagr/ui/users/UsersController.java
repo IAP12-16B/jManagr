@@ -95,8 +95,9 @@ public class UsersController implements Initializable
 	{
 	    User user = this.userTable.getSelectionModel().getSelectedItem();
         if (user != null) {
-            Logger.log("Deleting ticket:" + user.getFirstname() + " " + user.getId());
+            Logger.log("Deleting user:" + user.getFirstname() + " " + user.getId());
             bl.delete(user);
+            userList.remove(user);
         } else {
             Logger.log("Nothing selected to delete");
         }
@@ -105,8 +106,10 @@ public class UsersController implements Initializable
     public void editUser()
     {
         User selectedUser = userTable.getSelectionModel().getSelectedItem();
-        int index = userTable.getSelectionModel().getSelectedIndex();
-        UserDetailController.fillUser(selectedUser, index);
-        MainController.changeTabContent("userDetail");
+        if(selectedUser != null) {
+            int index = userTable.getSelectionModel().getSelectedIndex();
+            UserDetailController.fillUser(selectedUser, index);
+            MainController.changeTabContent("userDetail");
+        }
     }
 }
