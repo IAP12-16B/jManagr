@@ -1,2 +1,3 @@
 Wo                              Wer             Prio        Beschreibung/Error-Meldung
 ------------------------------------------------------------------------------------------------------------------------
+UserDetailController            @mnewmedia      low         Wenn man zuerst auf edit kilckt, dann auf abbrechen un dann auf neu, dann wir der vorher editierte user angezeigt....
