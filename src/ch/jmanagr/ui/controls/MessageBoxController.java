@@ -13,6 +13,10 @@ public class MessageBoxController implements Initializable
 {
 	@FXML
 	private AnchorPane messageBoxPane;
+
+	@FXML
+	private Label messageBoxTitle;
+
 	@FXML
 	private Label messageLabel;
 
@@ -44,5 +48,10 @@ public class MessageBoxController implements Initializable
 	public void setMessage(String message)
 	{
 		this.messageLabel.setText(message);
+	}
+
+	public void setTitle(String title)
+	{
+		this.messageBoxTitle.setText(title);
 	}
 }

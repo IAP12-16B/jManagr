@@ -38,6 +38,7 @@ public class MessageBox
 
 
 			this.controller.setMessage(message);
+			this.controller.setTitle(title);
 
 		} catch (IOException e) {
 			Logger.log(LOG_LEVEL.ERROR, e);

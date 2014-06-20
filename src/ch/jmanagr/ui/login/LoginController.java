@@ -54,11 +54,12 @@ public class LoginController implements Initializable
 		} catch (jManagrDBException | IOException e) {
 			MessageBox msgBx = new MessageBox(
 					"Fehler",
-					"Einfehler ist aufgetreten. Bitte überprüfen Sie die Verbindungseinstellungen und versuchen Sie es" +
+					"Ein fehler ist aufgetreten. Bitte überprüfen Sie die Verbindungseinstellungen und versuchen Sie " +
+					"es" +
 					" erneut!"
 			);
 			msgBx.show();
-			Logger.log(LOG_LEVEL.ERROR, "SMTH", e);
+			Logger.log(LOG_LEVEL.ERROR, e);
 		}
 	}
 }
