@@ -7,11 +7,11 @@
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ch.jmanagr.ui.controls.MessageBoxController">
     <children>
-        <Button fx:id="okButton" layoutX="329.0" layoutY="261.0" mnemonicParsing="false" onAction="#clickOk"
-                prefHeight="25.0" prefWidth="107.0" text="OK" AnchorPane.bottomAnchor="14.0"
-                AnchorPane.rightAnchor="14.0"/>
         <Label fx:id="messageLabel" alignment="TOP_LEFT" cache="true" layoutX="14.0" layoutY="14.0" prefHeight="139.0"
                prefWidth="418.0" text="Label" wrapText="true" AnchorPane.bottomAnchor="70.0"
                AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0"/>
+        <Button fx:id="okButton" layoutX="329.0" layoutY="261.0" mnemonicParsing="false" onAction="#clickOk"
+                prefHeight="25.0" prefWidth="107.0" text="OK" AnchorPane.bottomAnchor="14.0"
+                AnchorPane.rightAnchor="14.0"/>
     </children>
 </AnchorPane>
