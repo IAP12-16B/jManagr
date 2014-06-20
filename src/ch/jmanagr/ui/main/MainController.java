@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable
 {
-    private static UsersBL usersBL;
+	private static UsersBL usersBL;
 	@FXML
 	private static AnchorPane ticketView;
 	@FXML
@@ -31,16 +31,10 @@ public class MainController implements Initializable
 	private static Tab tabTickets;
 	@FXML
 	private static Tab tabUser;
-    @FXML
-    private static Tab tabDepartment;
+	@FXML
+	private static Tab tabDepartment;
 	@FXML
 	private static TabPane tabPane;
-
-	@Override
-	public void initialize(URL url, ResourceBundle resourceBundle)
-	{
-        removeTabsByUserRole();
-	}
 
 	public static void removeTabsByUserRole()
 	{
@@ -52,21 +46,39 @@ public class MainController implements Initializable
 		}
 		if (user.getRole() == USER_ROLE.USER) {
 			tabPane.getTabs().remove(tabUser);
-            tabPane.getTabs().remove(tabDepartment);
-        }
+			tabPane.getTabs().remove(tabDepartment);
+		}
 	}
 
 	public static void changeTabContent(String view)
 	{
-		if (view.equals("ticketDetail")) {
-			tabTickets.setContent(ticketDetailView);
-		} else if (view.equals("tickets")) {
-			tabTickets.setContent(ticketView);
-		} else if (view.equals("users")) {
-			tabUser.setContent(userView);
-		} else if (view.equals("userDetail")) {
-			tabUser.setContent(userDetailView);
+		switch (view) {
+			case "ticketDetail": {
+				tabTickets.setContent(ticketDetailView);
+				break;
+			}
+
+			case "tickets": {
+				tabTickets.setContent(ticketView);
+				break;
+			}
+
+			case "users": {
+				tabUser.setContent(userView);
+				break;
+			}
+
+			case "userDetail": {
+				tabUser.setContent(userDetailView);
+				break;
+			}
 		}
+	}
+
+	@Override
+	public void initialize(URL url, ResourceBundle resourceBundle)
+	{
+		removeTabsByUserRole();
 	}
 
 }

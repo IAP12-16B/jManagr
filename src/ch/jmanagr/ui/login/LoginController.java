@@ -6,7 +6,7 @@ import ch.jmanagr.bo.User;
 import ch.jmanagr.exceptions.jManagrDBException;
 import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
-import ch.jmanagr.ui.controls.MessageBox;
+import ch.jmanagr.ui.controls.messagebox.MessageBox;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -49,12 +49,13 @@ public class LoginController implements Initializable
 				Main.loggedIn(new Scene(root));
 				Main.stage.setTitle(usr.getRole() + " - jManagr");
 			} else {
-                passwordErrorLbl.setVisible(true);
-            }
+				passwordErrorLbl.setVisible(true);
+			}
 		} catch (jManagrDBException | IOException e) {
 			MessageBox msgBx = new MessageBox(
 					"Fehler",
-					"Ein fehler ist aufgetreten. Bitte überprüfen Sie die Verbindungseinstellungen und versuchen Sie " +
+					"Ein fehler ist aufgetreten. Bitte überprüfen Sie die Verbindungseinstellungen und versuchen Sie" +
+					" " +
 					"es" +
 					" erneut!"
 			);

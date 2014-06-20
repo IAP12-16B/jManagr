@@ -1,4 +1,4 @@
-package ch.jmanagr.ui.controls;
+package ch.jmanagr.ui.controls.messagebox;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

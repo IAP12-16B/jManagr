@@ -1,4 +1,4 @@
-package ch.jmanagr.ui.controls;
+package ch.jmanagr.ui.controls.messagebox;
 
 import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
