@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -17,6 +16,7 @@
             </columns>
         </TableView>
         <Button fx:id="newUserBtn" layoutX="14.1875" layoutY="223.5" mnemonicParsing="false" onAction="#newUser" text="Neu" />
-        <Button fx:id="editUsrBtn" layoutX="60.0" layoutY="224.0" mnemonicParsing="false" onAction="#editUser" text="Editieren" /><Button fx:id="delBtn" layoutX="134.1875" layoutY="224.0" mnemonicParsing="false" onAction="#deleteUser" text="Löschen" />
+        <Button fx:id="editUsrBtn" layoutX="60.0" layoutY="224.0" mnemonicParsing="false" onAction="#editUser" text="Editieren" />
+        <Button fx:id="delBtn" layoutX="134.1875" layoutY="224.0" mnemonicParsing="false" onAction="#deleteUser" text="Löschen" />
     </children>
 </AnchorPane>
