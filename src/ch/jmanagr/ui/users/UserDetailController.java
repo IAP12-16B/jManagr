@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
@@ -32,6 +33,8 @@ public class UserDetailController implements Initializable
 	private static TextField passwordFld;
 	@FXML
 	private static TextField password2Fld;
+    @FXML
+    private Label userDetailErrorLbl;
 	@FXML
 	private static ComboBox<Department> departementCbox;
 	@FXML
@@ -51,7 +54,6 @@ public class UserDetailController implements Initializable
 
 	public void initialize(URL location, ResourceBundle resources)
 	{
-
 		// Fill UserRoles Combobox
 		for (USER_ROLE r : USER_ROLE.values()) {
 			roleCbox.getItems().add(r);
@@ -59,10 +61,11 @@ public class UserDetailController implements Initializable
 		roleCbox.getSelectionModel().selectFirst();
 
 		// Fill Departement Combobox
-		departementCbox.setItems(
-				FXCollections.observableArrayList(depBl.getAll())
-		);
+		departementCbox.setItems(FXCollections.observableArrayList(depBl.getAll()));
 		departementCbox.getSelectionModel().selectFirst();
+
+        // hide error lbl
+        this.userDetailErrorLbl.setVisible(false);
 	}
 
     public static void fillUser(User editingUser, int index) {
@@ -80,8 +83,7 @@ public class UserDetailController implements Initializable
 
 	public void saveUser()
 	{
-		if (!usernameFld.getText().isEmpty() ||
-		    !(passwordFld.getText().equals(password2Fld.getText()))) {
+		if (!usernameFld.getText().isEmpty() && passwordFld.getText().equals(password2Fld.getText())) {
 
             // get selected comboboxes
 			Department d = departementCbox.getSelectionModel().getSelectedItem();
@@ -125,7 +127,7 @@ public class UserDetailController implements Initializable
             }
 			MainController.changeTabContent("users");
 		} else {
-			// Todo warn that pws are not equal or username not set
+            this.userDetailErrorLbl.setVisible(true);
 		}
 
 	}
