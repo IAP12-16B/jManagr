@@ -58,9 +58,9 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject<Busin
 			//return this.dal.delete(bo);
 		} catch (SQLException e) {
 			Logger.log(LOG_LEVEL.ERROR, e);
-		}
 
-		return STATUS_CODE.FAIL;
+			return this.getStatusCodeFromSQLException(e);
+		}
 	}
 
 	@Override
@@ -70,6 +70,35 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject<Busin
 			return this.dal.save(bo);
 		} catch (SQLException e) {
 			Logger.log(LOG_LEVEL.ERROR, e);
+
+			return this.getStatusCodeFromSQLException(e);
+		}
+	}
+
+
+	public STATUS_CODE getStatusCodeFromSQLException(SQLException e)
+	{
+		switch (e.getErrorCode()) {
+			case 1044:
+			case 1045: {
+				return STATUS_CODE.ACCESS_DENIED;
+			}
+
+			case 2002:
+			case 2003: {
+				return STATUS_CODE.NO_CONNECTION_TO_SERVER;
+			}
+
+			case 1129:
+			case 1130: {
+				return STATUS_CODE.ACCESS_BLOCKED;
+			}
+
+			case 1132:
+			case 1345:
+			case 1454: {
+				return STATUS_CODE.NOT_ENOUGH_PRIVILEGES;
+			}
 		}
 
 		return STATUS_CODE.FAIL;

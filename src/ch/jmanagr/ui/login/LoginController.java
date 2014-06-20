@@ -3,6 +3,7 @@ package ch.jmanagr.ui.login;
 import ch.jmanagr.Main;
 import ch.jmanagr.bl.UsersBL;
 import ch.jmanagr.bo.User;
+import ch.jmanagr.exceptions.jManagrDBException;
 import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import javafx.fxml.FXML;
@@ -51,6 +52,8 @@ public class LoginController implements Initializable
             }
 		} catch (IOException e) {
 			Logger.log(LOG_LEVEL.ERROR, e);
+		} catch (jManagrDBException e) {
+			// todo display that something went wrong (no db connection, etc...)
 		}
 	}
 }

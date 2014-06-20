@@ -23,7 +23,7 @@ public class DB
 	/**
 	 *
 	 */
-	private DB()
+	private DB() throws SQLException
 	{
 		this.setSettings(SettingsDAL.getInstance().retrieve());
 	}
@@ -31,7 +31,7 @@ public class DB
 	/**
 	 * @return DB instance
 	 */
-	public static DB getInstance()
+	public static DB getInstance() throws SQLException
 	{
 		if (instance == null) {
 			synchronized (DB.class) {
@@ -43,36 +43,32 @@ public class DB
 		return instance;
 	}
 
-	public void setSettings(ch.jmanagr.bo.Settings settings)
+	public void setSettings(ch.jmanagr.bo.Settings settings) throws SQLException
 	{
 		this.settings = settings;
 		this.updateConnection();
 
 	}
 
-	protected void updateConnection()
+	protected void updateConnection() throws SQLException
 	{
-		try {
-			connectionSource =
-					new JdbcPooledConnectionSource(
-							String.format(
-									"jdbc:mysql://%s:%d/%s",
-									this.settings.getHost(),
-									this.settings.getPort(),
-									settings.getDatabase()
-							),
-							this.settings.getUser(),
-							this.settings.getPassword()
-					);
+		connectionSource =
+				new JdbcPooledConnectionSource(
+						String.format(
+								"jdbc:mysql://%s:%d/%s",
+								this.settings.getHost(),
+								this.settings.getPort(),
+								settings.getDatabase()
+						),
+						this.settings.getUser(),
+						this.settings.getPassword()
+				);
 
 
-			// setup connectionsource
-			connectionSource.setMaxConnectionAgeMillis(4 * 60 * 1000);
-			connectionSource.setCheckConnectionsEveryMillis(60 * 1000);
-			connectionSource.setTestBeforeGet(true);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		// setup connectionsource
+		connectionSource.setMaxConnectionAgeMillis(4 * 60 * 1000);
+		connectionSource.setCheckConnectionsEveryMillis(60 * 1000);
+		connectionSource.setTestBeforeGet(true);
 	}
 
 	public void closeConnection()

@@ -40,8 +40,16 @@ public class DepartmentsBL extends AbstractBL<Department, DepartmentsDAL>
 	@Override
 	public STATUS_CODE validate(Department bo)
 	{
-		// Todo: implement
-		return STATUS_CODE.OK;
+		try {
+			if (!this.dal.exists(bo)) {
+				return STATUS_CODE.OK;
+			}
+		} catch (SQLException e) {
+			Logger.log(LOG_LEVEL.WARNING, e);
+
+			return STATUS_CODE.FAIL;
+		}
+		return STATUS_CODE.ALREADY_EXISTS;
 	}
 
 

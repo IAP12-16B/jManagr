@@ -55,9 +55,11 @@ public class TicketsBL extends AbstractBL<Ticket, TicketsDAL>
 			}
 		} catch (SQLException e) {
 			Logger.log(LOG_LEVEL.ERROR, e);
+
+			return STATUS_CODE.FAIL;
 		}
 
-		return STATUS_CODE.FAIL;
+		return STATUS_CODE.ALREADY_EXISTS;
 	}
 
 	/**

@@ -2,6 +2,7 @@ package ch.jmanagr.bl;
 
 import ch.jmanagr.bo.User;
 import ch.jmanagr.dal.UsersDAL;
+import ch.jmanagr.exceptions.jManagrDBException;
 import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.STATUS_CODE;
@@ -48,7 +49,7 @@ public class UsersBL extends AbstractBL<User, UsersDAL>
 	 *
 	 * @return The logged in user if successful, null if unsuccessful
 	 */
-	public User login(String username, String password)
+	public User login(String username, String password) throws jManagrDBException
 	{
 		try {
 			List<User> user = this.dal.fetch("username", username, 1);
@@ -60,7 +61,7 @@ public class UsersBL extends AbstractBL<User, UsersDAL>
 				}
 			}
 		} catch (SQLException e) {
-			Logger.log(LOG_LEVEL.ERROR, e);
+			throw new jManagrDBException(e);
 		}
 
 
