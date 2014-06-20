@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TreeView?>
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="588.0" prefWidth="769.0"
-            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="ch.jmanagr.ui.resources.ResourceController">
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="588.0" prefWidth="769.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.jmanagr.ui.resources.ResourceController">
     <children>
-    <TreeView fx:id="treeView" layoutX="226.0" layoutY="141.0" prefHeight="200.0" prefWidth="200.0" />
+    <TreeView fx:id="treeView" layoutX="31.0" layoutY="33.0" prefHeight="493.0" prefWidth="310.0" />
+        <Button layoutX="253.0" layoutY="537.0" mnemonicParsing="false" text="Umbenennen" />
+        <TextField fx:id="renameFld" layoutX="90.0" layoutY="537.0" />
+        <Label layoutX="31.0" layoutY="541.0" text="Resource" />
 </children>
 </AnchorPane>
