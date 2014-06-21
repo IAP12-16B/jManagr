@@ -155,4 +155,14 @@ public class TicketsBL extends AbstractBL<Ticket, TicketsDAL>
 		return new ArrayList<>();
 	}
 
+
+	@Override
+	public STATUS_CODE delete(Ticket bo)
+	{
+		if (bo.getStatus() == TICKET_STATE.CLOSED) {
+			return super.delete(bo);
+		}
+
+		return STATUS_CODE.CANNOT_DELETE_OBJECT;
+	}
 }
