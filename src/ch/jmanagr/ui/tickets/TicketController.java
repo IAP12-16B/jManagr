@@ -74,8 +74,8 @@ public class TicketController implements Initializable
 
 	public void refresh()
 	{
-		this.ticketList = FXCollections.observableArrayList(bl.getAll());
-		this.ticketTable.setItems(this.ticketList);
+		ticketList = FXCollections.observableArrayList(bl.getAll());
+		this.ticketTable.setItems(ticketList);
 		Logger.logln("Refreshed list!");
 	}
 
