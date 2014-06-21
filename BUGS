@@ -1,3 +1,5 @@
 Wo                              Wer             Prio        Beschreibung/Error-Meldung
 ------------------------------------------------------------------------------------------------------------------------
 BUGS                            @kije           High        im bug file erschienen auf einmal bugs...
+UserDetailController            @mnewmedia      very low    Man sollte auch "kein" Deparment auswählen können?
+TicketDetailController          @mnewmedia      medium      Wenn man jManager startet, dann ein Department anleget, denn ein neues Ticket anlegt oder editiert, erscheint das neu erstellte Department nicht in der Department-Liste
