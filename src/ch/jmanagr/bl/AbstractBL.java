@@ -31,7 +31,7 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject<Busin
 	{
 		List<BusinessObjectType> depList = new ArrayList<>();
 		try {
-			depList = this.dal.fetch("deleted", "0");
+			depList = this.dal.fetch("deleted", 0);
 		} catch (SQLException e) {
 			Logger.log(LOG_LEVEL.ERROR, e);
 		}
