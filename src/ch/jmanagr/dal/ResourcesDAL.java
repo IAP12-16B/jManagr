@@ -2,7 +2,6 @@ package ch.jmanagr.dal;
 
 
 import ch.jmanagr.bo.Resource;
-import ch.jmanagr.bo.ResourceData;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -37,6 +36,6 @@ public class ResourcesDAL extends AbstractDAL<Resource>
 	public void createTable() throws SQLException
 	{
 		super.createTable();
-		this.db.createTableIfNotExists(ResourceData.class);
+		this.db.createTableIfNotExists(Resource.ResourceData.class);
 	}
 }

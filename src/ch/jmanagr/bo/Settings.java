@@ -9,7 +9,7 @@ public class Settings
 	private String db_database;
 	private String db_user;
 	private String db_password;
-	private Integer db_port;
+	private int db_port;
 
 	/**
 	 * Default constructor
@@ -24,7 +24,7 @@ public class Settings
 	 * @param db_password the Password of the DB user
 	 * @param db_port     the Port
 	 */
-	public Settings(String db_host, String db_database, String db_user, String db_password, Integer db_port)
+	public Settings(String db_host, String db_database, String db_user, String db_password, int db_port)
 	{
 		this.setHost(db_host);
 		this.setDatabase(db_database);
@@ -100,7 +100,7 @@ public class Settings
 	/**
 	 * @return the Port
 	 */
-	public Integer getPort()
+	public int getPort()
 	{
 		return db_port;
 	}
@@ -108,7 +108,7 @@ public class Settings
 	/**
 	 * @param db_port the Port
 	 */
-	public void setPort(Integer db_port)
+	public void setPort(int db_port)
 	{
 		this.db_port = db_port;
 	}
@@ -122,7 +122,7 @@ public class Settings
 
 		Settings settings = (Settings) o;
 
-		if (!db_port.equals(settings.db_port)) { return false; }
+		if (db_port != settings.db_port) { return false; }
 		if (db_database != null ? !db_database.equals(settings.db_database) : settings.db_database != null) {
 			return false;
 		}

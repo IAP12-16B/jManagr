@@ -395,7 +395,7 @@ public class Resource implements BusinessObject<Resource>
 	 * A class to store key/value pair for a {@link ch.jmanagr.bo.Resource}
 	 */
 	@DatabaseTable(tableName = "ResourceData")
-	public class ResourceData
+	public static class ResourceData
 	{
 		@DatabaseField(
 				useGetSet = true,
@@ -403,7 +403,7 @@ public class Resource implements BusinessObject<Resource>
 				foreign = true,
 				foreignAutoCreate = true,
 				foreignAutoRefresh = true)
-		private Resource resource = Resource.this;
+		private Resource resource;
 
 		@DatabaseField(useGetSet = true, uniqueCombo = true)
 		private String key; // todo simple string property

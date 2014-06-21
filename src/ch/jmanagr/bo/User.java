@@ -48,7 +48,7 @@ public class User implements BusinessObject<User>
 	               foreignAutoRefresh = true)
 	protected Department department;
 
-	
+
 	@DatabaseField(useGetSet = true)
 	protected boolean active = true;
 	@DatabaseField(useGetSet = true)
