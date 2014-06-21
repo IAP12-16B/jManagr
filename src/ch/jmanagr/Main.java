@@ -43,7 +43,7 @@ public class Main extends Application
 				getClass().getResource(
 						"ui/login/mainLogin.fxml".replace(
 								'/',
-								File.pathSeparatorChar
+								File.separatorChar
 						)
 				)
 		);
