@@ -1,10 +1,13 @@
 package ch.jmanagr.bo;
 
-
-public interface BusinessObject<T extends BusinessObject>
+/**
+ * Interface for all BusinessObjects
+ *
+ * @param <T> The BusinessObject class. Is used when somewhere the BusinessObject-Type itself is requires (e.g.
+ *            copyFromObject)
+ */
+public interface BusinessObject<T extends BusinessObject<T>>
 {
-	// TODO Implement fluid interface (bo.setId(1).setName(2)... ect...) on getters and methods without return value
-
 	/**
 	 * Get the id of the BusinessObject
 	 *
@@ -15,60 +18,52 @@ public interface BusinessObject<T extends BusinessObject>
 	/**
 	 * Set ID
 	 *
-	 * @param id
+	 * @param id the id
 	 */
 	public void setId(Integer id);
 
-	/**
-	 * Return wether the obejct is active
-	 *
-	 * @return
-	 */
-	public boolean isActive();
 
 	/**
-	 * @return
-	 *
-	 * @see this.isActive()
+	 * @return whether the object is active
 	 */
 	public boolean getActive();
 
 	/**
 	 * Sets the active flag of the object
 	 *
-	 * @param active
+	 * @param active active flag
 	 */
 	public void setActive(boolean active);
 
-	/**
-	 * Return wether the obejct is deleted
-	 *
-	 * @return
-	 */
-	public boolean isDeleted();
 
 	/**
-	 * @return
-	 *
-	 * @see this.isDeeleted()
+	 * @return whether the object is deleted
 	 */
 	public boolean getDeleted();
 
 	/**
 	 * Sets the deleted flag of the object
 	 *
-	 * @param deleted
+	 * @param deleted deleted flag
 	 */
 	public void setDeleted(boolean deleted);
 
 	/**
 	 * Copies the values from an other object
 	 *
-	 * @param bo
+	 * @param bo the BusinessObject to copy from
 	 */
 	public void copyFromObject(T bo);
 
+	/**
+	 * @return the version
+	 */
 	public Integer getVersion();
 
+	/**
+	 * Sets the version of this BusinessObject
+	 *
+	 * @param version the version
+	 */
 	public void setVersion(Integer version);
 }

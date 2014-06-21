@@ -9,55 +9,49 @@ import javafx.beans.property.SimpleStringProperty;
 
 import java.util.Date;
 
+/**
+ * Ticket BusinessObject
+ */
 @DatabaseTable(tableName = "Ticket")
 public class Ticket implements BusinessObject<Ticket>
 {
+	// id
 	@DatabaseField(useGetSet = true, generatedId = true, allowGeneratedIdInsert = true)
 	private Integer id;
-
 	protected SimpleIntegerProperty idProperty;
 
-
+	// datafield
 	@DatabaseField(useGetSet = true, canBeNull = true, dataType = DataType.STRING)
 	private String name;
-
 	private SimpleStringProperty nameProperty;
-
 	@DatabaseField(useGetSet = true, canBeNull = true, dataType = DataType.STRING)
 	private String description;
-
 	private SimpleStringProperty descriptionProperty;
-
 	@DatabaseField(useGetSet = true,
 	               defaultValue = "OPEN",
 	               unknownEnumName = "OPEN",
 	               canBeNull = false)
 	private TICKET_STATE status;
-
 	@DatabaseField(useGetSet = true, canBeNull = true)
 	private Date date;
-
 	@DatabaseField(useGetSet = true,
 	               canBeNull = false,
 	               foreign = true,
 	               foreignAutoCreate = true,
 	               foreignAutoRefresh = true)
 	private Resource resource;
-
 	@DatabaseField(useGetSet = true,
 	               canBeNull = true,
 	               foreign = true,
 	               foreignAutoCreate = true,
 	               foreignAutoRefresh = true)
 	private User agent;
-
 	@DatabaseField(useGetSet = true,
 	               canBeNull = true,
 	               foreign = true,
 	               foreignAutoCreate = true,
 	               foreignAutoRefresh = true)
 	private Department department;
-
 	@DatabaseField(useGetSet = true,
 	               canBeNull = false,
 	               foreign = true,
@@ -65,13 +59,11 @@ public class Ticket implements BusinessObject<Ticket>
 	               foreignAutoRefresh = true)
 	private User user;
 
-
+	// flags
 	@DatabaseField(useGetSet = true)
 	protected boolean active = true;
-
 	@DatabaseField(useGetSet = true)
 	protected boolean deleted = false;
-
 	@DatabaseField(version = true, useGetSet = true)
 	protected Integer version;
 
@@ -81,6 +73,9 @@ public class Ticket implements BusinessObject<Ticket>
 		this.initProperties();
 	}
 
+	/**
+	 * @param id th id of the Ticket
+	 */
 	public Ticket(int id)
 	{
 		this.initProperties();
@@ -96,7 +91,7 @@ public class Ticket implements BusinessObject<Ticket>
 
 
 	/**
-	 * @return
+	 * @return name
 	 */
 	public String getName()
 	{
@@ -104,7 +99,7 @@ public class Ticket implements BusinessObject<Ticket>
 	}
 
 	/**
-	 * @param name
+	 * @param name the name
 	 */
 	public void setName(String name)
 	{
@@ -112,7 +107,7 @@ public class Ticket implements BusinessObject<Ticket>
 	}
 
 	/**
-	 * @return
+	 * @return description
 	 */
 	public String getDescription()
 	{
@@ -120,7 +115,7 @@ public class Ticket implements BusinessObject<Ticket>
 	}
 
 	/**
-	 * @param description
+	 * @param description description
 	 */
 	public void setDescription(String description)
 	{
@@ -128,7 +123,7 @@ public class Ticket implements BusinessObject<Ticket>
 	}
 
 	/**
-	 * @return
+	 * @return status
 	 */
 	public TICKET_STATE getStatus()
 	{
@@ -136,7 +131,7 @@ public class Ticket implements BusinessObject<Ticket>
 	}
 
 	/**
-	 * @param status
+	 * @param status status
 	 */
 	public void setStatus(TICKET_STATE status)
 	{
@@ -144,7 +139,7 @@ public class Ticket implements BusinessObject<Ticket>
 	}
 
 	/**
-	 * @return
+	 * @return Date
 	 */
 	public Date getDate()
 	{
@@ -152,7 +147,7 @@ public class Ticket implements BusinessObject<Ticket>
 	}
 
 	/**
-	 * @param date
+	 * @param date Date
 	 */
 	public void setDate(Date date)
 	{
@@ -160,7 +155,7 @@ public class Ticket implements BusinessObject<Ticket>
 	}
 
 	/**
-	 * @return
+	 * @return the assigned Resource (if any)
 	 */
 	public Resource getResource()
 	{
@@ -168,36 +163,71 @@ public class Ticket implements BusinessObject<Ticket>
 	}
 
 
+	/**
+	 * Set the Resource
+	 *
+	 * @param resource resource
+	 */
 	public void setResource(Resource resource)
 	{
 		this.resource = resource;
 	}
 
+	/**
+	 * Get the assigned Agent
+	 *
+	 * @return agent
+	 */
 	public User getAgent()
 	{
 		return agent;
 	}
 
+	/**
+	 * Assign an agent
+	 *
+	 * @param agent agent
+	 */
 	public void setAgent(User agent)
 	{
 		this.agent = agent;
 	}
 
+	/**
+	 * Get the assigned Department
+	 *
+	 * @return a Department
+	 */
 	public Department getDepartment()
 	{
 		return department;
 	}
 
+	/**
+	 * Assign a Department
+	 *
+	 * @param department a Department
+	 */
 	public void setDepartment(Department department)
 	{
 		this.department = department;
 	}
 
+	/**
+	 * Get the User who has created this Ticket
+	 *
+	 * @return User
+	 */
 	public User getUser()
 	{
 		return user;
 	}
 
+	/**
+	 * Set the creator of this Ticket
+	 *
+	 * @param user The User who has created this Ticket
+	 */
 	public void setUser(User user)
 	{
 		this.user = user;
@@ -207,7 +237,7 @@ public class Ticket implements BusinessObject<Ticket>
 	/**
 	 * Copies the values from an other object
 	 *
-	 * @param bo
+	 * @param bo The Ticket to copy from
 	 */
 	@Override
 	public void copyFromObject(Ticket bo)
@@ -225,11 +255,21 @@ public class Ticket implements BusinessObject<Ticket>
 		this.setUser(bo.getUser());
 	}
 
+	/**
+	 * Name property (required for JavaFX)
+	 *
+	 * @return the name property
+	 */
 	public SimpleStringProperty nameProperty()
 	{
 		return this.nameProperty;
 	}
 
+	/**
+	 * Description property (required for JavaFX)
+	 *
+	 * @return the description property
+	 */
 	public SimpleStringProperty descriptionProperty()
 	{
 		return this.descriptionProperty;
@@ -287,12 +327,12 @@ public class Ticket implements BusinessObject<Ticket>
 		this.version = version;
 	}
 
-	@Override
-	public boolean isActive()
-	{
-		return active;
-	}
 
+	/**
+	 * Get the id of the Ticket
+	 *
+	 * @return the id
+	 */
 	@Override
 	public Integer getId()
 
@@ -300,41 +340,61 @@ public class Ticket implements BusinessObject<Ticket>
 		return idProperty.getValue();
 	}
 
+	/**
+	 * Set ID
+	 *
+	 * @param id the id
+	 */
 	@Override
 	public void setId(Integer id)
 	{
 		this.idProperty.set(id);
 	}
 
+	/**
+	 * Id property (used by JavaFX)
+	 *
+	 * @return the id property
+	 */
 	public SimpleIntegerProperty idProperty()
 	{
 		return this.idProperty;
 	}
 
+	/**
+	 * @return whether the object is active
+	 */
 	@Override
 	public boolean getActive()
 	{
 		return active;
 	}
 
+	/**
+	 * Sets the active flag of the object
+	 *
+	 * @param active active flag
+	 */
 	@Override
 	public void setActive(boolean active)
 	{
 		this.active = active;
 	}
 
+	/**
+	 * @return whether the object is deleted
+	 */
 	@Override
 	public boolean getDeleted()
 	{
 		return deleted;
 	}
 
-	@Override
-	public boolean isDeleted()
-	{
-		return deleted;
-	}
-
+	/**
+	 * Sets the deleted flag of the object
+	 *
+	 * @param deleted deleted flag
+	 */
 	@Override
 	public void setDeleted(boolean deleted)
 	{
