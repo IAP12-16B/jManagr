@@ -2,9 +2,12 @@ package ch.jmanagr.dal;
 
 
 import ch.jmanagr.bo.Resource;
+import ch.jmanagr.lib.STATUS_CODE;
+import com.j256.ormlite.misc.TransactionManager;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 public class ResourcesDAL extends AbstractDAL<Resource>
 {
@@ -37,5 +40,30 @@ public class ResourcesDAL extends AbstractDAL<Resource>
 	{
 		super.createTable();
 		this.db.createTableIfNotExists(Resource.ResourceData.class);
+	}
+
+	@Override
+	public STATUS_CODE softDelete(final Resource bo) throws SQLException
+	{
+		return TransactionManager.callInTransaction(
+				this.db.getConnectionSource(),
+				new Callable<STATUS_CODE>()
+				{
+					@Override
+					public STATUS_CODE call() throws SQLException
+					{
+						bo.setDeleted(true);
+						if (dao.update(bo) == 1) {
+							List<Resource> resources = dao.queryForEq("parent_id", bo.getId());
+							for (Resource resource : resources) {
+								ResourcesDAL.this.softDelete(resource);
+							}
+						}
+
+						return STATUS_CODE.FAIL;
+					}
+				}
+		);
+
 	}
 }
