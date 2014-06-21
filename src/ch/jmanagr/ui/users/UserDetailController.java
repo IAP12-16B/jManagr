@@ -37,7 +37,7 @@ public class UserDetailController implements Initializable
 	@FXML
 	private Label userDetailErrorLbl;
 	@FXML
-	private static ComboBox<Department> departementCbox;
+	public static ComboBox<Department> departementCbox;
 	@FXML
 	private static ComboBox<USER_ROLE> roleCbox;
 
@@ -87,9 +87,26 @@ public class UserDetailController implements Initializable
 		updateCurrIndex = index;
 	}
 
+    public boolean validationPassed() {
+        this.userDetailErrorLbl.setVisible(true);
+        if (usernameFld.getText().isEmpty()) {
+            this.userDetailErrorLbl.setText("Benutzername darf nicht leer sein!");
+            return false;
+        } else if (passwordFld.getText().isEmpty()) {
+            this.userDetailErrorLbl.setText("Passwort darf nicht leer sein!");
+            return false;
+        } else if (!passwordFld.getText().equals(password2Fld.getText())) {
+            this.userDetailErrorLbl.setText("Passwörter müssen übereinstimmen!");
+            return false;
+        } else {
+            this.userDetailErrorLbl.setVisible(false);
+            return true;
+        }
+    }
+
 	public void saveUser()
 	{
-		if (!usernameFld.getText().isEmpty() && passwordFld.getText().equals(password2Fld.getText())) {
+		if (validationPassed()) {
 
 			// get selected comboboxes
 			Department d = departementCbox.getSelectionModel().getSelectedItem();
@@ -120,27 +137,28 @@ public class UserDetailController implements Initializable
 				// save
 				bl.save(updateCurrUser);
 				UsersController.userList.set(updateCurrIndex, updateCurrUser);
-
-				// clear fields
-				updateCurrUser = null;
-				lastnameFld.setText(null);
-				firstnameFld.setText(null);
-				usernameFld.setText(null);
-				password2Fld.setText(null);
-				passwordFld.setText(null);
-				departementCbox.getSelectionModel().selectFirst();
-				roleCbox.getSelectionModel().selectFirst();
+                this.clearFields();
 			}
 			MainController.changeTabContent("users");
-		} else {
-			this.userDetailErrorLbl.setVisible(true);
 		}
-
 	}
+
 
 	public void cancelUser()
 	{
 		MainController.changeTabContent("users");
+        this.clearFields();
 	}
+
+    public void clearFields() {
+        updateCurrUser = null;
+        lastnameFld.setText(null);
+        firstnameFld.setText(null);
+        usernameFld.setText(null);
+        password2Fld.setText(null);
+        passwordFld.setText(null);
+        departementCbox.getSelectionModel().selectFirst();
+        roleCbox.getSelectionModel().selectFirst();
+    }
 
 }

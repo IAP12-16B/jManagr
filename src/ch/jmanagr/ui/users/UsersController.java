@@ -51,8 +51,6 @@ public class UsersController implements Initializable
 
 	public UsersController()
 	{
-		// @mnewmedia Use constructor to set BL instances -> This way, DB connection etc... only gets established when
-		// the controller is instantiated
 		try {
 			this.bl = UsersBL.getInstance();
 		} catch (jManagrDBException e) {
@@ -63,7 +61,6 @@ public class UsersController implements Initializable
 	// Fill Table with Data
 	public void initialize(URL location, ResourceBundle resources)
 	{
-
 		idCol.setCellValueFactory(new PropertyValueFactory("id"));
 		lastnameCol.setCellValueFactory(new PropertyValueFactory<User, String>("lastname"));
 		firstnameCol.setCellValueFactory(new PropertyValueFactory<User, String>("firstname"));
@@ -83,8 +80,6 @@ public class UsersController implements Initializable
 					}
 				}
 		);
-
-
 		this.refresh();
 	}
 
@@ -95,7 +90,7 @@ public class UsersController implements Initializable
 		Logger.logln("Refreshed list!");
 	}
 
-	public void newUser() //pass actionEvent?
+	public void newUser()
 	{
 		MainController.changeTabContent("userDetail");
 	}
