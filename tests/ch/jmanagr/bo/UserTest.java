@@ -29,6 +29,7 @@ public class UserTest
 	@Test
 	public void testPasswordHashing() throws Exception
 	{
+
 		testUser.setUnhashedPassword(TESTPASSWORD);
 		assertTrue(
 				testUser.checkPassword(TESTPASSWORD)
