@@ -7,6 +7,7 @@ import ch.jmanagr.exceptions.jManagrDBException;
 import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.USER_ROLE;
+import ch.jmanagr.ui.tickets.TicketDetailController;
 import ch.jmanagr.ui.users.UserDetailController;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -69,7 +70,9 @@ public class MainController implements Initializable
 		switch (view) {
 			case "ticketDetail": {
 				tabTickets.setContent(ticketDetailView);
-				break;
+                TicketDetailController.departementCbox.setItems(FXCollections.observableArrayList(depBl.getAll()));
+                TicketDetailController.departementCbox.getSelectionModel().selectFirst();
+                break;
 			}
 
 			case "tickets": {

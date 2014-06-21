@@ -27,7 +27,7 @@ public class TicketDetailController implements Initializable
 	@FXML
 	public ComboBox<TICKET_STATE> ticketStateCbox;
 	@FXML
-	private ComboBox<Department> departementCbox;
+	public static ComboBox<Department> departementCbox;
 
 
 	@FXML
@@ -40,20 +40,12 @@ public class TicketDetailController implements Initializable
 
 	public TicketDetailController()
 	{
-		// @mnewmedia Use constructor to set BL instances -> This way, DB connection etc... only gets established when
-		// the controller is instantiated
-		bl = TicketsBL.getInstance();
+        bl = TicketsBL.getInstance();
 		depBl = DepartmentsBL.getInstance();
 	}
 
 	public void initialize(URL location, ResourceBundle resources)
 	{
-		// Fill Departement Combobox
-		departementCbox.setItems(
-				FXCollections.observableArrayList(depBl.getAll())
-		); // use ToString in order To Display nice name in ComboBox
-		departementCbox.getSelectionModel().selectFirst();
-
 		ticketStateCbox.setItems(
 				FXCollections.observableArrayList(TICKET_STATE.values())
 		);

@@ -59,15 +59,9 @@ public class UserDetailController implements Initializable
 
 	public void initialize(URL location, ResourceBundle resources)
 	{
-		// Fill UserRoles Combobox
-		for (USER_ROLE r : USER_ROLE.values()) {
-			roleCbox.getItems().add(r);
-		}
-		roleCbox.getSelectionModel().selectFirst();
-
-		// Fill Departement Combobox
-		departementCbox.setItems(FXCollections.observableArrayList(depBl.getAll()));
-		departementCbox.getSelectionModel().selectFirst();
+        // Fill User Roles Combobox
+        roleCbox.setItems(FXCollections.observableArrayList(USER_ROLE.values()));
+        roleCbox.getSelectionModel().selectFirst();
 
 		// hide error lbl
 		this.userDetailErrorLbl.setVisible(false);
