@@ -22,8 +22,8 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable
 {
-    private static UsersBL usersBL;
-    private static DepartmentsBL depBl;
+	private static UsersBL usersBL;
+	private static DepartmentsBL depBl;
 	@FXML
 	private static AnchorPane ticketView;
 	@FXML
@@ -41,14 +41,15 @@ public class MainController implements Initializable
 	@FXML
 	private static TabPane tabPane;
 
-    public MainController() {
-        depBl = DepartmentsBL.getInstance();
-    }
+	public MainController()
+	{
+		depBl = DepartmentsBL.getInstance();
+	}
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle)
 	{
-        removeTabsByUserRole();
+		removeTabsByUserRole();
 	}
 
 	public static void removeTabsByUserRole()
@@ -70,9 +71,9 @@ public class MainController implements Initializable
 		switch (view) {
 			case "ticketDetail": {
 				tabTickets.setContent(ticketDetailView);
-                TicketDetailController.departementCbox.setItems(FXCollections.observableArrayList(depBl.getAll()));
-                TicketDetailController.departementCbox.getSelectionModel().selectFirst();
-                break;
+				TicketDetailController.departementCbox.setItems(FXCollections.observableArrayList(depBl.getAll()));
+				TicketDetailController.departementCbox.getSelectionModel().selectFirst();
+				break;
 			}
 
 			case "tickets": {

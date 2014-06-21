@@ -37,11 +37,11 @@ public class Main extends Application
 	@Override
 	public void start(Stage primaryStage) throws Exception
 	{
-        stage = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("ui/login/mainLogin.fxml"));
-        scene = new Scene(root);
+		stage = primaryStage;
+		Parent root = FXMLLoader.load(getClass().getResource("ui/login/mainLogin.fxml"));
+		scene = new Scene(root);
 		stage.setTitle("jManagr");
-        stage.setScene(scene);
+		stage.setScene(scene);
 		stage.setMinHeight(650);
 		stage.setMinWidth(500);
 		stage.setMaxHeight(700);
@@ -49,8 +49,9 @@ public class Main extends Application
 		stage.show();
 	}
 
-    public static void loggedIn(Scene scene) {
-        stage.setScene(scene);
-    }
+	public static void loggedIn(Scene scene)
+	{
+		stage.setScene(scene);
+	}
 
 }

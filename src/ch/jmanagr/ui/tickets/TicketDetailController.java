@@ -40,7 +40,7 @@ public class TicketDetailController implements Initializable
 
 	public TicketDetailController()
 	{
-        bl = TicketsBL.getInstance();
+		bl = TicketsBL.getInstance();
 		depBl = DepartmentsBL.getInstance();
 	}
 
