@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 public class TicketController implements Initializable
 {
 	public static ObservableList<Ticket> ticketList;
+    //private ObservableList<Ticket> filteredList = FXCollections.observableArrayList();
 	private TicketsBL bl;
 
 	@FXML
@@ -41,6 +42,8 @@ public class TicketController implements Initializable
 	// Fill Table with Data
 	public void initialize(URL location, ResourceBundle resources)
 	{
+        //http://code.makery.ch/blog/javafx-2-tableview-filter/
+        //filteredList.addAll(ticketList);
 
 		idCol.setCellValueFactory(new PropertyValueFactory("id"));
 		nameCol.setCellValueFactory(new PropertyValueFactory<Ticket, String>("name"));
