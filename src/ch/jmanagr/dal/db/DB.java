@@ -7,6 +7,7 @@ import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.support.DatabaseConnection;
 import com.j256.ormlite.table.DatabaseTableConfig;
 import com.j256.ormlite.table.TableUtils;
 
@@ -55,14 +56,31 @@ public class DB
 		connectionSource =
 				new JdbcPooledConnectionSource(
 						String.format(
-								"jdbc:mysql://%s:%d/%s",
+								"jdbc:mysql://%s:%d",
 								this.settings.getHost(),
-								this.settings.getPort(),
-								settings.getDatabase()
+								this.settings.getPort()
 						),
 						this.settings.getUser(),
 						this.settings.getPassword()
 				);
+
+		// create database if not exists
+		connectionSource.getReadWriteConnection().executeStatement(
+				String.format(
+						"CREATE DATABASE IF NOT EXISTS `%s`;",
+						this.settings.getDatabase()
+				),
+				DatabaseConnection.DEFAULT_RESULT_FLAGS
+		);
+
+		connectionSource.setUrl(
+				String.format(
+						"jdbc:mysql://%s:%d/%s",
+						this.settings.getHost(),
+						this.settings.getPort(),
+						this.settings.getDatabase()
+				)
+		);
 
 
 		// setup connectionsource
