@@ -7,9 +7,11 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.misc.TransactionManager;
 import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.Where;
 
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -73,6 +75,27 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 	@Override
 	public List<BusinessObjectType> fetch(Map<String, Object> params) throws SQLException
 	{
+		if (params.containsValue(null)) {
+			Where<BusinessObjectType, Integer> where = dao.queryBuilder().where();
+
+			Iterator<Map.Entry<String, Object>> entryIterator = params.entrySet().iterator();
+			while (entryIterator.hasNext()) {
+				Map.Entry<String, Object> entry = entryIterator.next();
+
+				if (entry.getValue() != null) {
+					where.eq(entry.getKey(), entry.getValue());
+				} else {
+					where.isNull(entry.getKey());
+				}
+
+				if (entryIterator.hasNext()) {
+					where = where.and();
+				}
+			}
+
+			return dao.query(where.prepare());
+		}
+
 		return dao.queryForFieldValues(params);
 	}
 

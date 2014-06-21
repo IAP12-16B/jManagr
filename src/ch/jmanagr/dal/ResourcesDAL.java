@@ -6,6 +6,7 @@ import ch.jmanagr.lib.STATUS_CODE;
 import com.j256.ormlite.misc.TransactionManager;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -32,7 +33,11 @@ public class ResourcesDAL extends AbstractDAL<Resource>
 
 	public List<Resource> fetchOnlyRootResources() throws SQLException
 	{
-		return this.fetch("parent_id", null);
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("parent_id", null);
+		map.put("deleted", "0");
+
+		return this.fetch(map);
 	}
 
 	@Override
