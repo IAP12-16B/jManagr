@@ -35,8 +35,8 @@ public class MainController implements Initializable
 	private static Tab tabTickets;
 	@FXML
 	private static Tab tabUser;
-    @FXML
-    private static Tab tabDepartment;
+	@FXML
+	private static Tab tabDepartment;
 	@FXML
 	private static TabPane tabPane;
 
@@ -60,22 +60,34 @@ public class MainController implements Initializable
 		}
 		if (user.getRole() == USER_ROLE.USER) {
 			tabPane.getTabs().remove(tabUser);
-            tabPane.getTabs().remove(tabDepartment);
-        }
+			tabPane.getTabs().remove(tabDepartment);
+		}
 	}
 
 	public static void changeTabContent(String view)
 	{
-		if (view.equals("ticketDetail")) {
-			tabTickets.setContent(ticketDetailView);
-		} else if (view.equals("tickets")) {
-			tabTickets.setContent(ticketView);
-		} else if (view.equals("users")) {
-			tabUser.setContent(userView);
-		} else if (view.equals("userDetail")) {
-            UserDetailController.departementCbox.setItems(FXCollections.observableArrayList(depBl.getAll()));
-            UserDetailController.departementCbox.getSelectionModel().selectFirst();
-			tabUser.setContent(userDetailView);
+		switch (view) {
+			case "ticketDetail": {
+				tabTickets.setContent(ticketDetailView);
+				break;
+			}
+
+			case "tickets": {
+				tabTickets.setContent(ticketView);
+				break;
+			}
+
+			case "users": {
+				tabUser.setContent(userView);
+				break;
+			}
+
+			case "userDetail": {
+				UserDetailController.departementCbox.setItems(FXCollections.observableArrayList(depBl.getAll()));
+				UserDetailController.departementCbox.getSelectionModel().selectFirst();
+				tabUser.setContent(userDetailView);
+				break;
+			}
 		}
 	}
 

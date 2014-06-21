@@ -25,7 +25,10 @@ import java.util.ResourceBundle;
 public class TicketDetailController implements Initializable
 {
 	@FXML
+	public ComboBox<TICKET_STATE> ticketStateCbox;
+	@FXML
 	private ComboBox<Department> departementCbox;
+
 
 	@FXML
 	private TextArea descriptionFld;
@@ -50,6 +53,10 @@ public class TicketDetailController implements Initializable
 				FXCollections.observableArrayList(depBl.getAll())
 		); // use ToString in order To Display nice name in ComboBox
 		departementCbox.getSelectionModel().selectFirst();
+
+		ticketStateCbox.setItems(
+				FXCollections.observableArrayList(TICKET_STATE.values())
+		);
 	}
 
 	public void saveTicket()

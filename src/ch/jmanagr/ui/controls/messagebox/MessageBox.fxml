@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <AnchorPane fx:id="messageBoxPane" focusTraversable="true" prefHeight="300.0" prefWidth="450.0"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="ch.jmanagr.ui.controls.MessageBoxController">
+            fx:controller="ch.jmanagr.ui.controls.messagebox.MessageBoxController">
     <children>
         <Label fx:id="messageLabel" alignment="TOP_LEFT" cache="true" layoutX="14.0" layoutY="14.0" prefHeight="179.0"
                prefWidth="422.0" text="Label" wrapText="true" AnchorPane.bottomAnchor="70.0"

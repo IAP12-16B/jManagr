@@ -1,4 +1,4 @@
-package ch.jmanagr.ui.controls;
+package ch.jmanagr.ui.controls.messagebox;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -7,10 +7,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
-public class MessageBoxController implements Initializable
+public class MessageBoxController extends Observable implements Initializable
 {
+
+	public final static String CLICK_OK_EVENT = "event_click";
 	@FXML
 	private AnchorPane messageBoxPane;
 
@@ -30,6 +33,8 @@ public class MessageBoxController implements Initializable
 
 	public void clickOk()
 	{
+		this.notifyObservers(CLICK_OK_EVENT);
+
 		if (this.stage != null) {
 			this.stage.close();
 		}
