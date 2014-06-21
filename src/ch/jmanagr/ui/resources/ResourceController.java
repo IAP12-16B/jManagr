@@ -65,6 +65,12 @@ public class ResourceController implements Initializable
 
 	}
 
+    public void add() {
+
+    }
+    public void rename() {
+
+    }
 	public void addChildItems(TreeItem<Resource> parentItem)
 	{
 		Resource resource = parentItem.getValue();
