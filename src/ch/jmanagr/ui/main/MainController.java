@@ -1,11 +1,14 @@
 package ch.jmanagr.ui.main;
 
+import ch.jmanagr.bl.DepartmentsBL;
 import ch.jmanagr.bl.UsersBL;
 import ch.jmanagr.bo.User;
 import ch.jmanagr.exceptions.jManagrDBException;
 import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.USER_ROLE;
+import ch.jmanagr.ui.users.UserDetailController;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
@@ -19,6 +22,7 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable
 {
     private static UsersBL usersBL;
+    private static DepartmentsBL depBl;
 	@FXML
 	private static AnchorPane ticketView;
 	@FXML
@@ -35,6 +39,10 @@ public class MainController implements Initializable
     private static Tab tabDepartment;
 	@FXML
 	private static TabPane tabPane;
+
+    public MainController() {
+        depBl = DepartmentsBL.getInstance();
+    }
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle)
@@ -65,6 +73,8 @@ public class MainController implements Initializable
 		} else if (view.equals("users")) {
 			tabUser.setContent(userView);
 		} else if (view.equals("userDetail")) {
+            UserDetailController.departementCbox.setItems(FXCollections.observableArrayList(depBl.getAll()));
+            UserDetailController.departementCbox.getSelectionModel().selectFirst();
 			tabUser.setContent(userDetailView);
 		}
 	}
