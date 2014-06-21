@@ -13,6 +13,9 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 
+/**
+ * Basic class to provide DB access Current implementation uses ORMlite
+ */
 public class DB
 {
 	private static volatile DB instance;
@@ -22,7 +25,7 @@ public class DB
 
 
 	/**
-	 *
+	 * @throws java.sql.SQLException
 	 */
 	private DB() throws SQLException
 	{
@@ -31,6 +34,7 @@ public class DB
 
 	/**
 	 * @return DB instance
+	 * @throws java.sql.SQLException
 	 */
 	public static DB getInstance() throws SQLException
 	{
@@ -44,6 +48,11 @@ public class DB
 		return instance;
 	}
 
+	/**
+	 * Changes the used Settings for DB connection
+	 * @param settings the Settings to use
+	 * @throws SQLException
+	 */
 	public void setSettings(ch.jmanagr.bo.Settings settings) throws SQLException
 	{
 		this.settings = settings;
@@ -51,6 +60,10 @@ public class DB
 
 	}
 
+	/**
+	 * Updates the connection source with the current setting
+	 * @throws SQLException
+	 */
 	protected void updateConnection() throws SQLException
 	{
 		connectionSource =
@@ -89,6 +102,9 @@ public class DB
 		connectionSource.setTestBeforeGet(true);
 	}
 
+	/**
+	 * Closes the connection source
+	 */
 	public void closeConnection()
 	{
 		try {
@@ -98,31 +114,61 @@ public class DB
 		}
 	}
 
+	/**
+	 * Shuts the DB connection down.
+	 */
 	public void shutdown()
 	{
 		this.closeConnection();
 	}
 
+	/**
+	 * Get the current connection source
+	 * @return the current connection source
+	 */
 	public ConnectionSource getConnectionSource()
 	{
 		return this.connectionSource;
 	}
 
+	/**
+	 * Issue the database statements to create the table associated with a class.
+	 *
+	 * @param cls The class for which a table will be created.
+	 *
+	 * @return The number of statements executed to do so.
+	 */
 	public int createTable(Class<? extends BusinessObject> cls) throws SQLException
 	{
 		return TableUtils.createTable(this.connectionSource, cls);
 	}
 
+	/**
+	 * @see DB#createTableIfNotExists(Class) Create a table if it does not already exist. This is not supported by all
+	 * databases.
+	 */
 	public int createTableIfNotExists(Class cls) throws SQLException
 	{
 		return TableUtils.createTableIfNotExists(this.connectionSource, cls);
 	}
 
+	/**
+	 * Issue the database statements to create the table associated with a table configuration.
+	 *
+	 * @param conf Hand or spring wired table configuration. If null then the class must have {@link
+	 *             com.j256.ormlite.field.DatabaseField} annotations.
+	 *
+	 * @return The number of statements executed to do so.
+	 */
 	public int createTable(DatabaseTableConfig conf) throws SQLException
 	{
 		return TableUtils.createTable(this.connectionSource, conf);
 	}
 
+	/**
+	 * @see DB#createTableIfNotExists(com.j256.ormlite.table.DatabaseTableConfig) Create a table if it does not already
+	 * exist. This is not supported by all databases.
+	 */
 	public int createTableIfNotExists(DatabaseTableConfig conf) throws SQLException
 	{
 		return TableUtils.createTableIfNotExists(this.connectionSource, conf);
@@ -136,7 +182,9 @@ public class DB
 	 * @param tableConfig
 	 */
 	public <T> int clearTable(DatabaseTableConfig<T> tableConfig) throws SQLException
-	{return TableUtils.clearTable(this.connectionSource, tableConfig);}
+	{
+		return TableUtils.clearTable(this.connectionSource, tableConfig);
+	}
 
 	/**
 	 * Issue the database statements to drop the table associated with a class. <p/> <p> <b>WARNING:</b> This is
@@ -149,7 +197,9 @@ public class DB
 	 * @return The number of statements executed to do so.
 	 */
 	public <T, ID> int dropTable(Class<? extends BusinessObject> dataClass, boolean ignoreErrors) throws SQLException
-	{return TableUtils.dropTable(this.connectionSource, dataClass, ignoreErrors);}
+	{
+		return TableUtils.dropTable(this.connectionSource, dataClass, ignoreErrors);
+	}
 
 	/**
 	 * Issue the database statements to drop the table associated with a table configuration. <p/> <p> <b>WARNING:</b>
@@ -163,7 +213,9 @@ public class DB
 	 * @return The number of statements executed to do so.
 	 */
 	public <T, ID> int dropTable(DatabaseTableConfig<T> tableConfig, boolean ignoreErrors) throws SQLException
-	{return TableUtils.dropTable(this.connectionSource, tableConfig, ignoreErrors);}
+	{
+		return TableUtils.dropTable(this.connectionSource, tableConfig, ignoreErrors);
+	}
 
 	/**
 	 * Clear all data out of the table. For certain database types and with large sized tables, which may take a long
@@ -173,5 +225,7 @@ public class DB
 	 * @param dataClass
 	 */
 	public <T> int clearTable(Class<? extends BusinessObject> dataClass) throws SQLException
-	{return TableUtils.clearTable(this.connectionSource, dataClass);}
+	{
+		return TableUtils.clearTable(this.connectionSource, dataClass);
+	}
 }
