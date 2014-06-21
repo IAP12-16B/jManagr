@@ -55,9 +55,9 @@ public class LoginController implements Initializable
 			MessageBox msgBx = new MessageBox(
 					"Fehler",
 					"Ein fehler ist aufgetreten. Bitte überprüfen Sie die Verbindungseinstellungen und versuchen Sie" +
-					" " +
-					"es" +
-					" erneut!"
+					" es erneut!\n\n" +
+					"Fehlermeldung: \n" +
+					e.getLocalizedMessage()
 			);
 			msgBx.show();
 			Logger.log(LOG_LEVEL.ERROR, e);
