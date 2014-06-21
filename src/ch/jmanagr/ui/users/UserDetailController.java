@@ -59,9 +59,15 @@ public class UserDetailController implements Initializable
 
 	public void initialize(URL location, ResourceBundle resources)
 	{
-        // Fill User Roles Combobox
-        roleCbox.setItems(FXCollections.observableArrayList(USER_ROLE.values()));
-        roleCbox.getSelectionModel().selectFirst();
+		// Fill UserRoles Combobox
+		for (USER_ROLE r : USER_ROLE.values()) {
+			roleCbox.getItems().add(r);
+		}
+		roleCbox.getSelectionModel().selectFirst();
+
+		// Fill Departement Combobox
+		departementCbox.setItems(FXCollections.observableArrayList(depBl.getAll()));
+		departementCbox.getSelectionModel().selectFirst();
 
 		// hide error lbl
 		this.userDetailErrorLbl.setVisible(false);
@@ -81,22 +87,23 @@ public class UserDetailController implements Initializable
 		updateCurrIndex = index;
 	}
 
-    public boolean validationPassed() {
-        this.userDetailErrorLbl.setVisible(true);
-        if (usernameFld.getText().isEmpty()) {
-            this.userDetailErrorLbl.setText("Benutzername darf nicht leer sein!");
-            return false;
-        } else if (passwordFld.getText().isEmpty()) {
-            this.userDetailErrorLbl.setText("Passwort darf nicht leer sein!");
-            return false;
-        } else if (!passwordFld.getText().equals(password2Fld.getText())) {
-            this.userDetailErrorLbl.setText("Passwörter müssen übereinstimmen!");
-            return false;
-        } else {
-            this.userDetailErrorLbl.setVisible(false);
-            return true;
-        }
-    }
+	public boolean validationPassed()
+	{
+		this.userDetailErrorLbl.setVisible(true);
+		if (usernameFld.getText().isEmpty()) {
+			this.userDetailErrorLbl.setText("Benutzername darf nicht leer sein!");
+			return false;
+		} else if (passwordFld.getText().isEmpty()) {
+			this.userDetailErrorLbl.setText("Passwort darf nicht leer sein!");
+			return false;
+		} else if (!passwordFld.getText().equals(password2Fld.getText())) {
+			this.userDetailErrorLbl.setText("Passwörter müssen übereinstimmen!");
+			return false;
+		} else {
+			this.userDetailErrorLbl.setVisible(false);
+			return true;
+		}
+	}
 
 	public void saveUser()
 	{
@@ -131,7 +138,7 @@ public class UserDetailController implements Initializable
 				// save
 				bl.save(updateCurrUser);
 				UsersController.userList.set(updateCurrIndex, updateCurrUser);
-                this.clearFields();
+				this.clearFields();
 			}
 			MainController.changeTabContent("users");
 		}
@@ -141,18 +148,19 @@ public class UserDetailController implements Initializable
 	public void cancelUser()
 	{
 		MainController.changeTabContent("users");
-        this.clearFields();
+		this.clearFields();
 	}
 
-    public void clearFields() {
-        updateCurrUser = null;
-        lastnameFld.setText(null);
-        firstnameFld.setText(null);
-        usernameFld.setText(null);
-        password2Fld.setText(null);
-        passwordFld.setText(null);
-        departementCbox.getSelectionModel().selectFirst();
-        roleCbox.getSelectionModel().selectFirst();
-    }
+	public void clearFields()
+	{
+		updateCurrUser = null;
+		lastnameFld.setText(null);
+		firstnameFld.setText(null);
+		usernameFld.setText(null);
+		password2Fld.setText(null);
+		passwordFld.setText(null);
+		departementCbox.getSelectionModel().selectFirst();
+		roleCbox.getSelectionModel().selectFirst();
+	}
 
 }

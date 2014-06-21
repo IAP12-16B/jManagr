@@ -25,6 +25,8 @@ public interface DAL<BusinessObjectType extends BusinessObject>
 
 	public List<BusinessObjectType> fetch(Map<String, Object> params) throws SQLException;
 
+	public List<BusinessObjectType> fetch(Map<String, Object> params, int limit) throws SQLException;
+
 	public List<BusinessObjectType> fetch(String fieldName, Object value, Integer limit) throws SQLException;
 
 	public boolean exists(BusinessObjectType bo) throws SQLException;

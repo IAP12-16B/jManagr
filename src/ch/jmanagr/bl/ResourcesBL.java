@@ -21,7 +21,7 @@ public class ResourcesBL extends AbstractBL<Resource, ResourcesDAL>
 		try {
 			dal = ResourcesDAL.getInstance();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Logger.log(LOG_LEVEL.ERROR, e);
 		}
 	}
 

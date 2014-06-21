@@ -10,6 +10,7 @@ import ch.jmanagr.lib.USER_ROLE;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class UsersBL extends AbstractBL<User, UsersDAL>
@@ -52,8 +53,11 @@ public class UsersBL extends AbstractBL<User, UsersDAL>
 	 */
 	public User login(String username, String password) throws jManagrDBException
 	{
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("username", username);
+		map.put("deleted", 0);
 		try {
-			List<User> user = this.dal.fetch("username", username, 1);
+			List<User> user = this.dal.fetch(map, 1);
 			if (!user.isEmpty()) {
 				User u = user.get(0);
 				if (u.checkPassword(password)) {
@@ -154,8 +158,12 @@ public class UsersBL extends AbstractBL<User, UsersDAL>
 	 */
 	public List<User> getByUserRole(USER_ROLE role)
 	{
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("role", role.toString());
+		map.put("deleted", 0);
+
 		try {
-			return this.dal.fetch("role", role.toString());
+			return this.dal.fetch(map);
 		} catch (SQLException e) {
 			Logger.log(LOG_LEVEL.ERROR, e);
 		}

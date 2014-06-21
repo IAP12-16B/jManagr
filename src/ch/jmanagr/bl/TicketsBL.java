@@ -75,6 +75,7 @@ public class TicketsBL extends AbstractBL<Ticket, TicketsDAL>
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("User", user);
 		map.put("status", state);
+		map.put("deleted", 0);
 		try {
 			return dal.fetch(map);
 		} catch (SQLException e) {
@@ -97,6 +98,7 @@ public class TicketsBL extends AbstractBL<Ticket, TicketsDAL>
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("Agent", agent);
 		map.put("status", state);
+		map.put("deleted", 0);
 		try {
 			return dal.fetch(map);
 		} catch (SQLException e) {
@@ -119,6 +121,7 @@ public class TicketsBL extends AbstractBL<Ticket, TicketsDAL>
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("Resource", resource);
 		map.put("status", state);
+		map.put("deleted", 0);
 		try {
 			return dal.fetch(map);
 		} catch (SQLException e) {
@@ -142,6 +145,7 @@ public class TicketsBL extends AbstractBL<Ticket, TicketsDAL>
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("Department", department);
 		map.put("status", state);
+		map.put("deleted", 0);
 		try {
 			return dal.fetch(map);
 		} catch (SQLException e) {

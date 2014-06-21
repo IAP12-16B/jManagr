@@ -35,7 +35,7 @@ public class ResourcesDAL extends AbstractDAL<Resource>
 	{
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("parent_id", null);
-		map.put("deleted", "0");
+		map.put("deleted", 0);
 
 		return this.fetch(map);
 	}
