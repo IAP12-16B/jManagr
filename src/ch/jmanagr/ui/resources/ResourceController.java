@@ -2,6 +2,7 @@ package ch.jmanagr.ui.resources;
 
 import ch.jmanagr.bl.ResourcesBL;
 import ch.jmanagr.bo.Resource;
+import ch.jmanagr.lib.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,12 +20,9 @@ public class ResourceController implements Initializable
 	private ResourcesBL bl;
 	private ObservableList<Resource> res;
 
-	@FXML
-	private TreeView<Resource> treeView;
-	@FXML
-	private TextField renameFld;
-	@FXML
-	private TextField newFld;
+	@FXML private TreeView<Resource> treeView;
+	@FXML private TextField renameFld;
+    @FXML private TextField newFld;
 
 	public ResourceController()
 	{
@@ -53,29 +51,30 @@ public class ResourceController implements Initializable
 
 	public void add()
 	{
-	    /*Resource parent = treeView.getSelectionModel().getSelectedItem().getValue();
+        Resource parent = treeView.getSelectionModel().getSelectedItem().getValue();
         TreeItem parentItem = treeView.getSelectionModel().getSelectedItem();
 
         TreeItem<Resource> newTreeItem = new TreeItem<Resource>();
         Resource r = new Resource();
         r.setName(newFld.getText());
         r.setParent(parent);
+        bl.save(r);
         newTreeItem.setValue(r);
-        parentItem.getChildren().add(newTreeItem);*/
+        parentItem.getChildren().add(newTreeItem);
 	}
 
 	public void rename()
 	{
-		TreeItem<Resource> currentTreeItem = treeView.getSelectionModel().getSelectedItem();
-		Resource currentResource = currentTreeItem.getValue();
-		//int index = treeView.getSelectionModel().getSelectedIndex();
+        // todo refreshes only if you close and open the renamed item again..
+        TreeItem<Resource> currentTreeItem = treeView.getSelectionModel().getSelectedItem();
+        Resource currentResource = currentTreeItem.getValue();
+        int index = treeView.getSelectionModel().getSelectedIndex();
 
-
-		currentResource.setName(renameFld.getText());
-		bl.save(currentResource);
-		//currentTreeItem.setValue(currentResource);
-
-		//treeView.getRoot().getChildren().add(index, currentTreeItem);
+        currentResource.setName(renameFld.getText());
+        bl.save(currentResource);
+        currentTreeItem.setValue(currentResource);
+        // currentTreeItem.getParent().getChildren().add(index, currentTreeItem);
+        // treeView.getRoot().getChildren().add(index, currentTreeItem);
 	}
 
 	public void addChildItems(TreeItem<Resource> parentItem)
