@@ -1,17 +1,22 @@
 package ch.jmanagr.ui.tickets;
 
 import ch.jmanagr.bl.TicketsBL;
+import ch.jmanagr.bl.UsersBL;
 import ch.jmanagr.bo.Department;
 import ch.jmanagr.bo.Resource;
 import ch.jmanagr.bo.Ticket;
 import ch.jmanagr.bo.User;
+import ch.jmanagr.exceptions.jManagrDBException;
+import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
+import ch.jmanagr.lib.USER_ROLE;
 import ch.jmanagr.ui.main.MainController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -27,6 +32,7 @@ public class TicketController implements Initializable
 	public static ObservableList<Ticket> ticketList;
 	//private ObservableList<Ticket> filteredList = FXCollections.observableArrayList();
 	private TicketsBL bl;
+    private UsersBL usersBL;
 
 	@FXML private TableView<Ticket> ticketTable;
 	@FXML private TableColumn idCol;
@@ -38,18 +44,24 @@ public class TicketController implements Initializable
     @FXML private TableColumn<Resource, String> resourceCol;
 
 	@FXML private TextField nameField;
+    @FXML private Button delBtn;
 
 	public TicketController()
 	{
 		this.bl = TicketsBL.getInstance();
+        try {
+            this.usersBL = UsersBL.getInstance();
+        } catch (jManagrDBException e) {
+            Logger.log(LOG_LEVEL.ERROR, e);
+        }
 	}
 
-	// Fill Table with Data
 	public void initialize(URL location, ResourceBundle resources)
 	{
 		//http://code.makery.ch/blog/javafx-2-tableview-filter/
 		//filteredList.addAll(ticketList);
 
+        // Fill Table with Data
 		idCol.setCellValueFactory(new PropertyValueFactory("id"));
 		departmentCol.setCellValueFactory(new PropertyValueFactory<Department, String>("department"));
         nameCol.setCellValueFactory(new PropertyValueFactory<Ticket, String>("name"));
@@ -67,7 +79,6 @@ public class TicketController implements Initializable
 				{
 					public void handle(TableColumn.CellEditEvent<Ticket, String> t)
 					{
-
 						Ticket ticket = t.getTableView().getItems().get(
 								t.getTablePosition()
 								 .getRow()
@@ -78,6 +89,13 @@ public class TicketController implements Initializable
 					}
 				}
 		);
+
+        // only delte ticket if is not user
+        User currentUser = this.usersBL.getCurrentUser();
+        if (currentUser.getRole() != USER_ROLE.USER) {
+            delBtn.setVisible(false);
+        }
+
 		this.refresh();
 	}
 
@@ -93,7 +111,6 @@ public class TicketController implements Initializable
 		MainController.changeTabContent("ticketDetail");
 	}
 
-	// Todo only archiv and only for admin?
 	public void deleteTicket()
 	{
 		Ticket ticket = this.ticketTable.getSelectionModel().getSelectedItem();
