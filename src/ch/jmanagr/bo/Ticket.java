@@ -16,7 +16,7 @@ import java.util.Date;
 public class Ticket implements BusinessObject<Ticket>
 {
 	// id
-	@DatabaseField(useGetSet = true, generatedId = true, allowGeneratedIdInsert = true)
+	@DatabaseField(useGetSet = true, generatedId = true, allowGeneratedIdInsert = true, index = true)
 	private Integer id;
 	protected SimpleIntegerProperty idProperty;
 
@@ -62,7 +62,7 @@ public class Ticket implements BusinessObject<Ticket>
 	// flags
 	@DatabaseField(useGetSet = true)
 	protected boolean active = true;
-	@DatabaseField(useGetSet = true)
+	@DatabaseField(useGetSet = true, index = true)
 	protected boolean deleted = false;
 	@DatabaseField(version = true, useGetSet = true)
 	protected Integer version;

@@ -16,7 +16,7 @@ import java.util.Collection;
 @DatabaseTable(tableName = "Resource")
 public class Resource implements BusinessObject<Resource>
 {
-	@DatabaseField(useGetSet = true, generatedId = true, allowGeneratedIdInsert = true)
+	@DatabaseField(useGetSet = true, generatedId = true, allowGeneratedIdInsert = true, index = true)
 	private Integer id;
 	protected SimpleIntegerProperty idProperty;
 
@@ -39,7 +39,7 @@ public class Resource implements BusinessObject<Resource>
 
 	@DatabaseField(useGetSet = true)
 	protected boolean active = true;
-	@DatabaseField(useGetSet = true)
+	@DatabaseField(useGetSet = true, index = true)
 	protected boolean deleted = false;
 	@DatabaseField(version = true, useGetSet = true)
 	protected Integer version;
@@ -187,7 +187,6 @@ public class Resource implements BusinessObject<Resource>
 	 */
 	public void setParent(Resource parent)
 	{
-		parent.addChild(this);
 		this.parent = parent;
 	}
 

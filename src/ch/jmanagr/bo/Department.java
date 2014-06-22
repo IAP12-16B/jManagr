@@ -16,7 +16,7 @@ import java.util.Collection;
 @DatabaseTable(tableName = "Department")
 public class Department implements BusinessObject<Department>
 {
-	@DatabaseField(useGetSet = true, generatedId = true, allowGeneratedIdInsert = true)
+	@DatabaseField(useGetSet = true, generatedId = true, allowGeneratedIdInsert = true, index = true)
 	private Integer id;
 	protected SimpleIntegerProperty idProperty;
 
@@ -28,7 +28,7 @@ public class Department implements BusinessObject<Department>
 
 	@DatabaseField(useGetSet = true)
 	protected boolean active = true;
-	@DatabaseField(useGetSet = true)
+	@DatabaseField(useGetSet = true, index = true)
 	protected boolean deleted = false;
 	@DatabaseField(version = true, useGetSet = true)
 	protected Integer version;
