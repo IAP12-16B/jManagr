@@ -47,7 +47,12 @@ public class LoginController implements Initializable
 			if (usr != null) {
 				Parent root = FXMLLoader.load(getClass().getResource("../main/main.fxml"));
 				Main.loggedIn(new Scene(root));
-				Main.stage.setTitle(usr.getRole() + " - jManagr");
+				Main.stage.setTitle(
+						String.format(
+								"%s - jManagr",
+								usr.getUsername()
+						)
+				);
 			} else {
 				passwordErrorLbl.setVisible(true);
 			}
@@ -55,7 +60,8 @@ public class LoginController implements Initializable
 			MessageBox msgBx = new MessageBox(
 					"Fehler",
 					"Ein fehler ist aufgetreten. Bitte überprüfen Sie die Verbindungseinstellungen und versuchen Sie" +
-					" es erneut!\n\n" +
+					" " +
+					"es erneut!\n\n" +
 					"Fehlermeldung: \n" +
 					e.getLocalizedMessage()
 			);

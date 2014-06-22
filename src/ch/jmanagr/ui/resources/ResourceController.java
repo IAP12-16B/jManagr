@@ -9,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import sun.reflect.generics.tree.Tree;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -64,12 +63,15 @@ public class ResourceController implements Initializable
 
 	public void rename()
 	{
-        TreeItem<Resource> currentTreeItem = treeView.getSelectionModel().getSelectedItem();
+		// todo @mnewmedia does not work...
+		TreeItem<Resource> currentTreeItem = treeView.getSelectionModel().getSelectedItem();
         Resource currentResource = currentTreeItem.getValue();
         //int index = treeView.getSelectionModel().getSelectedIndex();
 
-        currentResource.setName(renameFld.getText());
-        //currentTreeItem.setValue(currentResource);
+
+		currentResource.setName(renameFld.getText());
+		bl.save(currentResource);
+		//currentTreeItem.setValue(currentResource);
 
         //treeView.getRoot().getChildren().add(index, currentTreeItem);
 	}

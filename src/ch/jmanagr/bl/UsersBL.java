@@ -159,7 +159,7 @@ public class UsersBL extends AbstractBL<User, UsersDAL>
 	public List<User> getByUserRole(USER_ROLE role)
 	{
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("role", role.toString());
+		map.put("role", role);
 		map.put("deleted", 0);
 
 		try {

@@ -345,7 +345,6 @@ public class User implements BusinessObject<User>
 		result = 31 * result + (usernameProperty != null ? usernameProperty.hashCode() : 0);
 		result = 31 * result + (passwordProperty != null ? passwordProperty.hashCode() : 0);
 		result = 31 * result + (role != null ? role.hashCode() : 0);
-		result = 31 * result + (department != null ? department.hashCode() : 0);
 		return result;
 	}
 
@@ -440,5 +439,16 @@ public class User implements BusinessObject<User>
 	public void setDeleted(boolean deleted)
 	{
 		this.deleted = deleted;
+	}
+
+	/**
+	 * Convert Object to string
+	 *
+	 * @return the name of the Object
+	 */
+	@Override
+	public String toString()
+	{
+		return this.firstnameProperty.get() + " " + this.lastnameProperty.get();
 	}
 }
