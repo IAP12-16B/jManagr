@@ -1,4 +1,5 @@
 Wo                              Wer             Prio        Beschreibung/Error-Meldung
 ------------------------------------------------------------------------------------------------------------------------
+UserDetailController            @mnewmedia      High        Comboboxen haben beim editieren immer den ersten, wert. ist aber einer nuer bug oder?
 UserDetailController            @mnewmedia      very low    Man sollte auch "kein" Deparment auswählen können?
 UserController                  @kije           low         Fixme: nur exception wenn ein user mit gleichem Usernamen hinzugefügt wird
