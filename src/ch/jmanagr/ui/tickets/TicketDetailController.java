@@ -27,26 +27,21 @@ import java.util.ResourceBundle;
 
 public class TicketDetailController implements Initializable
 {
-	@FXML
-	public ComboBox<TICKET_STATE> ticketStateCbox;
-	@FXML
-	public static ComboBox<Department> departementCbox;
-	@FXML
-	public static ComboBox<Resource> resourceCbox;
+	@FXML public static ComboBox<TICKET_STATE> ticketStateCbox;
+	@FXML public static ComboBox<Department> departementCbox;
+	@FXML public static ComboBox<Resource> resourceCbox;
+	@FXML public static ComboBox<User> agentCbox;
 
-	@FXML
-	public static ComboBox<User> agentCbox;
-
-
-	@FXML
-	private TextArea descriptionFld;
-	@FXML
-	private TextField nameFld;
+	@FXML private static TextArea descriptionFld;
+	@FXML private static TextField nameFld;
 
 	private TicketsBL bl;
 	private DepartmentsBL depBl;
 	private ResourcesBL resBL;
 	private UsersBL usersBL;
+
+    private static Ticket updateCurrTicket;
+    private static int updateCurrIndex;
 
 	public TicketDetailController()
 	{
@@ -65,56 +60,89 @@ public class TicketDetailController implements Initializable
 		ticketStateCbox.setItems(
 				FXCollections.observableArrayList(TICKET_STATE.values())
 		);
-
 		resourceCbox.setItems(
 				FXCollections.observableArrayList(
 						resBL.getAll()
 				)
 		);
-
 		agentCbox.setItems(
-				FXCollections.observableArrayList(
-						usersBL.getByUserRole(USER_ROLE.AGENT)
-				)
-		);
+                FXCollections.observableArrayList(
+                        usersBL.getByUserRole(USER_ROLE.AGENT)
+                )
+        );
 	}
+
+    public static void fillTicket(Ticket editingTicket, int index)
+    {
+        updateCurrTicket = editingTicket;
+        if (updateCurrTicket != null) {
+            nameFld.setText(updateCurrTicket.getName());
+            descriptionFld.setText(updateCurrTicket.getDescription());
+
+            ticketStateCbox.getSelectionModel().select(updateCurrTicket.getStatus());
+            departementCbox.getSelectionModel().select(updateCurrTicket.getDepartment());
+            resourceCbox.getSelectionModel().select(updateCurrTicket.getResource());
+            agentCbox.getSelectionModel().select(updateCurrTicket.getAgent());
+        }
+        updateCurrIndex = index;
+    }
 
 	public void saveTicket()
 	{
-		Ticket ticket = new Ticket();
+        // if new ticket
+        if (updateCurrTicket == null) {
+            Ticket ticket = new Ticket();
+            Date d = new Date();
 
-		Date d = new Date();
-		User u = null;
-		try {
-			u = UsersBL.getInstance().getCurrentUser();
-		} catch (jManagrDBException e) {
-			Logger.log(LOG_LEVEL.ERROR, e);
-		}
-		Department de = departementCbox.getValue();
-		/*Resource r = new Resource(); // todo resource combo box
-		User agent = new User();*/
-		ticket.setAgent(agentCbox.getValue());
-		ticket.setResource(resourceCbox.getValue());
-		ticket.setDepartment(de);
-		ticket.setUser(u);
-		ticket.setDate(d);
-		ticket.setStatus(TICKET_STATE.OPEN); // todo state combo box
-		ticket.setDescription(descriptionFld.getText());
-		ticket.setName(nameFld.getText());
-		bl.save(ticket);
-		Logger.logln("Insertet new Ticket: ");
+            User u = null;
+            try {
+                u = UsersBL.getInstance().getCurrentUser();
+            } catch (jManagrDBException e) {
+                Logger.log(LOG_LEVEL.ERROR, e);
+            }
 
-		bl.save(ticket);
-		TicketController.ticketList.add(ticket);
-		Logger.logln("Insertet new Ticket: " + ticket);
+            ticket.setUser(u);
+            ticket.setDate(d);
+            ticket.setDescription(descriptionFld.getText());
+            ticket.setName(nameFld.getText());
+            ticket.setDepartment(departementCbox.getSelectionModel().getSelectedItem());
+            ticket.setAgent(agentCbox.getSelectionModel().getSelectedItem());
+            ticket.setResource(resourceCbox.getSelectionModel().getSelectedItem()); //todo use treeView instead
+            ticket.setStatus(ticketStateCbox.getSelectionModel().getSelectedItem());
 
-		//If it worked, return to list
+            //save
+            bl.save(ticket);
+            TicketController.ticketList.add(ticket);
+            Logger.logln("Insertet new Ticket: " + ticket);
+        } else {
+            updateCurrTicket.setName(nameFld.getText());
+            updateCurrTicket.setDescription(descriptionFld.getText());
+            updateCurrTicket.setDepartment(departementCbox.getSelectionModel().getSelectedItem());
+            updateCurrTicket.setAgent(agentCbox.getSelectionModel().getSelectedItem());
+            updateCurrTicket.setStatus(ticketStateCbox.getSelectionModel().getSelectedItem());
+            updateCurrTicket.setResource(resourceCbox.getSelectionModel().getSelectedItem());
+
+            //save
+            bl.save(updateCurrTicket);
+            TicketController.ticketList.set(updateCurrIndex, updateCurrTicket);
+            Logger.logln("Updated Ticket: " + updateCurrTicket);
+        }
+        this.clearFields();
 		MainController.changeTabContent("tickets");
 	}
 
 	public void cancelTicket()
 	{
 		MainController.changeTabContent("tickets");
+        this.clearFields();
 	}
 
+    public void clearFields() {
+        nameFld.setText(null);
+        descriptionFld.setText(null);
+        agentCbox.getSelectionModel().selectFirst();
+        ticketStateCbox.getSelectionModel().selectFirst();
+        resourceCbox.getSelectionModel().selectFirst();
+        ticketStateCbox.getSelectionModel().selectFirst();
+    }
 }
