@@ -12,6 +12,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Date;
 
 /**
  * User BusinessObject
@@ -53,9 +54,8 @@ public class User implements BusinessObject<User>
 	protected boolean active = true;
 	@DatabaseField(useGetSet = true, index = true)
 	protected boolean deleted = false;
-	@DatabaseField(version = true, useGetSet = true)
-	protected Integer version;
-
+	@DatabaseField(version = true, useGetSet = true, dataType = DataType.DATE_LONG)
+	protected Date version;
 
 
 	public User()
@@ -353,7 +353,7 @@ public class User implements BusinessObject<User>
 	 * @return the version
 	 */
 	@Override
-	public Integer getVersion()
+	public Date getVersion()
 	{
 		return version;
 	}
@@ -364,7 +364,7 @@ public class User implements BusinessObject<User>
 	 * @param version the version
 	 */
 	@Override
-	public void setVersion(Integer version)
+	public void setVersion(Date version)
 	{
 		this.version = version;
 	}

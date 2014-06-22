@@ -1,5 +1,7 @@
 package ch.jmanagr.bo;
 
+import java.util.Date;
+
 /**
  * Interface for all BusinessObjects
  *
@@ -58,12 +60,12 @@ public interface BusinessObject<T extends BusinessObject<T>>
 	/**
 	 * @return the version
 	 */
-	public Integer getVersion();
+	public Date getVersion();
 
 	/**
 	 * Sets the version of this BusinessObject
 	 *
 	 * @param version the version
 	 */
-	public void setVersion(Integer version);
+	public void setVersion(Date version);
 }

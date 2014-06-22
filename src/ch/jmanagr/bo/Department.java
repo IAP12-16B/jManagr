@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * Department BusinessObject
@@ -30,8 +31,8 @@ public class Department implements BusinessObject<Department>
 	protected boolean active = true;
 	@DatabaseField(useGetSet = true, index = true)
 	protected boolean deleted = false;
-	@DatabaseField(version = true, useGetSet = true)
-	protected Integer version;
+	@DatabaseField(version = true, useGetSet = true, dataType = DataType.DATE_LONG)
+	protected Date version;
 
 
 	/**
@@ -193,7 +194,7 @@ public class Department implements BusinessObject<Department>
 	 * @return the version
 	 */
 	@Override
-	public Integer getVersion()
+	public Date getVersion()
 	{
 		return version;
 	}
@@ -204,7 +205,7 @@ public class Department implements BusinessObject<Department>
 	 * @param version the version
 	 */
 	@Override
-	public void setVersion(Integer version)
+	public void setVersion(Date version)
 	{
 		this.version = version;
 	}

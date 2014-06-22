@@ -64,8 +64,8 @@ public class Ticket implements BusinessObject<Ticket>
 	protected boolean active = true;
 	@DatabaseField(useGetSet = true, index = true)
 	protected boolean deleted = false;
-	@DatabaseField(version = true, useGetSet = true)
-	protected Integer version;
+	@DatabaseField(version = true, useGetSet = true, dataType = DataType.DATE_LONG)
+	protected Date version;
 
 
 	public Ticket()
@@ -317,12 +317,12 @@ public class Ticket implements BusinessObject<Ticket>
 		return result;
 	}
 
-	public Integer getVersion()
+	public Date getVersion()
 	{
 		return version;
 	}
 
-	public void setVersion(Integer version)
+	public void setVersion(Date version)
 	{
 		this.version = version;
 	}

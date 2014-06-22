@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * Resource BusinessObject
@@ -41,8 +42,8 @@ public class Resource implements BusinessObject<Resource>
 	protected boolean active = true;
 	@DatabaseField(useGetSet = true, index = true)
 	protected boolean deleted = false;
-	@DatabaseField(version = true, useGetSet = true)
-	protected Integer version;
+	@DatabaseField(version = true, useGetSet = true, dataType = DataType.DATE_LONG)
+	protected Date version;
 
 
 	/**
@@ -290,7 +291,8 @@ public class Resource implements BusinessObject<Resource>
 	/**
 	 * @return the version
 	 */
-	public Integer getVersion()
+	@Override
+	public Date getVersion()
 	{
 		return version;
 	}
@@ -300,7 +302,8 @@ public class Resource implements BusinessObject<Resource>
 	 *
 	 * @param version the version
 	 */
-	public void setVersion(Integer version)
+	@Override
+	public void setVersion(Date version)
 	{
 		this.version = version;
 	}
