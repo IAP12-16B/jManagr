@@ -1,6 +1,9 @@
         Wer                     Priorität           Beschreibung
 ------------------------------------------------------------------------------------------------------------------------
-TODO:   @mnewmedia              high                Ticket und Resourcen editieren.
+TODO:   @mnewmedia              high                Ticket... see whats todo
+TODO:   @mnewmedia              medium              Resource rename refreshes only if you close or open the renamaed treeItem
+TODO:   @mnewmedia              medium              Resource keyValue
+TODO:   @mnewmedia              low                 Ticket edit make a treeView in order to select resource instead of combobox?
 TODO:   @mnewmedia              low                 Ticket-Filterung -> nach status
 TODO:   @mnewmedia              medium              Agenten sehen zusätzlich noch die ihnen zugewiesenen Tickets / Benutzer jene, welche sie erstellt haben.
 TODO:   @mnewmedia              medium              Resourcen
