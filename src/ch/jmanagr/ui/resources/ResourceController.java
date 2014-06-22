@@ -19,9 +19,12 @@ public class ResourceController implements Initializable
 	private ResourcesBL bl;
 	private ObservableList<Resource> res;
 
-	@FXML private TreeView<Resource> treeView;
-	@FXML private TextField renameFld;
-    @FXML private TextField newFld;
+	@FXML
+	private TreeView<Resource> treeView;
+	@FXML
+	private TextField renameFld;
+	@FXML
+	private TextField newFld;
 
 	public ResourceController()
 	{
@@ -50,7 +53,7 @@ public class ResourceController implements Initializable
 
 	public void add()
 	{
-        /*Resource parent = treeView.getSelectionModel().getSelectedItem().getValue();
+	    /*Resource parent = treeView.getSelectionModel().getSelectedItem().getValue();
         TreeItem parentItem = treeView.getSelectionModel().getSelectedItem();
 
         TreeItem<Resource> newTreeItem = new TreeItem<Resource>();
@@ -63,17 +66,16 @@ public class ResourceController implements Initializable
 
 	public void rename()
 	{
-		// todo @mnewmedia does not work...
 		TreeItem<Resource> currentTreeItem = treeView.getSelectionModel().getSelectedItem();
-        Resource currentResource = currentTreeItem.getValue();
-        //int index = treeView.getSelectionModel().getSelectedIndex();
+		Resource currentResource = currentTreeItem.getValue();
+		//int index = treeView.getSelectionModel().getSelectedIndex();
 
 
 		currentResource.setName(renameFld.getText());
 		bl.save(currentResource);
 		//currentTreeItem.setValue(currentResource);
 
-        //treeView.getRoot().getChildren().add(index, currentTreeItem);
+		//treeView.getRoot().getChildren().add(index, currentTreeItem);
 	}
 
 	public void addChildItems(TreeItem<Resource> parentItem)
