@@ -73,6 +73,17 @@ public class UsersBL extends AbstractBL<User, UsersDAL>
 		return null;
 	}
 
+	@Override
+	public STATUS_CODE delete(User bo)
+	{
+		// prevent deleting yourself!
+		if (bo.equals(this.getCurrentUser())) {
+			return STATUS_CODE.FAIL;
+		}
+
+		return super.delete(bo);
+	}
+
 	/**
 	 * Returns the current user.
 	 *

@@ -139,8 +139,8 @@ public class UserDetailController implements Initializable
 				// save
 				bl.save(updateCurrUser);
 				UsersController.userList.set(updateCurrIndex, updateCurrUser);
-				this.clearFields();
 			}
+			this.clearFields();
 			MainController.changeTabContent("users");
 		}
 	}

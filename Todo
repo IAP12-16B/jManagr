@@ -4,8 +4,6 @@ TODO:   @mnewmedia              high                Ticket und Resourcen editier
 TODO:   @mnewmedia              low                 Ticket-Filterung -> nach status
 TODO:   @mnewmedia              medium              Agenten sehen zusätzlich noch die ihnen zugewiesenen Tickets / Benutzer jene, welche sie erstellt haben.
 TODO:   @mnewmedia              medium              Resourcen
-TODO:   @mnewmedia  @kije       medium              Funktionalitäten nach User-Rolle aktivieren/deaktivieren
-TODO:   @kije                   medium              On delete admin: check how many admins are still there?
 TODO:   @kije                   very low            CSS/Layout/Styling
 TODO:   @kije                   medium              Daten beim löschen aufräumen
 

@@ -5,6 +5,7 @@ import ch.jmanagr.bo.User;
 import ch.jmanagr.exceptions.jManagrDBException;
 import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
+import ch.jmanagr.lib.STATUS_CODE;
 import ch.jmanagr.lib.USER_ROLE;
 import ch.jmanagr.ui.main.MainController;
 import javafx.beans.property.SimpleStringProperty;
@@ -100,8 +101,11 @@ public class UsersController implements Initializable
 		User user = this.userTable.getSelectionModel().getSelectedItem();
 		if (user != null) {
 			Logger.log("Deleting user:" + user.getFirstname() + " " + user.getId());
-			bl.delete(user);
-			userList.remove(user);
+			if (bl.delete(user) == STATUS_CODE.OK) {
+				userList.remove(user);
+			} else {
+				// todo Fail
+			}
 		} else {
 			Logger.log("Nothing selected to delete");
 		}
