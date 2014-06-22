@@ -75,17 +75,14 @@ public class MainController implements Initializable
 				TicketDetailController.departementCbox.getSelectionModel().selectFirst();
 				break;
 			}
-
 			case "tickets": {
 				tabTickets.setContent(ticketView);
 				break;
 			}
-
 			case "users": {
 				tabUser.setContent(userView);
 				break;
 			}
-
 			case "userDetail": {
 				UserDetailController.departementCbox.setItems(FXCollections.observableArrayList(depBl.getAll()));
 				UserDetailController.departementCbox.getSelectionModel().selectFirst();
