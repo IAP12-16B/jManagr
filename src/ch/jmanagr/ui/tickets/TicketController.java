@@ -1,7 +1,10 @@
 package ch.jmanagr.ui.tickets;
 
 import ch.jmanagr.bl.TicketsBL;
+import ch.jmanagr.bo.Department;
+import ch.jmanagr.bo.Resource;
 import ch.jmanagr.bo.Ticket;
+import ch.jmanagr.bo.User;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.ui.main.MainController;
 import javafx.collections.FXCollections;
@@ -16,6 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class TicketController implements Initializable
@@ -24,15 +28,16 @@ public class TicketController implements Initializable
 	//private ObservableList<Ticket> filteredList = FXCollections.observableArrayList();
 	private TicketsBL bl;
 
-	@FXML
-	private TableView<Ticket> ticketTable;
-	@FXML
-	private TableColumn idCol;
-	@FXML
-	private TableColumn<Ticket, String> nameCol;
+	@FXML private TableView<Ticket> ticketTable;
+	@FXML private TableColumn idCol;
+	@FXML private TableColumn<Ticket, String> nameCol;
+    @FXML private TableColumn<Ticket, Date> dateCol;
+    @FXML private TableColumn<User, String> userCol;
+    @FXML private TableColumn<User, String> agentCol;
+    @FXML private TableColumn<Department, String> departmentCol;
+    @FXML private TableColumn<Resource, String> resourceCol;
 
-	@FXML
-	private TextField nameField;
+	@FXML private TextField nameField;
 
 	public TicketController()
 	{
@@ -46,8 +51,12 @@ public class TicketController implements Initializable
 		//filteredList.addAll(ticketList);
 
 		idCol.setCellValueFactory(new PropertyValueFactory("id"));
-		nameCol.setCellValueFactory(new PropertyValueFactory<Ticket, String>("name"));
-		//dateCol.setCellValueFactory(new PropertyValueFactory<Ticket, String>("date"));
+		departmentCol.setCellValueFactory(new PropertyValueFactory<Department, String>("department"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<Ticket, String>("name"));
+		dateCol.setCellValueFactory(new PropertyValueFactory<Ticket, Date>("date"));
+        userCol.setCellValueFactory(new PropertyValueFactory<User, String>("user")); //Todo make simpleProperty or Dont show User here?
+        agentCol.setCellValueFactory(new PropertyValueFactory<User, String>("agent"));
+        resourceCol.setCellValueFactory(new PropertyValueFactory<Resource, String>("resource"));
 
 		// makes nameCol to a textField
 		nameCol.setCellFactory(TextFieldTableCell.<Ticket>forTableColumn());
