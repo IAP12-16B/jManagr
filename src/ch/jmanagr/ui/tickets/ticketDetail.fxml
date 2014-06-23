@@ -3,6 +3,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 <AnchorPane id="Content" fx:id="ticketDetailView" cache="false" xmlns="http://javafx.com/javafx/8"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.jmanagr.ui.tickets.TicketDetailController">
     <children>
@@ -105,4 +106,8 @@
 
         </GridPane>
     </children>
+
+    <stylesheets>
+        <URL value="@../main.css"/>
+    </stylesheets>
 </AnchorPane>

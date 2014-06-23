@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 <AnchorPane id="Content" fx:id="ticketView" cache="false" minHeight="0.0" minWidth="0.0"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ch.jmanagr.ui.tickets.TicketController">
@@ -49,4 +50,8 @@
             </children>
         </GridPane>
     </children>
+
+    <stylesheets>
+        <URL value="@../main.css"/>
+    </stylesheets>
 </AnchorPane>

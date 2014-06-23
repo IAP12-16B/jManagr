@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 <GridPane alignment="CENTER" hgap="10.0" vgap="10.0" xmlns="http://javafx.com/javafx/8"
           xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.jmanagr.ui.main.MainController">
     <children>
@@ -32,4 +33,8 @@
     <rowConstraints>
         <RowConstraints vgrow="SOMETIMES"/>
     </rowConstraints>
+
+    <stylesheets>
+        <URL value="@../main.css"/>
+    </stylesheets>
 </GridPane>
