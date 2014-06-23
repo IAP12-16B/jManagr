@@ -10,6 +10,7 @@ import ch.jmanagr.bo.User;
 import ch.jmanagr.exceptions.jManagrDBException;
 import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
+import ch.jmanagr.lib.TICKET_STATE;
 import ch.jmanagr.lib.USER_ROLE;
 import ch.jmanagr.ui.main.MainController;
 import javafx.collections.FXCollections;
@@ -35,6 +36,7 @@ public class TicketController implements Initializable
 	private TicketsBL bl;
     private UsersBL usersBL;
     private DepartmentsBL depBl;
+    private User currentUser;
 
 	@FXML private TableView<Ticket> ticketTable;
 	@FXML private TableColumn idCol;
@@ -57,6 +59,7 @@ public class TicketController implements Initializable
             Logger.log(LOG_LEVEL.ERROR, e);
         }
         this.depBl = DepartmentsBL.getInstance();
+        this.currentUser = this.usersBL.getCurrentUser();
 	}
 
 	public void initialize(URL location, ResourceBundle resources)
@@ -69,7 +72,7 @@ public class TicketController implements Initializable
 		departmentCol.setCellValueFactory(new PropertyValueFactory<Department, String>("department"));
         nameCol.setCellValueFactory(new PropertyValueFactory<Ticket, String>("name"));
 		dateCol.setCellValueFactory(new PropertyValueFactory<Ticket, Date>("date"));
-        userCol.setCellValueFactory(new PropertyValueFactory<User, String>("user")); //Todo make simpleProperty or Dont show User here?
+       // userCol.setCellValueFactory(new PropertyValueFactory<User, String>("user")); //Todo make simpleProperty or Dont show User here?
         agentCol.setCellValueFactory(new PropertyValueFactory<User, String>("agent"));
         resourceCol.setCellValueFactory(new PropertyValueFactory<Resource, String>("resource"));
 
@@ -94,8 +97,7 @@ public class TicketController implements Initializable
 		);
 
         // only delte ticket if is not user
-        User currentUser = this.usersBL.getCurrentUser();
-        if (currentUser.getRole() != USER_ROLE.USER) {
+        if (this.currentUser.getRole() != USER_ROLE.USER) {
             delBtn.setVisible(false);
         }
 
@@ -104,9 +106,14 @@ public class TicketController implements Initializable
 
 	public void refresh()
 	{
-		ticketList = FXCollections.observableArrayList(bl.getAll());
-		this.ticketTable.setItems(ticketList);
-		Logger.logln("Refreshed list!");
+        if (this.currentUser.getRole() == USER_ROLE.USER) {
+            ticketList = FXCollections.observableArrayList(bl.getAllByUser(currentUser, TICKET_STATE.OPEN)); // todo detect state by button
+        } else {
+            ticketList = FXCollections.observableArrayList(bl.getAll());
+            this.ticketTable.setItems(ticketList);
+        }
+        Logger.logln("Refreshed list!");
+        this.ticketTable.setItems(ticketList);
 	}
 
 	public void newTicket()
