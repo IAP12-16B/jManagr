@@ -397,8 +397,12 @@ public class Resource implements BusinessObject<Resource>
 	 * A class to store key/value pair for a {@link ch.jmanagr.bo.Resource}
 	 */
 	@DatabaseTable(tableName = "ResourceData")
-	public static class ResourceData
+	public static class ResourceData implements BusinessObject<ResourceData>
 	{
+
+		@DatabaseField(useGetSet = true, generatedId = true, allowGeneratedIdInsert = true, index = true)
+		private Integer id;
+
 		@DatabaseField(
 				useGetSet = true,
 				uniqueCombo = true,
@@ -408,12 +412,20 @@ public class Resource implements BusinessObject<Resource>
 		private Resource resource;
 
 		@DatabaseField(useGetSet = true, uniqueCombo = true)
-		private String key; // todo simple string property
-		@DatabaseField(useGetSet = true, canBeNull = true)
-		private String value; // todo simple string property
+		private String key;
 
-		@DatabaseField(version = true, useGetSet = true)
-		protected Integer version;
+		private SimpleStringProperty keyProperty;
+		@DatabaseField(useGetSet = true, canBeNull = true)
+		private String value;
+
+		private SimpleStringProperty valueProperty;
+
+		@DatabaseField(useGetSet = true)
+		protected boolean active = true;
+		@DatabaseField(useGetSet = true, index = true)
+		protected boolean deleted = false;
+		@DatabaseField(version = true, useGetSet = true, dataType = DataType.DATE_LONG)
+		protected Date version;
 
 		/**
 		 * @param resource the Resource this date belongs to
@@ -422,6 +434,7 @@ public class Resource implements BusinessObject<Resource>
 		 */
 		public ResourceData(Resource resource, String key, String value)
 		{
+			this();
 			this.setResource(resource);
 			this.setKey(key);
 			this.setValue(value);
@@ -431,7 +444,15 @@ public class Resource implements BusinessObject<Resource>
 		 * Default constructor
 		 */
 		public ResourceData()
-		{}
+		{
+			this.initProperties();
+		}
+
+		protected void initProperties()
+		{
+			this.keyProperty = new SimpleStringProperty();
+			this.valueProperty = new SimpleStringProperty();
+		}
 
 		/**
 		 * Get the Resource
@@ -460,7 +481,7 @@ public class Resource implements BusinessObject<Resource>
 		 */
 		public String getKey()
 		{
-			return key;
+			return keyProperty.getValue();
 		}
 
 		/**
@@ -470,7 +491,7 @@ public class Resource implements BusinessObject<Resource>
 		 */
 		public void setKey(String key)
 		{
-			this.key = key;
+			this.keyProperty.setValue(key);
 		}
 
 		/**
@@ -480,7 +501,7 @@ public class Resource implements BusinessObject<Resource>
 		 */
 		public String getValue()
 		{
-			return value;
+			return this.valueProperty.getValue();
 		}
 
 		/**
@@ -490,26 +511,9 @@ public class Resource implements BusinessObject<Resource>
 		 */
 		public void setValue(String value)
 		{
-			this.value = value;
+			this.valueProperty.setValue(value);
 		}
 
-		/**
-		 * @return the version
-		 */
-		public Integer getVersion()
-		{
-			return version;
-		}
-
-		/**
-		 * Sets the version of this data
-		 *
-		 * @param version the version
-		 */
-		public void setVersion(Integer version)
-		{
-			this.version = version;
-		}
 
 		@Override
 		public boolean equals(Object o)
@@ -534,6 +538,127 @@ public class Resource implements BusinessObject<Resource>
 			result = 31 * result + (value != null ? value.hashCode() : 0);
 			return result;
 		}
+
+		/**
+		 * key property (used by JavaFX)
+		 *
+		 * @return the id property
+		 */
+		public SimpleStringProperty keyProperty()
+		{
+			return this.keyProperty;
+		}
+
+		/**
+		 * value property (used by JavaFX)
+		 *
+		 * @return the id property
+		 */
+		public SimpleStringProperty valueProperty()
+		{
+			return this.valueProperty;
+		}
+
+		/**
+		 * Get the id of the ResourceData
+		 *
+		 * @return the id
+		 */
+		@Override
+		public Integer getId()
+
+		{
+			return id;
+		}
+
+		/**
+		 * Set ID
+		 *
+		 * @param id the id
+		 */
+		@Override
+		public void setId(Integer id)
+		{
+			this.id = id;
+		}
+
+		/**
+		 * @return whether the ResourceData is active
+		 */
+		@Override
+		public boolean getActive()
+		{
+			return active;
+		}
+
+		/**
+		 * Sets the active flag of the ResourceData
+		 *
+		 * @param active active flag
+		 */
+		@Override
+		public void setActive(boolean active)
+		{
+			this.active = active;
+		}
+
+		/**
+		 * @return whether the ResourceData is deleted
+		 */
+		@Override
+		public boolean getDeleted()
+		{
+			return deleted;
+		}
+
+
+		/**
+		 * Sets the deleted flag of the Resource
+		 *
+		 * @param deleted deleted flag
+		 */
+		@Override
+		public void setDeleted(boolean deleted)
+		{
+			this.deleted = deleted;
+		}
+
+		/**
+		 * Copies the values from an other object
+		 *
+		 * @param bo the BusinessObject to copy from
+		 */
+		@Override
+		public void copyFromObject(ResourceData bo)
+		{
+			this.setId(bo.getId());
+			this.setActive(bo.getActive());
+			this.setDeleted(bo.getDeleted());
+			this.setKey(bo.getKey());
+			this.setValue(bo.getValue());
+		}
+
+
+		/**
+		 * Sets the version of this ResourceData
+		 *
+		 * @param version the version
+		 */
+		@Override
+		public void setVersion(Date version)
+		{
+			this.version = version;
+		}
+
+		/**
+		 * @return the version
+		 */
+		@Override
+		public Date getVersion()
+		{
+			return version;
+		}
+
 	}
 
 }

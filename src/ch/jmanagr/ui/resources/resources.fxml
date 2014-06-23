@@ -16,7 +16,8 @@
         <TextField fx:id="newFld" layoutX="90.24609375" layoutY="547.0"/>
         <Button fx:id="addBtn" layoutX="253.1875" layoutY="547.0" mnemonicParsing="false" onAction="#add"
                 text="Hinzufügen"/>
-        <TableView layoutX="385.0" layoutY="64.0" prefHeight="200.0" prefWidth="200.0">
+        <TableView fx:id="dataTable" editable="true" layoutX="385.0" layoutY="64.0" prefHeight="200.0" prefWidth="200.0"
+                   tableMenuButtonVisible="true">
             <columns>
                 <TableColumn fx:id="keyCol" prefWidth="75.0" text="Key"/>
                 <TableColumn fx:id="valueCol" prefWidth="75.0" text="Value"/>

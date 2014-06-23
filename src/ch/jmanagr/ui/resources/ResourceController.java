@@ -2,13 +2,16 @@ package ch.jmanagr.ui.resources;
 
 import ch.jmanagr.bl.ResourcesBL;
 import ch.jmanagr.bo.Resource;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,12 +19,18 @@ import java.util.ResourceBundle;
 public class ResourceController implements Initializable
 {
 
+	@FXML
+	public TableView<Resource.ResourceData> dataTable;
 	private ResourcesBL bl;
 	private ObservableList<Resource> res;
 
 	@FXML private TreeView<Resource> treeView;
 	@FXML private TextField renameFld;
     @FXML private TextField newFld;
+	@FXML
+	public TableColumn<Resource.ResourceData, String> keyCol;
+	@FXML
+	public TableColumn<Resource.ResourceData, String> valueCol;
 
 	public ResourceController()
 	{
@@ -46,12 +55,35 @@ public class ResourceController implements Initializable
 
 			this.addChildItems(newItem);
 		}
+
+		// listen for selection
+		treeView.getSelectionModel().selectedItemProperty().addListener(new TreeSelectionListener());
+
+		keyCol.setCellValueFactory(new PropertyValueFactory<Resource.ResourceData, String>("key"));
+		valueCol.setCellValueFactory(new PropertyValueFactory<Resource.ResourceData, String>("value"));
+
+		// makes cols to a textField
+		keyCol.setCellFactory(TextFieldTableCell.<Resource.ResourceData>forTableColumn());
+		valueCol.setCellFactory(TextFieldTableCell.<Resource.ResourceData>forTableColumn());
+
+		// sets the new Value after enterPressed in the ObserverList
+		keyCol.setOnEditCommit(
+				new DataTableEditEventHandler()
+		);
+		valueCol.setOnEditCommit(
+				new DataTableEditEventHandler()
+		);
 	}
 
 	public void add()
 	{
-        Resource parent = treeView.getSelectionModel().getSelectedItem().getValue();
 		TreeItem<Resource> parentItem = treeView.getSelectionModel().getSelectedItem();
+
+		if (parentItem == null) {
+			parentItem = treeView.getRoot();
+		}
+
+		Resource parent = parentItem.getValue();
 
 
 		TreeItem<Resource> newTreeItem = new TreeItem<Resource>();
@@ -93,7 +125,46 @@ public class ResourceController implements Initializable
 
 			parentItem.getChildren().add(childItem);
 
+
 			this.addChildItems(childItem); // recursion
+		}
+	}
+
+
+	// chnangelistener
+	public class TreeSelectionListener implements ChangeListener<TreeItem<Resource>>
+	{
+		@Override
+		public void changed(ObservableValue<? extends TreeItem<Resource>> observableValue,
+		                    TreeItem<Resource> oldValue, TreeItem<Resource> selectedItem)
+		{
+			if (selectedItem != null) {
+				dataTable.setItems(
+						FXCollections.observableArrayList(
+								selectedItem.getValue().getData()
+						)
+				);
+			} else {
+				dataTable.setItems(null);
+			}
+		}
+	}
+
+	public class DataTableEditEventHandler
+			implements EventHandler<TableColumn.CellEditEvent<Resource.ResourceData, String>>
+	{
+
+		public void handle(TableColumn.CellEditEvent<Resource.ResourceData, String> t)
+		{
+			Resource.ResourceData resData = t.getRowValue();
+
+			if (t.getTablePosition().getTableColumn().equals(keyCol)) {
+				resData.setKey(t.getNewValue());
+			} else if (t.getTablePosition().getTableColumn().equals(valueCol)) {
+				resData.setValue(t.getNewValue());
+			}
+
+			bl.save(resData.getResource());
 		}
 	}
 }

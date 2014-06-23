@@ -17,6 +17,7 @@ public class ResourcesDAL extends AbstractDAL<Resource>
 	protected ResourcesDAL() throws SQLException
 	{
 		super(Resource.class);
+
 	}
 
 	public static ResourcesDAL getInstance() throws SQLException
@@ -70,5 +71,28 @@ public class ResourcesDAL extends AbstractDAL<Resource>
 				}
 		);
 
+	}
+
+	public static class ResourceDataDAL extends AbstractDAL<Resource.ResourceData>
+	{
+		private static ResourceDataDAL instance;
+
+		protected ResourceDataDAL() throws SQLException
+		{
+			super(Resource.ResourceData.class);
+
+		}
+
+		public static ResourceDataDAL getInstance() throws SQLException
+		{
+			if (instance == null) {
+				synchronized (ResourceDataDAL.class) {
+					if (instance == null) {
+						instance = new ResourceDataDAL();
+					}
+				}
+			}
+			return instance;
+		}
 	}
 }
