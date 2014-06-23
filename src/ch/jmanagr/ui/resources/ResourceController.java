@@ -169,4 +169,12 @@ public class ResourceController implements Initializable
 			bl.save(resData.getResource());
 		}
 	}
+
+    public void addKV() {
+
+    }
+
+    public void deleteKV() {
+
+    }
 }
