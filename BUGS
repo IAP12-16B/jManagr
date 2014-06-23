@@ -2,3 +2,4 @@ Wo                              Wer             Prio        Beschreibung/Error-M
 ------------------------------------------------------------------------------------------------------------------------
 UserDetailController            @mnewmedia      very low    Man sollte auch "kein" Deparment auswählen können?
 UserController                  @kije           low         Fixme: nur exception wenn ein user mit gleichem Usernamen hinzugefügt wird
+ResourceController               @kije           high        Wenn man eine neue Resource erstellt, und diese dann anklickt/editiert, gib es eine Excreption

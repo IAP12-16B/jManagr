@@ -21,6 +21,8 @@ public class ResourceController implements Initializable
 
 	@FXML
 	public TableView<Resource.ResourceData> dataTable;
+	@FXML
+	public TextField newDataFld;
 	private ResourcesBL bl;
 	private ObservableList<Resource> res;
 
@@ -95,6 +97,19 @@ public class ResourceController implements Initializable
         parentItem.getChildren().add(newTreeItem);
 		parentItem.setExpanded(true);
         newFld.setText("");
+	}
+
+	public void addData()
+	{
+		TreeItem<Resource> selectedItem = treeView.getSelectionModel().getSelectedItem();
+
+		if (selectedItem != null) {
+			Resource value = selectedItem.getValue();
+			Resource.ResourceData resourceData = new Resource.ResourceData(value, newDataFld.getText(), "");
+			value.addData(resourceData);
+			dataTable.getItems().add(resourceData);
+			this.bl.save(value);
+		}
 	}
 
 	public void rename()

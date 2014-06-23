@@ -273,9 +273,9 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 			@Override
 			public STATUS_CODE call() throws SQLException
 			{
-				AbstractDAL.this.beforeDelete(bo);
+				beforeDelete(bo);
 				if (dao.delete(bo) == 1) {
-					AbstractDAL.this.afterDelete(bo);
+					afterDelete(bo);
 					return STATUS_CODE.OK;
 				}
 
@@ -305,12 +305,12 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 					public STATUS_CODE call() throws SQLException
 					{
 						for (BusinessObjectType bo : bos) {
-							AbstractDAL.this.beforeDelete(bo);
+							beforeDelete(bo);
 						}
 
 						if (dao.delete(bos) == bos.size()) {
 							for (BusinessObjectType bo : bos) {
-								AbstractDAL.this.afterDelete(bo);
+								afterDelete(bo);
 							}
 							return STATUS_CODE.OK;
 						}
@@ -343,10 +343,10 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 					@Override
 					public STATUS_CODE call() throws SQLException
 					{
-						AbstractDAL.this.beforeSoftDelete(bo);
+						beforeSoftDelete(bo);
 						bo.setDeleted(true);
 						if (dao.update(bo) == 1) {
-							AbstractDAL.this.afterSoftDelete(bo);
+							afterSoftDelete(bo);
 							return STATUS_CODE.OK;
 						}
 
@@ -378,10 +378,10 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 			@Override
 			public STATUS_CODE call() throws SQLException
 			{
-				AbstractDAL.this.beforeSave(bo);
+				beforeSave(bo);
 				Dao.CreateOrUpdateStatus status = dao.createOrUpdate(bo);
 				if (status.isCreated() || status.isUpdated()) {
-					AbstractDAL.this.afterSave(bo);
+					afterSave(bo);
 					return STATUS_CODE.OK;
 				}
 

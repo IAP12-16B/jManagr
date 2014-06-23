@@ -315,7 +315,6 @@ public class User implements BusinessObject<User>
 
 		if (active != user.active) { return false; }
 		if (deleted != user.deleted) { return false; }
-		if (department != null ? !department.equals(user.department) : user.department != null) { return false; }
 		if (firstnameProperty != null ?
 		    !firstnameProperty.equals(user.firstnameProperty) :
 		    user.firstnameProperty != null) { return false; }
