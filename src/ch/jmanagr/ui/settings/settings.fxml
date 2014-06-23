@@ -1,22 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.jmanagr.ui.settings.SettingsController">
-<children>
-    <TextField fx:id="hostFld" layoutX="227.0" layoutY="107.0" />
-    <TextField fx:id="dbFld" layoutX="227.0" layoutY="140.0"/>
-    <TextField fx:id="userFld" layoutX="227.0" layoutY="172.0"/>
-    <PasswordField fx:id="passwordFld" layoutX="227.0" layoutY="203.0"/>
-    <TextField fx:id="portFld" layoutX="227.0" layoutY="232.0" prefHeight="25.0" prefWidth="69.0"/>
-    <Button fx:id="saveBtn" layoutX="227.0" layoutY="268.0" mnemonicParsing="false" text="Speichern"
-            onAction="#saveSettings"/>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ch.jmanagr.ui.settings.SettingsController">
+    <children>
+        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                  AnchorPane.topAnchor="0.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS"/>
+                <ColumnConstraints hgrow="SOMETIMES"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <GridPane hgap="10.0" vgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="NEVER" minWidth="80.0"/>
+                        <ColumnConstraints hgrow="NEVER"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <children>
+                        <Label fx:id="hostLbl" text="Host"/>
+                        <Label fx:id="dbLbl" text="Database" GridPane.rowIndex="1"/>
+                        <Label fx:id="userLbl" text="User" GridPane.rowIndex="2"/>
+                        <Label fx:id="passwordLbl" text="Password" GridPane.rowIndex="3"/>
+                        <Label fx:id="portLbl" text="Port" GridPane.rowIndex="4"/>
+                        <TextField fx:id="hostFld" GridPane.columnIndex="1"/>
+                        <TextField fx:id="dbFld" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        <TextField fx:id="userFld" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                        <PasswordField fx:id="passwordFld" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                        <TextField fx:id="portFld" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                        <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveSettings" text="Speichern"
+                                GridPane.columnIndex="1" GridPane.rowIndex="5"/>
 
-    <Label fx:id="connectionErrorLbl" layoutX="310.0" layoutY="272.0" text="Verbindung konnte nicht hergestellt werden." textFill="RED" />
-    <Label fx:id="hostLbl" layoutX="128.0" layoutY="111.0" text="Host" />
-    <Label fx:id="dbLbl" layoutX="128.0" layoutY="147.0" text="Database" />
-    <Label fx:id="userLbl" layoutX="128.0" layoutY="177.0" text="User" />
-    <Label fx:id="passwordLbl" layoutX="128.0" layoutY="207.0" text="Password" />
-    <Label fx:id="portLbl" layoutX="128.0" layoutY="237.0" text="Port" />
-</children>
+                        <Label fx:id="connectionErrorLbl" text="Verbindung konnte nicht hergestellt werden."
+                               textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                    </children>
+                </GridPane>
+            </children>
+        </GridPane>
+    </children>
+    <padding>
+        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+    </padding>
+
+    <stylesheets>
+        <URL value="@../main.css"/>
+    </stylesheets>
 </AnchorPane>
