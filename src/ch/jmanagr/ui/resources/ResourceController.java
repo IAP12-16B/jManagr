@@ -2,7 +2,6 @@ package ch.jmanagr.ui.resources;
 
 import ch.jmanagr.bl.ResourcesBL;
 import ch.jmanagr.bo.Resource;
-import ch.jmanagr.lib.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -52,28 +51,35 @@ public class ResourceController implements Initializable
 	public void add()
 	{
         Resource parent = treeView.getSelectionModel().getSelectedItem().getValue();
-        TreeItem parentItem = treeView.getSelectionModel().getSelectedItem();
+		TreeItem<Resource> parentItem = treeView.getSelectionModel().getSelectedItem();
 
-        TreeItem<Resource> newTreeItem = new TreeItem<Resource>();
+
+		TreeItem<Resource> newTreeItem = new TreeItem<Resource>();
         Resource r = new Resource();
         r.setName(newFld.getText());
         r.setParent(parent);
         bl.save(r);
         newTreeItem.setValue(r);
         parentItem.getChildren().add(newTreeItem);
+		parentItem.setExpanded(true);
 	}
 
 	public void rename()
 	{
-        // todo refreshes only if you close and open the renamed item again..
         TreeItem<Resource> currentTreeItem = treeView.getSelectionModel().getSelectedItem();
         Resource currentResource = currentTreeItem.getValue();
         int index = treeView.getSelectionModel().getSelectedIndex();
 
         currentResource.setName(renameFld.getText());
-        bl.save(currentResource);
-        currentTreeItem.setValue(currentResource);
-        // currentTreeItem.getParent().getChildren().add(index, currentTreeItem);
+		bl.save(currentResource);
+		currentTreeItem.setValue(currentResource);
+
+		// force repaint (maybe not the best way..., but all other methodes (notfy(), impl_updatePG(),
+		// etc... won't work))
+		currentTreeItem.setExpanded(true);
+		currentTreeItem.setExpanded(false);
+
+		// currentTreeItem.getParent().getChildren().add(index, currentTreeItem);
         // treeView.getRoot().getChildren().add(index, currentTreeItem);
 	}
 
