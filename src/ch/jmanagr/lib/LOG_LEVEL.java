@@ -2,12 +2,12 @@ package ch.jmanagr.lib;
 
 public enum LOG_LEVEL
 {
-	VERBOSE(0),
-	DEBUG(10),
-	MESSAGE(20),
-	WARNING(30),
-	ERROR(40),
-	FATAL_ERROR(50);
+	VERBOSE(1),
+	DEBUG(2),
+	MESSAGE(4),
+	WARNING(8),
+	ERROR(16),
+	FATAL_ERROR(32);
 
 	public final int value;
 

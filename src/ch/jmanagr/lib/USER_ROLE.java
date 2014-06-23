@@ -5,9 +5,9 @@ package ch.jmanagr.lib;
  */
 public enum USER_ROLE
 {
-	USER(0),
-	AGENT(1),
-	ADMIN(2);
+	USER(1),
+	AGENT(2),
+	ADMIN(4);
 
 	public final int value;
 

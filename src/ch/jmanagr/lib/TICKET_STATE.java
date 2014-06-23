@@ -5,8 +5,8 @@ package ch.jmanagr.lib;
  */
 public enum TICKET_STATE
 {
-	OPEN(0),
-	CLOSED(1);
+	OPEN(1),
+	CLOSED(2);
 
 	public final int value;
 
