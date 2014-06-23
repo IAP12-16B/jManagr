@@ -94,6 +94,7 @@ public class ResourceController implements Initializable
         newTreeItem.setValue(r);
         parentItem.getChildren().add(newTreeItem);
 		parentItem.setExpanded(true);
+        newFld.setText("");
 	}
 
 	public void rename()
@@ -113,6 +114,7 @@ public class ResourceController implements Initializable
 
 		// currentTreeItem.getParent().getChildren().add(index, currentTreeItem);
         // treeView.getRoot().getChildren().add(index, currentTreeItem);
+        renameFld.setText("");
 	}
 
 	public void addChildItems(TreeItem<Resource> parentItem)
