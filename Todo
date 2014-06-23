@@ -1,6 +1,5 @@
         Wer                     Priorität           Beschreibung
 ------------------------------------------------------------------------------------------------------------------------
-TODO:   @kije                   high                getAllByUserBug - isnt a bug a todo? uahahah
 TODO:   @mnewmedia              high                Ticket... see whats todo
 TODO:   @mnewmedia              low                 Ticket edit make a treeView in order to select resource instead of combobox?
 TODO:   @mnewmedia              low                 Ticket-Filterung -> nach status
@@ -11,3 +10,4 @@ TODO:   @kije                   medium              Daten beim löschen aufräum
 
 TODO:   @mnewmedia  @kije       low                 Code dokumentieren (kommentare, etc...)
 TODO:   @kije                   high                Diagramme anpassen/erstellen
+TODO:   @mnewmedia              high                TicketDetail Departmentbox funktioniert nicht ....
