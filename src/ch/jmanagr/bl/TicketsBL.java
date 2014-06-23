@@ -45,6 +45,11 @@ public class TicketsBL extends AbstractBL<Ticket, TicketsDAL>
 	}
 
 
+	/**
+	 * @param bo The BusinessObject to check
+	 *
+	 * @return
+	 */
 	@Override
 	public STATUS_CODE validate(Ticket bo)
 	{
@@ -73,8 +78,47 @@ public class TicketsBL extends AbstractBL<Ticket, TicketsDAL>
 	public List<Ticket> getAllByUser(User user, TICKET_STATE state)
 	{
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("User", user);
-		map.put("status", state);
+		map.put("user_id", user.getId());
+		if (state != null) {
+			map.put("status", state);
+		}
+		map.put("deleted", 0);
+		try {
+			return dal.fetch(map);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return new ArrayList<>();
+	}
+
+	/**
+	 * Get all Tickets created by the provided User
+	 *
+	 * @param user The user
+	 *
+	 * @return A list of Tickets, which were created by the provided User
+	 */
+	public List<Ticket> getAllByUser(User user)
+	{
+		return this.getAllByUser(user, null);
+	}
+
+	/**
+	 * Get all Tickets assigned to the provided Agent
+	 *
+	 * @param agent The agent
+	 * @param state The status of the ticket
+	 *
+	 * @return A list of Tickets, which are assigned to the provided Agent
+	 */
+	public List<Ticket> getAllByAgent(User agent, TICKET_STATE state)
+	{
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("agent_id", agent.getId());
+		if (state != null) {
+			map.put("status", state);
+		}
 		map.put("deleted", 0);
 		try {
 			return dal.fetch(map);
@@ -89,15 +133,29 @@ public class TicketsBL extends AbstractBL<Ticket, TicketsDAL>
 	 * Get all Tickets assigned to the provided Agent
 	 *
 	 * @param agent The agent
-	 * @param state The status of the ticket
 	 *
 	 * @return A list of Tickets, which are assigned to the provided Agent
 	 */
-	public List<Ticket> getAllByAgent(User agent, TICKET_STATE state)
+	public List<Ticket> getAllByAgent(User agent)
+	{
+		return this.getAllByAgent(agent, null);
+	}
+
+	/**
+	 * Get all Tickets that were assigned to the provided Resource
+	 *
+	 * @param resource The Resource
+	 * @param state    The status of the ticket
+	 *
+	 * @return A list of tickets, which are assigned to the provided Resource
+	 */
+	public List<Ticket> getAllByResource(Resource resource, TICKET_STATE state)
 	{
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("Agent", agent);
-		map.put("status", state);
+		map.put("resource_id", resource.getId());
+		if (state != null) {
+			map.put("status", state);
+		}
 		map.put("deleted", 0);
 		try {
 			return dal.fetch(map);
@@ -112,14 +170,27 @@ public class TicketsBL extends AbstractBL<Ticket, TicketsDAL>
 	 * Get all Tickets that were assigned to the provided Resource
 	 *
 	 * @param resource The Resource
-	 * @param state    The status of the ticket
 	 *
 	 * @return A list of tickets, which are assigned to the provided Resource
 	 */
-	public List<Ticket> getAllByResource(Resource resource, TICKET_STATE state)
+	public List<Ticket> getAllByResource(Resource resource)
+	{
+		return this.getAllByResource(resource, null);
+	}
+
+	/**
+	 * Get all Tickets that are assigned to the provided Department. Attention: This returns only the Tickets which are
+	 * directly assigned to the Department, not the ones which are assigned to an Agent in that Department
+	 *
+	 * @param department The Deaprtment
+	 * @param state      The status of the ticket
+	 *
+	 * @return A list of tickets, which are directly assigned to the provided Deaprtment
+	 */
+	public List<Ticket> getAllByDepartment(Department department, TICKET_STATE state)
 	{
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("Resource", resource);
+		map.put("department_id", department.getId());
 		map.put("status", state);
 		map.put("deleted", 0);
 		try {
@@ -136,23 +207,11 @@ public class TicketsBL extends AbstractBL<Ticket, TicketsDAL>
 	 * directly assigned to the Department, not the ones which are assigned to an Agent in that Department
 	 *
 	 * @param department The Deaprtment
-	 * @param state      The status of the ticket
 	 *
 	 * @return A list of tickets, which are directly assigned to the provided Deaprtment
 	 */
-	public List<Ticket> getAllByDepartment(Department department, TICKET_STATE state)
-	{
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("Department", department);
-		map.put("status", state);
-		map.put("deleted", 0);
-		try {
-			return dal.fetch(map);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return new ArrayList<>();
+	public List<Ticket> getAllByDepartment(Department department) {
+		return this.getAllByDepartment(department, null);
 	}
 
 
