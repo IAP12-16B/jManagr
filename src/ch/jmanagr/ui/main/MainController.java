@@ -71,8 +71,6 @@ public class MainController implements Initializable
 		switch (view) {
 			case "ticketDetail": {
 				tabTickets.setContent(ticketDetailView);
-				TicketDetailController.departementCbox.setItems(FXCollections.observableArrayList(depBl.getAll()));
-				TicketDetailController.departementCbox.getSelectionModel().selectFirst();
 				break;
 			}
 			case "tickets": {
@@ -84,8 +82,6 @@ public class MainController implements Initializable
 				break;
 			}
 			case "userDetail": {
-				UserDetailController.departementCbox.setItems(FXCollections.observableArrayList(depBl.getAll()));
-				UserDetailController.departementCbox.getSelectionModel().selectFirst();
 				tabUser.setContent(userDetailView);
 				break;
 			}

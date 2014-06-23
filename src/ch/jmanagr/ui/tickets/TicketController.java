@@ -1,5 +1,6 @@
 package ch.jmanagr.ui.tickets;
 
+import ch.jmanagr.bl.DepartmentsBL;
 import ch.jmanagr.bl.TicketsBL;
 import ch.jmanagr.bl.UsersBL;
 import ch.jmanagr.bo.Department;
@@ -33,6 +34,7 @@ public class TicketController implements Initializable
 	//private ObservableList<Ticket> filteredList = FXCollections.observableArrayList();
 	private TicketsBL bl;
     private UsersBL usersBL;
+    private DepartmentsBL depBl;
 
 	@FXML private TableView<Ticket> ticketTable;
 	@FXML private TableColumn idCol;
@@ -54,6 +56,7 @@ public class TicketController implements Initializable
         } catch (jManagrDBException e) {
             Logger.log(LOG_LEVEL.ERROR, e);
         }
+        this.depBl = DepartmentsBL.getInstance();
 	}
 
 	public void initialize(URL location, ResourceBundle resources)
@@ -125,6 +128,9 @@ public class TicketController implements Initializable
 
 	public void editTicket()
 	{
+        TicketDetailController.departementCbox.setItems(FXCollections.observableArrayList(depBl.getAll()));
+        TicketDetailController.departementCbox.getSelectionModel().selectFirst();
+
 		Ticket selectedTicket = ticketTable.getSelectionModel().getSelectedItem();
 		if (selectedTicket != null) {
 			int index = ticketTable.getSelectionModel().getSelectedIndex();
