@@ -68,8 +68,9 @@ public class TicketController implements Initializable
 		departmentCol.setCellValueFactory(new PropertyValueFactory<Department, String>("department"));
         nameCol.setCellValueFactory(new PropertyValueFactory<Ticket, String>("name"));
 		dateCol.setCellValueFactory(new PropertyValueFactory<Ticket, Date>("date"));
-       // userCol.setCellValueFactory(new PropertyValueFactory<User, String>("user")); //Todo make simpleProperty or Dont show User here?
-        agentCol.setCellValueFactory(new PropertyValueFactory<User, String>("agent"));
+		userCol.setCellValueFactory(new PropertyValueFactory<User, String>("user")); //Todo make simpleProperty or
+		// Dont show User here?
+		agentCol.setCellValueFactory(new PropertyValueFactory<User, String>("agent"));
         //statusCol.setCellValueFactory(new PropertyValueFactory<User, String>("status"));
         resourceCol.setCellValueFactory(new PropertyValueFactory<Resource, String>("resource"));
 
