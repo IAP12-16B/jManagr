@@ -3,7 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane fx:id="windowContent" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
+<AnchorPane fx:id="windowContent" xmlns="http://javafx.com/javafx/8"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.jmanagr.ui.login.LoginController">
     <children>
         <GridPane vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
