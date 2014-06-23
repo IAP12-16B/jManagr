@@ -12,10 +12,12 @@ public class ResourcesDAL extends AbstractDAL<Resource>
 {
 	private static ResourcesDAL instance;
 
+	private ResourceDataDAL dataDAL;
+
 	protected ResourcesDAL() throws SQLException
 	{
 		super(Resource.class);
-
+		dataDAL = ResourceDataDAL.getInstance();
 	}
 
 	public static ResourcesDAL getInstance() throws SQLException
