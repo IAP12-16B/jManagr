@@ -113,7 +113,6 @@ public class UsersController implements Initializable
 	public void editUser()
 	{
         UserDetailController.departementCbox.setItems(FXCollections.observableArrayList(depBl.getAll()));
-        UserDetailController.departementCbox.getSelectionModel().selectFirst();
 
 		User selectedUser = userTable.getSelectionModel().getSelectedItem();
 		if (selectedUser != null) {

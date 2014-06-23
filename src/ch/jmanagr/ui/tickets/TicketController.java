@@ -32,13 +32,12 @@ import java.util.ResourceBundle;
 public class TicketController implements Initializable
 {
 	public static ObservableList<Ticket> ticketList;
-	//private ObservableList<Ticket> filteredList = FXCollections.observableArrayList();
 	private TicketsBL bl;
     private UsersBL usersBL;
     private DepartmentsBL depBl;
     private User currentUser;
 
-	@FXML private TableView<Ticket> ticketTable;
+	@FXML private static TableView<Ticket> ticketTable;
 	@FXML private TableColumn idCol;
 	@FXML private TableColumn<Ticket, String> nameCol;
     @FXML private TableColumn<Ticket, Date> dateCol;
@@ -64,9 +63,6 @@ public class TicketController implements Initializable
 
 	public void initialize(URL location, ResourceBundle resources)
 	{
-		//http://code.makery.ch/blog/javafx-2-tableview-filter/
-		//filteredList.addAll(ticketList);
-
         // Fill Table with Data
 		idCol.setCellValueFactory(new PropertyValueFactory("id"));
 		departmentCol.setCellValueFactory(new PropertyValueFactory<Department, String>("department"));
@@ -74,6 +70,7 @@ public class TicketController implements Initializable
 		dateCol.setCellValueFactory(new PropertyValueFactory<Ticket, Date>("date"));
        // userCol.setCellValueFactory(new PropertyValueFactory<User, String>("user")); //Todo make simpleProperty or Dont show User here?
         agentCol.setCellValueFactory(new PropertyValueFactory<User, String>("agent"));
+        //statusCol.setCellValueFactory(new PropertyValueFactory<User, String>("status"));
         resourceCol.setCellValueFactory(new PropertyValueFactory<Resource, String>("resource"));
 
 		// makes nameCol to a textField
@@ -110,11 +107,16 @@ public class TicketController implements Initializable
             ticketList = FXCollections.observableArrayList(bl.getAllByUser(currentUser, TICKET_STATE.OPEN)); // todo detect state by button
         } else {
             ticketList = FXCollections.observableArrayList(bl.getAll());
-            this.ticketTable.setItems(ticketList);
+            ticketTable.setItems(ticketList);
         }
-        Logger.logln("Refreshed list!");
-        this.ticketTable.setItems(ticketList);
+        Logger.logln("Refreshed Ticket list!");
+        ticketTable.setItems(ticketList);
 	}
+
+    public static void softRefresh() {
+        ticketTable.getColumns().get(0).setVisible(false);
+        ticketTable.getColumns().get(0).setVisible(true);
+    }
 
 	public void newTicket()
 	{
@@ -123,7 +125,7 @@ public class TicketController implements Initializable
 
 	public void deleteTicket()
 	{
-		Ticket ticket = this.ticketTable.getSelectionModel().getSelectedItem();
+		Ticket ticket = ticketTable.getSelectionModel().getSelectedItem();
 		if (ticket != null) {
 			Logger.log("Deleting ticket:" + ticket.getName() + " " + ticket.getId());
 			bl.delete(ticket);
@@ -136,7 +138,7 @@ public class TicketController implements Initializable
 	public void editTicket()
 	{
         TicketDetailController.departementCbox.setItems(FXCollections.observableArrayList(depBl.getAll()));
-        TicketDetailController.departementCbox.getSelectionModel().selectFirst();
+        TicketDetailController.agentCbox.setItems(FXCollections.observableArrayList(usersBL.getByUserRole(USER_ROLE.AGENT)));
 
 		Ticket selectedTicket = ticketTable.getSelectionModel().getSelectedItem();
 		if (selectedTicket != null) {
