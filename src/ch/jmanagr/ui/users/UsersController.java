@@ -2,6 +2,7 @@ package ch.jmanagr.ui.users;
 
 import ch.jmanagr.bl.DepartmentsBL;
 import ch.jmanagr.bl.UsersBL;
+import ch.jmanagr.bo.Department;
 import ch.jmanagr.bo.User;
 import ch.jmanagr.exceptions.jManagrDBException;
 import ch.jmanagr.lib.LOG_LEVEL;
@@ -31,26 +32,17 @@ public class UsersController implements Initializable
 	private UsersBL bl;
     private DepartmentsBL depBl;
 
-	@FXML
-	private TableView<User> userTable;
-	@FXML
-	private TableColumn idCol;
-	@FXML
-	private TableColumn<User, String> lastnameCol;
-	@FXML
-	private TableColumn<User, String> firstnameCol;
-	@FXML
-	private TableColumn<User, String> usernameCol;
-	@FXML
-	private TableColumn<User, String> departmentCol;
-	@FXML
-	private TableColumn<User, String> roleCol;
+	@FXML private static TableView<User> userTable;
+	@FXML private TableColumn idCol;
+	@FXML private TableColumn<User, String> lastnameCol;
+	@FXML private TableColumn<User, String> firstnameCol;
+	@FXML private TableColumn<User, String> usernameCol;
+	@FXML private TableColumn<User, String> departmentCol;
+	@FXML private TableColumn<User, String> roleCol;
 
-	@FXML
-	private Button editUsrBtn;
+	@FXML private Button editUsrBtn;
 
-	@FXML
-	private TextField nameField;
+	@FXML private TextField nameField;
 
 	public UsersController()
 	{
@@ -90,10 +82,14 @@ public class UsersController implements Initializable
 	public void refresh()
 	{
 		userList = FXCollections.observableArrayList(bl.getAll());
-		this.userTable.setItems(userList);
+		userTable.setItems(userList);
 		Logger.logln("Refreshed list!");
 	}
 
+    public static void softRefresh() {
+        userTable.getColumns().get(0).setVisible(false);
+        userTable.getColumns().get(0).setVisible(true);
+    }
 	public void newUser()
 	{
 		MainController.changeTabContent("userDetail");
@@ -101,7 +97,7 @@ public class UsersController implements Initializable
 
 	public void deleteUser()
 	{
-		User user = this.userTable.getSelectionModel().getSelectedItem();
+		User user = userTable.getSelectionModel().getSelectedItem();
 		if (user != null) {
 			Logger.log("Deleting user:" + user.getFirstname() + " " + user.getId());
 			if (bl.delete(user) == STATUS_CODE.OK) {

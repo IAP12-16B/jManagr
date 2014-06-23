@@ -83,7 +83,7 @@ public class UserDetailController implements Initializable
 		if (usernameFld.getText().isEmpty()) {
 			this.userDetailErrorLbl.setText("Benutzername darf nicht leer sein!");
 			return false;
-		} else if (passwordFld.getText().isEmpty() ) { //todo if edit pw doesnt have to be set
+		} else if (passwordFld.getText().isEmpty() ) { // todo if edit pw doesnt have to be set
 			this.userDetailErrorLbl.setText("Passwort darf nicht leer sein!");
 			return false;
 		} else if (!passwordFld.getText().equals(password2Fld.getText())) {
@@ -121,13 +121,14 @@ public class UserDetailController implements Initializable
 				updateCurrUser.setFirstname(firstnameFld.getText());
 				updateCurrUser.setUsername(usernameFld.getText());
 				updateCurrUser.setUnhashedPassword(password2Fld.getText());
-				updateCurrUser.setDepartment(d);
+				updateCurrUser.setDepartment(departementCbox.getValue());
                 Logger.logln("Dep: " + d);
 				updateCurrUser.setRole(r);
 
 				// save
 				bl.save(updateCurrUser);
 				UsersController.userList.set(updateCurrIndex, updateCurrUser);
+                UsersController.softRefresh();
 			}
 			this.clearFields();
 			MainController.changeTabContent("users");
