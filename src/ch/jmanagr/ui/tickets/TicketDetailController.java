@@ -75,12 +75,15 @@ public class TicketDetailController implements Initializable
     public static void fillTicket(Ticket editingTicket, int index)
     {
         updateCurrTicket = editingTicket;
+        Logger.logln("updat curr ticket " + updateCurrTicket);
         if (updateCurrTicket != null) {
             nameFld.setText(updateCurrTicket.getName());
             descriptionFld.setText(updateCurrTicket.getDescription());
 
             ticketStateCbox.getSelectionModel().select(updateCurrTicket.getStatus());
             departementCbox.getSelectionModel().select(updateCurrTicket.getDepartment());
+            Logger.logln("fillTicket :" + updateCurrTicket.getDepartment());
+            departementCbox.getSelectionModel().select(2);
             resourceCbox.getSelectionModel().select(updateCurrTicket.getResource());
             agentCbox.getSelectionModel().select(updateCurrTicket.getAgent());
         }

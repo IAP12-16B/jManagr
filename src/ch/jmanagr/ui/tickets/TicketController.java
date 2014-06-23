@@ -129,6 +129,7 @@ public class TicketController implements Initializable
 		if (selectedTicket != null) {
 			int index = ticketTable.getSelectionModel().getSelectedIndex();
 			TicketDetailController.fillTicket(selectedTicket, index);
+            Logger.logln("Edit: " + selectedTicket);
 			MainController.changeTabContent("ticketDetail");
 		}
 	}
