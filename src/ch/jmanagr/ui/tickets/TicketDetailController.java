@@ -57,19 +57,14 @@ public class TicketDetailController implements Initializable
 
 	public void initialize(URL location, ResourceBundle resources)
 	{
-		ticketStateCbox.setItems(
-				FXCollections.observableArrayList(TICKET_STATE.values())
-		);
-		resourceCbox.setItems(
-				FXCollections.observableArrayList(
-						resBL.getAll()
-				)
-		);
-		agentCbox.setItems(
-                FXCollections.observableArrayList(
-                        usersBL.getByUserRole(USER_ROLE.AGENT)
-                )
-        );
+		ticketStateCbox.setItems(FXCollections.observableArrayList(TICKET_STATE.values()));
+        ticketStateCbox.getSelectionModel().selectFirst();
+		resourceCbox.setItems(FXCollections.observableArrayList(resBL.getAll()));
+        resourceCbox.getSelectionModel().selectFirst();
+		agentCbox.setItems(FXCollections.observableArrayList(usersBL.getByUserRole(USER_ROLE.AGENT)));
+        agentCbox.getSelectionModel().selectFirst();
+        departementCbox.setItems(FXCollections.observableArrayList(depBl.getAll()));
+        departementCbox.getSelectionModel().selectFirst();
 	}
 
     public static void fillTicket(Ticket editingTicket, int index)
@@ -82,8 +77,6 @@ public class TicketDetailController implements Initializable
 
             ticketStateCbox.getSelectionModel().select(updateCurrTicket.getStatus());
             departementCbox.getSelectionModel().select(updateCurrTicket.getDepartment());
-            Logger.logln("fillTicket :" + updateCurrTicket.getDepartment());
-            departementCbox.getSelectionModel().select(2);
             resourceCbox.getSelectionModel().select(updateCurrTicket.getResource());
             agentCbox.getSelectionModel().select(updateCurrTicket.getAgent());
         }
@@ -128,6 +121,7 @@ public class TicketDetailController implements Initializable
             //save
             bl.save(updateCurrTicket);
             TicketController.ticketList.set(updateCurrIndex, updateCurrTicket);
+            TicketController.softRefresh();
             Logger.logln("Updated Ticket: " + updateCurrTicket);
         }
         this.clearFields();

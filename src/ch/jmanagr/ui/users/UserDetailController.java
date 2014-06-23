@@ -83,7 +83,7 @@ public class UserDetailController implements Initializable
 		if (usernameFld.getText().isEmpty()) {
 			this.userDetailErrorLbl.setText("Benutzername darf nicht leer sein!");
 			return false;
-		} else if (passwordFld.getText().isEmpty() ) { // todo if edit pw doesnt have to be set
+		} else if (passwordFld.getText().isEmpty() && (updateCurrUser == null)) {
 			this.userDetailErrorLbl.setText("Passwort darf nicht leer sein!");
 			return false;
 		} else if (!passwordFld.getText().equals(password2Fld.getText())) {
