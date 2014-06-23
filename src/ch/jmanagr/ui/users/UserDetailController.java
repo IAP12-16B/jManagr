@@ -83,7 +83,7 @@ public class UserDetailController implements Initializable
 		if (usernameFld.getText().isEmpty()) {
 			this.userDetailErrorLbl.setText("Benutzername darf nicht leer sein!");
 			return false;
-		} else if ((passwordFld.getText().isEmpty()) && (updateCurrUser == null)) {
+		} else if (passwordFld.getText().isEmpty() ) { //todo if edit pw doesnt have to be set
 			this.userDetailErrorLbl.setText("Passwort darf nicht leer sein!");
 			return false;
 		} else if (!passwordFld.getText().equals(password2Fld.getText())) {
@@ -99,7 +99,6 @@ public class UserDetailController implements Initializable
 	{
 		if (validationPassed()) {
 
-			// get selected comboboxes
 			Department d = departementCbox.getSelectionModel().getSelectedItem();
 			USER_ROLE r = roleCbox.getSelectionModel().getSelectedItem();
 
@@ -123,6 +122,7 @@ public class UserDetailController implements Initializable
 				updateCurrUser.setUsername(usernameFld.getText());
 				updateCurrUser.setUnhashedPassword(password2Fld.getText());
 				updateCurrUser.setDepartment(d);
+                Logger.logln("Dep: " + d);
 				updateCurrUser.setRole(r);
 
 				// save
@@ -144,11 +144,11 @@ public class UserDetailController implements Initializable
 	public void clearFields()
 	{
 		updateCurrUser = null;
-		lastnameFld.setText(null);
-		firstnameFld.setText(null);
-		usernameFld.setText(null);
-		password2Fld.setText(null);
-		passwordFld.setText(null);
+		lastnameFld.setText("");
+		firstnameFld.setText("");
+		usernameFld.setText("");
+		password2Fld.setText("");
+		passwordFld.setText("");
 		departementCbox.getSelectionModel().selectFirst();
 		roleCbox.getSelectionModel().selectFirst();
 	}

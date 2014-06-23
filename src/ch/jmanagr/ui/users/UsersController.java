@@ -1,5 +1,6 @@
 package ch.jmanagr.ui.users;
 
+import ch.jmanagr.bl.DepartmentsBL;
 import ch.jmanagr.bl.UsersBL;
 import ch.jmanagr.bo.User;
 import ch.jmanagr.exceptions.jManagrDBException;
@@ -28,6 +29,7 @@ public class UsersController implements Initializable
 {
 	public static ObservableList<User> userList;
 	private UsersBL bl;
+    private DepartmentsBL depBl;
 
 	@FXML
 	private TableView<User> userTable;
@@ -57,6 +59,7 @@ public class UsersController implements Initializable
 		} catch (jManagrDBException e) {
 			Logger.log(LOG_LEVEL.ERROR, e);
 		}
+        depBl = DepartmentsBL.getInstance();
 	}
 
 	// Fill Table with Data
@@ -113,6 +116,9 @@ public class UsersController implements Initializable
 
 	public void editUser()
 	{
+        UserDetailController.departementCbox.setItems(FXCollections.observableArrayList(depBl.getAll()));
+        UserDetailController.departementCbox.getSelectionModel().selectFirst();
+
 		User selectedUser = userTable.getSelectionModel().getSelectedItem();
 		if (selectedUser != null) {
 			int index = userTable.getSelectionModel().getSelectedIndex();
