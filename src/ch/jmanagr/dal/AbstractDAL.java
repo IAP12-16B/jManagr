@@ -94,7 +94,11 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 	@Override
 	public BusinessObjectType fetchById(Integer id) throws SQLException
 	{
-		return dao.queryForId(id);
+		this.beforeFetch();
+		BusinessObjectType bo = dao.queryForId(id);
+		this.afterFetch(bo);
+
+		return bo;
 	}
 
 	/**
@@ -107,7 +111,12 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 	@Override
 	public List<BusinessObjectType> fetchAll() throws SQLException
 	{
-		return dao.queryForAll();
+		this.beforeFetch();
+		List<BusinessObjectType> bos = dao.queryForAll();
+		for (BusinessObjectType bo : bos) {
+			this.afterFetch(bo);
+		}
+		return bos;
 	}
 
 	/**
@@ -123,6 +132,9 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 	@Override
 	public List<BusinessObjectType> fetch(Map<String, Object> params, int limit) throws SQLException
 	{
+		this.beforeFetch();
+		List<BusinessObjectType> bos = null;
+
 		if (params.containsValue(null) || limit >= 0) {
 			QueryBuilder<BusinessObjectType, Integer> queryBuilder = dao.queryBuilder();
 			Where<BusinessObjectType, Integer> where = queryBuilder.where();
@@ -148,10 +160,16 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 				queryBuilder.limit((long) limit);
 			}
 
-			return dao.query(queryBuilder.prepare());
+			bos = dao.query(queryBuilder.prepare());
+		} else {
+			bos = dao.queryForFieldValues(params);
 		}
 
-		return dao.queryForFieldValues(params);
+		for (BusinessObjectType bo : bos) {
+			this.afterFetch(bo);
+		}
+
+		return bos;
 	}
 
 	/**
@@ -178,11 +196,20 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 	@Override
 	public List<BusinessObjectType> fetch(String fieldName, Object value) throws SQLException
 	{
+
+		this.beforeFetch();
+		List<BusinessObjectType> bos = null;
 		if (value == null) {
-			return dao.query(dao.queryBuilder().where().isNull(fieldName).prepare());
+			bos = dao.query(dao.queryBuilder().where().isNull(fieldName).prepare());
+		} else {
+			bos = dao.queryForEq(fieldName, value);
 		}
 
-		return dao.queryForEq(fieldName, value);
+		for (BusinessObjectType bo : bos) {
+			this.afterFetch(bo);
+		}
+
+		return bos;
 	}
 
 	/**
@@ -208,6 +235,10 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 
 		return dao.query(qb.prepare());
 	}
+
+	protected void beforeFetch() throws SQLException {}
+
+	protected void afterFetch(final BusinessObjectType bo) throws SQLException {}
 
 	/**
 	 * Check if the provided BusinessObject exists
@@ -242,7 +273,9 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 			@Override
 			public STATUS_CODE call() throws SQLException
 			{
+				AbstractDAL.this.beforeDelete(bo);
 				if (dao.delete(bo) == 1) {
+					AbstractDAL.this.afterDelete(bo);
 					return STATUS_CODE.OK;
 				}
 
@@ -271,7 +304,14 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 					@Override
 					public STATUS_CODE call() throws SQLException
 					{
+						for (BusinessObjectType bo : bos) {
+							AbstractDAL.this.beforeDelete(bo);
+						}
+
 						if (dao.delete(bos) == bos.size()) {
+							for (BusinessObjectType bo : bos) {
+								AbstractDAL.this.afterDelete(bo);
+							}
 							return STATUS_CODE.OK;
 						}
 
@@ -280,6 +320,10 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 				}
 		);
 	}
+
+	protected void beforeDelete(final BusinessObjectType bo) throws SQLException {}
+
+	protected void afterDelete(final BusinessObjectType bo) throws SQLException {}
 
 	/**
 	 * Soft deletes (set deleted to 1) a BusinessObject
@@ -299,8 +343,10 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 					@Override
 					public STATUS_CODE call() throws SQLException
 					{
+						AbstractDAL.this.beforeSoftDelete(bo);
 						bo.setDeleted(true);
 						if (dao.update(bo) == 1) {
+							AbstractDAL.this.afterSoftDelete(bo);
 							return STATUS_CODE.OK;
 						}
 
@@ -309,6 +355,10 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 				}
 		);
 	}
+
+	protected void beforeSoftDelete(final BusinessObjectType bo) throws SQLException {}
+
+	protected void afterSoftDelete(final BusinessObjectType bo) throws SQLException {}
 
 	/**
 	 * Saves a BusinessObject to DB
@@ -328,8 +378,10 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 			@Override
 			public STATUS_CODE call() throws SQLException
 			{
+				AbstractDAL.this.beforeSave(bo);
 				Dao.CreateOrUpdateStatus status = dao.createOrUpdate(bo);
 				if (status.isCreated() || status.isUpdated()) {
+					AbstractDAL.this.afterSave(bo);
 					return STATUS_CODE.OK;
 				}
 
@@ -337,7 +389,9 @@ public abstract class AbstractDAL<BusinessObjectType extends BusinessObject<Busi
 			}
 		}
 		);
-
-
 	}
+
+	protected void beforeSave(final BusinessObjectType bo) throws SQLException {}
+
+	protected void afterSave(final BusinessObjectType bo) throws SQLException {}
 }

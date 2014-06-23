@@ -2,13 +2,10 @@ package ch.jmanagr.dal;
 
 
 import ch.jmanagr.bo.Resource;
-import ch.jmanagr.lib.STATUS_CODE;
-import com.j256.ormlite.misc.TransactionManager;
 
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 public class ResourcesDAL extends AbstractDAL<Resource>
 {
@@ -42,35 +39,26 @@ public class ResourcesDAL extends AbstractDAL<Resource>
 	}
 
 	@Override
-	public void createTable() throws SQLException
+	protected void afterSoftDelete(Resource bo) throws SQLException
 	{
-		super.createTable();
-		this.db.createTableIfNotExists(Resource.ResourceData.class);
+		super.beforeSoftDelete(bo);
+		List<Resource> resources = this.fetch("parent_id", bo.getId());
+		for (Resource resource : resources) {
+			this.softDelete(resource);
+		}
+
+		for (Resource.ResourceData data : bo.getData()) {
+			ResourceDataDAL.getInstance().softDelete(data);
+		}
 	}
 
 	@Override
-	public STATUS_CODE softDelete(final Resource bo) throws SQLException
+	protected void afterSave(Resource bo) throws SQLException
 	{
-		return TransactionManager.callInTransaction(
-				this.db.getConnectionSource(),
-				new Callable<STATUS_CODE>()
-				{
-					@Override
-					public STATUS_CODE call() throws SQLException
-					{
-						bo.setDeleted(true);
-						if (dao.update(bo) == 1) {
-							List<Resource> resources = dao.queryForEq("parent_id", bo.getId());
-							for (Resource resource : resources) {
-								ResourcesDAL.this.softDelete(resource);
-							}
-						}
-
-						return STATUS_CODE.FAIL;
-					}
-				}
-		);
-
+		super.afterSave(bo);
+		for (Resource.ResourceData data : bo.getData()) {
+			ResourceDataDAL.getInstance().save(data);
+		}
 	}
 
 	public static class ResourceDataDAL extends AbstractDAL<Resource.ResourceData>
