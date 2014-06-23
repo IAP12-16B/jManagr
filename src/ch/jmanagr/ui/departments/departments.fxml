@@ -3,9 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane id="Content" fx:id="departmentView" minHeight="0.0" minWidth="0.0" prefHeight="588.0" prefWidth="769.0"
-            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="ch.jmanagr.ui.departments.DepartmentController">
+<AnchorPane id="Content" fx:id="departmentView" minHeight="0.0" minWidth="0.0" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.jmanagr.ui.departments.DepartmentController">
     <children>
         <GridPane vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                   AnchorPane.topAnchor="0.0">
@@ -19,7 +18,7 @@
             <children>
                 <TableView fx:id="depTable" editable="true" tableMenuButtonVisible="true">
                     <columns>
-                        <TableColumn fx:id="idCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0"
+                        <TableColumn fx:id="idCol" editable="false" maxWidth="1.7976931348623157E308" minWidth="50.0"
                                      prefWidth="-1.0" text="ID" visible="false"/>
                         <TableColumn fx:id="nameCol" editable="true" maxWidth="1.7976931348623157E308" minWidth="250.0"
                                      prefWidth="-1.0" text="Name"/>

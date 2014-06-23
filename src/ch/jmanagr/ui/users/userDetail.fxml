@@ -1,35 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane id="Content" fx:id="userDetailView" cache="false" minHeight="0.0" minWidth="0.0" prefHeight="588.0"
-            prefWidth="769.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="ch.jmanagr.ui.users.UserDetailController">
+<?import javafx.scene.layout.*?>
+<AnchorPane id="Content" fx:id="userDetailView" cache="false" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.jmanagr.ui.users.UserDetailController">
     <children>
-        <TextField fx:id="firstnameFld" layoutX="127.0" layoutY="34.0"/>
-        <TextField fx:id="lastnameFld" layoutX="127.0" layoutY="77.0"/>
-        <TextField fx:id="usernameFld" layoutX="127.0" layoutY="117.0"/>
-        <PasswordField fx:id="passwordFld" layoutX="127.74609375" layoutY="159.0"/>
-        <PasswordField fx:id="password2Fld" layoutX="127.74609375" layoutY="189.0"/>
-        <ComboBox fx:id="roleCbox" layoutX="127.24609375" layoutY="229.0" prefWidth="150.0"/>
-        <ComboBox fx:id="departementCbox" layoutX="127.0" layoutY="262.0" prefWidth="150.0"/>
-        <Button fx:id="saveBtn" layoutX="123.0" layoutY="317.0" mnemonicParsing="false" onAction="#saveUser"
-                text="erstellen/speichern"/>
-        <Button fx:id="cancelBtn" layoutX="32.0" layoutY="317.0" mnemonicParsing="false" onAction="#cancelUser"
-                text="abbrechen"/>
+        <GridPane hgap="15.0" vgap="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES"/>
+                <ColumnConstraints hgrow="SOMETIMES"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
 
 
-        <Label fx:id="firstnameLbl" layoutX="32.0" layoutY="39.0" text="Vorname"/>
-        <Label fx:id="lastnameLbl" layoutX="31.0" layoutY="83.0" text="Nachname"/>
+                <Label fx:id="firstnameLbl" text="Vorname"/>
+                <TextField fx:id="firstnameFld" GridPane.columnIndex="1"/>
+                <Label fx:id="lastnameLbl" text="Nachname" GridPane.rowIndex="1"/>
+                <TextField fx:id="lastnameFld" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
-        <Label fx:id="departmentLbl" layoutX="32.0048828125" layoutY="265.5" text="Department"/>
+                <Label fx:id="usernameLbl" text="Benutzername" GridPane.rowIndex="2"/>
+                <TextField fx:id="usernameFld" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Label fx:id="passwordLbl" text="Passwort" GridPane.rowIndex="3"/>
+                <PasswordField fx:id="passwordFld" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                <Label fx:id="password2Lbl" text="Wiederholen" GridPane.rowIndex="4"/>
+                <PasswordField fx:id="password2Fld" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                <Label fx:id="roleLbl" text="Rolle" GridPane.rowIndex="5"/>
+                <ComboBox fx:id="roleCbox" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
 
-        <Label fx:id="usernameLbl" layoutX="31.0" layoutY="123.0" text="Benutzername"/>
-        <Label fx:id="passwordLbl" layoutX="31.0" layoutY="163.0" text="Passwort"/>
-        <Label fx:id="password2Lbl" layoutX="31.0" layoutY="193.0" text="Wiederholen"/>
-        <Label fx:id="roleLbl" layoutX="31.0" layoutY="233.0" text="Rolle"/>
-        <Label fx:id="userDetailErrorLbl" layoutX="255.0" layoutY="321.0"
-               text="Passwort stimmt nicht überein oder benutzername ist leer!"
-               textFill="RED"/>
+                <Label fx:id="departmentLbl" text="Department" GridPane.rowIndex="6"/>
+                <ComboBox fx:id="departementCbox" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                <FlowPane hgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                    <children>
+                        <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#cancelUser" text="abbrechen"/>
+                        <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#saveUser"
+                                text="erstellen/speichern"/>
+                    </children>
+                </FlowPane>
+                <Label fx:id="userDetailErrorLbl" text="Passwort stimmt nicht überein oder benutzername ist leer!"
+                       textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="40.0" top="20.0"/>
+            </padding>
+        </GridPane>
     </children>
 </AnchorPane>
