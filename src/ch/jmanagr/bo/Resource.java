@@ -656,6 +656,17 @@ public class Resource implements BusinessObject<Resource>
 			return version;
 		}
 
+		/**
+		 * Convert Object to string
+		 *
+		 * @return the name of the Object
+		 */
+		@Override
+		public String toString()
+		{
+			return this.keyProperty.get();
+		}
+
 	}
 
 }

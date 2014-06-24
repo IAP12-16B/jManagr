@@ -45,7 +45,7 @@ public class LoginController implements Initializable
 		try {
 			User usr = UsersBL.getInstance().login(this.userFld.getText(), this.passwordFld.getText());
 			if (usr != null) {
-				Parent root = FXMLLoader.load(getClass().getResource("../main/main.fxml"));
+				Parent root = FXMLLoader.load(getClass().getResource("/ch/jmanagr/ui/main/main.fxml"));
 				Main.loggedIn(new Scene(root));
 				Main.stage.setTitle(
 						String.format(
