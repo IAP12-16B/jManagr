@@ -259,8 +259,6 @@ public class Resource implements BusinessObject<Resource>
 
 		if (active != resource.active) { return false; }
 		if (deleted != resource.deleted) { return false; }
-		if (children != null ? !children.equals(resource.children) : resource.children != null) { return false; }
-		if (data != null ? !data.equals(resource.data) : resource.data != null) { return false; }
 		if (idProperty != null ? !idProperty.equals(resource.idProperty) : resource.idProperty != null) {
 			return false;
 		}
@@ -268,7 +266,6 @@ public class Resource implements BusinessObject<Resource>
 			return false;
 		}
 		if (parent != null ? !parent.equals(resource.parent) : resource.parent != null) { return false; }
-		if (tickets != null ? !tickets.equals(resource.tickets) : resource.tickets != null) { return false; }
 
 		return true;
 	}

@@ -91,7 +91,8 @@
                             <rowConstraints>
                                 <RowConstraints vgrow="NEVER"/>
                                 <RowConstraints vgrow="SOMETIMES"/>
-                                <RowConstraints vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                             </rowConstraints>
                             <children>
                                 <Label text="Daten">
@@ -109,6 +110,13 @@
                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
                                     </columnResizePolicy>
                                 </TableView>
+                                <FlowPane hgap="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                                    <children>
+                                        <TextField fx:id="newDataFld"/>
+                                        <Button fx:id="addDataBtn" mnemonicParsing="false" onAction="#addData"
+                                                text="Hinzufügen"/>
+                                    </children>
+                                </FlowPane>
                             </children>
                         </GridPane>
                     </children>

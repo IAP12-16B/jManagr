@@ -4,6 +4,7 @@ package ch.jmanagr.dal;
 import ch.jmanagr.bo.Resource;
 
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,10 +12,12 @@ public class ResourcesDAL extends AbstractDAL<Resource>
 {
 	private static ResourcesDAL instance;
 
+	private ResourceDataDAL dataDAL;
+
 	protected ResourcesDAL() throws SQLException
 	{
 		super(Resource.class);
-
+		dataDAL = ResourceDataDAL.getInstance();
 	}
 
 	public static ResourcesDAL getInstance() throws SQLException
@@ -56,8 +59,12 @@ public class ResourcesDAL extends AbstractDAL<Resource>
 	protected void afterSave(Resource bo) throws SQLException
 	{
 		super.afterSave(bo);
-		for (Resource.ResourceData data : bo.getData()) {
-			ResourceDataDAL.getInstance().save(data);
+		Collection<Resource.ResourceData> resData = bo.getData();
+		if (resData != null) {
+
+			for (Resource.ResourceData data : resData) {
+				ResourceDataDAL.getInstance().save(data);
+			}
 		}
 	}
 
