@@ -210,10 +210,18 @@ public class TicketsBL extends AbstractBL<Ticket, TicketsDAL>
 	 *
 	 * @return A list of tickets, which are directly assigned to the provided Deaprtment
 	 */
-	public List<Ticket> getAllByDepartment(Department department) {
+	public List<Ticket> getAllByDepartment(Department department)
+	{
 		return this.getAllByDepartment(department, null);
 	}
 
+	/**
+	 * Get all Ticket that have the provided status.
+	 *
+	 * @param status the status to filter
+	 *
+	 * @return a List of tickets
+	 */
 	public List<Ticket> getAllByStatus(TICKET_STATE status)
 	{
 		try {

@@ -35,7 +35,7 @@ public class Ticket implements BusinessObject<Ticket>
 	@DatabaseField(useGetSet = true, canBeNull = true)
 	private Date date;
 	@DatabaseField(useGetSet = true,
-	               canBeNull = false,
+	               canBeNull = true,
 	               foreign = true,
 	               foreignAutoCreate = true,
 	               foreignAutoRefresh = true)
