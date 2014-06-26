@@ -1,8 +1,9 @@
         Wer                     Priorität           Beschreibung
 ------------------------------------------------------------------------------------------------------------------------
 TODO:   @mnewmedia              low                 Ticket edit make a treeView in order to select resource instead of combobox?
-TODO:   @mnewmedia              low                 Ticket-Filterung -> nach status
-TODO:   @mnewmedia              High                Ticket zweite tabelle für agenten/admins
+TODO:   @mnewmedia              High                Zweite Tabelle bei usen ausblenden
+TODO:   @mnewmedia              High                Key Value löschen
+TODO:   @mnewmedia              High                Ressourcen löschen
 
 unwichtig:
 --------------------------
