@@ -92,6 +92,7 @@ public class UsersController implements Initializable
     }
 	public void newUser()
 	{
+        this.refreshComboBox();
 		MainController.changeTabContent("userDetail");
 	}
 
@@ -112,7 +113,7 @@ public class UsersController implements Initializable
 
 	public void editUser()
 	{
-        UserDetailController.departementCbox.setItems(FXCollections.observableArrayList(depBl.getAll()));
+        this.refreshComboBox();
 
 		User selectedUser = userTable.getSelectionModel().getSelectedItem();
 		if (selectedUser != null) {
@@ -121,4 +122,9 @@ public class UsersController implements Initializable
 			MainController.changeTabContent("userDetail");
 		}
 	}
+
+    public void refreshComboBox() {
+        UserDetailController.departementCbox.setItems(FXCollections.observableArrayList(depBl.getAll()));
+        UserDetailController.departementCbox.getSelectionModel().selectFirst();
+    }
 }
