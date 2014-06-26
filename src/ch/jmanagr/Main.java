@@ -9,7 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.sql.SQLException;
 
 public class Main extends Application
@@ -41,7 +40,8 @@ public class Main extends Application
 		stage = primaryStage;
 		Parent root = FXMLLoader.load(
 				getClass().getResource(
-						"ui/login/mainLogin.fxml")
+						"/ch/jmanagr/ui/login/mainLogin.fxml"
+				)
 		);
 		scene = new Scene(root);
 		stage.setTitle("jManagr");

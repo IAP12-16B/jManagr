@@ -4,14 +4,14 @@
     <properties id="javafx-properties">
       <options>
         <option name="appClass" value="ch.jmanagr.Main" />
-        <option name="convertCss2Bin" value="true" />
         <option name="description" value="" />
-        <option name="enabledSigning" value="true" />
+        <option name="height" value="500" />
         <option name="htmlParamFile" value="" />
         <option name="nativeBundle" value="all" />
         <option name="paramFile" value="" />
         <option name="title" value="jManagr" />
-        <option name="vendor" value="kije,mnewmedia" />
+        <option name="vendor" value="kije-dev, mnwemedia" />
+        <option name="width" value="500" />
       </options>
     </properties>
     <root id="root">
