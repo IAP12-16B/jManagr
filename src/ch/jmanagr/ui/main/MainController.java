@@ -38,6 +38,7 @@ public class MainController implements Initializable
 	private static Tab tabUser;
 	@FXML
 	private static Tab tabDepartment;
+    @FXML private static Tab tabResource;
 	@FXML
 	private static TabPane tabPane;
 

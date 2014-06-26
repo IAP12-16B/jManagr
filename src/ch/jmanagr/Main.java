@@ -41,11 +41,7 @@ public class Main extends Application
 		stage = primaryStage;
 		Parent root = FXMLLoader.load(
 				getClass().getResource(
-						"ui/login/mainLogin.fxml".replace(
-								'/',
-								File.separatorChar
-						)
-				)
+						"ui/login/mainLogin.fxml")
 		);
 		scene = new Scene(root);
 		stage.setTitle("jManagr");

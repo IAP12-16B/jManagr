@@ -1,14 +1,16 @@
         Wer                     Priorität           Beschreibung
 ------------------------------------------------------------------------------------------------------------------------
-TODO:   @kije                   high                getAllByUserBug - isnt a bug a todo? uahahah
-TODO:   @mnewmedia              high                Ticket... see whats todo
 TODO:   @mnewmedia              low                 Ticket edit make a treeView in order to select resource instead of combobox?
 TODO:   @mnewmedia              low                 Ticket-Filterung -> nach status
-TODO:   @mnewmedia              medium              Agenten sehen zusätzlich noch die ihnen zugewiesenen Tickets / Benutzer jene, welche sie erstellt haben.
-TODO:   @kije                   very low            CSS/Layout/Styling
-TODO:   @kije                   medium              Daten beim löschen aufräumen
+TODO:   @mnewmedia              High                Ticket zweite tabelle für agenten/admins
 
-TODO:   @mnewmedia  @kije       low                 Code dokumentieren (kommentare, etc...)
-TODO:   @kije                   high                Diagramme anpassen/erstellen
-TODO:   @mnewmedia              high                TicketDetail boxen updaten nich automatisch, wenn iwo neuer User/Department/Resource hinzugefügt wird
+unwichtig:
+--------------------------
+TODO:   @kije                   medium              Daten beim löschen aufräumen
 TODO:   @kije                   low                 Sortierung in Resource DataTable funktioniert nicht
+
+Betrifft nicht direkt code
+---------------------------
+TODO:   @mnewmedia  @kije       low                 Code dokumentieren (kommentare, etc...)
+TODO:   @kije                   very low            CSS/Layout/Styling
+TODO:   @kije                   high                Diagramme anpassen/erstellen
