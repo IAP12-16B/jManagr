@@ -105,14 +105,13 @@ public class ResourceController implements Initializable
 
 		if (selectedItem != null) {
 			Resource value = selectedItem.getValue();
+			Resource.ResourceData resourceData = new Resource.ResourceData(value, newDataFld.getText(), "");
 
 			if (dataTable.getItems() == null) {
 				dataTable.setItems(FXCollections.observableArrayList(value.getData()));
 			}
 
-			Resource.ResourceData resourceData = new Resource.ResourceData(value, newDataFld.getText(), "");
-
-			if (value.containsData(resourceData.getKey())) {
+			if (!value.containsData(resourceData.getKey())) {
 				value.addData(resourceData);
 				dataTable.getItems().add(resourceData);
 				this.bl.save(value);

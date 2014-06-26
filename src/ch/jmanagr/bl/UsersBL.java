@@ -115,9 +115,8 @@ public class UsersBL extends AbstractBL<User, UsersDAL>
 			return STATUS_CODE.NAME_INVALID;
 		}
 
-
 		try {
-			if (this.dal.exists(bo)) {
+			if (this.dal.exists(bo) || this.dal.fetch("username", bo.getUsername()).size() > 0) {
 				return STATUS_CODE.ALREADY_EXISTS;
 			}
 		} catch (SQLException e) {
