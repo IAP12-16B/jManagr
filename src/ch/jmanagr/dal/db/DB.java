@@ -117,9 +117,11 @@ public class DB
 	/**
 	 * Shuts the DB connection down.
 	 */
-	public void shutdown()
+	public static void shutdown()
 	{
-		this.closeConnection();
+		if (instance != null) {
+			instance.closeConnection();
+		}
 	}
 
 	/**

@@ -9,8 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.sql.SQLException;
-
 public class Main extends Application
 {
 
@@ -26,8 +24,8 @@ public class Main extends Application
 		} finally {
 			// shutdown db connection
 			try {
-				DB.getInstance().shutdown();
-			} catch (SQLException e) {
+				DB.shutdown();
+			} catch (Exception e) {
 				Logger.log(LOG_LEVEL.ERROR, e);
 			}
 		}
