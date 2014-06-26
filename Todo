@@ -7,11 +7,9 @@ TODO:   @mnewmedia              High                Ressourcen löschen
 
 unwichtig:
 --------------------------
-TODO:   @kije                   medium              Daten beim löschen aufräumen
-TODO:   @kije                   low                 Sortierung in Resource DataTable funktioniert nicht
+TODO:   @mnewmedia              low                 Sortierung in Resource DataTable funktioniert nicht
 
 Betrifft nicht direkt code
 ---------------------------
 TODO:   @mnewmedia  @kije       low                 Code dokumentieren (kommentare, etc...)
-TODO:   @kije                   very low            CSS/Layout/Styling
 TODO:   @kije                   high                Diagramme anpassen/erstellen

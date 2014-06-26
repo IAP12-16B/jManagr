@@ -102,7 +102,7 @@ public class UsersBL extends AbstractBL<User, UsersDAL>
 	/**
 	 * @param bo The BusinessObject to check
 	 *
-	 * @return
+	 * @return if the User is ok
 	 */
 	@Override
 	public STATUS_CODE validate(User bo)
