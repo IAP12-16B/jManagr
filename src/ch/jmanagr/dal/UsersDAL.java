@@ -77,7 +77,6 @@ public class UsersDAL extends AbstractDAL<User>
 	@Override
 	public STATUS_CODE delete(Collection<User> bos) throws SQLException
 	{
-		// todo check
 
 		return super.delete(bos);
 	}
