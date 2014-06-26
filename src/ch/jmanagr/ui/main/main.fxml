@@ -10,7 +10,7 @@
         <!-- define includes for later use in content attribute -> http://blog.ngopal.com.np/2012/01/26/fxml-stuffs-include-and-define/ -->
         <fx:define>
             <fx:include source="../departments/departments.fxml" fx:id="departmentView"/>
-            <fx:include source="../tickets/tickets.fxml" fx:id="ticketView"/>
+            <fx:include source="../tickets/t.fxml" fx:id="ticketView"/>
             <fx:include source="../tickets/ticketDetail.fxml" fx:id="ticketDetailView"/>
             <fx:include source="../users/users.fxml" fx:id="userView"/>
             <fx:include source="../users/userDetail.fxml" fx:id="userDetailView"/>

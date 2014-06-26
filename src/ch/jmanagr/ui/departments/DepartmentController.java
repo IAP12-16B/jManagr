@@ -98,17 +98,17 @@ public class DepartmentController implements Initializable
 
 	public void addDep()
 	{
-		// Add Deparment
 		Department dep = new Department();
 		dep.setName(nameField.getText());
 		dep.setAgents(new ArrayList<User>());
 		dep.setActive(true);
 		dep.setDeleted(false);
-		Logger.logln(dep);
+
 		bl.save(dep);
 		this.depList.add(dep);
-		Logger.logln("Insertet new Department: " + nameField.getText());
 
+        nameField.setText("");
+        nameField.requestFocus();
 	}
 
 	public void deleteDep()

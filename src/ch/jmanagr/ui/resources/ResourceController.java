@@ -116,19 +116,14 @@ public class ResourceController implements Initializable
 	{
         TreeItem<Resource> currentTreeItem = treeView.getSelectionModel().getSelectedItem();
         Resource currentResource = currentTreeItem.getValue();
-        int index = treeView.getSelectionModel().getSelectedIndex();
 
         currentResource.setName(renameFld.getText());
 		bl.save(currentResource);
 		currentTreeItem.setValue(currentResource);
 
-		// force repaint (maybe not the best way..., but all other methodes (notfy(), impl_updatePG(),
-		// etc... won't work))
 		currentTreeItem.setExpanded(true);
 		currentTreeItem.setExpanded(false);
 
-		// currentTreeItem.getParent().getChildren().add(index, currentTreeItem);
-        // treeView.getRoot().getChildren().add(index, currentTreeItem);
         renameFld.setText("");
 	}
 
