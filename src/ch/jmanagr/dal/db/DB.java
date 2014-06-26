@@ -8,7 +8,6 @@ import ch.jmanagr.lib.Logger;
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.support.DatabaseConnection;
-import com.j256.ormlite.table.DatabaseTableConfig;
 import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
@@ -18,7 +17,7 @@ import java.sql.SQLException;
  */
 public class DB
 {
-	private static volatile DB instance;
+	private static DB instance;
 	private ch.jmanagr.bo.Settings settings;
 
 	private JdbcPooledConnectionSource connectionSource;
@@ -155,40 +154,6 @@ public class DB
 	}
 
 	/**
-	 * Issue the database statements to create the table associated with a table configuration.
-	 *
-	 * @param conf Hand or spring wired table configuration. If null then the class must have {@link
-	 *             com.j256.ormlite.field.DatabaseField} annotations.
-	 *
-	 * @return The number of statements executed to do so.
-	 */
-	public int createTable(DatabaseTableConfig conf) throws SQLException
-	{
-		return TableUtils.createTable(this.connectionSource, conf);
-	}
-
-	/**
-	 * @see DB#createTableIfNotExists(com.j256.ormlite.table.DatabaseTableConfig) Create a table if it does not already
-	 * exist. This is not supported by all databases.
-	 */
-	public int createTableIfNotExists(DatabaseTableConfig conf) throws SQLException
-	{
-		return TableUtils.createTableIfNotExists(this.connectionSource, conf);
-	}
-
-	/**
-	 * Clear all data out of the table. For certain database types and with large sized tables, which may take a long
-	 * time. In some configurations, it may be faster to drop and re-create the table. <p/> <p> <b>WARNING:</b> This is
-	 * [obviously] very destructive and is unrecoverable. </p>
-	 *
-	 * @param tableConfig
-	 */
-	public <T> int clearTable(DatabaseTableConfig<T> tableConfig) throws SQLException
-	{
-		return TableUtils.clearTable(this.connectionSource, tableConfig);
-	}
-
-	/**
 	 * Issue the database statements to drop the table associated with a class. <p/> <p> <b>WARNING:</b> This is
 	 * [obviously] very destructive and is unrecoverable. </p>
 	 *
@@ -203,21 +168,6 @@ public class DB
 		return TableUtils.dropTable(this.connectionSource, dataClass, ignoreErrors);
 	}
 
-	/**
-	 * Issue the database statements to drop the table associated with a table configuration. <p/> <p> <b>WARNING:</b>
-	 * This is [obviously] very destructive and is unrecoverable. </p>
-	 *
-	 * @param tableConfig  Hand or spring wired table configuration. If null then the class must have {@link
-	 *                     com.j256.ormlite.field.DatabaseField} annotations.
-	 * @param ignoreErrors If set to true then try each statement regardless of {@link java.sql.SQLException} thrown
-	 *                     previously.
-	 *
-	 * @return The number of statements executed to do so.
-	 */
-	public <T, ID> int dropTable(DatabaseTableConfig<T> tableConfig, boolean ignoreErrors) throws SQLException
-	{
-		return TableUtils.dropTable(this.connectionSource, tableConfig, ignoreErrors);
-	}
 
 	/**
 	 * Clear all data out of the table. For certain database types and with large sized tables, which may take a long

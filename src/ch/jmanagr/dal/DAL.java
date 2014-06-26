@@ -9,7 +9,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-public interface DAL<BusinessObjectType extends BusinessObject>
+/**
+ * Interface for all DAL classes
+ *
+ * @param <BusinessObjectType> the BusinessObject for which this Class should be responsible
+ */
+public interface DAL<BusinessObjectType extends BusinessObject<BusinessObjectType>>
 {
 	public BusinessObjectType fetchById(Integer id) throws SQLException;
 
