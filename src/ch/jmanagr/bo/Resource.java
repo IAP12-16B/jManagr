@@ -8,6 +8,7 @@ import com.j256.ormlite.table.DatabaseTable;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -138,6 +139,9 @@ public class Resource implements BusinessObject<Resource>
 	 */
 	public void addData(ResourceData resourceData)
 	{
+		if (this.data == null) {
+			this.data = new ArrayList<>();
+		}
 		data.add(resourceData);
 	}
 
@@ -389,6 +393,16 @@ public class Resource implements BusinessObject<Resource>
 		return this.nameProperty.get();
 	}
 
+	public boolean containsData(String key)
+	{
+		for (ResourceData resourceData : this.data) {
+			if (resourceData.getKey().equals(key)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * A class to store key/value pair for a {@link ch.jmanagr.bo.Resource}
 	 */
@@ -521,7 +535,6 @@ public class Resource implements BusinessObject<Resource>
 
 			if (key != null ? !key.equals(that.key) : that.key != null) { return false; }
 			if (resource != null ? !resource.equals(that.resource) : that.resource != null) { return false; }
-			if (value != null ? !value.equals(that.value) : that.value != null) { return false; }
 
 			return true;
 		}

@@ -105,10 +105,18 @@ public class ResourceController implements Initializable
 
 		if (selectedItem != null) {
 			Resource value = selectedItem.getValue();
+
+			if (dataTable.getItems() == null) {
+				dataTable.setItems(FXCollections.observableArrayList(value.getData()));
+			}
+
 			Resource.ResourceData resourceData = new Resource.ResourceData(value, newDataFld.getText(), "");
-			value.addData(resourceData);
-			dataTable.getItems().add(resourceData);
-			this.bl.save(value);
+
+			if (value.containsData(resourceData.getKey())) {
+				value.addData(resourceData);
+				dataTable.getItems().add(resourceData);
+				this.bl.save(value);
+			}
 		}
 	}
 
@@ -150,7 +158,7 @@ public class ResourceController implements Initializable
 		public void changed(ObservableValue<? extends TreeItem<Resource>> observableValue,
 		                    TreeItem<Resource> oldValue, TreeItem<Resource> selectedItem)
 		{
-			if (selectedItem != null) {
+			if (selectedItem != null && selectedItem.getValue() != null && selectedItem.getValue().getData() != null) {
 				dataTable.setItems(
 						FXCollections.observableArrayList(
 								selectedItem.getValue().getData()
@@ -171,7 +179,9 @@ public class ResourceController implements Initializable
 			Resource.ResourceData resData = t.getRowValue();
 
 			if (t.getTablePosition().getTableColumn().equals(keyCol)) {
-				resData.setKey(t.getNewValue());
+				if (!resData.getResource().containsData(t.getNewValue())) {
+					resData.setKey(t.getNewValue());
+				}
 			} else if (t.getTablePosition().getTableColumn().equals(valueCol)) {
 				resData.setValue(t.getNewValue());
 			}
