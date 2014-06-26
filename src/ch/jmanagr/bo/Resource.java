@@ -217,7 +217,6 @@ public class Resource implements BusinessObject<Resource>
 	 *
 	 * @param bo the Resource to copy from
 	 */
-	// todo replaceable with the cloneable interface?
 	@Override
 	public void copyFromObject(Resource bo)
 	{

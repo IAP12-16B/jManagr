@@ -23,7 +23,7 @@ public class UsersDAL extends AbstractDAL<User>
 			rootUser.setId(1);
 			rootUser.setRole(USER_ROLE.ADMIN);
 			rootUser.setUsername("root");
-			rootUser.setUnhashedPassword("123"); // fixme hardcoded
+			rootUser.setUnhashedPassword("123");
 
 			this.save(rootUser);
 		}

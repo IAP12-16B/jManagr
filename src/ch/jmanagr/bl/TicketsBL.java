@@ -86,7 +86,7 @@ public class TicketsBL extends AbstractBL<Ticket, TicketsDAL>
 		try {
 			return dal.fetch(map);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Logger.log(LOG_LEVEL.ERROR, e);
 		}
 
 		return new ArrayList<>();
@@ -123,7 +123,7 @@ public class TicketsBL extends AbstractBL<Ticket, TicketsDAL>
 		try {
 			return dal.fetch(map);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Logger.log(LOG_LEVEL.ERROR, e);
 		}
 
 		return new ArrayList<>();
@@ -160,7 +160,7 @@ public class TicketsBL extends AbstractBL<Ticket, TicketsDAL>
 		try {
 			return dal.fetch(map);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Logger.log(LOG_LEVEL.ERROR, e);
 		}
 
 		return new ArrayList<>();
@@ -196,7 +196,7 @@ public class TicketsBL extends AbstractBL<Ticket, TicketsDAL>
 		try {
 			return dal.fetch(map);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Logger.log(LOG_LEVEL.ERROR, e);
 		}
 
 		return new ArrayList<>();
@@ -212,6 +212,17 @@ public class TicketsBL extends AbstractBL<Ticket, TicketsDAL>
 	 */
 	public List<Ticket> getAllByDepartment(Department department) {
 		return this.getAllByDepartment(department, null);
+	}
+
+	public List<Ticket> getAllByStatus(TICKET_STATE status)
+	{
+		try {
+			return dal.fetch("status", status);
+		} catch (SQLException e) {
+			Logger.log(LOG_LEVEL.ERROR, e);
+		}
+
+		return new ArrayList<>();
 	}
 
 
