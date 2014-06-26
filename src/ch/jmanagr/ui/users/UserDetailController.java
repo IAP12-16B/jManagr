@@ -7,7 +7,9 @@ import ch.jmanagr.bo.User;
 import ch.jmanagr.exceptions.jManagrDBException;
 import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
+import ch.jmanagr.lib.STATUS_CODE;
 import ch.jmanagr.lib.USER_ROLE;
+import ch.jmanagr.ui.controls.messagebox.MessageBox;
 import ch.jmanagr.ui.main.MainController;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -113,8 +115,16 @@ public class UserDetailController implements Initializable
 				user.setRole(r);
 
 				//save
-				bl.save(user);
-				UsersController.userList.add(user);
+				STATUS_CODE statusCode = bl.validate(user);
+				if (statusCode == STATUS_CODE.OK) {
+					bl.save(user);
+					UsersController.userList.add(user);
+				} else {
+					new MessageBox(
+							"User erstellen fehlgeschlagen.",
+							"User erstellen fehlgeschlagen. \n\nGrund: " + statusCode
+					).show();
+				}
 			} else { //if update existing user
 				// set all edited stuff
 				updateCurrUser.setLastname(lastnameFld.getText());

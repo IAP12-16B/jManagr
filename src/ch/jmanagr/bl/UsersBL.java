@@ -99,6 +99,11 @@ public class UsersBL extends AbstractBL<User, UsersDAL>
 		this.currentUser = u;
 	}
 
+	/**
+	 * @param bo The BusinessObject to check
+	 *
+	 * @return
+	 */
 	@Override
 	public STATUS_CODE validate(User bo)
 	{
@@ -112,11 +117,11 @@ public class UsersBL extends AbstractBL<User, UsersDAL>
 
 
 		try {
-			if (!this.dal.exists(bo)) {
+			if (this.dal.exists(bo)) {
 				return STATUS_CODE.ALREADY_EXISTS;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Logger.log(LOG_LEVEL.ERROR, e);
 			return STATUS_CODE.FAIL;
 		}
 
