@@ -4,7 +4,9 @@ import ch.jmanagr.bo.Department;
 
 import java.sql.SQLException;
 
-
+/**
+ * DAL class for Department. Extends {@link AbstractDAL}
+ */
 public class DepartmentsDAL extends AbstractDAL<Department>
 {
 	private static DepartmentsDAL instance;
