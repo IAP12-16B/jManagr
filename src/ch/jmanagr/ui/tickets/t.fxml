@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import java.net.*?>
 <?import javafx.geometry.*?>
@@ -66,7 +67,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="ticketsFilter" promptText="Filter" />
+                  <ComboBox fx:id="ticketsFilter" onAction="#refresh" promptText="Filter" />
                         <Button fx:id="newTicketBtn" mnemonicParsing="false" onAction="#newTicket" text="Neues Ticket" />
                </children>
             </FlowPane>
@@ -77,7 +78,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="allTicketsFilter" promptText="Filter" />
+                  <ComboBox fx:id="allTicketsFilter" onAction="#refresh" promptText="Filter" />
                </children>
             </FlowPane>
             <Separator prefWidth="200.0" GridPane.rowIndex="3" />

@@ -41,7 +41,6 @@ public class TicketDetailController implements Initializable
 	private UsersBL usersBL;
 
     private static Ticket updateCurrTicket;
-    private static int updateCurrIndex;
 
 	public TicketDetailController()
 	{
@@ -67,7 +66,7 @@ public class TicketDetailController implements Initializable
         departementCbox.getSelectionModel().selectFirst();
 	}
 
-    public static void fillTicket(Ticket editingTicket, int index)
+    public static void fillTicket(Ticket editingTicket)
     {
         updateCurrTicket = editingTicket;
         Logger.logln("updat curr ticket " + updateCurrTicket);
@@ -80,7 +79,6 @@ public class TicketDetailController implements Initializable
             resourceCbox.getSelectionModel().select(updateCurrTicket.getResource());
             agentCbox.getSelectionModel().select(updateCurrTicket.getAgent());
         }
-        updateCurrIndex = index;
     }
 
 	public void saveTicket()
@@ -115,12 +113,16 @@ public class TicketDetailController implements Initializable
             updateCurrTicket.setDescription(descriptionFld.getText());
             updateCurrTicket.setDepartment(departementCbox.getSelectionModel().getSelectedItem());
             updateCurrTicket.setAgent(agentCbox.getSelectionModel().getSelectedItem());
-            updateCurrTicket.setStatus(ticketStateCbox.getSelectionModel().getSelectedItem());
             updateCurrTicket.setResource(resourceCbox.getSelectionModel().getSelectedItem());
+
+            // remove tickets from table if status did change..
+            if (updateCurrTicket.getStatus() != ticketStateCbox.getValue()) {
+                updateCurrTicket.setStatus(ticketStateCbox.getValue());
+                TicketController.ticketList.remove(updateCurrTicket);
+            }
 
             //save
             bl.save(updateCurrTicket);
-            TicketController.ticketList.set(updateCurrIndex, updateCurrTicket);
             TicketController.softRefresh();
             Logger.logln("Updated Ticket: " + updateCurrTicket);
         }
