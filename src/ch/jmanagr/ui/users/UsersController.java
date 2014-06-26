@@ -2,13 +2,13 @@ package ch.jmanagr.ui.users;
 
 import ch.jmanagr.bl.DepartmentsBL;
 import ch.jmanagr.bl.UsersBL;
-import ch.jmanagr.bo.Department;
 import ch.jmanagr.bo.User;
 import ch.jmanagr.exceptions.jManagrDBException;
 import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.STATUS_CODE;
 import ch.jmanagr.lib.USER_ROLE;
+import ch.jmanagr.ui.controls.messagebox.MessageBox;
 import ch.jmanagr.ui.main.MainController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -101,10 +101,14 @@ public class UsersController implements Initializable
 		User user = userTable.getSelectionModel().getSelectedItem();
 		if (user != null) {
 			Logger.log("Deleting user:" + user.getFirstname() + " " + user.getId());
-			if (bl.delete(user) == STATUS_CODE.OK) {
+			STATUS_CODE statusCode = bl.delete(user);
+			if (statusCode == STATUS_CODE.OK) {
 				userList.remove(user);
 			} else {
-				// todo Fail
+				new MessageBox(
+						"Löschen fehlgeschlagen!",
+						"Löschen des Users fehlgeschlagen!\n\nGrund: " + statusCode
+				).show();
 			}
 		} else {
 			Logger.log("Nothing selected to delete");
