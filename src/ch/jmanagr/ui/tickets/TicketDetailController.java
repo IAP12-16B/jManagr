@@ -121,22 +121,17 @@ public class TicketDetailController implements Initializable
 
             //save
             bl.save(updateCurrTicket);
-            TicketController.softRefresh();
+            this.closeEditView();
         }
         this.clearFields();
         TicketController.softRefresh();
-		MainController.changeTabContent("tickets");
+        userTicketsController.softRefresh();
         updateCurrTicket = null;
 	}
 
 	public void cancelTicket()
 	{
-        // potential bug, if agent edits his own ticket from ticketBearbeiten tab
-        if ((updateCurrTicket == null) || (currentUser == updateCurrTicket.getUser())) {
-            MainController.changeTabContent("tickets", true);
-        } else {
-            MainController.changeTabContent("tickets");
-        }
+        this.closeEditView();
         this.clearFields();
 	}
 
@@ -147,5 +142,15 @@ public class TicketDetailController implements Initializable
         ticketStateCbox.getSelectionModel().selectFirst();
         resourceCbox.getSelectionModel().selectFirst();
         ticketStateCbox.getSelectionModel().selectFirst();
+    }
+
+    public void closeEditView() {
+        // potential Bug, if Agent edits his own ticket from tab "Tickets Bearbeiten", he cant get out from
+        // TicketDetailView, but this Agent would be really stupid anyway :P
+        if ((updateCurrTicket == null) || (currentUser == updateCurrTicket.getUser())) {
+            MainController.changeTabContent("tickets", true);
+        } else {
+            MainController.changeTabContent("tickets");
+        }
     }
 }
