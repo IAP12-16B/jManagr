@@ -8,6 +8,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * DAL class for Resources. Extends {@link AbstractDAL}
+ */
 public class ResourcesDAL extends AbstractDAL<Resource>
 {
 	private static ResourcesDAL instance;
@@ -68,6 +71,9 @@ public class ResourcesDAL extends AbstractDAL<Resource>
 		}
 	}
 
+	/**
+	 * DAL class for ResourceData. Extends {@link AbstractDAL}
+	 */
 	public static class ResourceDataDAL extends AbstractDAL<Resource.ResourceData>
 	{
 		private static ResourceDataDAL instance;

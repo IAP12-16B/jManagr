@@ -5,10 +5,12 @@ import ch.jmanagr.lib.STATUS_CODE;
 import ch.jmanagr.lib.USER_ROLE;
 
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * DAL class for Resources. Extends {@link AbstractDAL}
+ */
 public class UsersDAL extends AbstractDAL<User>
 {
 	private static UsersDAL instance;
@@ -63,22 +65,6 @@ public class UsersDAL extends AbstractDAL<User>
 		}
 
 		return super.softDelete(bo);
-	}
-
-	/**
-	 * Deletes a collection of BusinessObject
-	 *
-	 * @param bos the BusinessObjects to delete
-	 *
-	 * @return Status code if it was successful
-	 *
-	 * @throws java.sql.SQLException
-	 */
-	@Override
-	public STATUS_CODE delete(Collection<User> bos) throws SQLException
-	{
-
-		return super.delete(bos);
 	}
 
 	/**

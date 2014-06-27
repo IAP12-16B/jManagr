@@ -5,6 +5,9 @@ import ch.jmanagr.bo.Ticket;
 
 import java.sql.SQLException;
 
+/**
+ * DAL class for Tickets. Extends {@link AbstractDAL}
+ */
 public class TicketsDAL extends AbstractDAL<Ticket>
 {
 	private static TicketsDAL instance;
