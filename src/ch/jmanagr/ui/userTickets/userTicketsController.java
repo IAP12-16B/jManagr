@@ -84,6 +84,7 @@ public class userTicketsController implements Initializable
 	public void refresh()
 	{
         ticketList = FXCollections.observableArrayList(bl.getAllByUser(currentUser, myTicketsFilter.getValue()));
+        myTicketTable.setItems(ticketList);
 	}
 
     public static void softRefresh() {

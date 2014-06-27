@@ -22,7 +22,7 @@
                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
             </padding>
             <children>
-                <TableView fx:id="MyticketsTable" prefHeight="250.0" prefWidth="740.0" tableMenuButtonVisible="true" GridPane.rowIndex="1">
+                <TableView fx:id="myTicketTable" prefHeight="250.0" prefWidth="740.0" tableMenuButtonVisible="true" GridPane.rowIndex="1">
                     <columns>
                         <TableColumn fx:id="myIdCol" editable="false" prefWidth="75.0" text="ID" />
                         <TableColumn fx:id="myDepartmentCol" editable="false" prefWidth="75.0" text="Abteilung" />
@@ -48,7 +48,7 @@
                      </font>
                   </Label>
                   <ComboBox fx:id="myTicketsFilter" onAction="#refresh" promptText="Filter" />
-                        <Button fx:id="myNewTicketBtn" mnemonicParsing="false" onAction="#newTicket" text="Neues Ticket" />
+                  <Button fx:id="myNewTicketBtn" mnemonicParsing="false" onAction="#newTicket" text="Neues Ticket" />
                </children>
             </FlowPane>
             </children>

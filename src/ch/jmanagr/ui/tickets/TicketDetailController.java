@@ -14,6 +14,7 @@ import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.TICKET_STATE;
 import ch.jmanagr.lib.USER_ROLE;
 import ch.jmanagr.ui.main.MainController;
+import ch.jmanagr.ui.userTickets.userTicketsController;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -103,8 +104,8 @@ public class TicketDetailController implements Initializable
 
             //save
             bl.save(ticket);
-            TicketController.ticketList.add(ticket); //todo @mnewmedia add only if combobox status is same as ticket status
-            Logger.logln("Insertet new Ticket: " + ticket);
+            userTicketsController.ticketList.add(ticket); //todo High @mnewmedia add only if combobox status is same as ticket status
+            MainController.changeTabContent("tickets", true);
         } else {
             updateCurrTicket.setName(nameFld.getText());
             updateCurrTicket.setDescription(descriptionFld.getText());
@@ -120,19 +121,21 @@ public class TicketDetailController implements Initializable
 
             //save
             bl.save(updateCurrTicket);
-            updateCurrTicket = null;
             TicketController.softRefresh();
         }
         this.clearFields();
+        TicketController.softRefresh();
 		MainController.changeTabContent("tickets");
+        updateCurrTicket = null;
 	}
 
 	public void cancelTicket()
 	{
+        // potential bug, if agent edits his own ticket from ticketBearbeiten tab
         if ((updateCurrTicket == null) || (currentUser == updateCurrTicket.getUser())) {
-            MainController.changeTabContent("tickets", true); // edit, new -> not null, null
+            MainController.changeTabContent("tickets", true);
         } else {
-            MainController.changeTabContent("tickets"); // edit -> not null
+            MainController.changeTabContent("tickets");
         }
         this.clearFields();
 	}
