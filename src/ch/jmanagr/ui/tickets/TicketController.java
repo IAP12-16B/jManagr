@@ -172,6 +172,7 @@ public class TicketController implements Initializable
     public void refreshComboBoxes() {
         TicketDetailController.departementCbox.setItems(FXCollections.observableArrayList(depBL.getAll()));
         TicketDetailController.agentCbox.setItems(FXCollections.observableArrayList(usersBL.getByUserRole(USER_ROLE.AGENT)));
+        TicketDetailController.agentCbox.getItems().addAll(FXCollections.observableArrayList(usersBL.getByUserRole(USER_ROLE.ADMIN)));
         TicketDetailController.resourceCbox.setItems(FXCollections.observableArrayList(resBL.getAll()));
 
         TicketDetailController.departementCbox.getSelectionModel().selectFirst();

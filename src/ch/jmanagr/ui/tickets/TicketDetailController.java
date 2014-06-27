@@ -63,12 +63,6 @@ public class TicketDetailController implements Initializable
 	{
 		ticketStateCbox.setItems(FXCollections.observableArrayList(TICKET_STATE.values()));
         ticketStateCbox.getSelectionModel().selectFirst();
-		resourceCbox.setItems(FXCollections.observableArrayList(resBL.getAll()));
-        resourceCbox.getSelectionModel().selectFirst();
-		agentCbox.setItems(FXCollections.observableArrayList(usersBL.getByUserRole(USER_ROLE.AGENT)));
-        agentCbox.getSelectionModel().selectFirst();
-        departementCbox.setItems(FXCollections.observableArrayList(depBl.getAll()));
-        departementCbox.getSelectionModel().selectFirst();
 	}
 
     public static void fillTicket(Ticket editingTicket)
@@ -169,5 +163,9 @@ public class TicketDetailController implements Initializable
             MainController.changeTabContent("tickets");
         }
         editFromMyTickets = false;
+    }
+
+    public static void refreshComboboxes() {
+
     }
 }
