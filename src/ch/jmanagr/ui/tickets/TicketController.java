@@ -49,7 +49,7 @@ public class TicketController implements Initializable
     @FXML private TableColumn<User, String> agentCol;
     @FXML private TableColumn<Department, String> departmentCol;
     @FXML private TableColumn<Resource, String> resourceCol;
-    @FXML private ComboBox<TICKET_STATE> ticketsFilter;
+    @FXML public static ComboBox<TICKET_STATE> ticketsFilter;
     @FXML private Button delBtn;
 
     // Controls for Table AllTickets

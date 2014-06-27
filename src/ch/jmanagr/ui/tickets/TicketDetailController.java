@@ -131,6 +131,16 @@ public class TicketDetailController implements Initializable
                 TicketController.ticketList.remove(updateCurrTicket); //todo bug?
             }
 
+            // if agent takes a ticket, show it in upper Table
+            if ((updateCurrTicket.getAgent() == currentUser) && (TicketController.ticketsFilter.getValue() == updateCurrTicket.getStatus())) {
+                TicketController.ticketList.remove(updateCurrTicket); // make sure if its already there it doesn't get displayed twice
+                TicketController.ticketList.add(updateCurrTicket);
+            }
+            // if agent, changes the tickets agent to somebody else then him self remove it from upper table
+            if (updateCurrTicket.getAgent() != currentUser) {
+                TicketController.ticketList.remove(updateCurrTicket);
+            }
+
             //save
             bl.save(updateCurrTicket);
             this.closeEditView();
