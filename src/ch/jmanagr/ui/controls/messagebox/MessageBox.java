@@ -51,6 +51,9 @@ public class MessageBox extends Observable implements Observer
 		}
 	}
 
+	/**
+	 * Show the MessageBox
+	 */
 	public void show()
 	{
 		this.stage.toFront();
