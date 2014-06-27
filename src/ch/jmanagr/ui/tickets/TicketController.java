@@ -64,7 +64,7 @@ public class TicketController implements Initializable
     @FXML private TableColumn<User, String> allUserCol;
     @FXML private TableColumn<User, String> allAgentCol;
     @FXML private TableColumn<Resource, String> allResourceCol;
-    @FXML private ComboBox<TICKET_STATE> allTicketsFilter;
+    @FXML public static ComboBox<TICKET_STATE> allTicketsFilter;
     
 	public TicketController()
 	{
@@ -91,11 +91,6 @@ public class TicketController implements Initializable
         agentCol.setCellValueFactory(new PropertyValueFactory<User, String>("agent"));
         resourceCol.setCellValueFactory(new PropertyValueFactory<Resource, String>("resource"));
 
-        // only delete ticket if is not user
-        if (this.currentUser.getRole() == USER_ROLE.USER) {
-            this.delBtn.setVisible(false);
-        }
-
         // Fill ticketsFilter Combobox
         ticketsFilter.getItems().addAll(TICKET_STATE.values());
         ticketsFilter.getSelectionModel().selectFirst();
@@ -119,14 +114,15 @@ public class TicketController implements Initializable
 
 	public void refresh()
 	{
-        if (this.currentUser.getRole() == USER_ROLE.USER) {
-            ticketList = FXCollections.observableArrayList(bl.getAllByUser(currentUser, ticketsFilter.getValue()));
-        } else {
-            ticketList = FXCollections.observableArrayList(bl.getAllByAgent(currentUser, ticketsFilter.getValue()));
-        }
+        // set all tickets by agent
+        ticketList = FXCollections.observableArrayList(bl.getAllByAgent(currentUser, ticketsFilter.getValue()));
         ticketTable.setItems(ticketList);
-        allTicketList = FXCollections.observableArrayList(bl.getAllByDepartment(currentUser.getDepartment(),allTicketsFilter.getValue()));
-        allTicketsTable.setItems(allTicketList);
+
+        // set all tickets by department
+        if (currentUser.getDepartment() != null) {
+            allTicketList = FXCollections.observableArrayList(bl.getAllByDepartment(currentUser.getDepartment(), allTicketsFilter.getValue()));
+            allTicketsTable.setItems(allTicketList);
+        }
 	}
 
 	public static void softRefresh()
