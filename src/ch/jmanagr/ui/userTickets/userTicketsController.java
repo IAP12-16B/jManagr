@@ -102,7 +102,7 @@ public class userTicketsController implements Initializable
         this.refreshComboBoxes();
 		Ticket selectedTicket = myTicketTable.getSelectionModel().getSelectedItem();
 		if (selectedTicket != null) {
-			TicketDetailController.fillTicket(selectedTicket);
+			TicketDetailController.fillTicket(selectedTicket, true);
 			MainController.changeTabContent("ticketDetail", true);
 		}
 	}

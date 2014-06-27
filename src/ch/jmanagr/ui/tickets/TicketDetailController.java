@@ -18,6 +18,7 @@ import ch.jmanagr.ui.userTickets.userTicketsController;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -43,6 +44,7 @@ public class TicketDetailController implements Initializable
     private User currentUser;
 
     private static Ticket updateCurrTicket;
+    private static boolean editFromMyTickets;
 
 	public TicketDetailController()
 	{
@@ -72,7 +74,20 @@ public class TicketDetailController implements Initializable
     public static void fillTicket(Ticket editingTicket)
     {
         updateCurrTicket = editingTicket;
-        Logger.logln("updat curr ticket " + updateCurrTicket);
+        if (updateCurrTicket != null) {
+            nameFld.setText(updateCurrTicket.getName());
+            descriptionFld.setText(updateCurrTicket.getDescription());
+
+            ticketStateCbox.getSelectionModel().select(updateCurrTicket.getStatus());
+            departementCbox.getSelectionModel().select(updateCurrTicket.getDepartment());
+            resourceCbox.getSelectionModel().select(updateCurrTicket.getResource());
+            agentCbox.getSelectionModel().select(updateCurrTicket.getAgent());
+        }
+    }
+    public static void fillTicket(Ticket editingTicket, boolean fromMyTickets)
+    {
+        updateCurrTicket = editingTicket;
+        editFromMyTickets = fromMyTickets;
         if (updateCurrTicket != null) {
             nameFld.setText(updateCurrTicket.getName());
             descriptionFld.setText(updateCurrTicket.getDescription());
@@ -102,11 +117,12 @@ public class TicketDetailController implements Initializable
             ticket.setResource(resourceCbox.getSelectionModel().getSelectedItem()); //todo @mnewmedia use treeView instead
             ticket.setStatus(ticketStateCbox.getSelectionModel().getSelectedItem());
 
-            //save
             bl.save(ticket);
+
             if (ticket.getStatus() == userTicketsController.myTicketsFilter.getValue()) {
                 userTicketsController.ticketList.add(ticket);
             }
+
             MainController.changeTabContent("tickets", true);
         } else {
             updateCurrTicket.setName(nameFld.getText());
@@ -118,7 +134,7 @@ public class TicketDetailController implements Initializable
             // remove tickets from table if status did change..
             if (updateCurrTicket.getStatus() != ticketStateCbox.getValue()) {
                 updateCurrTicket.setStatus(ticketStateCbox.getValue());
-                TicketController.ticketList.remove(updateCurrTicket);
+                TicketController.ticketList.remove(updateCurrTicket); //todo bug?
             }
 
             //save
@@ -147,12 +163,11 @@ public class TicketDetailController implements Initializable
     }
 
     public void closeEditView() {
-        // potential Bug, if Agent edits his own ticket from tab "Tickets Bearbeiten", he cant get out from
-        // TicketDetailView, but this Agent would be really stupid anyway :P
-        if ((updateCurrTicket == null) || (currentUser == updateCurrTicket.getUser())) {
+        if (editFromMyTickets) {
             MainController.changeTabContent("tickets", true);
         } else {
             MainController.changeTabContent("tickets");
         }
+        editFromMyTickets = false;
     }
 }
