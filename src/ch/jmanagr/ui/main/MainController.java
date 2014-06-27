@@ -24,23 +24,17 @@ public class MainController implements Initializable
 {
 	private static UsersBL usersBL;
 	private static DepartmentsBL depBl;
-	@FXML
-	private static AnchorPane ticketView;
-	@FXML
-	private static AnchorPane ticketDetailView;
-	@FXML
-	private static AnchorPane userView;
-	@FXML
-	private static AnchorPane userDetailView;
-	@FXML
-	private static Tab tabTickets;
-	@FXML
-	private static Tab tabUser;
-	@FXML
-	private static Tab tabDepartment;
+    @FXML private static AnchorPane myTicketsView;
+	@FXML private static AnchorPane ticketView;
+	@FXML private static AnchorPane ticketDetailView;
+	@FXML private static AnchorPane userView;
+	@FXML private static AnchorPane userDetailView;
+	@FXML private static Tab tabTickets;
+    @FXML private static Tab tabMyTickets;
+	@FXML private static Tab tabUser;
+	@FXML private static Tab tabDepartment;
     @FXML private static Tab tabResource;
-	@FXML
-	private static TabPane tabPane;
+	@FXML private static TabPane tabPane;
 
 	public MainController()
 	{
@@ -62,6 +56,7 @@ public class MainController implements Initializable
 			Logger.log(LOG_LEVEL.ERROR, e);
 		}
 		if (user.getRole() == USER_ROLE.USER) {
+            tabPane.getTabs().remove(tabTickets);
 			tabPane.getTabs().remove(tabUser);
 			tabPane.getTabs().remove(tabDepartment);
 		}
@@ -78,6 +73,10 @@ public class MainController implements Initializable
 				tabTickets.setContent(ticketView);
 				break;
 			}
+            case "myTicketsView": {
+                tabMyTickets.setContent(myTicketsView);
+                break;
+            }
 			case "users": {
 				tabUser.setContent(userView);
 				break;
@@ -88,5 +87,17 @@ public class MainController implements Initializable
 			}
 		}
 	}
-
+    public static void changeTabContent(String view, boolean inMyTicketsTab)
+    {
+        switch (view) {
+            case "ticketDetail": {
+                tabMyTickets.setContent(ticketDetailView);
+                break;
+            }
+            case "tickets": {
+                tabMyTickets.setContent(myTicketsView);
+                break;
+            }
+        }
+    }
 }

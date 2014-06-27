@@ -15,11 +15,13 @@
             <fx:include source="../users/users.fxml" fx:id="userView"/>
             <fx:include source="../users/userDetail.fxml" fx:id="userDetailView"/>
             <fx:include source="../resources/resources.fxml" fx:id="resourceView"/>
+            <fx:include source="../userTickets/userTickets.fxml" fx:id="myTicketsView"/>
         </fx:define>
 
         <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="0" GridPane.rowIndex="0">
             <tabs>
-                <Tab fx:id="tabTickets" closable="false" content="$ticketView" text="Tickets"/>
+                <Tab fx:id="tabTickets" closable="false" content="$ticketView" text="Tickets bearbeiten"/>
+                <Tab fx:id="tabMyTickets" closable="false" content="$myTicketsView" text="Meine Tickets"/>
                 <Tab fx:id="tabDepartment" closable="false" content="$departmentView" text="Abteilungen"/>
                 <Tab fx:id="tabResource" closable="false" content="$resourceView" text="Ressourcen"/>
                 <Tab fx:id="tabUser" closable="false" content="$userView" text="User"/>
