@@ -16,6 +16,7 @@ import ch.jmanagr.lib.USER_ROLE;
 import ch.jmanagr.ui.main.MainController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -48,11 +49,11 @@ public class TicketController implements Initializable
     @FXML private TableColumn<User, String> agentCol;
     @FXML private TableColumn<Department, String> departmentCol;
     @FXML private TableColumn<Resource, String> resourceCol;
-    @FXML private ComboBox<TICKET_STATE> ticketsFilter;
+    @FXML public static ComboBox<TICKET_STATE> ticketsFilter;
     @FXML private Button delBtn;
 
     // Controls for Table AllTickets
-    @FXML private TableView<Ticket> allTicketsTable;
+    @FXML private static TableView<Ticket> allTicketsTable;
     @FXML private TableColumn allIdCol;
     @FXML private TableColumn<Department, String> allDepartmentCol;
     @FXML private TableColumn<Ticket, String> allNameCol;
@@ -83,8 +84,7 @@ public class TicketController implements Initializable
         departmentCol.setCellValueFactory(new PropertyValueFactory<Department, String>("department"));
         nameCol.setCellValueFactory(new PropertyValueFactory<Ticket, String>("name"));
         dateCol.setCellValueFactory(new PropertyValueFactory<Ticket, Date>("date"));
-        userCol.setCellValueFactory(new PropertyValueFactory<User, String>("user")); //Todo make simpleProperty or
-        // Dont show User here?
+        userCol.setCellValueFactory(new PropertyValueFactory<User, String>("user"));
         agentCol.setCellValueFactory(new PropertyValueFactory<User, String>("agent"));
         resourceCol.setCellValueFactory(new PropertyValueFactory<Resource, String>("resource"));
 
@@ -103,8 +103,7 @@ public class TicketController implements Initializable
         allDepartmentCol.setCellValueFactory(new PropertyValueFactory<Department, String>("department"));
         allNameCol.setCellValueFactory(new PropertyValueFactory<Ticket, String>("name"));
         allDateCol.setCellValueFactory(new PropertyValueFactory<Ticket, Date>("date"));
-        allUserCol.setCellValueFactory(new PropertyValueFactory<User, String>("user")); //Todo make simpleProperty or
-        // Dont show User here?
+        allUserCol.setCellValueFactory(new PropertyValueFactory<User, String>("user"));
         allAgentCol.setCellValueFactory(new PropertyValueFactory<User, String>("agent"));
         allResourceCol.setCellValueFactory(new PropertyValueFactory<Resource, String>("resource"));
 
@@ -123,42 +122,49 @@ public class TicketController implements Initializable
             ticketList = FXCollections.observableArrayList(bl.getAllByAgent(currentUser, ticketsFilter.getValue()));
         }
         ticketTable.setItems(ticketList);
-		allTicketList = FXCollections.observableArrayList(bl.getAll());
-		allTicketsTable.setItems(allTicketList);
-
-        Logger.logln("Refreshed Ticket list!");
+        allTicketList = FXCollections.observableArrayList(bl.getAllByStatus(allTicketsFilter.getValue()));
+        allTicketsTable.setItems(allTicketList);
 	}
 
     public static void softRefresh() {
         ticketTable.getColumns().get(0).setVisible(false);
         ticketTable.getColumns().get(0).setVisible(true);
+        allTicketsTable.getColumns().get(0).setVisible(false);
+        allTicketsTable.getColumns().get(0).setVisible(true);
     }
 
-	public void newTicket()
+	public void deleteTicket(ActionEvent event)
 	{
-        this.refreshComboBoxes();
-		MainController.changeTabContent("ticketDetail");
-	}
+        Button sourceBtn = (Button) event.getSource();
+        Ticket selectedTicket;
 
-	public void deleteTicket()
-	{
-		Ticket ticket = ticketTable.getSelectionModel().getSelectedItem();
-		if (ticket != null) {
-			Logger.log("Deleting ticket:" + ticket.getName() + " " + ticket.getId());
-			bl.delete(ticket);
-			ticketList.remove(ticket);
-		} else {
-			Logger.log("Nothing selected to delete");
+        if (sourceBtn.getId().equals("delBtn")) {
+            selectedTicket = ticketTable.getSelectionModel().getSelectedItem();
+            ticketList.remove(selectedTicket);
+        } else {
+            selectedTicket = allTicketsTable.getSelectionModel().getSelectedItem();
+            allTicketList.remove(selectedTicket);
+        }
+		if (selectedTicket != null) {
+			bl.delete(selectedTicket);
 		}
 	}
 
-	public void editTicket()
+	public void editTicket(ActionEvent event)
 	{
         this.refreshComboBoxes();
-		Ticket selectedTicket = ticketTable.getSelectionModel().getSelectedItem();
+
+        Button sourceBtn = (Button) event.getSource();
+        Ticket selectedTicket;
+
+        if(sourceBtn.getId().equals("editBtn")) {
+            selectedTicket = ticketTable.getSelectionModel().getSelectedItem();
+        } else {
+            selectedTicket = allTicketsTable.getSelectionModel().getSelectedItem();
+        }
+
 		if (selectedTicket != null) {
 			TicketDetailController.fillTicket(selectedTicket);
-            Logger.logln("Edit: " + selectedTicket);
 			MainController.changeTabContent("ticketDetail");
 		}
 	}
@@ -166,6 +172,7 @@ public class TicketController implements Initializable
     public void refreshComboBoxes() {
         TicketDetailController.departementCbox.setItems(FXCollections.observableArrayList(depBL.getAll()));
         TicketDetailController.agentCbox.setItems(FXCollections.observableArrayList(usersBL.getByUserRole(USER_ROLE.AGENT)));
+        TicketDetailController.agentCbox.getItems().addAll(FXCollections.observableArrayList(usersBL.getByUserRole(USER_ROLE.ADMIN)));
         TicketDetailController.resourceCbox.setItems(FXCollections.observableArrayList(resBL.getAll()));
 
         TicketDetailController.departementCbox.getSelectionModel().selectFirst();

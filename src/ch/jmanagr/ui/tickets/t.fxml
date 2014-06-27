@@ -14,12 +14,12 @@
                 <ColumnConstraints hgrow="SOMETIMES" />
             </columnConstraints>
             <rowConstraints>
-            <RowConstraints vgrow="SOMETIMES" />
-                <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="NEVER" />
+                <RowConstraints vgrow="ALWAYS" />
                 <RowConstraints vgrow="NEVER" />
             <RowConstraints vgrow="NEVER" />
             <RowConstraints vgrow="NEVER" />
-            <RowConstraints vgrow="NEVER" />
+            <RowConstraints vgrow="ALWAYS" />
             <RowConstraints vgrow="NEVER" />
             </rowConstraints>
             <padding>
@@ -28,13 +28,13 @@
             <children>
                 <TableView fx:id="ticketTable" editable="true" prefHeight="250.0" prefWidth="740.0" tableMenuButtonVisible="true" GridPane.rowIndex="1">
                     <columns>
-                        <TableColumn fx:id="idCol" editable="false" prefWidth="75.0" text="ID" />
+                        <TableColumn fx:id="idCol" editable="false" prefWidth="10.0" text="ID" />
                         <TableColumn fx:id="departmentCol" editable="false" prefWidth="75.0" text="Abteilung" />
-                        <TableColumn fx:id="nameCol" editable="false" prefWidth="75.0" text="Name" />
+                        <TableColumn fx:id="nameCol" editable="false" prefWidth="100.0" text="Name" />
                         <TableColumn fx:id="dateCol" editable="false" prefWidth="75.0" text="Datum" />
                         <TableColumn fx:id="userCol" editable="false" prefWidth="75.0" text="Benutzer" />
-                        <TableColumn fx:id="agentCol" editable="false" prefWidth="87.0" text="Agent" />
-                        <TableColumn fx:id="resourceCol" editable="false" minWidth="-1.0" prefWidth="64.0" text="Ressource" />
+                        <TableColumn fx:id="agentCol" editable="false" prefWidth="75.0" text="Agent" />
+                        <TableColumn fx:id="resourceCol" editable="false" prefWidth="75.0" text="Ressource" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -46,11 +46,11 @@
                         <Button fx:id="delBtn" mnemonicParsing="false" onAction="#deleteTicket" text="Löschen" />
                     </children>
                 </FlowPane>
-            <TableView fx:id="allTicketsTable" editable="true" prefHeight="86.0" prefWidth="740.0" tableMenuButtonVisible="true" GridPane.rowIndex="5">
+            <TableView fx:id="allTicketsTable" editable="true" prefHeight="250.0" prefWidth="740.0" tableMenuButtonVisible="true" GridPane.rowIndex="5">
               <columns>
-                <TableColumn fx:id="allIdCol" prefWidth="75.0" text="ID" />
+                <TableColumn fx:id="allIdCol" prefWidth="10.0" text="ID" />
                 <TableColumn fx:id="allDepartmentCol" prefWidth="75.0" text="Abteilung" />
-                  <TableColumn fx:id="allNameCol" prefWidth="75.0" text="Name" />
+                  <TableColumn fx:id="allNameCol" prefWidth="100.0" text="Name" />
                   <TableColumn fx:id="allDateCol" prefWidth="75.0" text="Datum" />
                   <TableColumn fx:id="allUserCol" prefWidth="75.0" text="Benutzer" />
                   <TableColumn fx:id="allAgentCol" prefWidth="75.0" text="Agent" />
@@ -68,7 +68,6 @@
                      </font>
                   </Label>
                   <ComboBox fx:id="ticketsFilter" onAction="#refresh" promptText="Filter" />
-                        <Button fx:id="newTicketBtn" mnemonicParsing="false" onAction="#newTicket" text="Neues Ticket" />
                </children>
             </FlowPane>
             <FlowPane hgap="10.0" GridPane.rowIndex="4">
@@ -84,7 +83,7 @@
             <Separator prefWidth="200.0" GridPane.rowIndex="3" />
             <FlowPane hgap="10.0" GridPane.rowIndex="6">
                <children>
-                  <Button fx:id="allEditBtn" mnemonicParsing="false" text="Editieren" />
+                  <Button fx:id="allEditBtn" mnemonicParsing="false" text="Editieren" onAction="#editTicket" />
                   <Button fx:id="allDeleteBtn" mnemonicParsing="false" text="Löschen" />
                </children>
             </FlowPane>

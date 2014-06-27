@@ -1,4 +1,3 @@
 Wo                              Wer             Prio        Beschreibung/Error-Meldung
 ------------------------------------------------------------------------------------------------------------------------
 UserDetailController            @mnewmedia      very low    Man sollte auch "kein" Deparment auswählen können?
-TicketController                @mnewmedia      high        My Ticket ansicht funktioniert nicht (ist, sobald man en status umschaltet, leer)

@@ -1,127 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import java.net.URL?>
-<AnchorPane id="Content" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="ch.jmanagr.ui.resources.ResourceController">
+
+<AnchorPane id="Content" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.jmanagr.ui.resources.ResourceController">
     <children>
-        <SplitPane dividerPositions="0.6" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                   AnchorPane.topAnchor="0.0">
+        <SplitPane dividerPositions="0.6" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
                 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="400.0">
                     <children>
-                        <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="15.0"
-                                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                  AnchorPane.topAnchor="0.0">
+                        <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES"/>
+                                <ColumnConstraints hgrow="SOMETIMES" />
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints vgrow="NEVER"/>
-                                <RowConstraints vgrow="SOMETIMES"/>
-                                <RowConstraints vgrow="SOMETIMES"/>
-                                <RowConstraints/>
+                                <RowConstraints vgrow="NEVER" />
+                                <RowConstraints vgrow="SOMETIMES" />
+                                <RowConstraints />
+                                <RowConstraints />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
 
                             </rowConstraints>
                             <children>
                                 <Label text="Ressourcen">
                                     <font>
-                                        <Font name="System Bold" size="14.0"/>
+                                        <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Label>
-                                <TreeView fx:id="treeView" showRoot="false" GridPane.rowIndex="1"/>
+                                <TreeView fx:id="treeView" showRoot="false" GridPane.rowIndex="1" />
                                 <GridPane hgap="15.0" GridPane.rowIndex="2">
                                     <columnConstraints>
-                                        <ColumnConstraints hgrow="NEVER" minWidth="80.0"/>
-                                        <ColumnConstraints hgrow="SOMETIMES"/>
+                                        <ColumnConstraints hgrow="NEVER" minWidth="80.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" />
                                     </columnConstraints>
                                     <rowConstraints>
-                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
+                                        <Label text="Bearbeiten" />
                                         <FlowPane hgap="10.0" prefWrapLength="300.0" GridPane.columnIndex="1">
                                             <children>
-                                                <TextField fx:id="renameFld"/>
-                                                <Button fx:id="renameBtn" mnemonicParsing="false" onAction="#rename"
-                                                        text="Umbenennen"/>
+                                                <TextField fx:id="renameFld" />
+                                                <Button fx:id="renameBtn" mnemonicParsing="false" onAction="#rename" text="Umbenennen" />
                                             </children>
                                         </FlowPane>
-                                        <Label text="Bearbeiten"/>
                                     </children>
                                 </GridPane>
                                 <GridPane hgap="15.0" GridPane.rowIndex="3">
                                     <columnConstraints>
-                                        <ColumnConstraints hgrow="NEVER" minWidth="80.0"/>
-                                        <ColumnConstraints hgrow="SOMETIMES"/>
+                                        <ColumnConstraints hgrow="NEVER" minWidth="80.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" />
                                     </columnConstraints>
                                     <rowConstraints>
-                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <Label text="Neu"/>
+                                        <Label text="Neu" />
                                         <FlowPane hgap="10.0" prefWrapLength="300.0" GridPane.columnIndex="1">
                                             <children>
-                                                <TextField fx:id="newFld"/>
-                                                <Button fx:id="addBtn" mnemonicParsing="false" onAction="#add"
-                                                        text="Hinzufügen"/>
+                                                <TextField fx:id="newFld" />
+                                                <Button fx:id="addBtn" mnemonicParsing="false" onAction="#add" text="Hinzufügen" />
                                             </children>
                                         </FlowPane>
                                     </children>
                                 </GridPane>
+                        <Button mnemonicParsing="false" onAction="#delete" text="Ressource Löschen" GridPane.rowIndex="4" />
                             </children>
                         </GridPane>
                     </children>
                     <padding>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                     </padding>
                 </AnchorPane>
                 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="300.0">
                     <children>
-                        <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="15.0"
-                                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                  AnchorPane.topAnchor="0.0">
+                        <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES"/>
+                                <ColumnConstraints hgrow="SOMETIMES" />
                             </columnConstraints>
                             <rowConstraints>
-                                <RowConstraints vgrow="NEVER"/>
-                                <RowConstraints vgrow="SOMETIMES"/>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints vgrow="NEVER" />
+                                <RowConstraints vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
                                 <Label text="Daten">
                                     <font>
-                                        <Font name="System Bold" size="14.0"/>
+                                        <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Label>
-                                <TableView fx:id="dataTable" editable="true" tableMenuButtonVisible="true"
-                                           GridPane.rowIndex="1">
+                                <TableView fx:id="dataTable" editable="true" tableMenuButtonVisible="true" GridPane.rowIndex="1">
                                     <columns>
-                                        <TableColumn fx:id="keyCol" prefWidth="75.0" text="Key"/>
-                                        <TableColumn fx:id="valueCol" prefWidth="75.0" text="Value"/>
+                                        <TableColumn fx:id="keyCol" prefWidth="75.0" text="Key" />
+                                        <TableColumn fx:id="valueCol" prefWidth="75.0" text="Value" />
                                     </columns>
                                     <columnResizePolicy>
-                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                     </columnResizePolicy>
                                 </TableView>
                                 <FlowPane hgap="10.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                                     <children>
-                                        <TextField fx:id="newDataFld"/>
-                                        <Button fx:id="addDataBtn" mnemonicParsing="false" onAction="#addData"
-                                                text="Hinzufügen"/>
+                                        <TextField fx:id="newDataFld" />
+                                        <Button fx:id="addDataBtn" mnemonicParsing="false" onAction="#addData" text="Hinzufügen" />
                                     </children>
                                 </FlowPane>
+                        <Button mnemonicParsing="false" onAction="#deleteKey" text="Key Löschen" GridPane.rowIndex="3" />
                             </children>
                         </GridPane>
                     </children>
                     <padding>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                     </padding>
                 </AnchorPane>
             </items>
@@ -129,6 +125,6 @@
     </children>
 
     <stylesheets>
-        <URL value="@../main.css"/>
+        <URL value="@../main.css" />
     </stylesheets>
 </AnchorPane>
