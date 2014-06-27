@@ -47,7 +47,7 @@ public class userTicketsController implements Initializable
     @FXML private TableColumn<User, String> myAgentCol;
     @FXML private TableColumn<Department, String> myDepartmentCol;
     @FXML private TableColumn<Resource, String> myResourceCol;
-    @FXML private ComboBox<TICKET_STATE> myTicketsFilter;
+    @FXML public static ComboBox<TICKET_STATE> myTicketsFilter;
 
 	public userTicketsController()
 	{
@@ -70,7 +70,6 @@ public class userTicketsController implements Initializable
         myDepartmentCol.setCellValueFactory(new PropertyValueFactory<Department, String>("department"));
         myNameCol.setCellValueFactory(new PropertyValueFactory<Ticket, String>("name"));
         myDateCol.setCellValueFactory(new PropertyValueFactory<Ticket, Date>("date"));
-        //Todo make simpleProperty or dont show User here?
         myAgentCol.setCellValueFactory(new PropertyValueFactory<User, String>("agent"));
         myResourceCol.setCellValueFactory(new PropertyValueFactory<Resource, String>("resource"));
 
