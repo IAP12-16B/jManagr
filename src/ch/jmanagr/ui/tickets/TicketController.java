@@ -103,8 +103,8 @@ public class TicketController implements Initializable
         allDepartmentCol.setCellValueFactory(new PropertyValueFactory<Department, String>("department"));
         allNameCol.setCellValueFactory(new PropertyValueFactory<Ticket, String>("name"));
         allDateCol.setCellValueFactory(new PropertyValueFactory<Ticket, Date>("date"));
-        allUserCol.setCellValueFactory(new PropertyValueFactory<User, String>("user")); //Todo make simpleProperty or
-        // Dont show User here?
+        allUserCol.setCellValueFactory(new PropertyValueFactory<User, String>("user"));
+        //Todo make simpleProperty or dont show User here?
         allAgentCol.setCellValueFactory(new PropertyValueFactory<User, String>("agent"));
         allResourceCol.setCellValueFactory(new PropertyValueFactory<Resource, String>("resource"));
 
@@ -123,8 +123,8 @@ public class TicketController implements Initializable
             ticketList = FXCollections.observableArrayList(bl.getAllByAgent(currentUser, ticketsFilter.getValue()));
         }
         ticketTable.setItems(ticketList);
-		allTicketList = FXCollections.observableArrayList(bl.getAll());
-		allTicketsTable.setItems(allTicketList);
+        allTicketList = FXCollections.observableArrayList(bl.getAllByStatus(ticketsFilter.getValue()));
+        allTicketsTable.setItems(allTicketList);
 
         Logger.logln("Refreshed Ticket list!");
 	}
