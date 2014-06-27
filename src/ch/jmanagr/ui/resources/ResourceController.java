@@ -148,6 +148,11 @@ public class ResourceController implements Initializable
 		}
 	}
 
+    public void delete() {
+        TreeItem selectedItem = treeView.getSelectionModel().getSelectedItem();
+        treeView.getRoot().getChildren().remove(selectedItem);
+        bl.delete((Resource) selectedItem.getValue());
+    }
 
 	// chnangelistener
 	public class TreeSelectionListener implements ChangeListener<TreeItem<Resource>>
