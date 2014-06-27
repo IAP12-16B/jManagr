@@ -61,7 +61,7 @@ public class TicketController implements Initializable
     @FXML private TableColumn<User, String> allUserCol;
     @FXML private TableColumn<User, String> allAgentCol;
     @FXML private TableColumn<Resource, String> allResourceCol;
-    @FXML private ComboBox<TICKET_STATE> allTicketsFilter;
+    @FXML public static ComboBox<TICKET_STATE> allTicketsFilter;
     
 	public TicketController()
 	{
@@ -122,7 +122,7 @@ public class TicketController implements Initializable
             ticketList = FXCollections.observableArrayList(bl.getAllByAgent(currentUser, ticketsFilter.getValue()));
         }
         ticketTable.setItems(ticketList);
-        allTicketList = FXCollections.observableArrayList(bl.getAllByStatus(allTicketsFilter.getValue()));
+        allTicketList = FXCollections.observableArrayList(bl.getAllByDepartment(currentUser.getDepartment(),allTicketsFilter.getValue()));
         allTicketsTable.setItems(allTicketList);
 	}
 
@@ -164,7 +164,7 @@ public class TicketController implements Initializable
         }
 
 		if (selectedTicket != null) {
-			TicketDetailController.fillTicket(selectedTicket);
+			TicketDetailController.fillTicket(selectedTicket, sourceBtn.getId());
 			MainController.changeTabContent("ticketDetail");
 		}
 	}

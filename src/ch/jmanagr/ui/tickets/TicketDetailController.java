@@ -12,13 +12,11 @@ import ch.jmanagr.exceptions.jManagrDBException;
 import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.TICKET_STATE;
-import ch.jmanagr.lib.USER_ROLE;
 import ch.jmanagr.ui.main.MainController;
 import ch.jmanagr.ui.userTickets.userTicketsController;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -44,7 +42,7 @@ public class TicketDetailController implements Initializable
     private User currentUser;
 
     private static Ticket updateCurrTicket;
-    private static boolean editFromMyTickets;
+    private static String sourceBtn;
 
 	public TicketDetailController()
 	{
@@ -65,23 +63,10 @@ public class TicketDetailController implements Initializable
         ticketStateCbox.getSelectionModel().selectFirst();
 	}
 
-    public static void fillTicket(Ticket editingTicket)
+    public static void fillTicket(Ticket editingTicket, String srcBtn)
     {
+        sourceBtn = srcBtn;
         updateCurrTicket = editingTicket;
-        if (updateCurrTicket != null) {
-            nameFld.setText(updateCurrTicket.getName());
-            descriptionFld.setText(updateCurrTicket.getDescription());
-
-            ticketStateCbox.getSelectionModel().select(updateCurrTicket.getStatus());
-            departementCbox.getSelectionModel().select(updateCurrTicket.getDepartment());
-            resourceCbox.getSelectionModel().select(updateCurrTicket.getResource());
-            agentCbox.getSelectionModel().select(updateCurrTicket.getAgent());
-        }
-    }
-    public static void fillTicket(Ticket editingTicket, boolean fromMyTickets)
-    {
-        updateCurrTicket = editingTicket;
-        editFromMyTickets = fromMyTickets;
         if (updateCurrTicket != null) {
             nameFld.setText(updateCurrTicket.getName());
             descriptionFld.setText(updateCurrTicket.getDescription());
@@ -124,21 +109,21 @@ public class TicketDetailController implements Initializable
             updateCurrTicket.setDepartment(departementCbox.getSelectionModel().getSelectedItem());
             updateCurrTicket.setAgent(agentCbox.getSelectionModel().getSelectedItem());
             updateCurrTicket.setResource(resourceCbox.getSelectionModel().getSelectedItem());
+            updateCurrTicket.setStatus(ticketStateCbox.getValue());
 
-            // remove tickets from table if status did change..
-            if (updateCurrTicket.getStatus() != ticketStateCbox.getValue()) {
-                updateCurrTicket.setStatus(ticketStateCbox.getValue());
-                TicketController.ticketList.remove(updateCurrTicket); //todo bug?
-            }
+            // update all tables because ticket changed
+            userTicketsController.ticketList.remove(updateCurrTicket);
+            TicketController.ticketList.remove(updateCurrTicket);
+            TicketController.allTicketList.remove(updateCurrTicket);
 
-            // if agent takes a ticket, show it in upper Table
-            if ((updateCurrTicket.getAgent() == currentUser) && (TicketController.ticketsFilter.getValue() == updateCurrTicket.getStatus())) {
-                TicketController.ticketList.remove(updateCurrTicket); // make sure if its already there it doesn't get displayed twice
+            if ((TicketController.ticketsFilter.getValue() == updateCurrTicket.getStatus()) && (currentUser == updateCurrTicket.getAgent())) {
                 TicketController.ticketList.add(updateCurrTicket);
             }
-            // if agent, changes the tickets agent to somebody else then him self remove it from upper table
-            if (updateCurrTicket.getAgent() != currentUser) {
-                TicketController.ticketList.remove(updateCurrTicket);
+            if ((TicketController.allTicketsFilter.getValue() == updateCurrTicket.getStatus()) && (currentUser.getDepartment().toString().equals(updateCurrTicket.getDepartment().toString()))) {
+                TicketController.allTicketList.add(updateCurrTicket);
+            }
+            if ((userTicketsController.myTicketsFilter.getValue() == updateCurrTicket.getStatus()) && (currentUser == updateCurrTicket.getUser())) {
+                userTicketsController.ticketList.add(updateCurrTicket);
             }
 
             //save
@@ -167,12 +152,12 @@ public class TicketDetailController implements Initializable
     }
 
     public void closeEditView() {
-        if (editFromMyTickets) {
+        if (sourceBtn.equals("myEditBtn")) {
             MainController.changeTabContent("tickets", true);
         } else {
             MainController.changeTabContent("tickets");
         }
-        editFromMyTickets = false;
+        sourceBtn = null;
     }
 
     public static void refreshComboboxes() {

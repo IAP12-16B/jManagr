@@ -17,6 +17,7 @@ import ch.jmanagr.ui.main.MainController;
 import ch.jmanagr.ui.tickets.TicketDetailController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -97,12 +98,14 @@ public class userTicketsController implements Initializable
 		MainController.changeTabContent("ticketDetail", true);
 	}
 
-	public void editTicket()
+	public void editTicket(ActionEvent event)
 	{
+        Button sourceBtn = (Button) event.getSource();
+
         this.refreshComboBoxes();
 		Ticket selectedTicket = myTicketTable.getSelectionModel().getSelectedItem();
 		if (selectedTicket != null) {
-			TicketDetailController.fillTicket(selectedTicket, true);
+			TicketDetailController.fillTicket(selectedTicket, sourceBtn.getId());
 			MainController.changeTabContent("ticketDetail", true);
 		}
 	}
