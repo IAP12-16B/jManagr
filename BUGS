@@ -1,3 +1,4 @@
 Wo                              Wer             Prio        Beschreibung/Error-Meldung
 ------------------------------------------------------------------------------------------------------------------------
 UserDetailController            @mnewmedia      very low    Man sollte auch "kein" Deparment auswählen können?
+Ressource.fxml                  @kije           very low    beim vergrössern sieht es strange aus, ich seh den fehler nich..

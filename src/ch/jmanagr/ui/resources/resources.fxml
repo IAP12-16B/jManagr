@@ -44,6 +44,7 @@
                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
                                     </rowConstraints>
                                     <children>
+                                        <Label text="Bearbeiten"/>
                                         <FlowPane hgap="10.0" prefWrapLength="300.0" GridPane.columnIndex="1">
                                             <children>
                                                 <TextField fx:id="renameFld"/>
@@ -51,7 +52,6 @@
                                                         text="Umbenennen"/>
                                             </children>
                                         </FlowPane>
-                                        <Label text="Bearbeiten"/>
                                     </children>
                                 </GridPane>
                                 <GridPane hgap="15.0" GridPane.rowIndex="3">
