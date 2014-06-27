@@ -8,10 +8,12 @@ import ch.jmanagr.lib.STATUS_CODE;
 
 import java.sql.SQLException;
 
-
+/**
+ * BL class for Departments. Extends {@link ch.jmanagr.bl.AbstractBL}
+ */
 public class DepartmentsBL extends AbstractBL<Department, DepartmentsDAL>
 {
-	private static volatile DepartmentsBL instance;
+	private static DepartmentsBL instance;
 
 	private DepartmentsBL()
 	{
@@ -24,6 +26,9 @@ public class DepartmentsBL extends AbstractBL<Department, DepartmentsDAL>
 	}
 
 
+	/**
+	 * @return a singleton instance
+	 */
 	public static DepartmentsBL getInstance()
 	{
 		if (instance == null) {

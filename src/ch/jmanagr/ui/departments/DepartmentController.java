@@ -25,6 +25,10 @@ import java.util.ResourceBundle;
 
 // ---------------- http://docs.oracle.com/javafx/2/ui_controls/table-view.htm --------- explanation of the
 // TableControl!
+
+/**
+ * Department Controller, controlls the Department view
+ */
 public class DepartmentController implements Initializable
 {
 
@@ -107,8 +111,8 @@ public class DepartmentController implements Initializable
 		bl.save(dep);
 		this.depList.add(dep);
 
-        nameField.setText("");
-        nameField.requestFocus();
+		nameField.setText("");
+		nameField.requestFocus();
 	}
 
 	public void deleteDep()

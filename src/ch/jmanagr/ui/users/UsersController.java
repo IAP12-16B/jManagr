@@ -26,23 +26,35 @@ import javafx.util.Callback;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controlls the User tab
+ */
 public class UsersController implements Initializable
 {
 	public static ObservableList<User> userList;
 	private UsersBL bl;
-    private DepartmentsBL depBl;
+	private DepartmentsBL depBl;
 
-	@FXML private static TableView<User> userTable;
-	@FXML private TableColumn idCol;
-	@FXML private TableColumn<User, String> lastnameCol;
-	@FXML private TableColumn<User, String> firstnameCol;
-	@FXML private TableColumn<User, String> usernameCol;
-	@FXML private TableColumn<User, String> departmentCol;
-	@FXML private TableColumn<User, String> roleCol;
+	@FXML
+	private static TableView<User> userTable;
+	@FXML
+	private TableColumn idCol;
+	@FXML
+	private TableColumn<User, String> lastnameCol;
+	@FXML
+	private TableColumn<User, String> firstnameCol;
+	@FXML
+	private TableColumn<User, String> usernameCol;
+	@FXML
+	private TableColumn<User, String> departmentCol;
+	@FXML
+	private TableColumn<User, String> roleCol;
 
-	@FXML private Button editUsrBtn;
+	@FXML
+	private Button editUsrBtn;
 
-	@FXML private TextField nameField;
+	@FXML
+	private TextField nameField;
 
 	public UsersController()
 	{
@@ -51,7 +63,7 @@ public class UsersController implements Initializable
 		} catch (jManagrDBException e) {
 			Logger.log(LOG_LEVEL.ERROR, e);
 		}
-        depBl = DepartmentsBL.getInstance();
+		depBl = DepartmentsBL.getInstance();
 	}
 
 	// Fill Table with Data
@@ -86,13 +98,15 @@ public class UsersController implements Initializable
 		Logger.logln("Refreshed list!");
 	}
 
-    public static void softRefresh() {
-        userTable.getColumns().get(0).setVisible(false);
-        userTable.getColumns().get(0).setVisible(true);
-    }
+	public static void softRefresh()
+	{
+		userTable.getColumns().get(0).setVisible(false);
+		userTable.getColumns().get(0).setVisible(true);
+	}
+
 	public void newUser()
 	{
-        this.refreshComboBox();
+		this.refreshComboBox();
 		MainController.changeTabContent("userDetail");
 	}
 
@@ -117,7 +131,7 @@ public class UsersController implements Initializable
 
 	public void editUser()
 	{
-        this.refreshComboBox();
+		this.refreshComboBox();
 
 		User selectedUser = userTable.getSelectionModel().getSelectedItem();
 		if (selectedUser != null) {
@@ -127,8 +141,9 @@ public class UsersController implements Initializable
 		}
 	}
 
-    public void refreshComboBox() {
-        UserDetailController.departementCbox.setItems(FXCollections.observableArrayList(depBl.getAll()));
-        UserDetailController.departementCbox.getSelectionModel().selectFirst();
-    }
+	public void refreshComboBox()
+	{
+		UserDetailController.departementCbox.setItems(FXCollections.observableArrayList(depBl.getAll()));
+		UserDetailController.departementCbox.getSelectionModel().selectFirst();
+	}
 }

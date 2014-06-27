@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Abstract class for BL classes. Implements common operations for all BusinessObjects
+ *
  * @param <BusinessObjectType> The BusinessObject to use
  * @param <DALType>            The DAL class to use
  */
@@ -26,6 +28,11 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject<Busin
 	}
 
 
+	/**
+	 * get all BusinessObjects
+	 *
+	 * @return a list with all BusinessObjects
+	 */
 	@Override
 	public List<BusinessObjectType> getAll()
 	{
@@ -38,6 +45,11 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject<Busin
 		return depList;
 	}
 
+	/**
+	 * Get a BusinessObject by id
+	 * @param id the id
+	 * @return a Businessobject or null
+	 */
 	public BusinessObjectType getById(int id)
 	{
 		try {
@@ -50,6 +62,11 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject<Busin
 	}
 
 
+	/**
+	 * deletes a business obejct
+	 * * @param bo the businessobject
+	 * @return statuscode if sucessfull
+	 */
 	@Override
 	public STATUS_CODE delete(BusinessObjectType bo)
 	{
@@ -63,6 +80,11 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject<Busin
 		}
 	}
 
+	/**
+	 * Saves a businessobject
+	 * @param bo the businessobject
+	 * @return statuscode if sucessfull
+	 */
 	@Override
 	public STATUS_CODE save(BusinessObjectType bo)
 	{
@@ -76,6 +98,11 @@ public abstract class AbstractBL<BusinessObjectType extends BusinessObject<Busin
 	}
 
 
+	/**
+	 * Get status coe from SQLException
+	 * @param e the SQLException
+	 * @return Status code
+	 */
 	public STATUS_CODE getStatusCodeFromSQLException(SQLException e)
 	{
 		switch (e.getErrorCode()) {

@@ -9,9 +9,13 @@ import java.sql.SQLException;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
+/**
+ * Dal for Settings. This does not use DB connection. Hence, it doesn't need to implement {@link
+ * ch.jmanagr.dal.AbstractDAL}
+ */
 public class SettingsDAL
 {
-	private static volatile SettingsDAL instance;
+	private static SettingsDAL instance;
 	private Preferences preferences;
 
 	private SettingsDAL()
@@ -19,6 +23,13 @@ public class SettingsDAL
 		preferences = Preferences.userRoot().node(this.getClass().getName());
 	}
 
+	/**
+	 * Get singelton instance
+	 *
+	 * @return An SettingsDAL instance
+	 *
+	 * @throws SQLException
+	 */
 	public static SettingsDAL getInstance()
 	{
 		if (instance == null) {

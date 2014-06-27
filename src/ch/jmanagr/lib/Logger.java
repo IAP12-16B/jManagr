@@ -10,6 +10,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Logger class Far from perfect
+ */
 public class Logger
 {
 	private static void unifiedLog(PrintStream outputStream, String message)

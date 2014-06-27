@@ -10,10 +10,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * BL class for Resources. Extends {@link ch.jmanagr.bl.AbstractBL}
+ */
 public class ResourcesBL extends AbstractBL<Resource, ResourcesDAL>
 {
-	private static volatile ResourcesBL instance;
+	private static ResourcesBL instance;
 
 	private ResourcesBL()
 	{
@@ -26,6 +28,9 @@ public class ResourcesBL extends AbstractBL<Resource, ResourcesDAL>
 	}
 
 
+	/**
+	 * @return a singleton instance
+	 */
 	public static ResourcesBL getInstance()
 	{
 		if (instance == null) {

@@ -10,6 +10,9 @@ import java.net.URL;
 import java.util.Observable;
 import java.util.ResourceBundle;
 
+/**
+ * MSG box controller
+ */
 public class MessageBoxController extends Observable implements Initializable
 {
 

@@ -8,6 +8,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * DAL class for Resources. Extends {@link AbstractDAL}
+ */
 public class ResourcesDAL extends AbstractDAL<Resource>
 {
 	private static ResourcesDAL instance;
@@ -20,6 +23,13 @@ public class ResourcesDAL extends AbstractDAL<Resource>
 		dataDAL = ResourceDataDAL.getInstance();
 	}
 
+	/**
+	 * Get singelton instance
+	 *
+	 * @return An ResourcesDAL instance
+	 *
+	 * @throws SQLException
+	 */
 	public static ResourcesDAL getInstance() throws SQLException
 	{
 		if (instance == null) {
@@ -32,6 +42,13 @@ public class ResourcesDAL extends AbstractDAL<Resource>
 		return instance;
 	}
 
+	/**
+	 * Get only Resources that have parent = null
+	 *
+	 * @return a list with all root resources
+	 *
+	 * @throws SQLException
+	 */
 	public List<Resource> fetchOnlyRootResources() throws SQLException
 	{
 		HashMap<String, Object> map = new HashMap<>();
@@ -68,6 +85,9 @@ public class ResourcesDAL extends AbstractDAL<Resource>
 		}
 	}
 
+	/**
+	 * DAL class for ResourceData. Extends {@link AbstractDAL}
+	 */
 	public static class ResourceDataDAL extends AbstractDAL<Resource.ResourceData>
 	{
 		private static ResourceDataDAL instance;
@@ -78,6 +98,13 @@ public class ResourcesDAL extends AbstractDAL<Resource>
 
 		}
 
+		/**
+		 * Get singelton instance
+		 *
+		 * @return An ResourceDataDAL instance
+		 *
+		 * @throws SQLException
+		 */
 		public static ResourceDataDAL getInstance() throws SQLException
 		{
 			if (instance == null) {

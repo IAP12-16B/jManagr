@@ -20,13 +20,19 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Login controller controlls the Login view
+ */
 public class LoginController implements Initializable
 {
 
 
-	@FXML private TextField userFld;
-	@FXML private PasswordField passwordFld;
-	@FXML private Label passwordErrorLbl;
+	@FXML
+	private TextField userFld;
+	@FXML
+	private PasswordField passwordFld;
+	@FXML
+	private Label passwordErrorLbl;
 
 	public LoginController()
 	{

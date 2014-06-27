@@ -29,16 +29,19 @@ import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+/**
+ * Ticket view controller
+ */
 public class TicketController implements Initializable
 {
 	public static ObservableList<Ticket> ticketList;
-    public static ObservableList<Ticket> allTicketList;
+	public static ObservableList<Ticket> allTicketList;
 
-    private TicketsBL bl;
-    private UsersBL usersBL;
-    private DepartmentsBL depBL;
-    private ResourcesBL resBL;
-    private User currentUser;
+	private TicketsBL bl;
+	private UsersBL usersBL;
+	private DepartmentsBL depBL;
+	private ResourcesBL resBL;
+	private User currentUser;
 
     // Controls for Table MyTickets
 	@FXML private static TableView<Ticket> ticketTable;
@@ -61,19 +64,19 @@ public class TicketController implements Initializable
     @FXML private TableColumn<User, String> allUserCol;
     @FXML private TableColumn<User, String> allAgentCol;
     @FXML private TableColumn<Resource, String> allResourceCol;
-    @FXML public static ComboBox<TICKET_STATE> allTicketsFilter;
+    @FXML private ComboBox<TICKET_STATE> allTicketsFilter;
     
 	public TicketController()
 	{
 		this.bl = TicketsBL.getInstance();
-        try {
-            this.usersBL = UsersBL.getInstance();
-        } catch (jManagrDBException e) {
-            Logger.log(LOG_LEVEL.ERROR, e);
-        }
-        this.resBL = ResourcesBL.getInstance();
-        this.depBL = DepartmentsBL.getInstance();
-        this.currentUser = this.usersBL.getCurrentUser();
+		try {
+			this.usersBL = UsersBL.getInstance();
+		} catch (jManagrDBException e) {
+			Logger.log(LOG_LEVEL.ERROR, e);
+		}
+		this.resBL = ResourcesBL.getInstance();
+		this.depBL = DepartmentsBL.getInstance();
+		this.currentUser = this.usersBL.getCurrentUser();
 	}
 
 	public void initialize(URL location, ResourceBundle resources)
@@ -126,12 +129,13 @@ public class TicketController implements Initializable
         allTicketsTable.setItems(allTicketList);
 	}
 
-    public static void softRefresh() {
-        ticketTable.getColumns().get(0).setVisible(false);
-        ticketTable.getColumns().get(0).setVisible(true);
-        allTicketsTable.getColumns().get(0).setVisible(false);
-        allTicketsTable.getColumns().get(0).setVisible(true);
-    }
+	public static void softRefresh()
+	{
+		ticketTable.getColumns().get(0).setVisible(false);
+		ticketTable.getColumns().get(0).setVisible(true);
+		allTicketsTable.getColumns().get(0).setVisible(false);
+		allTicketsTable.getColumns().get(0).setVisible(true);
+	}
 
 	public void deleteTicket(ActionEvent event)
 	{
@@ -152,7 +156,7 @@ public class TicketController implements Initializable
 
 	public void editTicket(ActionEvent event)
 	{
-        this.refreshComboBoxes();
+		this.refreshComboBoxes();
 
         Button sourceBtn = (Button) event.getSource();
         Ticket selectedTicket;
@@ -175,8 +179,8 @@ public class TicketController implements Initializable
         TicketDetailController.agentCbox.getItems().addAll(FXCollections.observableArrayList(usersBL.getByUserRole(USER_ROLE.ADMIN)));
         TicketDetailController.resourceCbox.setItems(FXCollections.observableArrayList(resBL.getAll()));
 
-        TicketDetailController.departementCbox.getSelectionModel().selectFirst();
-        TicketDetailController.agentCbox.getSelectionModel().selectFirst();
-        TicketDetailController.resourceCbox.getSelectionModel().selectFirst();
-    }
+		TicketDetailController.departementCbox.getSelectionModel().selectFirst();
+		TicketDetailController.agentCbox.getSelectionModel().selectFirst();
+		TicketDetailController.resourceCbox.getSelectionModel().selectFirst();
+	}
 }

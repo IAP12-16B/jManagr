@@ -6,7 +6,7 @@ import ch.jmanagr.lib.STATUS_CODE;
 
 public class SettingsBL
 {
-	private static volatile SettingsBL instance;
+	private static SettingsBL instance;
 	private SettingsDAL dal;
 
 	private SettingsBL()
@@ -14,6 +14,9 @@ public class SettingsBL
 		dal = SettingsDAL.getInstance();
 	}
 
+	/**
+	 * @return a singleton instance
+	 */
 	public static SettingsBL getInstance()
 	{
 		if (instance == null) {

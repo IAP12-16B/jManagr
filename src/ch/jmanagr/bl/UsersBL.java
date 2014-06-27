@@ -15,7 +15,7 @@ import java.util.List;
 
 public class UsersBL extends AbstractBL<User, UsersDAL>
 {
-	private static volatile UsersBL instance;
+	private static UsersBL instance;
 
 	protected User currentUser;
 
@@ -30,7 +30,11 @@ public class UsersBL extends AbstractBL<User, UsersDAL>
 		}
 	}
 
-
+	/**
+	 * @return a singleton instance
+	 *
+	 * @throws jManagrDBException
+	 */
 	public static UsersBL getInstance() throws jManagrDBException
 	{
 		if (instance == null) {

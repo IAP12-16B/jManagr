@@ -22,20 +22,32 @@ import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller controlls the Edit view of an user
+ */
 public class UserDetailController implements Initializable
 {
 	private UsersBL bl;
 	private DepartmentsBL depBl;
-	@FXML private static TextField lastnameFld;
-	@FXML private static TextField firstnameFld;
-	@FXML private static TextField usernameFld;
-	@FXML private static TextField passwordFld;
-	@FXML private static TextField password2Fld;
-	@FXML private Label userDetailErrorLbl;
-	@FXML public static ComboBox<Department> departementCbox;
-	@FXML private static ComboBox<USER_ROLE> roleCbox;
+	@FXML
+	private static TextField lastnameFld;
+	@FXML
+	private static TextField firstnameFld;
+	@FXML
+	private static TextField usernameFld;
+	@FXML
+	private static TextField passwordFld;
+	@FXML
+	private static TextField password2Fld;
+	@FXML
+	private Label userDetailErrorLbl;
+	@FXML
+	public static ComboBox<Department> departementCbox;
+	@FXML
+	private static ComboBox<USER_ROLE> roleCbox;
 
-	@FXML private AnchorPane userDetailView;
+	@FXML
+	private AnchorPane userDetailView;
 
 	private static User updateCurrUser;
 	private static int updateCurrIndex;
@@ -132,13 +144,13 @@ public class UserDetailController implements Initializable
 				updateCurrUser.setUsername(usernameFld.getText());
 				updateCurrUser.setUnhashedPassword(password2Fld.getText());
 				updateCurrUser.setDepartment(departementCbox.getValue());
-                Logger.logln("Dep: " + d);
+				Logger.logln("Dep: " + d);
 				updateCurrUser.setRole(r);
 
 				// save
 				bl.save(updateCurrUser);
 				UsersController.userList.set(updateCurrIndex, updateCurrUser);
-                UsersController.softRefresh();
+				UsersController.softRefresh();
 			}
 			this.clearFields();
 			MainController.changeTabContent("users");

@@ -25,6 +25,10 @@ import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+
+/**
+ * Controller for the Edit view of a Ticket
+ */
 public class TicketDetailController implements Initializable
 {
 	@FXML public static ComboBox<TICKET_STATE> ticketStateCbox;
@@ -39,7 +43,7 @@ public class TicketDetailController implements Initializable
 	private DepartmentsBL depBl;
 	private ResourcesBL resBL;
 	private UsersBL usersBL;
-    private User currentUser;
+	private User currentUser;
 
     private static Ticket updateCurrTicket;
     private static String sourceBtn;

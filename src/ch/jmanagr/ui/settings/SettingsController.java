@@ -12,6 +12,9 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the settings tab
+ */
 public class SettingsController implements Initializable
 {
 
