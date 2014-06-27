@@ -144,7 +144,6 @@ public class ResourceController implements Initializable
 
 			parentItem.getChildren().add(childItem);
 
-
 			this.addChildItems(childItem); // recursion
 		}
 	}

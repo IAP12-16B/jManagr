@@ -94,7 +94,7 @@ public class userTicketsController implements Initializable
 	public void newTicket()
 	{
         this.refreshComboBoxes();
-		MainController.changeTabContent("ticketDetail");
+		MainController.changeTabContent("ticketDetail", true);
 	}
 
 	public void editTicket()
@@ -103,7 +103,7 @@ public class userTicketsController implements Initializable
 		Ticket selectedTicket = myTicketTable.getSelectionModel().getSelectedItem();
 		if (selectedTicket != null) {
 			TicketDetailController.fillTicket(selectedTicket);
-			MainController.changeTabContent("ticketDetail");
+			MainController.changeTabContent("ticketDetail", true);
 		}
 	}
 

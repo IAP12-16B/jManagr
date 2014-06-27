@@ -39,6 +39,7 @@ public class TicketDetailController implements Initializable
 	private DepartmentsBL depBl;
 	private ResourcesBL resBL;
 	private UsersBL usersBL;
+    private User currentUser;
 
     private static Ticket updateCurrTicket;
 
@@ -52,6 +53,7 @@ public class TicketDetailController implements Initializable
 		} catch (jManagrDBException e) {
 			Logger.log(LOG_LEVEL.ERROR, e);
 		}
+        this.currentUser = usersBL.getCurrentUser();
 	}
 
 	public void initialize(URL location, ResourceBundle resources)
@@ -88,25 +90,20 @@ public class TicketDetailController implements Initializable
             Ticket ticket = new Ticket();
             Date d = new Date();
 
-            User u = null;
-            try {
-                u = UsersBL.getInstance().getCurrentUser();
-            } catch (jManagrDBException e) {
-                Logger.log(LOG_LEVEL.ERROR, e);
-            }
+            this.currentUser = usersBL.getCurrentUser();
 
-            ticket.setUser(u);
+            ticket.setUser(this.currentUser);
             ticket.setDate(d);
             ticket.setDescription(descriptionFld.getText());
             ticket.setName(nameFld.getText());
             ticket.setDepartment(departementCbox.getSelectionModel().getSelectedItem());
             ticket.setAgent(agentCbox.getSelectionModel().getSelectedItem());
-            ticket.setResource(resourceCbox.getSelectionModel().getSelectedItem()); //todo use treeView instead
+            ticket.setResource(resourceCbox.getSelectionModel().getSelectedItem()); //todo @mnewmedia use treeView instead
             ticket.setStatus(ticketStateCbox.getSelectionModel().getSelectedItem());
 
             //save
             bl.save(ticket);
-            TicketController.ticketList.add(ticket);
+            TicketController.ticketList.add(ticket); //todo @mnewmedia add only if combobox status is same as ticket status
             Logger.logln("Insertet new Ticket: " + ticket);
         } else {
             updateCurrTicket.setName(nameFld.getText());
@@ -123,8 +120,8 @@ public class TicketDetailController implements Initializable
 
             //save
             bl.save(updateCurrTicket);
+            updateCurrTicket = null;
             TicketController.softRefresh();
-            Logger.logln("Updated Ticket: " + updateCurrTicket);
         }
         this.clearFields();
 		MainController.changeTabContent("tickets");
@@ -132,13 +129,17 @@ public class TicketDetailController implements Initializable
 
 	public void cancelTicket()
 	{
-		MainController.changeTabContent("tickets");
+        if ((updateCurrTicket == null) || (currentUser == updateCurrTicket.getUser())) {
+            MainController.changeTabContent("tickets", true); // edit, new -> not null, null
+        } else {
+            MainController.changeTabContent("tickets"); // edit -> not null
+        }
         this.clearFields();
 	}
 
     public void clearFields() {
-        nameFld.setText(null);
-        descriptionFld.setText(null);
+        nameFld.setText("");
+        descriptionFld.setText("");
         agentCbox.getSelectionModel().selectFirst();
         ticketStateCbox.getSelectionModel().selectFirst();
         resourceCbox.getSelectionModel().selectFirst();
