@@ -39,7 +39,7 @@ public class MainController implements Initializable
 	public MainController()
 	{
 		depBl = DepartmentsBL.getInstance();
-	}
+    }
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle)
@@ -66,7 +66,10 @@ public class MainController implements Initializable
 	{
 		switch (view) {
 			case "ticketDetail": {
+                tabMyTickets.setContent(myTicketsView);
 				tabTickets.setContent(ticketDetailView);
+                tabTickets.getContent().setVisible(false);
+                tabTickets.getContent().setVisible(true);
 				break;
 			}
 			case "tickets": {
@@ -91,7 +94,10 @@ public class MainController implements Initializable
     {
         switch (view) {
             case "ticketDetail": {
+                tabTickets.setContent(ticketView);
                 tabMyTickets.setContent(ticketDetailView);
+                tabMyTickets.getContent().setVisible(false);
+                tabMyTickets.getContent().setVisible(true);
                 break;
             }
             case "tickets": {
