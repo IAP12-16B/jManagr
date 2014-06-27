@@ -104,7 +104,9 @@ public class TicketDetailController implements Initializable
 
             //save
             bl.save(ticket);
-            userTicketsController.ticketList.add(ticket); //todo High @mnewmedia add only if combobox status is same as ticket status
+            if (ticket.getStatus() == userTicketsController.myTicketsFilter.getValue()) {
+                userTicketsController.ticketList.add(ticket);
+            }
             MainController.changeTabContent("tickets", true);
         } else {
             updateCurrTicket.setName(nameFld.getText());
