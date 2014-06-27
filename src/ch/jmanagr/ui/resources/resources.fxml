@@ -112,7 +112,7 @@
                                         <Button fx:id="addDataBtn" mnemonicParsing="false" onAction="#addData" text="Hinzufügen" />
                                     </children>
                                 </FlowPane>
-                        <Button mnemonicParsing="false" text="Key Löschen" GridPane.rowIndex="3" />
+                        <Button mnemonicParsing="false" onAction="#deleteKey" text="Key Löschen" GridPane.rowIndex="3" />
                             </children>
                         </GridPane>
                     </children>

@@ -19,20 +19,18 @@ import java.util.ResourceBundle;
 public class ResourceController implements Initializable
 {
 
-	@FXML
-	public TableView<Resource.ResourceData> dataTable;
-	@FXML
-	public TextField newDataFld;
-	private ResourcesBL bl;
+	@FXML public TableView<Resource.ResourceData> dataTable;
+	@FXML public TextField newDataFld;
+
+    private ResourcesBL bl;
 	private ObservableList<Resource> res;
+    private ObservableList<Resource.ResourceData> dataList;
 
 	@FXML private TreeView<Resource> treeView;
 	@FXML private TextField renameFld;
     @FXML private TextField newFld;
-	@FXML
-	public TableColumn<Resource.ResourceData, String> keyCol;
-	@FXML
-	public TableColumn<Resource.ResourceData, String> valueCol;
+	@FXML public TableColumn<Resource.ResourceData, String> keyCol;
+	@FXML public TableColumn<Resource.ResourceData, String> valueCol;
 
 	public ResourceController()
 	{
@@ -87,7 +85,6 @@ public class ResourceController implements Initializable
 
 		Resource parent = parentItem.getValue();
 
-
 		TreeItem<Resource> newTreeItem = new TreeItem<Resource>();
         Resource r = new Resource();
         r.setName(newFld.getText());
@@ -115,6 +112,7 @@ public class ResourceController implements Initializable
 				value.addData(resourceData);
 				dataTable.getItems().add(resourceData);
 				this.bl.save(value);
+                newDataFld.setText("");
 			}
 		}
 	}
@@ -150,8 +148,19 @@ public class ResourceController implements Initializable
 
     public void delete() {
         TreeItem selectedItem = treeView.getSelectionModel().getSelectedItem();
-        treeView.getRoot().getChildren().remove(selectedItem);
-        bl.delete((Resource) selectedItem.getValue());
+        if(selectedItem != null) {
+            treeView.getRoot().getChildren().remove(selectedItem);
+            bl.delete((Resource) selectedItem.getValue());
+        }
+    }
+
+    public void deleteKey() {
+        Resource.ResourceData selectedData = dataTable.getSelectionModel().getSelectedItem();
+        dataList.remove(selectedData);
+
+        Resource selectedResource = treeView.getSelectionModel().getSelectedItem().getValue();
+        selectedResource.setData(dataList);
+        bl.save(selectedResource);
     }
 
 	// chnangelistener
@@ -162,11 +171,8 @@ public class ResourceController implements Initializable
 		                    TreeItem<Resource> oldValue, TreeItem<Resource> selectedItem)
 		{
 			if (selectedItem != null && selectedItem.getValue() != null && selectedItem.getValue().getData() != null) {
-				dataTable.setItems(
-						FXCollections.observableArrayList(
-								selectedItem.getValue().getData()
-						)
-				);
+                dataList = FXCollections.observableArrayList(selectedItem.getValue().getData());
+				dataTable.setItems(dataList);
 			} else {
 				dataTable.setItems(null);
 			}
