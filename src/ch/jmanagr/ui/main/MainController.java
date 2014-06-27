@@ -7,9 +7,6 @@ import ch.jmanagr.exceptions.jManagrDBException;
 import ch.jmanagr.lib.LOG_LEVEL;
 import ch.jmanagr.lib.Logger;
 import ch.jmanagr.lib.USER_ROLE;
-import ch.jmanagr.ui.tickets.TicketDetailController;
-import ch.jmanagr.ui.users.UserDetailController;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
@@ -19,27 +16,40 @@ import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
+/**
+ * Main controller, controlls the main window and its tabs
+ */
 public class MainController implements Initializable
 {
 	private static UsersBL usersBL;
 	private static DepartmentsBL depBl;
-    @FXML private static AnchorPane myTicketsView;
-	@FXML private static AnchorPane ticketView;
-	@FXML private static AnchorPane ticketDetailView;
-	@FXML private static AnchorPane userView;
-	@FXML private static AnchorPane userDetailView;
-	@FXML private static Tab tabTickets;
-    @FXML private static Tab tabMyTickets;
-	@FXML private static Tab tabUser;
-	@FXML private static Tab tabDepartment;
-    @FXML private static Tab tabResource;
-	@FXML private static TabPane tabPane;
+	@FXML
+	private static AnchorPane myTicketsView;
+	@FXML
+	private static AnchorPane ticketView;
+	@FXML
+	private static AnchorPane ticketDetailView;
+	@FXML
+	private static AnchorPane userView;
+	@FXML
+	private static AnchorPane userDetailView;
+	@FXML
+	private static Tab tabTickets;
+	@FXML
+	private static Tab tabMyTickets;
+	@FXML
+	private static Tab tabUser;
+	@FXML
+	private static Tab tabDepartment;
+	@FXML
+	private static Tab tabResource;
+	@FXML
+	private static TabPane tabPane;
 
 	public MainController()
 	{
 		depBl = DepartmentsBL.getInstance();
-    }
+	}
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle)
@@ -56,7 +66,7 @@ public class MainController implements Initializable
 			Logger.log(LOG_LEVEL.ERROR, e);
 		}
 		if (user.getRole() == USER_ROLE.USER) {
-            tabPane.getTabs().remove(tabTickets);
+			tabPane.getTabs().remove(tabTickets);
 			tabPane.getTabs().remove(tabUser);
 			tabPane.getTabs().remove(tabDepartment);
 		}
@@ -66,20 +76,20 @@ public class MainController implements Initializable
 	{
 		switch (view) {
 			case "ticketDetail": {
-                tabMyTickets.setContent(myTicketsView);
+				tabMyTickets.setContent(myTicketsView);
 				tabTickets.setContent(ticketDetailView);
-                tabTickets.getContent().setVisible(false);
-                tabTickets.getContent().setVisible(true);
+				tabTickets.getContent().setVisible(false);
+				tabTickets.getContent().setVisible(true);
 				break;
 			}
 			case "tickets": {
 				tabTickets.setContent(ticketView);
 				break;
 			}
-            case "myTicketsView": {
-                tabMyTickets.setContent(myTicketsView);
-                break;
-            }
+			case "myTicketsView": {
+				tabMyTickets.setContent(myTicketsView);
+				break;
+			}
 			case "users": {
 				tabUser.setContent(userView);
 				break;
@@ -90,20 +100,21 @@ public class MainController implements Initializable
 			}
 		}
 	}
-    public static void changeTabContent(String view, boolean inMyTicketsTab)
-    {
-        switch (view) {
-            case "ticketDetail": {
-                tabTickets.setContent(ticketView);
-                tabMyTickets.setContent(ticketDetailView);
-                tabMyTickets.getContent().setVisible(false);
-                tabMyTickets.getContent().setVisible(true);
-                break;
-            }
-            case "tickets": {
-                tabMyTickets.setContent(myTicketsView);
-                break;
-            }
-        }
-    }
+
+	public static void changeTabContent(String view, boolean inMyTicketsTab)
+	{
+		switch (view) {
+			case "ticketDetail": {
+				tabTickets.setContent(ticketView);
+				tabMyTickets.setContent(ticketDetailView);
+				tabMyTickets.getContent().setVisible(false);
+				tabMyTickets.getContent().setVisible(true);
+				break;
+			}
+			case "tickets": {
+				tabMyTickets.setContent(myTicketsView);
+				break;
+			}
+		}
+	}
 }

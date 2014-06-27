@@ -34,6 +34,9 @@ public class TicketsBL extends AbstractBL<Ticket, TicketsDAL>
 	}
 
 
+	/**
+	 * @return a singleton instance
+	 */
 	public static TicketsBL getInstance()
 	{
 		if (instance == null) {

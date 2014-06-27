@@ -31,6 +31,13 @@ public class UsersDAL extends AbstractDAL<User>
 		}
 	}
 
+	/**
+	 * Get singelton instance
+	 *
+	 * @return An UsersDAL instance
+	 *
+	 * @throws SQLException
+	 */
 	public static UsersDAL getInstance() throws SQLException
 	{
 		if (instance == null) {

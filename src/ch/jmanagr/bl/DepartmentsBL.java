@@ -26,6 +26,9 @@ public class DepartmentsBL extends AbstractBL<Department, DepartmentsDAL>
 	}
 
 
+	/**
+	 * @return a singleton instance
+	 */
 	public static DepartmentsBL getInstance()
 	{
 		if (instance == null) {

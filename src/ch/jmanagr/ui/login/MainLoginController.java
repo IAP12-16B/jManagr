@@ -9,6 +9,9 @@ import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the root pane of the login window.
+ */
 public class MainLoginController implements Initializable
 {
 

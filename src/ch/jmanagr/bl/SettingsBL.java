@@ -14,6 +14,9 @@ public class SettingsBL
 		dal = SettingsDAL.getInstance();
 	}
 
+	/**
+	 * @return a singleton instance
+	 */
 	public static SettingsBL getInstance()
 	{
 		if (instance == null) {

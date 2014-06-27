@@ -28,6 +28,9 @@ public class ResourcesBL extends AbstractBL<Resource, ResourcesDAL>
 	}
 
 
+	/**
+	 * @return a singleton instance
+	 */
 	public static ResourcesBL getInstance()
 	{
 		if (instance == null) {

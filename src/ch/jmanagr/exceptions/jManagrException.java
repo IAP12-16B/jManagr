@@ -1,5 +1,8 @@
 package ch.jmanagr.exceptions;
 
+/**
+ * Base jManager exception
+ */
 public class jManagrException extends Exception
 {
 	/**

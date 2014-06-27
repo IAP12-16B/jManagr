@@ -30,7 +30,11 @@ public class UsersBL extends AbstractBL<User, UsersDAL>
 		}
 	}
 
-
+	/**
+	 * @return a singleton instance
+	 *
+	 * @throws jManagrDBException
+	 */
 	public static UsersBL getInstance() throws jManagrDBException
 	{
 		if (instance == null) {

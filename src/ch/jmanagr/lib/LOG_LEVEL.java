@@ -1,5 +1,8 @@
 package ch.jmanagr.lib;
 
+/**
+ * Enum to represent a LOG_LEVEL
+ */
 public enum LOG_LEVEL
 {
 	VERBOSE(1),

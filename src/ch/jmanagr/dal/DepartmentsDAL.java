@@ -16,6 +16,13 @@ public class DepartmentsDAL extends AbstractDAL<Department>
 		super(Department.class);
 	}
 
+	/**
+	 * Get singelton instance
+	 *
+	 * @return An DepartmentsDAL instance
+	 *
+	 * @throws SQLException
+	 */
 	public static DepartmentsDAL getInstance() throws SQLException
 	{
 		if (instance == null) {

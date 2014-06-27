@@ -17,6 +17,13 @@ public class TicketsDAL extends AbstractDAL<Ticket>
 		super(Ticket.class);
 	}
 
+	/**
+	 * Get singelton instance
+	 *
+	 * @return An TicketsDAL instance
+	 *
+	 * @throws SQLException
+	 */
 	public static TicketsDAL getInstance() throws SQLException
 	{
 		if (instance == null) {

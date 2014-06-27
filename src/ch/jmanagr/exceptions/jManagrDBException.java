@@ -1,6 +1,8 @@
 package ch.jmanagr.exceptions;
 
-
+/**
+ * Exception for DB related stuff
+ */
 public class jManagrDBException extends jManagrException
 {
 	/**

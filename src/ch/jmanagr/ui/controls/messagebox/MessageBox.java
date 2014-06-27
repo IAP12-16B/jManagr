@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * MessageBox class, controlls the Messagebox
+ */
 public class MessageBox extends Observable implements Observer
 {
 	public final static String CLICK_OK_EVENT = MessageBoxController.CLICK_OK_EVENT;
@@ -21,6 +24,12 @@ public class MessageBox extends Observable implements Observer
 	private FXMLLoader fxmlLoader;
 	private MessageBoxController controller;
 
+	/**
+	 * MessageBox
+	 *
+	 * @param title   the title
+	 * @param message the message
+	 */
 	public MessageBox(String title, String message)
 	{
 		this.stage = new Stage();
@@ -60,18 +69,56 @@ public class MessageBox extends Observable implements Observer
 		this.stage.show();
 	}
 
-	public void setTitle(String s) {stage.setTitle(s);}
+	/**
+	 * Set the title
+	 *
+	 * @param s the title
+	 */
+	public void setTitle(String s)
+	{stage.setTitle(s);}
 
-	public String getTitle() {return stage.getTitle();}
+	/**
+	 * get the title
+	 *
+	 * @return the title
+	 */
+	public String getTitle()
+	{return stage.getTitle();}
 
-	public void setMessage(String message) {controller.setMessage(message);}
+	/**
+	 * set the MessageBox
+	 *
+	 * @param message msg box
+	 */
+	public void setMessage(String message)
+	{controller.setMessage(message);}
 
-	public void close() {stage.close();}
+	/**
+	 * close the messagebox
+	 */
+	public void close()
+	{stage.close();}
 
-	public void hide() {stage.hide();}
+	/**
+	 * hide the messagebox
+	 */
+	public void hide()
+	{stage.hide();}
 
-	public boolean isShowing() {return stage.isShowing();}
+	/**
+	 * get showing state
+	 *
+	 * @return
+	 */
+	public boolean isShowing()
+	{return stage.isShowing();}
 
+	/**
+	 * Update
+	 *
+	 * @param o   observable
+	 * @param arg argument passed
+	 */
 	@Override
 	public void update(Observable o, Object arg)
 	{

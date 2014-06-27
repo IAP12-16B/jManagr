@@ -23,6 +23,13 @@ public class SettingsDAL
 		preferences = Preferences.userRoot().node(this.getClass().getName());
 	}
 
+	/**
+	 * Get singelton instance
+	 *
+	 * @return An SettingsDAL instance
+	 *
+	 * @throws SQLException
+	 */
 	public static SettingsDAL getInstance()
 	{
 		if (instance == null) {
