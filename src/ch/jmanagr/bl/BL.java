@@ -6,6 +6,7 @@ import ch.jmanagr.lib.STATUS_CODE;
 import java.util.List;
 
 /**
+ * Interface for BL classes.
  * @param <BussinessObjectType> The BusinessObject to use
  */
 public interface BL<BussinessObjectType extends BusinessObject>

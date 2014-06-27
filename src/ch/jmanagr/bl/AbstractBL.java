@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Abstract class for BL classes. Implements common operations for all BusinessObjects
+ *
  * @param <BusinessObjectType> The BusinessObject to use
  * @param <DALType>            The DAL class to use
  */

@@ -6,7 +6,7 @@ import ch.jmanagr.lib.STATUS_CODE;
 
 public class SettingsBL
 {
-	private static volatile SettingsBL instance;
+	private static SettingsBL instance;
 	private SettingsDAL dal;
 
 	private SettingsBL()

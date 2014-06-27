@@ -15,7 +15,7 @@ import java.util.List;
 
 public class UsersBL extends AbstractBL<User, UsersDAL>
 {
-	private static volatile UsersBL instance;
+	private static UsersBL instance;
 
 	protected User currentUser;
 

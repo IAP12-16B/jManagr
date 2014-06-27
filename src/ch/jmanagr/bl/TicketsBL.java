@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
+/**
+ * BL class for Tickets. Extends {@link ch.jmanagr.bl.AbstractBL}
+ */
 public class TicketsBL extends AbstractBL<Ticket, TicketsDAL>
 {
 	private static volatile TicketsBL instance;
