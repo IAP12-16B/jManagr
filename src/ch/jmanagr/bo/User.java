@@ -448,6 +448,9 @@ public class User implements BusinessObject<User>
 	@Override
 	public String toString()
 	{
+        if ((firstnameProperty.get() == null) && (lastnameProperty.get() == null)) {
+            return usernameProperty().get();
+        }
 		return this.firstnameProperty.get() + " " + this.lastnameProperty.get();
 	}
 }
