@@ -17,8 +17,10 @@ import ch.jmanagr.ui.main.MainController;
 import ch.jmanagr.ui.tickets.TicketDetailController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -35,105 +37,90 @@ public class userTicketsController implements Initializable
 {
 	public static ObservableList<Ticket> ticketList;
 
-	private TicketsBL bl;
-	private UsersBL usersBL;
-	private DepartmentsBL depBL;
-	private ResourcesBL resBL;
-	private User currentUser;
+    private TicketsBL bl;
+    private UsersBL usersBL;
+    private DepartmentsBL depBL;
+    private ResourcesBL resBL;
+    private User currentUser;
 
-	// Controls for Table MyTickets
-	@FXML
-	private static TableView<Ticket> myTicketTable;
-	@FXML
-	private TableColumn myIdCol;
-	@FXML
-	private TableColumn<Ticket, String> myNameCol;
-	@FXML
-	private TableColumn<Ticket, Date> myDateCol;
-	@FXML
-	private TableColumn<User, String> myAgentCol;
-	@FXML
-	private TableColumn<Department, String> myDepartmentCol;
-	@FXML
-	private TableColumn<Resource, String> myResourceCol;
-	@FXML
-	public static ComboBox<TICKET_STATE> myTicketsFilter;
+    // Controls for Table MyTickets
+	@FXML private static TableView<Ticket> myTicketTable;
+	@FXML private TableColumn myIdCol;
+	@FXML private TableColumn<Ticket, String> myNameCol;
+    @FXML private TableColumn<Ticket, Date> myDateCol;
+    @FXML private TableColumn<User, String> myAgentCol;
+    @FXML private TableColumn<Department, String> myDepartmentCol;
+    @FXML private TableColumn<Resource, String> myResourceCol;
+    @FXML public static ComboBox<TICKET_STATE> myTicketsFilter;
 
 	public userTicketsController()
 	{
 		this.bl = TicketsBL.getInstance();
-		try {
-			this.usersBL = UsersBL.getInstance();
-		} catch (jManagrDBException e) {
-			Logger.log(LOG_LEVEL.ERROR, e);
-		}
-		this.resBL = ResourcesBL.getInstance();
-		this.depBL = DepartmentsBL.getInstance();
-		this.currentUser = this.usersBL.getCurrentUser();
+        try {
+            this.usersBL = UsersBL.getInstance();
+        } catch (jManagrDBException e) {
+            Logger.log(LOG_LEVEL.ERROR, e);
+        }
+        this.resBL = ResourcesBL.getInstance();
+        this.depBL = DepartmentsBL.getInstance();
+        this.currentUser = this.usersBL.getCurrentUser();
 	}
 
 	public void initialize(URL location, ResourceBundle resources)
 	{
-		// --------------------- Table My Tickets ------------------------
-		// Fill Table with Data
-		myIdCol.setCellValueFactory(new PropertyValueFactory("id"));
-		myDepartmentCol.setCellValueFactory(new PropertyValueFactory<Department, String>("department"));
-		myNameCol.setCellValueFactory(new PropertyValueFactory<Ticket, String>("name"));
-		myDateCol.setCellValueFactory(new PropertyValueFactory<Ticket, Date>("date"));
-		myAgentCol.setCellValueFactory(new PropertyValueFactory<User, String>("agent"));
-		myResourceCol.setCellValueFactory(new PropertyValueFactory<Resource, String>("resource"));
+        // --------------------- Table My Tickets ------------------------
+        // Fill Table with Data
+        myIdCol.setCellValueFactory(new PropertyValueFactory("id"));
+        myDepartmentCol.setCellValueFactory(new PropertyValueFactory<Department, String>("department"));
+        myNameCol.setCellValueFactory(new PropertyValueFactory<Ticket, String>("name"));
+        myDateCol.setCellValueFactory(new PropertyValueFactory<Ticket, Date>("date"));
+        myAgentCol.setCellValueFactory(new PropertyValueFactory<User, String>("agent"));
+        myResourceCol.setCellValueFactory(new PropertyValueFactory<Resource, String>("resource"));
 
-		// Fill ticketsFilter Combobox
-		myTicketsFilter.getItems().addAll(TICKET_STATE.values());
-		myTicketsFilter.getSelectionModel().selectFirst();
+        // Fill ticketsFilter Combobox
+        myTicketsFilter.getItems().addAll(TICKET_STATE.values());
+        myTicketsFilter.getSelectionModel().selectFirst();
 
 		this.refresh();
 	}
 
 	public void refresh()
 	{
-		ticketList = FXCollections.observableArrayList(bl.getAllByUser(currentUser, myTicketsFilter.getValue()));
-		myTicketTable.setItems(ticketList);
+        ticketList = FXCollections.observableArrayList(bl.getAllByUser(currentUser, myTicketsFilter.getValue()));
+        myTicketTable.setItems(ticketList);
 	}
 
-	public static void softRefresh()
-	{
-		myTicketTable.getColumns().get(0).setVisible(false);
-		myTicketTable.getColumns().get(0).setVisible(true);
-	}
+    public static void softRefresh() {
+        myTicketTable.getColumns().get(0).setVisible(false);
+        myTicketTable.getColumns().get(0).setVisible(true);
+    }
 
 	public void newTicket()
 	{
-		this.refreshComboBoxes();
+        this.refreshComboBoxes();
 		MainController.changeTabContent("ticketDetail", true);
 	}
 
-	public void editTicket()
+	public void editTicket(ActionEvent event)
 	{
-		this.refreshComboBoxes();
+        Button sourceBtn = (Button) event.getSource();
+
+        this.refreshComboBoxes();
 		Ticket selectedTicket = myTicketTable.getSelectionModel().getSelectedItem();
 		if (selectedTicket != null) {
-			TicketDetailController.fillTicket(selectedTicket, true);
+			TicketDetailController.fillTicket(selectedTicket, sourceBtn.getId());
 			MainController.changeTabContent("ticketDetail", true);
 		}
 	}
 
-	public void refreshComboBoxes()
-	{
-		TicketDetailController.departementCbox.setItems(FXCollections.observableArrayList(depBL.getAll()));
-		TicketDetailController.agentCbox.setItems(FXCollections.observableArrayList(usersBL.getByUserRole(USER_ROLE
-				                                                                                                  .AGENT)));
-		TicketDetailController.agentCbox.getItems().addAll(
-				FXCollections.observableArrayList(
-						usersBL.getByUserRole(
-								USER_ROLE.ADMIN
-						)
-				)
-		);
-		TicketDetailController.resourceCbox.setItems(FXCollections.observableArrayList(resBL.getAll()));
+    public void refreshComboBoxes() {
+        TicketDetailController.departementCbox.setItems(FXCollections.observableArrayList(depBL.getAll()));
+        TicketDetailController.agentCbox.setItems(FXCollections.observableArrayList(usersBL.getByUserRole(USER_ROLE.AGENT)));
+        TicketDetailController.agentCbox.getItems().addAll(FXCollections.observableArrayList(usersBL.getByUserRole(USER_ROLE.ADMIN)));
+        TicketDetailController.resourceCbox.setItems(FXCollections.observableArrayList(resBL.getAll()));
 
-		TicketDetailController.departementCbox.getSelectionModel().selectFirst();
-		TicketDetailController.agentCbox.getSelectionModel().selectFirst();
-		TicketDetailController.resourceCbox.getSelectionModel().selectFirst();
-	}
+        TicketDetailController.departementCbox.getSelectionModel().selectFirst();
+        TicketDetailController.agentCbox.getSelectionModel().selectFirst();
+        TicketDetailController.resourceCbox.getSelectionModel().selectFirst();
+    }
 }
